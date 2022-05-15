@@ -1,0 +1,9 @@
+# Project exclude paths
+/.gradle/
+/core/build/
+/core/postgres/build/
+/dsl/build/
+/dsl/generator/build/
+/dsl/generator/flyway/build/
+/dsl/generator/postgres/build/
+/dsl/postgres/build/
