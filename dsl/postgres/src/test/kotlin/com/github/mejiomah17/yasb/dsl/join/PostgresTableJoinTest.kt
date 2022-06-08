@@ -17,10 +17,13 @@ class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
             it.createStatement().use {
                 it.execute("TRUNCATE TABLE FIRST")
                 it.execute("TRUNCATE TABLE SECOND")
+                it.execute("TRUNCATE TABLE THIRD")
                 it.execute("INSERT INTO FIRST (A,B) values ('XXX','B1')")
                 it.execute("INSERT INTO FIRST (A,B) values ('YYY','C1')")
                 it.execute("INSERT INTO SECOND (A,B) values ('XXX','B2')")
                 it.execute("INSERT INTO SECOND (A,B) values ('ZZZ','D1')")
+                it.execute("INSERT INTO THIRD (A,B) values ('XXX','B3')")
+                it.execute("INSERT INTO THIRD (A,B) values ('ZZZ','E1')")
             }
         }
     }
@@ -34,6 +37,11 @@ class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
 
     override fun joinColumnFromSecondTable(): Column<*, String> = SecondTable.a
     override fun dataColumnFromSecondTable(): Column<*, String> = SecondTable.b
+    override fun thirdTable(): Table<*> = ThirdTable
+
+    override fun joinColumnFromThirdTable(): Column<*, String> = ThirdTable.a
+
+    override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
 
     override fun transactionFactory(): TransactionFactory = PostgresTransactionFactory(dataSource)
 
@@ -47,6 +55,12 @@ class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
 
     object SecondTable : PostgresTable<FirstTable> {
         override val tableName: String = "SECOND"
+        val a = text("A")
+        val b = text("B")
+    }
+
+    object ThirdTable : PostgresTable<FirstTable> {
+        override val tableName: String = "THIRD"
         val a = text("A")
         val b = text("B")
     }

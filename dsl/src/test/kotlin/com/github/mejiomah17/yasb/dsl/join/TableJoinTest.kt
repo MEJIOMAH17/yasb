@@ -146,12 +146,58 @@ interface TableJoinTest {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Multiple joins">
+    @Test
+    fun `builds correct query for multiple join`() {
+        dialect().run {
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
+                .from(firstTable())
+                .leftJoin(secondTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }
+                .buildSelectQuery().value
+            query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+        }
+    }
+
+    @Test
+    fun `select values from for multiple join`() {
+        transactionFactory().readCommitted {
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable(),
+                dataColumnFromSecondTable(),
+                dataColumnFromThirdTable()
+            )
+                .from(firstTable())
+                .leftJoin(secondTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable()] shouldBe "B2"
+            rows[0][dataColumnFromThirdTable()] shouldBe "B3"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable()] shouldBe null
+            rows[1][dataColumnFromThirdTable()] shouldBe null
+        }
+    }
+    //</editor-fold>
+
     fun firstTable(): Table<*>
     fun joinColumnFromFirstTable(): Column<*, String>
     fun dataColumnFromFirstTable(): Column<*, String>
     fun secondTable(): Table<*>
     fun joinColumnFromSecondTable(): Column<*, String>
     fun dataColumnFromSecondTable(): Column<*, String>
+    fun thirdTable(): Table<*>
+    fun joinColumnFromThirdTable(): Column<*, String>
+    fun dataColumnFromThirdTable(): Column<*, String>
     fun transactionFactory(): TransactionFactory
     fun dialect(): DatabaseDialect
 

@@ -19,4 +19,8 @@ class Column<T : Table<*>, V>(
     override fun databaseType(): DatabaseType<V> {
         return databaseType
     }
+
+    override fun toString(): String {
+        return "${table.tableName}.$name"
+    }
 }

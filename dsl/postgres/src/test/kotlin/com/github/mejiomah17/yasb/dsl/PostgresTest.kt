@@ -50,6 +50,14 @@ abstract class PostgresTest {
                             );
                         """.trimIndent()
                     )
+                    it.execute(
+                        """
+                            CREATE TABLE THIRD(
+                               A text,
+                               B text
+                            );
+                        """.trimIndent()
+                    )
                 }
             }
         }
