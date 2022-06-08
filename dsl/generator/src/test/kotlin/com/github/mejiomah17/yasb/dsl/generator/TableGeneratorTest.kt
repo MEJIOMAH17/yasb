@@ -16,8 +16,16 @@ class TableGeneratorTest {
             ),
             classPackage = "com.github.mejiomah17"
         ).run {
-            content shouldBe this::class.java.classLoader.getResourceAsStream("TestTable.kt").bufferedReader()
-                .readText()
+            content shouldBe """
+                        package com.github.mejiomah17
+
+                        object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                            override val tableName = "test"
+                            val x = 42
+                            val y = 42
+                        }
+
+                    """.trimIndent()
             fileName shouldBe "TestTable.kt"
         }
     }
@@ -35,8 +43,16 @@ class TableGeneratorTest {
             classPackage = "com.github.mejiomah17"
         )
         result.fileName shouldBe "TestTable.kt"
-        result.content shouldBe this::class.java.classLoader.getResourceAsStream("TestTable2.kt").bufferedReader()
-            .readText()
+        result.content shouldBe """
+                    package com.github.mejiomah17
+
+                    object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                        override val tableName = "test_table"
+                        val x = 42
+                        val y = 42
+                    }
+
+                """.trimIndent()
     }
 
     private class TestColumn(val name: String) : ColumnMetadata {

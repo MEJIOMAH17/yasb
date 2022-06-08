@@ -15,6 +15,10 @@ interface Table<T : Table<T>> {
         }.add(column)
         return column as Column<T, V>
     }
+
+    fun <Tb : Table<T>, V> registerNullable(column: Column<Tb, V>): Column<T, V?> {
+        return register(column) as Column<T, V?>
+    }
 }
 
 private val tableToColumns = ConcurrentHashMap<Table<*>, MutableList<Column<*, *>>>()

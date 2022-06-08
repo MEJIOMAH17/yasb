@@ -6,11 +6,11 @@ import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import java.sql.Timestamp
 import java.time.Instant
-import java.util.UUID
+import java.util.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
     @BeforeEach
@@ -26,6 +26,9 @@ class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
     override fun select_values_after_insert() {
         val randomUUID = UUID.randomUUID()
         val now = Timestamp.from(Instant.now())
+        // Postgres does not support nanoseconds
+        // https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/jdbc/TimestampUtils.java#L699
+        now.nanos = 0
         transactionFactory().repeatableRead {
             insertInto(tableTest()) {
                 it[columnA()] = "abc"

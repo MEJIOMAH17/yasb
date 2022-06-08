@@ -1,24 +1,17 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.eq
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import java.sql.Timestamp
+import java.util.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.sql.Timestamp
-import java.util.UUID
 
 class PostgresWhereTest : WhereTest<TestTable>, PostgresTest() {
     @BeforeEach

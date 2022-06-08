@@ -54,7 +54,17 @@ class PostgresTableGeneratorTest {
                     .create(it, "test", schemaPattern = null),
                 "com.github.mejiomah17"
             ).run {
-                content shouldBe this::class.java.classLoader.getResourceAsStream("TestTable.kt").bufferedReader().readText()
+                content shouldBe
+                        """
+                            package com.github.mejiomah17
+
+                            object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                                override val tableName = "test"
+                                val a = textNullable("a")
+                                val b = text("b")
+                            }
+
+                        """.trimIndent()
                 fileName shouldBe "TestTable.kt"
             }
         }

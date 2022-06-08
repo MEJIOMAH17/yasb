@@ -3,15 +3,10 @@ package com.github.mejiomah17.yasb.core.postgres.ddl
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.postgres.type.TextDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.TextNullableDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.TimestampDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.TimestampNullableDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.UuidDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.UuidNullableDatabaseType
-import java.sql.Time
 import java.sql.Timestamp
-import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 interface PostgresTable<T : PostgresTable<T>> : Table<T> {
     fun text(name: String): Column<T, String> {
@@ -19,7 +14,7 @@ interface PostgresTable<T : PostgresTable<T>> : Table<T> {
     }
 
     fun textNullable(name: String): Column<T, String?> {
-        return register(Column(name, this, TextNullableDatabaseType))
+        return registerNullable(Column(name, this, TextDatabaseType))
     }
 
     fun uuid(name: String): Column<T, UUID> {
@@ -27,15 +22,23 @@ interface PostgresTable<T : PostgresTable<T>> : Table<T> {
     }
 
     fun uuidNullable(name: String): Column<T, UUID?> {
-        return register(Column(name, this, UuidNullableDatabaseType))
+        return registerNullable(Column(name, this, UuidDatabaseType))
     }
 
+    /**
+     * Register column for Timestamp type.
+     * Attention! All nanosecond will be erased at insert statement.
+     */
     fun timestamp(name: String): Column<T, Timestamp> {
         return register(Column(name, this, TimestampDatabaseType))
     }
 
+    /**
+     * Register column for Timestamp? type.
+     * Attention! All nanosecond will be erased at insert statement.
+     */
     fun timestampNullable(name: String): Column<T, Timestamp?> {
-        return register(Column(name, this, TimestampNullableDatabaseType))
+        return registerNullable(Column(name, this, TimestampDatabaseType))
     }
 
 }

@@ -7,13 +7,18 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object BooleanDatabaseType : DatabaseType<Boolean> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): Boolean {
-        return resultSet.getBoolean(index)
+    override fun extractFromResultSet(resultSet: ResultSet, index: Int): Boolean? {
+        val value = resultSet.getBoolean(index)
+        return if (resultSet.wasNull()) {
+            null
+        } else {
+            value
+        }
     }
 
     override fun applyParameterToStatement(parameter: Parameter<Boolean>, statement: PreparedStatement, index: Int) {
-        statement.setBoolean(index, parameter.value)
+        statement.setObject(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Boolean) -> Parameter<Boolean> = ::BooleanParameter
+    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean> = ::BooleanParameter
 }

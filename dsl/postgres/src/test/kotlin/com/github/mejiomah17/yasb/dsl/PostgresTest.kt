@@ -34,6 +34,22 @@ abstract class PostgresTest {
                             );
                         """.trimIndent()
                     )
+                    it.execute(
+                        """
+                            CREATE TABLE FIRST(
+                               A text,
+                               B text
+                            );
+                        """.trimIndent()
+                    )
+                    it.execute(
+                        """
+                            CREATE TABLE SECOND(
+                               A text,
+                               B text
+                            );
+                        """.trimIndent()
+                    )
                 }
             }
         }
