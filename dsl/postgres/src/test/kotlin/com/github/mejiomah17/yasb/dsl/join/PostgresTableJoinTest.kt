@@ -10,7 +10,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
-class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
+class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -33,10 +33,10 @@ class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
     override fun joinColumnFromFirstTable(): Column<*, String> = FirstTable.a
     override fun dataColumnFromFirstTable(): Column<*, String> = FirstTable.b
 
-    override fun secondTable(): Table<*> = SecondTable
+    override fun secondTable(): SecondTable = SecondTable
 
-    override fun joinColumnFromSecondTable(): Column<*, String> = SecondTable.a
-    override fun dataColumnFromSecondTable(): Column<*, String> = SecondTable.b
+    override fun joinColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.a
+    override fun dataColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.b
     override fun thirdTable(): Table<*> = ThirdTable
 
     override fun joinColumnFromThirdTable(): Column<*, String> = ThirdTable.a
@@ -53,13 +53,13 @@ class PostgresTableJoinTest : TableJoinTest, PostgresTest() {
         val b = text("B")
     }
 
-    object SecondTable : PostgresTable<FirstTable> {
+    object SecondTable : PostgresTable<SecondTable> {
         override val tableName: String = "SECOND"
         val a = text("A")
         val b = text("B")
     }
 
-    object ThirdTable : PostgresTable<FirstTable> {
+    object ThirdTable : PostgresTable<ThirdTable> {
         override val tableName: String = "THIRD"
         val a = text("A")
         val b = text("B")

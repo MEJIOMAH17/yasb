@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb.dsl.join
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.dsl.alias.`as`
 import com.github.mejiomah17.yasb.dsl.eq
 import com.github.mejiomah17.yasb.dsl.from
 import com.github.mejiomah17.yasb.dsl.select
@@ -10,7 +11,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface TableJoinTest {
+interface TableJoinTest<T : Table<T>> {
     //<editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
@@ -35,6 +36,37 @@ interface TableJoinTest {
                 .single()
             row[dataColumnFromFirstTable()] shouldBe "B1"
             row[dataColumnFromSecondTable()] shouldBe "B2"
+        }
+    }
+
+    @Test
+    fun `builds correct query for inner join with aliased table`() {
+        dialect().run {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .innerJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST INNER JOIN SECOND AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from inner join with aliased table`() {
+        transactionFactory().readCommitted {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = secondTable[dataColumnFromSecondTable()]
+            val row = select(dataColumnFromFirstTable(), dataColumnFromSecondTable)
+                .from(firstTable())
+                .innerJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+                .single()
+            row[dataColumnFromFirstTable()] shouldBe "B1"
+            row[dataColumnFromSecondTable] shouldBe "B2"
         }
     }
     //</editor-fold>
@@ -72,6 +104,44 @@ interface TableJoinTest {
             rows[1][dataColumnFromSecondTable()] shouldBe null
         }
     }
+
+    @Test
+    fun `builds correct query for left join with aliased table`() {
+        val secondTable = secondTable().`as`("xxx")
+        val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+        dialect().run {
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .leftJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from left join with aliased table`() {
+        transactionFactory().readCommitted {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = secondTable[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .leftJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+        }
+    }
     //</editor-fold>
 
     // <editor-fold desc="RIGHT">
@@ -105,6 +175,44 @@ interface TableJoinTest {
             rows[0][dataColumnFromSecondTable()] shouldBe "B2"
             rows[1][dataColumnFromFirstTable()] shouldBe null
             rows[1][dataColumnFromSecondTable()] shouldBe "D1"
+        }
+    }
+
+    @Test
+    fun `builds correct query for right join with aliased table`() {
+        dialect().run {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .rightJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST RIGHT JOIN SECOND AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from right join with aliased table`() {
+        transactionFactory().readCommitted {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = secondTable[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .rightJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe null
+            rows[1][dataColumnFromSecondTable] shouldBe "D1"
         }
     }
     //</editor-fold>
@@ -142,6 +250,46 @@ interface TableJoinTest {
             rows[1][dataColumnFromSecondTable()] shouldBe null
             rows[2][dataColumnFromFirstTable()] shouldBe null
             rows[2][dataColumnFromSecondTable()] shouldBe "D1"
+        }
+    }
+
+    @Test
+    fun `builds correct query for full join with aliased table`() {
+        dialect().run {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .fullJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST FULL JOIN SECOND AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from full join with aliased table`() {
+        transactionFactory().readCommitted {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = secondTable[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .fullJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 3
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+            rows[2][dataColumnFromFirstTable()] shouldBe null
+            rows[2][dataColumnFromSecondTable] shouldBe "D1"
         }
     }
     //</editor-fold>
@@ -187,14 +335,60 @@ interface TableJoinTest {
             rows[1][dataColumnFromThirdTable()] shouldBe null
         }
     }
+
+    @Test
+    fun `builds correct query for multiple join with aliased table`() {
+        dialect().run {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .leftJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }
+                .buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+        }
+    }
+
+    @Test
+    fun `select values from for multiple join with aliased table`() {
+        transactionFactory().readCommitted {
+            val secondTable = secondTable().`as`("xxx")
+            val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = secondTable[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable,
+                dataColumnFromThirdTable()
+            )
+                .from(firstTable())
+                .leftJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[0][dataColumnFromThirdTable()] shouldBe "B3"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+            rows[1][dataColumnFromThirdTable()] shouldBe null
+        }
+    }
     //</editor-fold>
 
     fun firstTable(): Table<*>
     fun joinColumnFromFirstTable(): Column<*, String>
     fun dataColumnFromFirstTable(): Column<*, String>
-    fun secondTable(): Table<*>
-    fun joinColumnFromSecondTable(): Column<*, String>
-    fun dataColumnFromSecondTable(): Column<*, String>
+    fun secondTable(): T
+    fun joinColumnFromSecondTable(): Column<T, String>
+    fun dataColumnFromSecondTable(): Column<T, String>
     fun thirdTable(): Table<*>
     fun joinColumnFromThirdTable(): Column<*, String>
     fun dataColumnFromThirdTable(): Column<*, String>
