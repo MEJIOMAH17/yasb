@@ -19,7 +19,7 @@ interface TableJoinTest {
                 .from(firstTable())
                 .innerJoin(secondTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
-                }.buildSelectQuery().value
+                }.buildSelectQuery().sqlDefinition
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST INNER JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -47,7 +47,7 @@ interface TableJoinTest {
                 .from(firstTable())
                 .leftJoin(secondTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
-                }.buildSelectQuery().value
+                }.buildSelectQuery().sqlDefinition
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -82,7 +82,7 @@ interface TableJoinTest {
                 .from(firstTable())
                 .rightJoin(secondTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
-                }.buildSelectQuery().value
+                }.buildSelectQuery().sqlDefinition
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST RIGHT JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -117,7 +117,7 @@ interface TableJoinTest {
                 .from(firstTable())
                 .fullJoin(secondTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
-                }.buildSelectQuery().value
+                }.buildSelectQuery().sqlDefinition
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST FULL JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -157,7 +157,7 @@ interface TableJoinTest {
                 }.leftJoin(thirdTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
                 }
-                .buildSelectQuery().value
+                .buildSelectQuery().sqlDefinition
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }

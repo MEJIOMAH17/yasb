@@ -32,7 +32,7 @@ interface WhereTest<T: Table<T>> : SelectionTest<T> {
                 .where {
                     columnA().eq("42")
                 }.buildSelectQuery()
-                .value shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
+                .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
         }
     }
 
@@ -44,7 +44,7 @@ interface WhereTest<T: Table<T>> : SelectionTest<T> {
                 .where {
                     columnA().eq(columnB())
                 }.buildSelectQuery()
-                .value shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
+                .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
         }
     }
 

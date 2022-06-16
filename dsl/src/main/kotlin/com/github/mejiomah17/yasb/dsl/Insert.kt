@@ -18,7 +18,7 @@ class Insert<T : Table<T>> internal constructor(
             column.databaseType.parameterFactory().invoke(it.value)
         }
         return QueryPartImpl(
-            value = "INSERT INTO ${table.tableName} ($columns) VALUES " +
+            sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " +
                     "(${parameters.joinToString(",") { it.parameterInJdbcQuery }})",
             parameters = parameters
         )
@@ -33,7 +33,7 @@ class InsertWithReturn<T : Table<T>> internal constructor(
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
         return QueryForExecute(
-            value = query.value + "RETURNING ${returnExpressions.joinToString(", ") { it.value }}",
+            sqlDefinition = query.sqlDefinition + "RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
             parameters = query.parameters + returnExpressions.flatMap { it.parameters },
             returnExpressions = returning.expressions
         )

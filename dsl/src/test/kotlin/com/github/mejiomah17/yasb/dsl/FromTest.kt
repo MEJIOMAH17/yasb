@@ -1,6 +1,7 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.dsl.alias.`as`
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
@@ -12,7 +13,17 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
         val result = select.from(TestTable)
 
         result.select shouldBe select
-        result.table shouldBe TestTable
+        result.source shouldBe TestTable
+    }
+
+    @Test
+    fun `from creates From for aliased table`() {
+        val select = select(columnA())
+        val table = TestTable.`as`("xxx")
+        val result = select.from(table)
+
+        result.select shouldBe select
+        result.source shouldBe table
     }
 
     @Test
@@ -20,8 +31,18 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
         val result = select(columnA(), columnB(), parameter().`as`("p"))
             .from(tableTest())
             .buildSelectQuery()
-            .value
-        result shouldBe "SELECT test.a, test.b, (?) as p FROM test"
+            .sqlDefinition
+        result shouldBe "SELECT test.a, test.b, (?) AS p FROM test"
+    }
+
+    @Test
+    fun `from creates correct sql for aliased table`() {
+        val table = tableTest().`as`("xxx")
+        val result = select(table[columnA()], table[columnB()], parameter().`as`("p"))
+            .from(table)
+            .buildSelectQuery()
+            .sqlDefinition
+        result shouldBe "SELECT xxx.a, xxx.b, (?) AS p FROM test AS xxx"
     }
 
     @Test
@@ -33,6 +54,17 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
     }
 
     @Test
+    fun `from returns correct expressions for aliased table`() {
+        val table = tableTest().`as`("xxx")
+        val aColumn = table[columnA()]
+        val bColumn = table[columnB()]
+        select(aColumn, bColumn)
+            .from(table)
+            .buildSelectQuery()
+            .returnExpressions.shouldBe(listOf(aColumn, bColumn))
+    }
+
+    @Test
     fun `from returns columns`() {
         transactionFactory().readUncommitted {
             val row = select(columnA(), columnB())
@@ -41,6 +73,21 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
                 .single()
             row[columnA()] shouldBe "the a"
             row[columnB()] shouldBe "the b"
+        }
+    }
+
+    @Test
+    fun `from returns columns for aliased table`() {
+        val table = tableTest().`as`("xxx")
+        val aColumn = table[columnA()]
+        val bColumn = table[columnB()]
+        transactionFactory().readUncommitted {
+            val row = select(aColumn, bColumn)
+                .from(table)
+                .execute()
+                .single()
+            row[aColumn] shouldBe "the a"
+            row[bColumn] shouldBe "the b"
         }
     }
 

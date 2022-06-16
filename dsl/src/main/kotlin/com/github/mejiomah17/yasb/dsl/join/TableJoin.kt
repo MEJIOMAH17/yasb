@@ -16,7 +16,7 @@ class TableJoin(
         val selectQuery = select.buildSelectQuery()
         val onQuery = on.build()
         return QueryForExecute(
-            value = "${selectQuery.value} $joinType JOIN ${with.tableName} ON ${onQuery.value}",
+            sqlDefinition = "${selectQuery.sqlDefinition} $joinType JOIN ${with.tableName} ON ${onQuery.sqlDefinition}",
             parameters = selectQuery.parameters + onQuery.parameters,
             returnExpressions = selectQuery.returnExpressions
         )

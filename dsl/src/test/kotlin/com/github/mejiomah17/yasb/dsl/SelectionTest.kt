@@ -4,7 +4,6 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
-import java.util.UUID
 
 interface SelectionTest<T : Table<T>> {
 

@@ -1,23 +1,23 @@
 package com.github.mejiomah17.yasb.dsl
 
-import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
 class From(
     val select: Select,
-    val table: Table<*>
+    val source: SelectionSource
 ) : SelectQuery {
     override fun buildSelectQuery(): QueryForExecute {
         val builtExpressions = select.expressions.map { it.build() }
-        val selectionPart = builtExpressions.map { it.value }.joinToString(", ")
+        val selectionPart = builtExpressions.map { it.sqlDefinition }.joinToString(", ")
         return QueryForExecute(
-            value = "SELECT $selectionPart FROM ${table.tableName}",
+            sqlDefinition = "SELECT $selectionPart FROM ${source.sqlDefinition}",
             returnExpressions = select.expressions,
-            parameters = builtExpressions.flatMap { it.parameters }
+            parameters = builtExpressions.flatMap { it.parameters } + source.parameters
         )
     }
 }
 
-fun Select.from(table: Table<*>): From {
-    return From(this, table)
+fun Select.from(source: SelectionSource): From {
+    return From(this, source)
 }

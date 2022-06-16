@@ -13,7 +13,7 @@ class Where(
         val selectExpression = select.buildSelectQuery()
         val whereExpression = where.build()
         return QueryForExecute(
-            value = "${selectExpression.value} WHERE ${whereExpression.value}",
+            sqlDefinition = "${selectExpression.sqlDefinition} WHERE ${whereExpression.sqlDefinition}",
             returnExpressions = selectExpression.returnExpressions,
             parameters = selectExpression.parameters + whereExpression.parameters
         )

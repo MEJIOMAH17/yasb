@@ -1,12 +1,12 @@
 package com.github.mejiomah17.yasb.dsl.transaction
 
-import com.github.mejiomah17.yasb.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.Insert
 import com.github.mejiomah17.yasb.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.dsl.Row
 import com.github.mejiomah17.yasb.dsl.Rows
+import com.github.mejiomah17.yasb.dsl.SelectQuery
 import java.sql.Connection
 
 sealed interface Transaction {
@@ -30,7 +30,7 @@ sealed interface Transaction {
 
     fun SelectQuery.lazy(): Rows {
         val queryForExecute = buildSelectQuery()
-        val statement = connection.prepareStatement(queryForExecute.value)
+        val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
             parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
@@ -41,7 +41,7 @@ sealed interface Transaction {
 
     fun <T : Table<T>> Insert<T>.execute() {
         val queryForExecute = buildInsertQuery()
-        val statement = connection.prepareStatement(queryForExecute.value)
+        val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
             parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
@@ -51,7 +51,7 @@ sealed interface Transaction {
 
     fun <T : Table<T>> InsertWithReturn<T>.execute(): Rows {
         val queryForExecute = buildInsertQuery()
-        val statement = connection.prepareStatement(queryForExecute.value)
+        val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
             parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)

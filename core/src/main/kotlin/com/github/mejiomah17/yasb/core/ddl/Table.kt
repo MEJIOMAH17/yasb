@@ -1,10 +1,15 @@
 package com.github.mejiomah17.yasb.core.ddl
 
+import com.github.mejiomah17.yasb.core.SelectionSource
+import com.github.mejiomah17.yasb.core.parameter.Parameter
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
-interface Table<T : Table<T>> {
+interface Table<T : Table<T>> : SelectionSource {
     val tableName: String
+    override val sqlDefinition: String get() = tableName
+    override val parameters: List<Parameter<*>> get() = emptyList()
+
     fun allColumns(): List<Column<T, *>> {
         return tableToColumns[this] as List<Column<T, *>>
     }
