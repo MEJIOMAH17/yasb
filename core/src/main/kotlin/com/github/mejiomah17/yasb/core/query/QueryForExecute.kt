@@ -4,11 +4,7 @@ import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class QueryForExecute(
-    value: String,
-    parameters: List<Parameter<*>>,
+    override val value: String,
+    override val parameters: List<Parameter<*>>,
     val returnExpressions: List<Expression<*>>
-) : QueryWithParameters(
-    value,
-    parameters
-) {
-}
+) : QueryPart

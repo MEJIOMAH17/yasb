@@ -4,21 +4,22 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import com.github.mejiomah17.yasb.core.query.QueryWithParameters
+import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class Insert<T : Table<T>> internal constructor(
     private val table: T,
     private val columnsToValues: List<ColumnToValue<T, *>>
 ) {
-    fun buildInsertQuery(): QueryWithParameters {
+    fun buildInsertQuery(): QueryPart {
         val columns = columnsToValues.joinToString(",") { it.column.name }
         val parameters: List<Parameter<Any?>> = columnsToValues.map {
             val column = it.column as Column<T, Any?>
             column.databaseType.parameterFactory().invoke(it.value)
         }
-        return QueryWithParameters(
+        return QueryPartImpl(
             value = "INSERT INTO ${table.tableName} ($columns) VALUES " +
-                "(${parameters.joinToString(",") { it.parameterInJdbcQuery }})",
+                    "(${parameters.joinToString(",") { it.parameterInJdbcQuery }})",
             parameters = parameters
         )
     }

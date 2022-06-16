@@ -3,7 +3,8 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryWithParameters
+import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class ExpressionAlias<T>(
     private val expression: Expression<T>,
@@ -14,9 +15,9 @@ class ExpressionAlias<T>(
         return expression.databaseType()
     }
 
-    override fun build(): QueryWithParameters {
+    override fun build(): QueryPart {
         val underlying = expression.build()
-        return QueryWithParameters(
+        return QueryPartImpl(
             value = "(${underlying.value}) as $name",
             parameters = underlying.parameters
         )
@@ -30,8 +31,8 @@ fun <T> Parameter<T>.`as`(name: String): ExpressionAlias<T> {
                 return this@`as`.databaseType
             }
 
-            override fun build(): QueryWithParameters {
-                return QueryWithParameters(
+            override fun build(): QueryPart {
+                return QueryPartImpl(
                     value = this@`as`.parameterInJdbcQuery,
                     parameters = listOf(this@`as`)
                 )

@@ -4,7 +4,8 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryWithParameters
+import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 object ConditionContext
 
@@ -16,10 +17,10 @@ fun <T> Expression<T>.eq(other: Expression<T>): Expression<Boolean> {
             return booleanType()
         }
 
-        override fun build(): QueryWithParameters {
+        override fun build(): QueryPart {
             val leftExpression = this@eq.build()
             val rightExpression = other.build()
-            return QueryWithParameters(
+            return QueryPartImpl(
                 value = "${leftExpression.value} = ${rightExpression.value}",
                 parameters = leftExpression.parameters + rightExpression.parameters
             )
@@ -34,9 +35,9 @@ fun <T> Expression<T>.eq(other: Parameter<T>): Expression<Boolean> {
             return booleanType()
         }
 
-        override fun build(): QueryWithParameters {
+        override fun build(): QueryPart {
             val leftExpression = this@eq.build()
-            return QueryWithParameters(
+            return QueryPartImpl(
                 value = "${leftExpression.value} = ${other.parameterInJdbcQuery}",
                 parameters = leftExpression.parameters + other
             )
