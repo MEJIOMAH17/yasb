@@ -92,6 +92,29 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
     }
 
     @Test
+    fun `from returns columns for nested query`() {
+        val param = parameter().`as`("p")
+        transactionFactory().readUncommitted {
+            val nestedQuery = select(columnA(), columnB(), param)
+                .from(tableTest())
+                .`as`("xxx")
+            val columnA = nestedQuery[columnA()]
+            val columnB = nestedQuery[columnB()]
+            val paramFromQuery = nestedQuery[param]
+
+            val query = select(columnA, columnB, paramFromQuery)
+                .from(nestedQuery)
+
+            val row = query
+                .execute()
+                .single()
+            row[columnA] shouldBe "the a"
+            row[columnB] shouldBe "the b"
+            row[paramFromQuery] shouldBe "param"
+        }
+    }
+
+    @Test
     fun `from returns parameter`() {
         val param = parameter().`as`("p")
         transactionFactory().readUncommitted {
@@ -110,5 +133,18 @@ interface FromTest<T : Table<T>> : SelectionTest<T> {
             .from(tableTest())
             .buildSelectQuery()
             .parameters.single().shouldBe(param)
+    }
+
+    @Test
+    fun `from returns correct sql for nested query`() {
+        val result = select(columnA(), columnB(), parameter().`as`("p"))
+            .from(
+                select(columnA(), columnB())
+                    .from(tableTest())
+                    .`as`("xxx")
+            )
+            .buildSelectQuery()
+            .sqlDefinition
+        result shouldBe "SELECT test.a, test.b, (?) AS p FROM (SELECT test.a, test.b FROM test) AS xxx"
     }
 }

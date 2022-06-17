@@ -69,6 +69,41 @@ interface TableJoinTest<T : Table<T>> {
             row[dataColumnFromSecondTable] shouldBe "B2"
         }
     }
+
+    @Test
+    fun `builds correct query for inner join with nested query`() {
+        dialect().run {
+            val nestedQuery = select(joinColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .innerJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST INNER JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from inner join with nested query`() {
+        transactionFactory().readCommitted {
+            val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = nestedQuery[dataColumnFromSecondTable()]
+            val row = select(dataColumnFromFirstTable(), dataColumnFromSecondTable)
+                .from(firstTable())
+                .innerJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+                .single()
+            row[dataColumnFromFirstTable()] shouldBe "B1"
+            row[dataColumnFromSecondTable] shouldBe "B2"
+        }
+    }
     //</editor-fold>
 
     // <editor-fold desc="LEFT">
@@ -142,6 +177,50 @@ interface TableJoinTest<T : Table<T>> {
             rows[1][dataColumnFromSecondTable] shouldBe null
         }
     }
+
+    @Test
+    fun `builds correct query for left join with nested query`() {
+        dialect().run {
+            val nestedQuery = select(joinColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .leftJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from left join with nested query`() {
+        transactionFactory().readCommitted {
+            val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = nestedQuery[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .leftJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+        }
+    }
+
+
     //</editor-fold>
 
     // <editor-fold desc="RIGHT">
@@ -206,6 +285,48 @@ interface TableJoinTest<T : Table<T>> {
             )
                 .from(firstTable())
                 .rightJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe null
+            rows[1][dataColumnFromSecondTable] shouldBe "D1"
+        }
+    }
+
+    @Test
+    fun `builds correct query for right join with nested query`() {
+        dialect().run {
+            val nestedQuery = select(joinColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .rightJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST RIGHT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from right join with nested query`() {
+        transactionFactory().readCommitted {
+            val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = nestedQuery[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .rightJoin(nestedQuery) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
                 }.execute()
             rows.size shouldBe 2
@@ -292,13 +413,57 @@ interface TableJoinTest<T : Table<T>> {
             rows[2][dataColumnFromSecondTable] shouldBe "D1"
         }
     }
+
+    @Test
+    fun `builds correct query for full join with nested query`() {
+        dialect().run {
+            val nestedQuery = select(joinColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+                .from(firstTable())
+                .fullJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST FULL JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
+        }
+    }
+
+    @Test
+    fun `select values from full join with nested query`() {
+        transactionFactory().readCommitted {
+            val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = nestedQuery[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable
+            )
+                .from(firstTable())
+                .fullJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.execute()
+            rows.size shouldBe 3
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+            rows[2][dataColumnFromFirstTable()] shouldBe null
+            rows[2][dataColumnFromSecondTable] shouldBe "D1"
+        }
+    }
     //</editor-fold>
 
     //<editor-fold desc="Multiple joins">
     @Test
     fun `builds correct query for multiple join`() {
         dialect().run {
-            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable(), joinColumnFromThirdTable())
                 .from(firstTable())
                 .leftJoin(secondTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable())
@@ -306,7 +471,7 @@ interface TableJoinTest<T : Table<T>> {
                     joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
                 }
                 .buildSelectQuery().sqlDefinition
-            query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+            query shouldBe "SELECT FIRST.A, SECOND.A, THIRD.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
 
@@ -341,7 +506,7 @@ interface TableJoinTest<T : Table<T>> {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
-            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable)
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable, joinColumnFromThirdTable())
                 .from(firstTable())
                 .leftJoin(secondTable) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
@@ -349,7 +514,7 @@ interface TableJoinTest<T : Table<T>> {
                     joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
                 }
                 .buildSelectQuery().sqlDefinition
-            query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+            query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
 
@@ -368,6 +533,55 @@ interface TableJoinTest<T : Table<T>> {
             )
                 .from(firstTable())
                 .leftJoin(secondTable) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }.execute()
+            rows.size shouldBe 2
+            rows[0][dataColumnFromFirstTable()] shouldBe "B1"
+            rows[0][dataColumnFromSecondTable] shouldBe "B2"
+            rows[0][dataColumnFromThirdTable()] shouldBe "B3"
+            rows[1][dataColumnFromFirstTable()] shouldBe "C1"
+            rows[1][dataColumnFromSecondTable] shouldBe null
+            rows[1][dataColumnFromThirdTable()] shouldBe null
+        }
+    }
+
+    @Test
+    fun `builds correct query for multiple join with nested query`() {
+        dialect().run {
+            val nestedQuery = select(joinColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable, joinColumnFromThirdTable())
+                .from(firstTable())
+                .leftJoin(nestedQuery) {
+                    joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
+                }.leftJoin(thirdTable()) {
+                    joinColumnFromFirstTable().eq(joinColumnFromThirdTable())
+                }.buildSelectQuery().sqlDefinition
+            query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+        }
+    }
+
+    @Test
+    fun `select values from multiple join with nested query`() {
+        transactionFactory().readCommitted {
+            val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
+                .from(secondTable())
+                .`as`("xxx")
+            val joinColumnFromSecondTable = nestedQuery[joinColumnFromSecondTable()]
+            val dataColumnFromSecondTable = nestedQuery[dataColumnFromSecondTable()]
+            val rows = select(
+                joinColumnFromFirstTable(),
+                dataColumnFromFirstTable(),
+                joinColumnFromSecondTable,
+                dataColumnFromSecondTable,
+                dataColumnFromThirdTable()
+            )
+                .from(firstTable())
+                .leftJoin(nestedQuery) {
                     joinColumnFromFirstTable().eq(joinColumnFromSecondTable)
                 }.leftJoin(thirdTable()) {
                     joinColumnFromFirstTable().eq(joinColumnFromThirdTable())

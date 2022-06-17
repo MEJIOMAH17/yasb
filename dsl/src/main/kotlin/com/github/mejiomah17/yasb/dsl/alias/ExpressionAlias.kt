@@ -9,7 +9,7 @@ import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class ExpressionAlias<T>(
     private val expression: AliasableExpression<T>,
-    private val name: String
+    val name: String
 ) : Expression<T> {
 
     override fun databaseType(): DatabaseType<T> {

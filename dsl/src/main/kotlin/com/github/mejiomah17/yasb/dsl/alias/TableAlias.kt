@@ -19,7 +19,7 @@ class TableAlias<T : Table<T>>(val table: T, val name: String) : SelectionSource
             override fun build(): QueryPart {
                 return QueryPartImpl(
                     sqlDefinition = "$name.${column.name}",
-                    parameters = emptyList()
+                    parameters = column.build().parameters
                 )
             }
 
