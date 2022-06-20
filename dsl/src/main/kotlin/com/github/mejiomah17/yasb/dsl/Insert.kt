@@ -109,6 +109,15 @@ fun <T : Table<T>> insertInto(
     return InsertWithReturn(insertInto(table, block), returning)
 }
 
+fun <T : Table<T>, E> insertInto(
+    table: T,
+    returning: Returning,
+    source: Iterable<E>,
+    block: T.(InsertContext<T>, E) -> Unit
+): InsertWithReturn<T> {
+    return InsertWithReturn(insertInto(table, source, block), returning)
+}
+
 class InsertContext<T : Table<T>> {
     internal val columns = mutableMapOf<Column<T, *>, Any?>()
     operator fun <V> set(column: Column<T, V>, value: V) {

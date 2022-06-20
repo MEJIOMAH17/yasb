@@ -49,7 +49,7 @@ sealed interface Transaction {
         statement.execute()
     }
 
-    fun <T : Table<T>> InsertWithReturn<T>.execute(): Rows {
+    fun <T : Table<T>> InsertWithReturn<T>.lazy(): Rows {
         val queryForExecute = buildInsertQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
@@ -58,5 +58,9 @@ sealed interface Transaction {
         }
         val resultSet = statement.executeQuery()
         return Rows(statement, queryForExecute, resultSet)
+    }
+
+    fun <T : Table<T>> InsertWithReturn<T>.execute(): List<Row> {
+        return lazy().toList()
     }
 }
