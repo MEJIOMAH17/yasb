@@ -9,17 +9,43 @@ import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class Insert<T : Table<T>> internal constructor(
     private val table: T,
-    private val columnsToValues: List<ColumnToValue<T, *>>
+    private val columnsToValues: Map<Column<T, *>, List<Any?>>
 ) {
-    fun buildInsertQuery(): QueryPart {
-        val columns = columnsToValues.joinToString(",") { it.column.name }
-        val parameters: List<Parameter<Any?>> = columnsToValues.map {
-            val column = it.column as Column<T, Any?>
-            column.databaseType.parameterFactory().invoke(it.value)
+    private val size: Int = columnsToValues.values.first().size
+
+    init {
+        require(columnsToValues.values.all { it.size == size }) {
+            "All columns should have same amount of values to insert"
         }
+    }
+
+    fun buildInsertQuery(): QueryPart {
+        val columns = columnsToValues.keys.joinToString(",") { it.name }
+        val valuesSql = StringBuilder()
+        val parameters = mutableListOf<Parameter<*>>()
+        for (i in 0 until size) {
+            val rowInSql = columnsToValues.map { (column, values) ->
+                column as Column<T, Any>
+                val value = values[i]
+                if (value is DefaultQueryPart) {
+                    value.sqlDefinition
+                } else {
+                    val parameter = column.databaseType.parameterFactory().invoke(value)
+                    parameters.add(parameter)
+                    parameter.parameterInJdbcQuery
+                }
+            }.joinToString(",")
+            valuesSql.append("(")
+                .append(rowInSql)
+                .append(")")
+            if (i != size - 1) {
+                valuesSql.appendLine(",")
+            }
+        }
+
+
         return QueryPartImpl(
-            sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " +
-                    "(${parameters.joinToString(",") { it.parameterInJdbcQuery }})",
+            sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
             parameters = parameters
         )
     }
@@ -40,13 +66,39 @@ class InsertWithReturn<T : Table<T>> internal constructor(
     }
 }
 
+
+fun <T : Table<T>, E> insertInto(
+    table: T,
+    source: Iterable<E>,
+    block: T.(InsertContext<T>, E) -> Unit
+): Insert<T> {
+    val columns = mutableMapOf<Column<T, *>, MutableList<Any?>>()
+    source.forEachIndexed { i, e ->
+        val insertContext = InsertContext<T>()
+        block(table, insertContext, e)
+        insertContext.columns.forEach { (column, value) ->
+            // iterate over this feeling
+            val list = columns.computeIfAbsent(column) {
+                val list = ArrayList<Any?>(i)
+                (0 until i).forEach { list.add(DefaultQueryPart) }
+                list
+            }
+            list.add(value)
+        }
+        columns.filterValues { it.size < i + 1 }.forEach { _, v ->
+            v.add(DefaultQueryPart)
+        }
+    }
+    return Insert(table, columns)
+}
+
 fun <T : Table<T>> insertInto(
     table: T,
     block: T.(InsertContext<T>) -> Unit
 ): Insert<T> {
-    val insertContext = InsertContext<T>()
-    block(table, insertContext)
-    return Insert(table, insertContext.columns.getAll())
+    return insertInto(table, listOf(1)) { context, _ ->
+        block(context)
+    }
 }
 
 fun <T : Table<T>> insertInto(
@@ -58,7 +110,7 @@ fun <T : Table<T>> insertInto(
 }
 
 class InsertContext<T : Table<T>> {
-    internal val columns = ColumnsToValue<T>()
+    internal val columns = mutableMapOf<Column<T, *>, Any?>()
     operator fun <V> set(column: Column<T, V>, value: V) {
         columns[column] = value
     }
@@ -68,18 +120,5 @@ internal class ColumnToValue<T : Table<T>, V>(
     val column: Column<T, V>,
     val value: V?
 )
-
-internal class ColumnsToValue<T : Table<T>> {
-    private val map = mutableMapOf<Column<T, *>, Any?>()
-    operator fun <V> set(column: Column<T, V>, value: V) {
-        map[column] = value
-    }
-
-    fun getAll(): List<ColumnToValue<T, *>> {
-        return map.entries.map {
-            ColumnToValue(it.key as Column<T, Any?>, it.value)
-        }
-    }
-}
 
 

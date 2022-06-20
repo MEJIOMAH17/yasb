@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.ddl.Table
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface InsertWithReturningTest<T : Table<T>> : SimpleInsertTest<T> {
+interface InsertWithReturningTest<T : Table<T>> : InsertTest<T> {
 
     @Test
     fun output_returns_values() {
