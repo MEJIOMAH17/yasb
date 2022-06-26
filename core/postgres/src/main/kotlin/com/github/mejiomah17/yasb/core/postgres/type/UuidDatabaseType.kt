@@ -9,8 +9,8 @@ import java.util.*
 import org.postgresql.util.PGobject
 
 object UuidDatabaseType : DatabaseType<UUID> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): UUID {
-        return UUID.fromString(resultSet.getString(index))
+    override fun extractFromResultSet(resultSet: ResultSet, index: Int): UUID? {
+        return resultSet.getString(index)?.let { UUID.fromString(it) }
     }
 
     override fun applyParameterToStatement(parameter: Parameter<UUID>, statement: PreparedStatement, index: Int) {
@@ -18,7 +18,7 @@ object UuidDatabaseType : DatabaseType<UUID> {
             index,
             PGobject().apply {
                 type = "uuid"
-                value = parameter.value.toString()
+                value = parameter.value?.toString()
             }
         )
     }
