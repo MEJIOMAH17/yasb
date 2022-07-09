@@ -7,6 +7,7 @@ import com.github.mejiomah17.yasb.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.dsl.Row
 import com.github.mejiomah17.yasb.dsl.Rows
 import com.github.mejiomah17.yasb.dsl.SelectQuery
+import com.github.mejiomah17.yasb.dsl.Update
 import java.sql.Connection
 
 sealed interface Transaction {
@@ -41,6 +42,16 @@ sealed interface Transaction {
 
     fun <T : Table<T>> Insert<T>.execute() {
         val queryForExecute = buildInsertQuery()
+        val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
+        queryForExecute.parameters.forEachIndexed { i, parameter ->
+            parameter as Parameter<Any>
+            parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
+        }
+        statement.execute()
+    }
+
+    fun <T : Table<T>> Update<T>.execute() {
+        val queryForExecute = buildUpdateQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
