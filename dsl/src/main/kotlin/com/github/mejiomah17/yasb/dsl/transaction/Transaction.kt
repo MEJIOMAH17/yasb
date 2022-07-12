@@ -2,6 +2,7 @@ package com.github.mejiomah17.yasb.dsl.transaction
 
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.dsl.Insert
 import com.github.mejiomah17.yasb.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.dsl.Row

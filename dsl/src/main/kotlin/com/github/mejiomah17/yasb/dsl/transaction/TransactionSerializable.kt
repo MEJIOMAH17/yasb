@@ -2,10 +2,9 @@ package com.github.mejiomah17.yasb.dsl.transaction
 
 import java.sql.Connection
 
-interface AtLeastSerializable
+interface AtLeastSerializable : AtLeastRepeatableRead
 
-interface TransactionSerializable : Transaction, AtLeastReadUncommitted, AtLeastReadCommitted, AtLeastRepeatableRead,
-    AtLeastSerializable {
+interface TransactionSerializable : Transaction, AtLeastSerializable {
     companion object {
         val jdbcValue = Connection.TRANSACTION_SERIALIZABLE
     }
