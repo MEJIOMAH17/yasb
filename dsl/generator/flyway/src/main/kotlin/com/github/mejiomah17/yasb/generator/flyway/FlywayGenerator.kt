@@ -4,8 +4,13 @@ import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
 import com.github.mejiomah17.yasb.dsl.generator.TableGenerator
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
 import org.flywaydb.core.api.Location
+import org.postgresql.Driver
+import org.testcontainers.containers.wait.strategy.Wait
+import org.testcontainers.containers.wait.strategy.WaitAllStrategy
 import org.testcontainers.utility.DockerImageName
 import java.io.File
+import java.sql.DriverManager
+
 //todo test
 object FlywayGenerator {
     fun generate(
@@ -19,6 +24,7 @@ object FlywayGenerator {
     ) {
         PostgresContainer(imageName).use { postgresContainer ->
             postgresContainer.start()
+            DriverManager.registerDriver(Driver())
             val datasource = com.zaxxer.hikari.HikariDataSource(com.zaxxer.hikari.HikariConfig().also {
                 it.jdbcUrl = postgresContainer.jdbcUrl
                 it.username = PostgresContainer.LOGIN
