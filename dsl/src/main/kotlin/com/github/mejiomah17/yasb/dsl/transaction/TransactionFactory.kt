@@ -7,7 +7,7 @@ import javax.sql.DataSource
 abstract class TransactionFactory(
     private val datasource: DataSource
 ) {
-    protected abstract fun dialect(): DatabaseDialect
+    abstract fun dialect(): DatabaseDialect
 
     fun <T> readUncommitted(
         block: context(DatabaseDialect) TransactionReadUncommitted.() -> T

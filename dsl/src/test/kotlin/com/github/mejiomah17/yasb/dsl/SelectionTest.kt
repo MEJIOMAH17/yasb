@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
@@ -12,4 +13,5 @@ interface SelectionTest<T : Table<T>> {
     abstract fun parameter(): Parameter<String>
     abstract fun tableTest(): T
     abstract fun transactionFactory(): TransactionFactory
+    val databaseDialect: DatabaseDialect get() = transactionFactory().dialect()
 }
