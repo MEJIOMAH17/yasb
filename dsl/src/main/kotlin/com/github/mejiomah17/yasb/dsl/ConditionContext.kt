@@ -87,6 +87,17 @@ fun <T> ExpressionForCondition<T>.lessEq(other: T): AliasableExpressionForCondit
 }
 
 context (ConditionContext, DatabaseDialect)
+fun ExpressionForCondition<String?>.like(other: Parameter<String?>): AliasableExpressionForCondition<Boolean> {
+    return condition(other, "like")
+}
+
+context (ConditionContext, DatabaseDialect)
+fun ExpressionForCondition<String?>.like(other: String): AliasableExpressionForCondition<Boolean> {
+    val parameter: Parameter<String?> = databaseType().parameterFactory().invoke(other)
+    return like(parameter)
+}
+
+context (ConditionContext, DatabaseDialect)
 fun ExpressionForCondition<Boolean>.and(other: ExpressionForCondition<Boolean>): AliasableExpressionForCondition<Boolean> {
     return object : AliasableExpressionForCondition<Boolean> {
         override fun databaseType(): DatabaseType<Boolean> {
@@ -103,7 +114,6 @@ fun ExpressionForCondition<Boolean>.and(other: ExpressionForCondition<Boolean>):
         }
     }
 }
-
 
 context (ConditionContext, DatabaseDialect)
 fun ExpressionForCondition<Boolean>.or(other: ExpressionForCondition<Boolean>): AliasableExpressionForCondition<Boolean> {

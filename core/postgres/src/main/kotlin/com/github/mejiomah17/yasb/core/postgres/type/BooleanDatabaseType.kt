@@ -8,11 +8,8 @@ import java.sql.ResultSet
 
 object BooleanDatabaseType : DatabaseType<Boolean> {
     override fun extractFromResultSet(resultSet: ResultSet, index: Int): Boolean? {
-        val value = resultSet.getBoolean(index)
-        return if (resultSet.wasNull()) {
-            null
-        } else {
-            value
+        return resultSet.getNullable {
+            resultSet.getBoolean(index)
         }
     }
 

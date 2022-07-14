@@ -8,4 +8,5 @@ object TestTable : PostgresTable<TestTable> {
     val b = text("b")
     val c = uuid("c")
     val d = timestamp("d")
+    val e = doublePrecision("e")
 }

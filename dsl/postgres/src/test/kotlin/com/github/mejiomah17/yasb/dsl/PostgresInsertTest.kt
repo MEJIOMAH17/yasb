@@ -35,8 +35,9 @@ class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
                 it[columnB()] = "bca"
                 it[c] = randomUUID
                 it[d] = now
+                it[e] = 42.42
             }.execute()
-            val row = select(columnA(), columnB(), TestTable.c, TestTable.d)
+            val row = select(columnA(), columnB(), TestTable.c, TestTable.d, TestTable.e)
                 .from(tableTest())
                 .execute()
                 .single()
@@ -44,6 +45,7 @@ class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
             row[columnB()] shouldBe "bca"
             row[TestTable.c] shouldBe randomUUID
             row[TestTable.d] shouldBe now
+            row[TestTable.e] shouldBe 42.42
         }
     }
 

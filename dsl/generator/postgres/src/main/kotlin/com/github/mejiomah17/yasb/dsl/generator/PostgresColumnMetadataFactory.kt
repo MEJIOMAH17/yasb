@@ -1,6 +1,7 @@
 package com.github.mejiomah17.yasb.dsl.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.column.Bool
+import com.github.mejiomah17.yasb.dsl.generator.column.DoublePrecision
 import com.github.mejiomah17.yasb.dsl.generator.column.Text
 import com.github.mejiomah17.yasb.dsl.generator.column.Timestamp
 import com.github.mejiomah17.yasb.dsl.generator.column.Uuid
@@ -13,6 +14,7 @@ class PostgresColumnMetadataFactory : ColumnMetadataFactory {
             "uuid" -> Uuid(name, nullable)
             "timestamp" -> Timestamp(name, nullable)
             "bool" -> Bool(name, nullable)
+            "float8" -> DoublePrecision(name, nullable)
             else -> error("type $type is not supported yet")
         }
     }

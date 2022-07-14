@@ -30,7 +30,8 @@ abstract class PostgresTest {
                                a text,
                                b text,
                                c uuid,
-                               d timestamp
+                               d timestamp,
+                               e double precision
                             );
                         """.trimIndent()
                     )

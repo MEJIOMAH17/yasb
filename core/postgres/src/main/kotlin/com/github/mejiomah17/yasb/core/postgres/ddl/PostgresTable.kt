@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb.core.postgres.ddl
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.postgres.type.BooleanDatabaseType
+import com.github.mejiomah17.yasb.core.postgres.type.DoublePrecisionDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.TextDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.TimestampDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.UuidDatabaseType
@@ -48,6 +49,20 @@ interface PostgresTable<T : PostgresTable<T>> : Table<T> {
      */
     fun timestampNullable(name: String): Column<T, Timestamp?> {
         return registerNullable(Column(name, this, TimestampDatabaseType))
+    }
+
+    /**
+     * Register column for Timestamp type.
+     */
+    fun doublePrecision(name: String): Column<T, Double> {
+        return register(Column(name, this, DoublePrecisionDatabaseType))
+    }
+
+    /**
+     * Register column for Timestamp? type.
+     */
+    fun doublePrecisionNullable(name: String): Column<T, Double?> {
+        return registerNullable(Column(name, this, DoublePrecisionDatabaseType))
     }
 }
 
