@@ -6,7 +6,7 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 class From(
     val select: Select,
     val source: SelectionSource
-) : SelectQuery {
+) : FromClauseAndSelectQuery {
     override fun buildSelectQuery(): QueryForExecute {
         val builtExpressions = select.expressions.map { it.build() }
         val selectionPart = builtExpressions.map { it.sqlDefinition }.joinToString(", ")
