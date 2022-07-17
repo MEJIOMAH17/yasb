@@ -43,7 +43,7 @@ class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, 
 
     override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
 
-    override fun transactionFactory(): TransactionFactory = PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresTransactionFactory = PostgresTransactionFactory(dataSource)
 
     override fun dialect(): DatabaseDialect = PostgresDatabaseDialect
 

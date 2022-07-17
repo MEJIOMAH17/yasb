@@ -8,6 +8,6 @@ abstract class TransactionFactoryTest {
         createTransactionFactory().callTransaction()
     }
 
-    abstract fun createTransactionFactory(): TransactionFactory
-    abstract fun TransactionFactory.callTransaction()
+    abstract fun createTransactionFactory(): TransactionFactory<*>
+    abstract fun TransactionFactory<*>.callTransaction()
 }

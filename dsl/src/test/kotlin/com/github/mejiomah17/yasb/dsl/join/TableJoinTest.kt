@@ -606,7 +606,7 @@ interface TableJoinTest<T : Table<T>> {
     fun thirdTable(): Table<*>
     fun joinColumnFromThirdTable(): Column<*, String>
     fun dataColumnFromThirdTable(): Column<*, String>
-    fun transactionFactory(): TransactionFactory
+    fun transactionFactory(): TransactionFactory<*>
     fun dialect(): DatabaseDialect
 
 }

@@ -1,16 +1,13 @@
 package com.github.mejiomah17.yasb.dsl
 
-import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
+import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import java.sql.Timestamp
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class PostgresOrderByTest : GroupByTest<TestTable>, PostgresTest() {
+class PostgresLimitTest : PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -34,24 +31,41 @@ class PostgresOrderByTest : GroupByTest<TestTable>, PostgresTest() {
         }
     }
 
-    override fun columnA(): Column<TestTable, String> {
-        return TestTable.a
+    @Test
+    fun `limit generates correct sql`() {
+        transactionFactory().readCommitted {
+            select(TestTable.a)
+                .from(TestTable)
+                .limit(1)
+                .buildSelectQuery()
+                .sqlDefinition shouldBe "SELECT test.a FROM test LIMIT 1"
+        }
     }
 
-    override fun columnB(): Column<TestTable, String> {
-        return TestTable.b
+
+
+    @Test
+    fun `limit 1 return single record`() {
+        transactionFactory().readCommitted {
+            select(TestTable.a)
+                .from(TestTable)
+                .limit(1)
+                .execute() shouldHaveSize 1
+        }
     }
 
-    override fun parameter(): Parameter<String> {
-        return TextParameter("param")
+    @Test
+    fun `limit called after where`() {
+        transactionFactory().readCommitted {
+            select(TestTable.a)
+                .from(TestTable)
+                .where { TestTable.a.eq("the a") }
+                .limit(1)
+                .execute()
+        }
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
-    }
-
-    override fun transactionFactory(): TransactionFactory {
+    private fun transactionFactory(): PostgresTransactionFactory {
         return PostgresTransactionFactory(dataSource)
     }
-
 }

@@ -12,6 +12,6 @@ interface SelectionTest<T : Table<T>> {
     abstract fun columnB(): Column<T, String>
     abstract fun parameter(): Parameter<String>
     abstract fun tableTest(): T
-    abstract fun transactionFactory(): TransactionFactory
+    abstract fun transactionFactory(): TransactionFactory<*>
     val databaseDialect: DatabaseDialect get() = transactionFactory().dialect()
 }

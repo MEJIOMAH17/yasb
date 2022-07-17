@@ -44,7 +44,7 @@ class PostgresFromTest : FromTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): TransactionFactory {
+    override fun transactionFactory(): PostgresTransactionFactory {
         return PostgresTransactionFactory(dataSource)
     }
 

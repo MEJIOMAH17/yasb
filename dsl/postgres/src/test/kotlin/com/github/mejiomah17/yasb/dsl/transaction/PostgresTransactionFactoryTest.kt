@@ -36,11 +36,11 @@ class PostgresTransactionFactoryTest : TransactionFactoryTest() {
         }
     }
 
-    override fun createTransactionFactory(): TransactionFactory {
+    override fun createTransactionFactory(): PostgresTransactionFactory {
         return PostgresTransactionFactory(dataSource)
     }
 
-    override fun TransactionFactory.callTransaction() {
+    override fun TransactionFactory<*>.callTransaction() {
         this.readUncommitted {
 
         }

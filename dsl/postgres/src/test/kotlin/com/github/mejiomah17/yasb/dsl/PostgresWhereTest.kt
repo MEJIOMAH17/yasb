@@ -90,7 +90,7 @@ class PostgresWhereTest : WhereTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): TransactionFactory {
+    override fun transactionFactory(): PostgresTransactionFactory {
         return PostgresTransactionFactory(dataSource)
     }
 }

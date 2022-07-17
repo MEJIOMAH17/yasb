@@ -4,13 +4,13 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import java.sql.Connection
 import javax.sql.DataSource
 
-abstract class TransactionFactory(
+abstract class TransactionFactory<D : DatabaseDialect>(
     private val datasource: DataSource
 ) {
-    abstract fun dialect(): DatabaseDialect
+    abstract fun dialect(): D
 
     fun <T> readUncommitted(
-        block: context(DatabaseDialect) TransactionReadUncommitted.() -> T
+        block: context(D) TransactionReadUncommitted.() -> T
     ): T {
         return transaction(
             creator = { TransactionReadUncommittedImpl(it) },
@@ -20,7 +20,7 @@ abstract class TransactionFactory(
     }
 
     fun <T> readCommitted(
-        block: context(DatabaseDialect) TransactionReadCommitted.() -> T
+        block: context(D) TransactionReadCommitted.() -> T
     ): T {
         return transaction(
             creator = { TransactionReadCommittedImpl(it) },
@@ -30,7 +30,7 @@ abstract class TransactionFactory(
     }
 
     fun <T> repeatableRead(
-        block: context(DatabaseDialect) TransactionRepeatableRead.() -> T
+        block: context(D) TransactionRepeatableRead.() -> T
     ): T {
         return transaction(
             creator = { TransactionRepeatableReadImpl(it) },
@@ -40,7 +40,7 @@ abstract class TransactionFactory(
     }
 
     fun <T> serializable(
-        block: context(DatabaseDialect) TransactionSerializable.() -> T
+        block: context(D) TransactionSerializable.() -> T
     ): T {
         return transaction(
             creator = { TransactionSerializableImpl(it) },
@@ -52,7 +52,7 @@ abstract class TransactionFactory(
     private fun <T : Transaction, R> transaction(
         creator: (Connection) -> T,
         jdbcLevel: Int,
-        block: context(DatabaseDialect) T.() -> R
+        block: context(D) T.() -> R
     ): R {
         // TODO retry
         return datasource.connection.use { connection ->

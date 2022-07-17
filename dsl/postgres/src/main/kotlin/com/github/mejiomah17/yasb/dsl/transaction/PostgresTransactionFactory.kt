@@ -4,8 +4,8 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.postgres.PostgresDatabaseDialect
 import javax.sql.DataSource
 
-class PostgresTransactionFactory(dataSource: DataSource) : TransactionFactory(dataSource) {
-    override fun dialect(): DatabaseDialect {
+class PostgresTransactionFactory(dataSource: DataSource) : TransactionFactory<PostgresDatabaseDialect>(dataSource) {
+    override fun dialect(): PostgresDatabaseDialect {
         return PostgresDatabaseDialect
     }
 }
