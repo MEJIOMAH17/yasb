@@ -4,6 +4,8 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.postgres.type.BooleanDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.DoublePrecisionDatabaseType
+import com.github.mejiomah17.yasb.core.postgres.type.JsonbDatabaseType
+import com.github.mejiomah17.yasb.core.postgres.type.LongDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.TextDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.TimestampDatabaseType
 import com.github.mejiomah17.yasb.core.postgres.type.UuidDatabaseType
@@ -51,18 +53,28 @@ interface PostgresTable<T : PostgresTable<T>> : Table<T> {
         return registerNullable(Column(name, this, TimestampDatabaseType))
     }
 
-    /**
-     * Register column for Timestamp type.
-     */
     fun doublePrecision(name: String): Column<T, Double> {
         return register(Column(name, this, DoublePrecisionDatabaseType))
     }
 
-    /**
-     * Register column for Timestamp? type.
-     */
     fun doublePrecisionNullable(name: String): Column<T, Double?> {
         return registerNullable(Column(name, this, DoublePrecisionDatabaseType))
+    }
+
+    fun bigint(name: String): Column<T, Long> {
+        return register(Column(name, this, LongDatabaseType))
+    }
+
+    fun bigintNullable(name: String): Column<T, Long?> {
+        return registerNullable(Column(name, this, LongDatabaseType))
+    }
+
+    fun jsonb(name: String): Column<T, String> {
+        return register(Column(name, this, JsonbDatabaseType))
+    }
+
+    fun jsonbNullable(name: String): Column<T, String?> {
+        return registerNullable(Column(name, this, JsonbDatabaseType))
     }
 }
 

@@ -98,6 +98,16 @@ fun ExpressionForCondition<String?>.like(other: String): AliasableExpressionForC
 }
 
 context (ConditionContext, DatabaseDialect)
+fun <T> ExpressionForCondition<T>.inListParameters(list: Iterable<Parameter<T>>): AliasableExpressionForCondition<Boolean> {
+    return condition(list, "in")
+}
+
+context (ConditionContext, DatabaseDialect)
+fun <T> ExpressionForCondition<T>.inList(list: Iterable<T>): AliasableExpressionForCondition<Boolean> {
+    return inListParameters(list.map { databaseType().parameterFactory().invoke(it) })
+}
+
+context (ConditionContext, DatabaseDialect)
 fun ExpressionForCondition<Boolean>.and(other: ExpressionForCondition<Boolean>): AliasableExpressionForCondition<Boolean> {
     return object : AliasableExpressionForCondition<Boolean> {
         override fun databaseType(): DatabaseType<Boolean> {
@@ -167,6 +177,28 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
             return QueryPartImpl(
                 sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInJdbcQuery}",
                 parameters = leftExpression.parameters + other
+            )
+        }
+    }
+}
+
+context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForCondition<T>.condition(
+    others: Iterable<Parameter<T>>,
+    operator: String
+): AliasableExpressionForCondition<Boolean> {
+    return object : AliasableExpressionForCondition<Boolean> {
+        override fun databaseType(): DatabaseType<Boolean> {
+            return booleanType()
+        }
+
+        override fun build(): QueryPart {
+            val leftExpression = this@condition.build()
+            val parameters = others.joinToString(",") {
+                it.parameterInJdbcQuery
+            }
+            return QueryPartImpl(
+                sqlDefinition = "${leftExpression.sqlDefinition} $operator ($parameters)",
+                parameters = leftExpression.parameters + others
             )
         }
     }
