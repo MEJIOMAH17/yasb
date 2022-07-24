@@ -22,7 +22,6 @@ class TableAlias<T : Table<T>>(val table: T, val name: String) : SelectionSource
                     parameters = column.build().parameters
                 )
             }
-
         }
     }
 

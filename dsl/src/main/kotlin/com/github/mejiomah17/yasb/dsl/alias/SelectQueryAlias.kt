@@ -25,7 +25,6 @@ class SelectQueryAlias(val source: SelectQuery, val name: String) : SelectionSou
                     parameters = emptyList()
                 )
             }
-
         }
     }
 
@@ -41,7 +40,6 @@ class SelectQueryAlias(val source: SelectQuery, val name: String) : SelectionSou
                     parameters = emptyList()
                 )
             }
-
         }
     }
 }

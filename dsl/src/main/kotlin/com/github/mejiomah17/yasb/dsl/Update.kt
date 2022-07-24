@@ -1,13 +1,11 @@
 package com.github.mejiomah17.yasb.dsl
 
-import com.github.mejiomah17.yasb.core.Where
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
-import javafx.scene.control.Tab
 
 //TODO test
 class Update<T : Table<T>> internal constructor(

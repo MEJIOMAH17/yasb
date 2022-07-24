@@ -12,7 +12,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 interface TableJoinTest<T : Table<T>> {
-    //<editor-fold desc="Inner">
+    // <editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
         dialect().run {
@@ -104,7 +104,7 @@ interface TableJoinTest<T : Table<T>> {
             row[dataColumnFromSecondTable] shouldBe "B2"
         }
     }
-    //</editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="LEFT">
     @Test
@@ -220,8 +220,7 @@ interface TableJoinTest<T : Table<T>> {
         }
     }
 
-
-    //</editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="RIGHT">
     @Test
@@ -336,7 +335,7 @@ interface TableJoinTest<T : Table<T>> {
             rows[1][dataColumnFromSecondTable] shouldBe "D1"
         }
     }
-    //</editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="FULL">
     @Test
@@ -457,9 +456,9 @@ interface TableJoinTest<T : Table<T>> {
             rows[2][dataColumnFromSecondTable] shouldBe "D1"
         }
     }
-    //</editor-fold>
+    // </editor-fold>
 
-    //<editor-fold desc="Multiple joins">
+    // <editor-fold desc="Multiple joins">
     @Test
     fun `builds correct query for multiple join`() {
         dialect().run {
@@ -595,7 +594,7 @@ interface TableJoinTest<T : Table<T>> {
             rows[1][dataColumnFromThirdTable()] shouldBe null
         }
     }
-    //</editor-fold>
+    // </editor-fold>
 
     fun firstTable(): Table<*>
     fun joinColumnFromFirstTable(): Column<*, String>
@@ -608,5 +607,4 @@ interface TableJoinTest<T : Table<T>> {
     fun dataColumnFromThirdTable(): Column<*, String>
     fun transactionFactory(): TransactionFactory<*>
     fun dialect(): DatabaseDialect
-
 }

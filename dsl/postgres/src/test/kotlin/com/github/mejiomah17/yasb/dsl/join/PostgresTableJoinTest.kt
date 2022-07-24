@@ -7,7 +7,6 @@ import com.github.mejiomah17.yasb.core.postgres.PostgresDatabaseDialect
 import com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable
 import com.github.mejiomah17.yasb.dsl.PostgresTest
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, PostgresTest() {

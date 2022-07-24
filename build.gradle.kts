@@ -16,11 +16,20 @@ repositories {
 allprojects {
     repositories {
         mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/MEJIOMAH17/kotlin-concurrent-collections")
+            credentials {
+                val githubToken: String by project
+                val githubUser: String by project
+                username = githubUser
+                password = githubToken
+            }
+        }
     }
 
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
     apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
-    if(!name().contains("generator")){
+    if (!name().contains("generator")) {
         tasks.withType<KotlinCompile>() {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
         }
@@ -67,5 +76,3 @@ fun Project.name(): String {
     }
     return projects.asReversed().map { it.name }.joinToString("-")
 }
-
-

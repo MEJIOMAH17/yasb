@@ -25,7 +25,7 @@ class TableGeneratorTest {
                             val y = 42
                         }
 
-                    """.trimIndent()
+            """.trimIndent()
             fileName shouldBe "TestTable.kt"
         }
     }
@@ -52,7 +52,7 @@ class TableGeneratorTest {
                         val y = 42
                     }
 
-                """.trimIndent()
+        """.trimIndent()
     }
 
     private class TestColumn(val name: String) : ColumnMetadata {

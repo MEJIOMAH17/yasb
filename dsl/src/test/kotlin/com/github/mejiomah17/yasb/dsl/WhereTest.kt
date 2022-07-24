@@ -6,7 +6,7 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface WhereTest<T: Table<T>> : SelectionTest<T> {
+interface WhereTest<T : Table<T>> : SelectionTest<T> {
     @Test
     fun `where filters query`() {
         transactionFactory().readUncommitted {

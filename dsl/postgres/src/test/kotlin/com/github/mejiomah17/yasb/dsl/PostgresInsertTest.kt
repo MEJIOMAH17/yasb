@@ -4,13 +4,12 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
-import java.sql.Timestamp
-import java.time.Instant
-import java.util.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.sql.Timestamp
+import java.time.Instant
+import java.util.UUID
 
 class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
     @BeforeEach

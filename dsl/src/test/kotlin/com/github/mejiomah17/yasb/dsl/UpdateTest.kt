@@ -16,8 +16,8 @@ interface UpdateTest<T : Table<T>> : SelectionTest<T> {
             update(
                 tableTest(),
                 set = {
-                    it[columnA()]= "qwertypop"
-                    it[columnB()]= "popqwerty"
+                    it[columnA()] = "qwertypop"
+                    it[columnB()] = "popqwerty"
                 }
             ).execute()
             val row = select(columnA(), columnB())
@@ -39,8 +39,8 @@ interface UpdateTest<T : Table<T>> : SelectionTest<T> {
             update(
                 tableTest(),
                 set = {
-                    it[columnA()]= "qwertypop"
-                    it[columnB()]= "popqwerty"
+                    it[columnA()] = "qwertypop"
+                    it[columnB()] = "popqwerty"
                 },
                 where = {
                     columnA().eq("abc")
@@ -64,8 +64,8 @@ interface UpdateTest<T : Table<T>> : SelectionTest<T> {
             update(
                 tableTest(),
                 set = {
-                    it[columnA()]= "qwertypop"
-                    it[columnB()]= "popqwerty"
+                    it[columnA()] = "qwertypop"
+                    it[columnB()] = "popqwerty"
                 },
                 where = {
                     columnA().eq("abcs")

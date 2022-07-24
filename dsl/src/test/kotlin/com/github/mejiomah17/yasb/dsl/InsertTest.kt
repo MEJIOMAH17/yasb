@@ -92,5 +92,4 @@ interface InsertTest<T : Table<T>> : SelectionTest<T> {
             row[columnB()] shouldBe "bca"
         }
     }
-
 }

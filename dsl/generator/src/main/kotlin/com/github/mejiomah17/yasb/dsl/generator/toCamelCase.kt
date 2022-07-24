@@ -44,4 +44,4 @@ fun String.toPascalCase(): String {
     }
 }
 
-private val wordDelimiters = setOf(' ','-','_')
+private val wordDelimiters = setOf(' ', '-', '_')

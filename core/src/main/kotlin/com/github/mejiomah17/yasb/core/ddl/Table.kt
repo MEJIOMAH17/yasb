@@ -1,8 +1,8 @@
 package com.github.mejiomah17.yasb.core.ddl
 
+import com.github.mejiomah17.kotlin.concurrent.collections.ThreadSafeMap
 import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
 interface Table<T : Table<T>> : SelectionSource {
@@ -26,7 +26,4 @@ interface Table<T : Table<T>> : SelectionSource {
     }
 }
 
-private val tableToColumns = ConcurrentHashMap<Table<*>, MutableList<Column<*, *>>>()
-
-
-
+private val tableToColumns = ThreadSafeMap<Table<*>, MutableList<Column<*, *>>>()

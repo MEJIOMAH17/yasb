@@ -4,7 +4,6 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.transaction.PostgresTransactionFactory
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
