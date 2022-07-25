@@ -22,7 +22,7 @@ class Rows(
 
             override fun next(): Row {
                 return Row(queryForExecute.returnExpressions.mapIndexed { index, expression ->
-                    expression to expression.databaseType().extractFromResultSet(resultSet, index + 1)
+                    expression to expression.databaseType().jdbc().extractFromResultSet(resultSet, index + 1)
                 }.toMap())
             }
         }

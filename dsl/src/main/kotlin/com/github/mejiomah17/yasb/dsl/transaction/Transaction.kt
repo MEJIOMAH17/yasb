@@ -2,13 +2,13 @@ package com.github.mejiomah17.yasb.dsl.transaction
 
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.dsl.Insert
 import com.github.mejiomah17.yasb.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.dsl.Row
 import com.github.mejiomah17.yasb.dsl.Rows
 import com.github.mejiomah17.yasb.dsl.SelectQuery
 import com.github.mejiomah17.yasb.dsl.Update
+import com.github.mejiomah17.yasb.dsl.jdbc
 import java.sql.Connection
 
 sealed interface Transaction {
@@ -35,7 +35,7 @@ sealed interface Transaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
-            parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
+            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return Rows(statement, queryForExecute, resultSet)
@@ -46,7 +46,7 @@ sealed interface Transaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
-            parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
+            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         statement.execute()
     }
@@ -56,7 +56,7 @@ sealed interface Transaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
-            parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
+            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         statement.execute()
     }
@@ -66,7 +66,7 @@ sealed interface Transaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any>
-            parameter.databaseType.applyParameterToStatement(parameter, statement, i + 1)
+            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return Rows(statement, queryForExecute, resultSet)

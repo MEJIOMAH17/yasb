@@ -32,7 +32,7 @@ class Insert<T : Table<T>> internal constructor(
                 } else {
                     val parameter = column.databaseType.parameterFactory().invoke(value)
                     parameters.add(parameter)
-                    parameter.parameterInJdbcQuery
+                    parameter.parameterInSql
                 }
             }.joinToString(",")
             valuesSql.append("(")

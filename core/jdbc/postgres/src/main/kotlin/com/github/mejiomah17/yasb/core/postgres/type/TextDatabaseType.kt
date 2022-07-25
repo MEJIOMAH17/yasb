@@ -1,12 +1,12 @@
 package com.github.mejiomah17.yasb.core.postgres.type
 
-import com.github.mejiomah17.yasb.core.DatabaseType
+import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-object TextDatabaseType : DatabaseType<String> {
+object TextDatabaseType : JDBCDatabaseType<String> {
     override fun extractFromResultSet(resultSet: ResultSet, index: Int): String? {
         return resultSet.getString(index)
     }

@@ -2,7 +2,6 @@ package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.DatabaseType
-import com.github.mejiomah17.yasb.core.expression.AliasableExpression
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.expression.ExpressionForCondition
 import com.github.mejiomah17.yasb.core.parameter.Parameter
@@ -175,7 +174,7 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
         override fun build(): QueryPart {
             val leftExpression = this@condition.build()
             return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInJdbcQuery}",
+                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInSql}",
                 parameters = leftExpression.parameters + other
             )
         }
@@ -194,7 +193,7 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
         override fun build(): QueryPart {
             val leftExpression = this@condition.build()
             val parameters = others.joinToString(",") {
-                it.parameterInJdbcQuery
+                it.parameterInSql
             }
             return QueryPartImpl(
                 sqlDefinition = "${leftExpression.sqlDefinition} $operator ($parameters)",

@@ -1,13 +1,13 @@
 package com.github.mejiomah17.yasb.core.postgres.type
 
-import com.github.mejiomah17.yasb.core.DatabaseType
+import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.parameter.TimestampParameter
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Timestamp
 
-object TimestampDatabaseType : DatabaseType<Timestamp> {
+object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
     override fun extractFromResultSet(resultSet: ResultSet, index: Int): Timestamp? {
         return resultSet.getTimestamp(index)
     }

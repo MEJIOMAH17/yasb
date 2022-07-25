@@ -34,7 +34,7 @@ fun <T> Parameter<T>.`as`(name: String): ExpressionAlias<T> {
 
             override fun build(): QueryPart {
                 return QueryPartImpl(
-                    sqlDefinition = this@`as`.parameterInJdbcQuery,
+                    sqlDefinition = this@`as`.parameterInSql,
                     parameters = listOf(this@`as`)
                 )
             }

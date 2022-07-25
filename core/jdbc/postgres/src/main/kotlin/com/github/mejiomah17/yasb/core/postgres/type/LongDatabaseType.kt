@@ -1,12 +1,12 @@
 package com.github.mejiomah17.yasb.core.postgres.type
 
-import com.github.mejiomah17.yasb.core.DatabaseType
+import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.LongParameter
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-object LongDatabaseType : DatabaseType<Long> {
+object LongDatabaseType : JDBCDatabaseType<Long> {
     override fun extractFromResultSet(resultSet: ResultSet, index: Int): Long? {
         return resultSet.getNullable {
             resultSet.getLong(index)
