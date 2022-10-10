@@ -18,6 +18,7 @@ class PostgresColumnMetadataFactory : ColumnMetadataFactory {
             "bool" -> Bool(name, nullable)
             "float8" -> DoublePrecision(name, nullable)
             "bigserial" -> BigInt(name, nullable)
+            "int8" -> BigInt(name, nullable)
             "jsonb" -> Jsonb(name, nullable)
             else -> error("type $type is not supported yet")
         }
