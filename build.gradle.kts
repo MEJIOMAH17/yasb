@@ -1,14 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.10"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+    kotlin("jvm") version "1.8.10"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
     java
     id("maven-publish")
 }
 
 group = "com.github.mejiomah17.yasb"
-version = "0.1.0"
+version = "0.1.0-kotlin-${kotlin.coreLibrariesVersion}"
 
 repositories {
     mavenCentral()

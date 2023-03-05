@@ -3,7 +3,7 @@ package com.github.mejiomah17.yasb.dsl.generator
 import java.sql.Connection
 
 class PostgresTableMetadataFactory(
-    private val columnMetadataFactory: ColumnMetadataFactory,
+    private val columnMetadataFactory: ColumnMetadataFactory
 ) : TableMetadataFactory {
     override fun create(connection: Connection, tableName: String, schemaPattern: String?): TableMetadata {
         val columns = ResultSetIterator(connection.metaData.getColumns(null, schemaPattern, tableName, null))

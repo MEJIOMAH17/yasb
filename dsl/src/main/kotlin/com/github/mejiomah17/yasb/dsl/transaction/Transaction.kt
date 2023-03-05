@@ -14,12 +14,12 @@ import java.sql.Connection
 sealed interface Transaction {
     val connection: Connection
 
-    //TODO test
+    // TODO test
     fun commit() {
         connection.commit()
     }
 
-    //TODO test
+    // TODO test
     fun rollback() {
         connection.rollback()
     }

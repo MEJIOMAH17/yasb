@@ -54,6 +54,7 @@ interface UpdateTest<T : Table<T>> : SelectionTest<T> {
             row[columnB()] shouldBe "popqwerty"
         }
     }
+
     @Test
     fun does_not_update_values_with_where() {
         transactionFactory().repeatableRead {

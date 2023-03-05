@@ -24,7 +24,8 @@ class PostgresCountTest : CountTest<TestTable>, PostgresTest() {
                     |'the asd',
                     |'3e2220cd-e6a5-4eae-a258-6ed41e91c222',
                     |'2022-05-13 02:09:09.683195'::timestamp
-                    | )""".trimMargin()
+                    | )
+                    """.trimMargin()
                 )
             }
         }

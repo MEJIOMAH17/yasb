@@ -11,7 +11,7 @@ import com.github.mejiomah17.yasb.dsl.generator.column.Uuid
 class PostgresColumnMetadataFactory : ColumnMetadataFactory {
     override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {
         return when (type) {
-            //TODO split varchar and text
+            // TODO split varchar and text
             "text", "varchar" -> Text(name, nullable)
             "uuid" -> Uuid(name, nullable)
             "timestamp" -> Timestamp(name, nullable)

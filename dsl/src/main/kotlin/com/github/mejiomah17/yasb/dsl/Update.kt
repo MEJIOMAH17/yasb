@@ -7,11 +7,11 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-//TODO test
+// TODO test
 class Update<T : Table<T>> internal constructor(
     private val table: T,
     private val columnsToValues: Map<Column<T, *>, Any?>,
-    private val where: Expression<Boolean>?,
+    private val where: Expression<Boolean>?
 ) {
     fun buildUpdateQuery(): QueryPart {
         val parameters = mutableListOf<Parameter<*>>()
@@ -55,7 +55,7 @@ fun <T : Table<T>> update(
 
 fun <T : Table<T>> update(
     table: T,
-    set: T.(UpdateContext<T>) -> Unit,
+    set: T.(UpdateContext<T>) -> Unit
 ): Update<T> {
     val context = UpdateContext<T>()
     table.set(context)

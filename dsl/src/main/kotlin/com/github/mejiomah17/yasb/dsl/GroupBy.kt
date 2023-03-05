@@ -5,7 +5,7 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
 class GroupBy internal constructor(
     private val selectQuery: SelectQuery,
-    private val groupingElementList: GroupingElementList,
+    private val groupingElementList: GroupingElementList
 ) : GroupByClauseAndSelectQuery {
 
     override fun buildSelectQuery(): QueryForExecute {

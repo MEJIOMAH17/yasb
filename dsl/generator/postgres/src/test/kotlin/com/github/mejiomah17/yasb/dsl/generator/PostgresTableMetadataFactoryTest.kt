@@ -50,13 +50,12 @@ class PostgresTableMetadataFactoryTest {
     @Test
     fun `creates table definition`() {
         dataSource.connection.use {
-            val table = PostgresTableMetadataFactory(PostgresColumnMetadataFactory()).create(it, "test",null)
+            val table = PostgresTableMetadataFactory(PostgresColumnMetadataFactory()).create(it, "test", null)
             table.tableName shouldBe "test"
             table.columns shouldBe listOf(
                 Text("a", nullable = true),
                 Text("b", nullable = false)
             )
-
         }
     }
 }

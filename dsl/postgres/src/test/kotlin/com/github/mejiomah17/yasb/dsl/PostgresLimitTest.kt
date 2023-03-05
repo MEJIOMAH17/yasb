@@ -25,7 +25,8 @@ class PostgresLimitTest : PostgresTest() {
                     |'the asd',
                     |'3e2220cd-e6a5-4eae-a258-6ed41e91c222',
                     |'2022-05-13 02:09:09.683195'::timestamp
-                    | )""".trimMargin()
+                    | )
+                    """.trimMargin()
                 )
             }
         }
@@ -41,8 +42,6 @@ class PostgresLimitTest : PostgresTest() {
                 .sqlDefinition shouldBe "SELECT test.a FROM test LIMIT 1"
         }
     }
-
-
 
     @Test
     fun `limit 1 return single record`() {

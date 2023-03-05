@@ -43,7 +43,6 @@ class Insert<T : Table<T>> internal constructor(
             }
         }
 
-
         return QueryPartImpl(
             sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
             parameters = parameters
@@ -53,7 +52,7 @@ class Insert<T : Table<T>> internal constructor(
 
 class InsertWithReturn<T : Table<T>> internal constructor(
     private val insert: Insert<T>,
-    private val returning: Returning,
+    private val returning: Returning
 ) {
     fun buildInsertQuery(): QueryForExecute {
         val query = insert.buildInsertQuery()
@@ -65,7 +64,6 @@ class InsertWithReturn<T : Table<T>> internal constructor(
         )
     }
 }
-
 
 fun <T : Table<T>, E> insertInto(
     table: T,
@@ -129,5 +127,3 @@ internal class ColumnToValue<T : Table<T>, V>(
     val column: Column<T, V>,
     val value: V?
 )
-
-

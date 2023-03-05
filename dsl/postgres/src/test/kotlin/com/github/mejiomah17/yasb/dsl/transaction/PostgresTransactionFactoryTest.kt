@@ -7,7 +7,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
-import javax.sql.DataSource
 
 class PostgresTransactionFactoryTest : TransactionFactoryTest() {
     companion object {
@@ -42,7 +41,6 @@ class PostgresTransactionFactoryTest : TransactionFactoryTest() {
 
     override fun TransactionFactory<*>.callTransaction() {
         this.readUncommitted {
-
         }
     }
 }

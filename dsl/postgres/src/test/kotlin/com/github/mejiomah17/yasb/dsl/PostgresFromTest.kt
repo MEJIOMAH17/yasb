@@ -21,7 +21,8 @@ class PostgresFromTest : FromTest<TestTable>, PostgresTest() {
                     |'the b',
                     |'3e2220cd-e6a5-4eae-a258-6ed41e91c221',
                     |'2022-05-13 02:09:09.683194'::timestamp
-                    | )""".trimMargin()
+                    | )
+                    """.trimMargin()
                 )
             }
         }

@@ -5,7 +5,7 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
 class Limit internal constructor(
     private val selectQuery: SelectQuery,
-    private val limit: Int,
+    private val limit: Int
 ) : SelectQuery {
     override fun buildSelectQuery(): QueryForExecute {
         val query = selectQuery.buildSelectQuery()

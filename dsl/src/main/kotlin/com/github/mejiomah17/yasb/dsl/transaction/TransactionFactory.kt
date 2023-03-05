@@ -66,9 +66,8 @@ abstract class TransactionFactory<D : DatabaseDialect>(
                 result
             } catch (e: Exception) {
                 connection.rollback()
-                throw e;
+                throw e
             }
-
         }
     }
 }

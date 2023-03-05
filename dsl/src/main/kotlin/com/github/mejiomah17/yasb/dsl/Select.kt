@@ -3,10 +3,10 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.expression.Expression
 
 class Select(
-    val expressions: List<Expression<*>>,
-){
+    val expressions: List<Expression<*>>
+) {
     init {
-        require(expressions.isNotEmpty()){
+        require(expressions.isNotEmpty()) {
             "Select query should have at least 1 arg"
         }
     }

@@ -4,5 +4,5 @@ enum class JoinType {
     INNER,
     LEFT,
     RIGHT,
-    FULL,
+    FULL
 }

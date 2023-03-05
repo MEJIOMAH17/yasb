@@ -202,6 +202,3 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
         }
     }
 }
-
-
-

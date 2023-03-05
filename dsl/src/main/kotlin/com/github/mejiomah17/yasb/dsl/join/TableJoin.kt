@@ -4,15 +4,13 @@ import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.dsl.ConditionContext
-import com.github.mejiomah17.yasb.dsl.FromClause
 import com.github.mejiomah17.yasb.dsl.FromClauseAndSelectQuery
-import com.github.mejiomah17.yasb.dsl.SelectQuery
 
 class TableJoin(
     private val select: FromClauseAndSelectQuery,
     private val with: SelectionSource,
     private val joinType: JoinType,
-    private val on: Expression<Boolean>,
+    private val on: Expression<Boolean>
 ) : FromClauseAndSelectQuery {
     override fun buildSelectQuery(): QueryForExecute {
         val selectQuery = select.buildSelectQuery()

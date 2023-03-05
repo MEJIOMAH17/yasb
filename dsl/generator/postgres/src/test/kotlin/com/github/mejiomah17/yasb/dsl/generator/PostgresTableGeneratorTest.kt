@@ -55,7 +55,7 @@ class PostgresTableGeneratorTest {
                 "com.github.mejiomah17"
             ).run {
                 content shouldBe
-                        """
+                    """
                             package com.github.mejiomah17
 
                             object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
@@ -64,7 +64,7 @@ class PostgresTableGeneratorTest {
                                 val b = text("b")
                             }
 
-                        """.trimIndent()
+                    """.trimIndent()
                 fileName shouldBe "TestTable.kt"
             }
         }
