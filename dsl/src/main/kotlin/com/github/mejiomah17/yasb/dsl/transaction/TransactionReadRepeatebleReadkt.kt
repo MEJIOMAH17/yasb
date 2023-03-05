@@ -2,12 +2,13 @@ package com.github.mejiomah17.yasb.dsl.transaction
 
 import java.sql.Connection
 
-interface AtLeastRepeatableRead : AtLeastReadCommitted
+interface TransactionAtLeastRepeatableRead : TransactionAtLeastReadCommitted
 
-interface TransactionRepeatableRead : Transaction, AtLeastRepeatableRead {
+interface TransactionRepeatableReadTransaction : TransactionAtLeastRepeatableRead {
     companion object {
         val jdbcLevel = Connection.TRANSACTION_REPEATABLE_READ
     }
 }
 
-internal class TransactionRepeatableReadImpl(override val connection: Connection) : TransactionRepeatableRead
+internal class TransactionRepeatableReadImplTransaction(override val connection: Connection) :
+    TransactionRepeatableReadTransaction

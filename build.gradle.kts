@@ -67,6 +67,10 @@ allprojects {
     }
 }
 
+tasks.build.configure {
+    dependsOn(tasks.ktlintFormat)
+}
+
 fun Project.name(): String {
     val projects = arrayListOf<Project>()
     var project = this

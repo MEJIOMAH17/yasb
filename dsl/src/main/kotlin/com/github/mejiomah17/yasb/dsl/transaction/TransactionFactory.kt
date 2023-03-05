@@ -10,31 +10,31 @@ abstract class TransactionFactory<D : DatabaseDialect>(
     abstract fun dialect(): D
 
     fun <T> readUncommitted(
-        block: context(D) TransactionReadUncommitted.() -> T
+        block: context(D) TransactionReadUncommittedTransaction.() -> T
     ): T {
         return transaction(
-            creator = { TransactionReadUncommittedImpl(it) },
-            jdbcLevel = TransactionReadUncommitted.jdbcLevel,
+            creator = { TransactionReadUncommittedImplTransaction(it) },
+            jdbcLevel = TransactionReadUncommittedTransaction.jdbcLevel,
             block = block
         )
     }
 
     fun <T> readCommitted(
-        block: context(D) TransactionReadCommitted.() -> T
+        block: context(D) TransactionReadCommittedTransaction.() -> T
     ): T {
         return transaction(
-            creator = { TransactionReadCommittedImpl(it) },
-            jdbcLevel = TransactionReadCommitted.jdbcLevel,
+            creator = { TransactionReadCommittedImplTransaction(it) },
+            jdbcLevel = TransactionReadCommittedTransaction.jdbcLevel,
             block = block
         )
     }
 
     fun <T> repeatableRead(
-        block: context(D) TransactionRepeatableRead.() -> T
+        block: context(D) TransactionRepeatableReadTransaction.() -> T
     ): T {
         return transaction(
-            creator = { TransactionRepeatableReadImpl(it) },
-            jdbcLevel = TransactionRepeatableRead.jdbcLevel,
+            creator = { TransactionRepeatableReadImplTransaction(it) },
+            jdbcLevel = TransactionRepeatableReadTransaction.jdbcLevel,
             block = block
         )
     }

@@ -2,12 +2,13 @@ package com.github.mejiomah17.yasb.dsl.transaction
 
 import java.sql.Connection
 
-interface AtLeastReadCommitted : AtLeastReadUncommitted
+interface TransactionAtLeastReadCommitted : TransactionAtLeastReadUncommitted
 
-interface TransactionReadCommitted : Transaction, AtLeastReadCommitted {
+interface TransactionReadCommittedTransaction : TransactionAtLeastReadCommitted {
     companion object {
         val jdbcLevel = Connection.TRANSACTION_READ_COMMITTED
     }
 }
 
-internal class TransactionReadCommittedImpl(override val connection: Connection) : TransactionReadCommitted
+internal class TransactionReadCommittedImplTransaction(override val connection: Connection) :
+    TransactionReadCommittedTransaction
