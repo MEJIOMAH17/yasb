@@ -4,11 +4,11 @@ import java.sql.Connection
 
 interface TransactionAtLeastReadUncommitted : Transaction
 
-interface TransactionReadUncommittedTransaction : TransactionAtLeastReadUncommitted {
+interface TransactionReadUncommitted : TransactionAtLeastReadUncommitted {
     companion object {
         val jdbcLevel = Connection.TRANSACTION_READ_UNCOMMITTED
     }
 }
 
-internal class TransactionReadUncommittedImplTransaction(override val connection: Connection) :
-    TransactionReadUncommittedTransaction
+internal class ImplTransactionReadUncommitted(override val connection: Connection) :
+    TransactionReadUncommitted
