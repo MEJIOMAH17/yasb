@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.github.mejiomah17.yasb"
-version = "0.2.0-kotlin-${kotlin.coreLibrariesVersion}"
+version = "0.3.0-kotlin-${kotlin.coreLibrariesVersion}"
 
 repositories {
     mavenCentral()
