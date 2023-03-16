@@ -6,14 +6,14 @@ plugins {
     java
     id("maven-publish")
 }
-
 group = "com.github.mejiomah17.yasb"
-version = "0.3.0-kotlin-${kotlin.coreLibrariesVersion}"
+version = "0.4.0-kotlin-${kotlin.coreLibrariesVersion}"
 
 repositories {
     mavenCentral()
 }
-allprojects {
+
+subprojects {
     repositories {
         mavenCentral()
         maven {
@@ -69,14 +69,4 @@ allprojects {
 
 tasks.build.configure {
     dependsOn(tasks.ktlintFormat)
-}
-
-fun Project.name(): String {
-    val projects = arrayListOf<Project>()
-    var project = this
-    while (project != rootProject) {
-        projects.add(project)
-        project = project.parent!!
-    }
-    return projects.asReversed().map { it.name }.joinToString("-")
 }

@@ -7,5 +7,6 @@ include(
     "dsl:postgres",
     "dsl:generator",
     "dsl:generator:flyway",
-    "dsl:generator:postgres"
+    "dsl:generator:postgres",
+    "gradle-plugin"
 )

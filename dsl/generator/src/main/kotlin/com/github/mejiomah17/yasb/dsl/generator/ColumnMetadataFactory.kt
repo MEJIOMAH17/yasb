@@ -1,5 +1,7 @@
 package com.github.mejiomah17.yasb.dsl.generator
 
-interface ColumnMetadataFactory {
+import java.io.Serializable
+
+interface ColumnMetadataFactory : Serializable {
     fun create(name: String, type: String, nullable: Boolean): ColumnMetadata
 }
