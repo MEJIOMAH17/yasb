@@ -10,3 +10,8 @@ include(
     "dsl:generator:postgres",
     "gradle-plugin"
 )
+pluginManagement {
+    plugins {
+        kotlin("jvm").version(extra["kotlin.version"] as String)
+    }
+}

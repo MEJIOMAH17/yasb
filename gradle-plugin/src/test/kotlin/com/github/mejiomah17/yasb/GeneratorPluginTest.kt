@@ -6,6 +6,7 @@ import io.kotest.matchers.shouldBe
 import org.gradle.internal.impldep.org.junit.rules.TemporaryFolder
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.random.Random
 
 class GeneratorPluginTest {
@@ -61,7 +62,7 @@ class GeneratorPluginTest {
             }
             tasks.withType<GenerateTablesTask> {
                 packageName = "$packageName"
-                flywayMigrationDirs.add(File("${migrationsDir.root}"))
+                flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
             }  
             """.trimIndent()
         )
@@ -107,7 +108,7 @@ class GeneratorPluginTest {
             }
             tasks.withType<GenerateTablesTask> {
                 packageName = "$packageName"
-                flywayMigrationDirs.add(File("${migrationsDir.root}"))
+                flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
             }
             """.trimIndent()
         ) {
@@ -170,5 +171,13 @@ class GeneratorPluginTest {
         dir.create()
         dir.block()
         return dir
+    }
+
+    private fun File.escapedPath(): String {
+        return if (System.getProperty("os.name").lowercase().contains("windows")) {
+            path.replace("\\", "/")
+        } else {
+            path
+        }
     }
 }
