@@ -7,8 +7,8 @@ include(
     "dsl:test-fixtures",
     "dsl:postgres",
     "dsl:generator",
-    "dsl:generator:flyway"
-//    "dsl:generator:postgres",
+    "dsl:generator:flyway",
+    "dsl:generator:postgres"
 //    "gradle-plugin"
 )
 pluginManagement {
