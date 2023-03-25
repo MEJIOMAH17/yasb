@@ -7,7 +7,7 @@ plugins {
     id("maven-publish")
 }
 group = "com.github.mejiomah17.yasb"
-version = "0.4.0-kotlin-${project.property("kotlin.version")}"
+version = "0.5.0-kotlin-${project.property("kotlin.version")}"
 
 repositories {
     mavenCentral()

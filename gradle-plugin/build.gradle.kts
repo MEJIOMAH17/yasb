@@ -21,6 +21,7 @@ tasks.withType<Test>() {
     dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
 }
 val pluginName = "${rootProject.group}.${name()}"
+version = rootProject.version
 gradlePlugin {
     plugins {
         create(pluginName) {
