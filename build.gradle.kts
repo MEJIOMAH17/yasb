@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform") apply false
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
     java
     id("maven-publish")
 }
 group = "com.github.mejiomah17.yasb"
-version = "0.4.0-kotlin-${kotlin.coreLibrariesVersion}"
+version = "0.4.0-kotlin-${extra["kotlin.version"]}"
 
 repositories {
     mavenCentral()
@@ -28,7 +28,8 @@ subprojects {
     }
 
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
-    apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
+    apply(plugin = "org.jetbrains.kotlin.multiplatform")
+//        apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
     if (!name().contains("generator")) {
         tasks.withType<KotlinCompile>() {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
