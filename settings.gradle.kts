@@ -5,8 +5,8 @@ include(
     "core:jdbc:postgres",
     "dsl",
     "dsl:test-fixtures",
-    "dsl:postgres"
-//    "dsl:generator",
+    "dsl:postgres",
+    "dsl:generator"
 //    "dsl:generator:flyway",
 //    "dsl:generator:postgres",
 //    "gradle-plugin"
