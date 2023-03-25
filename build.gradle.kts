@@ -7,7 +7,7 @@ plugins {
     id("maven-publish")
 }
 group = "com.github.mejiomah17.yasb"
-version = "0.4.0-kotlin-${extra["kotlin.version"]}"
+version = "0.4.0-kotlin-${project.property("kotlin.version")}"
 
 repositories {
     mavenCentral()
@@ -28,7 +28,9 @@ subprojects {
     }
 
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
-    apply(plugin = "org.jetbrains.kotlin.multiplatform")
+    if (project != project(":gradle-plugin")) {
+        apply(plugin = "org.jetbrains.kotlin.multiplatform")
+    }
 //        apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
     if (!name().contains("generator")) {
         tasks.withType<KotlinCompile>() {

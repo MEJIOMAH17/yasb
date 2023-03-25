@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
+    kotlin("jvm")
 }
 dependencies {
     implementation(project(":dsl:generator:flyway"))
@@ -13,11 +14,11 @@ dependencies {
 }
 tasks.withType<Test>() {
     useJUnitPlatform()
-    dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
+//    dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
+//    dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
+//    dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
+//    dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
+//    dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
 }
 val pluginName = "${rootProject.group}.${name()}"
 gradlePlugin {
@@ -35,10 +36,11 @@ val generateVersion = tasks.register("generateVersion") {
     doLast {
         generated.resolve("Version.kt").writeText(
             """
-            object Version{
-             val yasbVersion = "${rootProject.version}"
-             val kotlinVersion = "${kotlin.coreLibrariesVersion}"
+            object Version {
+                val yasbVersion = "${rootProject.version}"
+                val kotlinVersion = "${kotlin.coreLibrariesVersion}"
             }
+            
             """.trimIndent()
         )
     }

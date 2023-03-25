@@ -8,8 +8,8 @@ include(
     "dsl:postgres",
     "dsl:generator",
     "dsl:generator:flyway",
-    "dsl:generator:postgres"
-//    "gradle-plugin"
+    "dsl:generator:postgres",
+    "gradle-plugin"
 )
 pluginManagement {
     plugins {
