@@ -12,8 +12,28 @@ version = "0.4.0-kotlin-${project.property("kotlin.version")}"
 repositories {
     mavenCentral()
 }
+val jvmProjects = setOf(project(":gradle-plugin"))
+val mppProjects = subprojects - jvmProjects
+val projectsWithPublication = subprojects - project(":dsl:test-fixtures")
 
 subprojects {
+    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
+    configureRepositories()
+    if (!name().contains("generator")) {
+        tasks.withType<KotlinCompile>() {
+            this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
+        }
+    }
+    if (project in jvmProjects) {
+        apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
+    } else if (project in mppProjects) {
+        project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
+    }
+    if (project in projectsWithPublication) {
+        configurePublication()
+    }
+}
+fun Project.configureRepositories() {
     repositories {
         mavenCentral()
         maven {
@@ -26,48 +46,57 @@ subprojects {
             }
         }
     }
+}
 
-    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
-    if (project != project(":gradle-plugin")) {
-        apply(plugin = "org.jetbrains.kotlin.multiplatform")
-    }
-//        apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
-    if (!name().contains("generator")) {
-        tasks.withType<KotlinCompile>() {
-            this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
+fun Project.configurePublication() {
+    apply<MavenPublishPlugin>()
+    publishing {
+        repositories {
+            maven {
+                url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
+                credentials {
+                    val githubToken: String by project
+                    val githubUser: String by project
+
+                    username = githubUser
+                    password = githubToken
+                }
+            }
+        }
+        if (project in jvmProjects) {
+            java {
+                withSourcesJar()
+            }
+            publications {
+                create<MavenPublication>("maven") {
+                    from(components["java"])
+                    this.groupId = rootProject.group.toString()
+                    this.artifactId = project.name()
+                    this.version = rootProject.version.toString()
+                }
+            }
+        } else if (project in mppProjects) {
+            project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+                publications {
+                    val publicationsFromMainHost =
+                        listOf(jvm()).map { it.name } + "kotlinMultiplatform"
+                    matching { it.name in publicationsFromMainHost }.all {
+                        val targetPublication = this@all
+                        tasks.withType<AbstractPublishToMaven>()
+                            .matching { it.publication == targetPublication }
+                            .configureEach {
+//                                onlyIf { findProperty("isMainHost") == "true" }
+                                publication.run {
+                                    groupId = rootProject.group.toString()
+                                    artifactId = artifactId.replace(project.name, project.name())
+                                    version = rootProject.version.toString()
+                                }
+                            }
+                    }
+                }
+            }
         }
     }
-//    if (this != rootProject) {
-//        apply<MavenPublishPlugin>()
-//        apply<JavaPlugin>()
-//        java {
-//            withSourcesJar()
-//        }
-//        afterEvaluate {
-//            publishing {
-//                repositories {
-//                    maven {
-//                        url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
-//                        credentials {
-//                            val githubToken: String by project
-//                            val githubUser: String by project
-//
-//                            username = githubUser
-//                            password = githubToken
-//                        }
-//                    }
-//                }
-//                publications {
-//                    create<MavenPublication>("maven") {
-//                        from(components["java"])
-//                        this.groupId = rootProject.group.toString()
-//                        this.artifactId = project.name()
-//                        this.version = rootProject.version.toString()
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 tasks.build.configure {

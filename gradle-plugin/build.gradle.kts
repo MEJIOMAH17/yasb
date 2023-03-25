@@ -14,11 +14,11 @@ dependencies {
 }
 tasks.withType<Test>() {
     useJUnitPlatform()
-//    dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
-//    dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
-//    dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
-//    dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
-//    dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
 }
 val pluginName = "${rootProject.group}.${name()}"
 gradlePlugin {

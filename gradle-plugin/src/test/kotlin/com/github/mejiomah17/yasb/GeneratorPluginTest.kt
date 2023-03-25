@@ -58,7 +58,7 @@ class GeneratorPluginTest {
                 mavenCentral()
             }
             dependencies {
-                implementation("com.github.mejiomah17.yasb:dsl-postgres:${Version.yasbVersion}")
+                implementation("com.github.mejiomah17.yasb:dsl-postgres-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
                 packageName = "$packageName"
@@ -104,7 +104,7 @@ class GeneratorPluginTest {
                 mavenCentral()
             }
             dependencies {
-                implementation("com.github.mejiomah17.yasb:dsl-postgres:${Version.yasbVersion}")
+                implementation("com.github.mejiomah17.yasb:dsl-postgres-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
                 packageName = "$packageName"
