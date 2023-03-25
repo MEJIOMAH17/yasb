@@ -1,7 +1,7 @@
 rootProject.name = "yasb"
 include(
-    "core"
-//    "core:jdbc",
+    "core",
+    "core:jdbc"
 //    "core:jdbc:postgres",
 //    "dsl",
 //    "dsl:postgres",

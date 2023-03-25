@@ -35,37 +35,37 @@ subprojects {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
         }
     }
-    if (this != rootProject) {
-        apply<MavenPublishPlugin>()
-        apply<JavaPlugin>()
-        java {
-            withSourcesJar()
-        }
-        afterEvaluate {
-            publishing {
-                repositories {
-                    maven {
-                        url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
-                        credentials {
-                            val githubToken: String by project
-                            val githubUser: String by project
-
-                            username = githubUser
-                            password = githubToken
-                        }
-                    }
-                }
-                publications {
-                    create<MavenPublication>("maven") {
-                        from(components["java"])
-                        this.groupId = rootProject.group.toString()
-                        this.artifactId = project.name()
-                        this.version = rootProject.version.toString()
-                    }
-                }
-            }
-        }
-    }
+//    if (this != rootProject) {
+//        apply<MavenPublishPlugin>()
+//        apply<JavaPlugin>()
+//        java {
+//            withSourcesJar()
+//        }
+//        afterEvaluate {
+//            publishing {
+//                repositories {
+//                    maven {
+//                        url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
+//                        credentials {
+//                            val githubToken: String by project
+//                            val githubUser: String by project
+//
+//                            username = githubUser
+//                            password = githubToken
+//                        }
+//                    }
+//                }
+//                publications {
+//                    create<MavenPublication>("maven") {
+//                        from(components["java"])
+//                        this.groupId = rootProject.group.toString()
+//                        this.artifactId = project.name()
+//                        this.version = rootProject.version.toString()
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 tasks.build.configure {
