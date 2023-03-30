@@ -1,5 +1,8 @@
+@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
+
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
@@ -65,6 +68,11 @@ class InsertWithReturn<T : Table<T>> internal constructor(
     }
 }
 
+/**
+ * SupportInsertWithDefaultValue - [block] could skip column initialization.
+ * Yasb asks database use default value for skipped columns. Consequently, database should support default values
+ */
+context(SupportsInsertWithDefaultValue)
 fun <T : Table<T>, E> insertInto(
     table: T,
     source: Iterable<E>,
@@ -94,9 +102,13 @@ fun <T : Table<T>> insertInto(
     table: T,
     block: T.(InsertContext<T>) -> Unit
 ): Insert<T> {
-    return insertInto(table, listOf(1)) { context, _ ->
-        block(context)
+    val columns = mutableMapOf<Column<T, *>, List<Any?>>()
+    val insertContext = InsertContext<T>()
+    block(table, insertContext)
+    insertContext.columns.forEach { (column, value) ->
+        columns[column] = listOf(value)
     }
+    return Insert(table, columns)
 }
 
 fun <T : Table<T>> insertInto(
@@ -107,6 +119,11 @@ fun <T : Table<T>> insertInto(
     return InsertWithReturn(insertInto(table, block), returning)
 }
 
+/**
+ * SupportInsertWithDefaultValue - [block] could skip column initialization.
+ * Yasb asks database use default value for skipped columns. Consequently, database should support default values
+ */
+context(SupportsInsertWithDefaultValue)
 fun <T : Table<T>, E> insertInto(
     table: T,
     returning: Returning,
@@ -122,8 +139,3 @@ class InsertContext<T : Table<T>> {
         columns[column] = value
     }
 }
-
-internal class ColumnToValue<T : Table<T>, V>(
-    val column: Column<T, V>,
-    val value: V?
-)

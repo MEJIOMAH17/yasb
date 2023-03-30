@@ -1,3 +1,4 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -20,7 +21,7 @@ subprojects {
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
     configureRepositories()
     if (!name().contains("generator")) {
-        tasks.withType<KotlinCompile>() {
+        tasks.withType<KotlinCompile>().all {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
         }
     }
@@ -28,6 +29,13 @@ subprojects {
         apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
     } else if (project in mppProjects) {
         project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
+        project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+            afterEvaluate {
+                tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon>() {
+                    this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
+                }
+            }
+        }
     }
     if (project in projectsWithPublication) {
         configurePublication()
