@@ -11,6 +11,7 @@ include(
     "dsl:generator",
     "dsl:generator:flyway",
     "dsl:generator:postgres",
+    "dsl:generator:sqlite",
     "gradle-plugin"
 )
 pluginManagement {
