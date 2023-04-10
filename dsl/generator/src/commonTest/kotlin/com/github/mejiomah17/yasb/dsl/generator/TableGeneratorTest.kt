@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yasb.dsl.generator
 
+import com.github.mejiomah17.yasb.core.ddl.Table
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
@@ -9,6 +10,7 @@ class TableGeneratorTest {
         TableGenerator().generateTable(
             table = TableMetadata(
                 tableName = "test",
+                tableClass = Table::class,
                 columns = listOf(
                     TestColumn("x"),
                     TestColumn("y")
@@ -19,7 +21,7 @@ class TableGeneratorTest {
             content shouldBe """
                         package com.github.mejiomah17
 
-                        object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                        object TestTable : com.github.mejiomah17.yasb.core.ddl.Table<TestTable> {
                             override val tableName = "test"
                             val x = 42
                             val y = 42
@@ -35,6 +37,7 @@ class TableGeneratorTest {
         val result = TableGenerator().generateTable(
             table = TableMetadata(
                 tableName = "test_table",
+                tableClass = Table::class,
                 columns = listOf(
                     TestColumn("x"),
                     TestColumn("y")
@@ -46,7 +49,7 @@ class TableGeneratorTest {
         result.content shouldBe """
                     package com.github.mejiomah17
 
-                    object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                    object TestTable : com.github.mejiomah17.yasb.core.ddl.Table<TestTable> {
                         override val tableName = "test_table"
                         val x = 42
                         val y = 42

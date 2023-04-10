@@ -1,6 +1,6 @@
-package com.github.mejiomah17.yasb.dsl.generator
+package com.github.mejiomah17.yasb.dsl.generator.postgres
 
-import com.github.mejiomah17.yasb.dsl.generator.column.Text
+import com.github.mejiomah17.yasb.dsl.generator.TableGenerator
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class PostgresTableMetadataFactoryTest {
+class PostgresTableGeneratorTest {
     companion object {
         lateinit var dataSource: HikariDataSource
         lateinit var container: PostgresContainer
@@ -48,14 +48,26 @@ class PostgresTableMetadataFactoryTest {
     }
 
     @Test
-    fun `creates table definition`() {
+    fun `generates correct table definition`() {
         dataSource.connection.use {
-            val table = PostgresTableMetadataFactory(PostgresColumnMetadataFactory()).create(it, "test", null)
-            table.tableName shouldBe "test"
-            table.columns shouldBe listOf(
-                Text("a", nullable = true),
-                Text("b", nullable = false)
-            )
+            TableGenerator().generateTable(
+                PostgresTableMetadataFactory(PostgresColumnMetadataFactory())
+                    .create(it, "test", schemaPattern = null),
+                "com.github.mejiomah17"
+            ).run {
+                content shouldBe
+                    """
+                            package com.github.mejiomah17
+
+                            object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                                override val tableName = "test"
+                                val a = textNullable("a")
+                                val b = text("b")
+                            }
+
+                    """.trimIndent()
+                fileName shouldBe "TestTable.kt"
+            }
         }
     }
 }

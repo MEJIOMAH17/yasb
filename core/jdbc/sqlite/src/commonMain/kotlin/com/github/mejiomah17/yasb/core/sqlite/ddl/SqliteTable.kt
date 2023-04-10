@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb.core.sqlite.ddl
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.sqlite.type.BooleanDatabaseType
+import com.github.mejiomah17.yasb.core.sqlite.type.LongDatabaseType
 import com.github.mejiomah17.yasb.core.sqlite.type.TextDatabaseType
 
 interface SqliteTable<T : SqliteTable<T>> : Table<T> {
@@ -20,5 +21,12 @@ interface SqliteTable<T : SqliteTable<T>> : Table<T> {
 
     fun boolNullable(name: String): Column<T, Boolean?> {
         return registerNullable(Column(name, this, BooleanDatabaseType))
+    }
+
+    fun long(name: String): Column<T, Long> {
+        return register(Column(name, this, LongDatabaseType))
+    }
+    fun longNullable(name: String): Column<T, Long?> {
+        return registerNullable(Column(name, this, LongDatabaseType))
     }
 }

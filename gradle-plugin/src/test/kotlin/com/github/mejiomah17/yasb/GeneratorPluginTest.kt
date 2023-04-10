@@ -6,6 +6,8 @@ import io.kotest.matchers.shouldBe
 import org.gradle.internal.impldep.org.junit.rules.TemporaryFolder
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 import java.io.File
 import kotlin.random.Random
 
@@ -40,8 +42,9 @@ class GeneratorPluginTest {
         runBuild(projectDir)
     }
 
-    @Test
-    fun `generates table definition`() {
+    @ParameterizedTest
+    @EnumSource(DB::class)
+    fun `generates table definition`(db: DB) {
         val migrationsDir = createMigration()
         val packageName = (0..5).joinToString(".") {
             Random.nextString()
@@ -59,8 +62,10 @@ class GeneratorPluginTest {
             }
             dependencies {
                 implementation("com.github.mejiomah17.yasb:dsl-postgres-jvm:${Version.yasbVersion}")
+                implementation("com.github.mejiomah17.yasb:dsl-sqlite-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
+                database = ${db.gradleDeclaration}
                 packageName = "$packageName"
                 flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
             }  
@@ -76,7 +81,7 @@ class GeneratorPluginTest {
             """
                 package $packageName
 
-                object TestTable : com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable<TestTable> {
+                object TestTable : ${db.tableSuperClass}<TestTable> {
                     override val tableName = "test"
                     val a = textNullable("a")
                     val b = text("b")
@@ -86,8 +91,9 @@ class GeneratorPluginTest {
         )
     }
 
-    @Test
-    fun `build can use generated code`() {
+    @ParameterizedTest
+    @EnumSource(DB::class)
+    fun `build can use generated code`(db: DB) {
         val migrationsDir = createMigration()
         val packageName = (0..5).joinToString(".") {
             Random.nextString()
@@ -105,8 +111,10 @@ class GeneratorPluginTest {
             }
             dependencies {
                 implementation("com.github.mejiomah17.yasb:dsl-postgres-jvm:${Version.yasbVersion}")
+                implementation("com.github.mejiomah17.yasb:dsl-sqlite-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
+                database = ${db.gradleDeclaration}
                 packageName = "$packageName"
                 flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
             }
@@ -179,5 +187,10 @@ class GeneratorPluginTest {
         } else {
             path
         }
+    }
+
+    enum class DB(val gradleDeclaration: String, val tableSuperClass: String) {
+        Postgres("com.github.mejiomah17.yasb.Database.Postgres()", "com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable"),
+        Sqlite("com.github.mejiomah17.yasb.Database.Sqlite()", "com.github.mejiomah17.yasb.core.sqlite.ddl.SqliteTable");
     }
 }

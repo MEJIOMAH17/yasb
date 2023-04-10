@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.generator
+package com.github.mejiomah17.yasb.dsl.generator.postgres
 
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName

@@ -1,6 +1,5 @@
 package com.github.mejiomah17.yasb
 
-import com.github.mejiomah17.yasb.Database.Postgres
 import com.github.mejiomah17.yasb.generator.flyway.FlywayGenerator
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -12,7 +11,8 @@ import java.io.File
 
 open class GenerateTablesTask : DefaultTask() {
     @Input
-    protected var database: Database = Postgres()
+    @Optional
+    var database: Database? = null
 
     @Input
     var packageName: String = "database"
@@ -32,18 +32,23 @@ open class GenerateTablesTask : DefaultTask() {
 
     @TaskAction
     internal open fun run() {
-        database.datasource().use { datasource ->
-            FlywayGenerator.generate(
-                datasource = datasource,
-                tableMetadataFactory = database.tableMetadataFactory,
-                targetDir = targetDir,
-                packageName = packageName,
-                schemaPattern = schemaPattern,
-                locations = flywayMigrationDirs.map {
-                    "filesystem:${it.absolutePath}"
-                },
-                tablesFilter = tablesFilter
-            )
+        val db = database
+        if (db != null) {
+            db.datasource().use { datasource ->
+                FlywayGenerator.generate(
+                    datasource = datasource,
+                    tableMetadataFactory = db.tableMetadataFactory,
+                    targetDir = targetDir,
+                    packageName = packageName,
+                    schemaPattern = schemaPattern,
+                    locations = flywayMigrationDirs.map {
+                        "filesystem:${it.absolutePath}"
+                    },
+                    tablesFilter = tablesFilter
+                )
+            }
+        } else {
+            logger.warn("${this::database.name} property is null. Task do not do anything")
         }
     }
 }

@@ -1,12 +1,14 @@
-package com.github.mejiomah17.yasb.dsl.generator
+package com.github.mejiomah17.yasb.dsl.generator.postgres
 
-import com.github.mejiomah17.yasb.dsl.generator.column.BigInt
-import com.github.mejiomah17.yasb.dsl.generator.column.Bool
-import com.github.mejiomah17.yasb.dsl.generator.column.DoublePrecision
-import com.github.mejiomah17.yasb.dsl.generator.column.Jsonb
-import com.github.mejiomah17.yasb.dsl.generator.column.Text
-import com.github.mejiomah17.yasb.dsl.generator.column.Timestamp
-import com.github.mejiomah17.yasb.dsl.generator.column.Uuid
+import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadata
+import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.BigInt
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.Bool
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.DoublePrecision
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.Jsonb
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.Text
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.Timestamp
+import com.github.mejiomah17.yasb.dsl.generator.postgres.column.Uuid
 
 class PostgresColumnMetadataFactory : ColumnMetadataFactory {
     override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {

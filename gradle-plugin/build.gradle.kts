@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(project(":dsl:generator:flyway"))
     implementation(project(":dsl:generator:postgres"))
+    implementation(project(":dsl:generator:sqlite"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     testImplementation("io.kotest:kotest-assertions-core:5.2.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
@@ -15,7 +16,9 @@ dependencies {
 tasks.withType<Test>() {
     useJUnitPlatform()
     dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":dsl:sqlite").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":core:jdbc:sqlite").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))

@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.generator.column
+package com.github.mejiomah17.yasb.dsl.generator.postgres.column
 
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadata
 import com.github.mejiomah17.yasb.dsl.generator.toCamelCase
