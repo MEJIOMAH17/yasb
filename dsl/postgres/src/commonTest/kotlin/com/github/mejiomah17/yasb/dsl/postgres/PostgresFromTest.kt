@@ -5,7 +5,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.FromTest
 import com.github.mejiomah17.yasb.dsl.from
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.select
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
@@ -47,8 +47,8 @@ class PostgresFromTest : FromTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 
     @Test

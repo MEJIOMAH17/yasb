@@ -1,6 +1,6 @@
 package com.github.mejiomah17.yasb.dsl.generator.postgres
 
-import com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable
+import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcTable
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadata
@@ -22,7 +22,7 @@ open class PostgresTableMetadataFactory(
             }.toList()
         return TableMetadata(
             tableName,
-            PostgresTable::class,
+            PostgresJdbcTable::class,
             columns
         )
     }

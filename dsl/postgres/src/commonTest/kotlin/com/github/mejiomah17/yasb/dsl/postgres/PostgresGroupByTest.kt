@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.GroupByTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
@@ -48,7 +48,7 @@ class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 }

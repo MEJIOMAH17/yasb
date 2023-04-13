@@ -2,7 +2,6 @@ rootProject.name = "yasb"
 include(
     "core",
     "core:jdbc",
-    "core:jdbc:postgres",
     "dsl",
     "dsl:test-fixtures",
     "dsl:postgres",
@@ -13,6 +12,8 @@ include(
     "database:sqlite:android",
     "database:sqlite:jdbc",
     "database:sqlite:jdbc:generator",
+    "database:postgres",
+    "database:postgres:jdbc",
     "gradle-plugin"
 )
 pluginManagement {

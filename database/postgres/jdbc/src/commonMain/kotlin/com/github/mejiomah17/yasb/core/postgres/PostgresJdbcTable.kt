@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.postgres.ddl
+package com.github.mejiomah17.yasb.core.postgres
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
@@ -12,7 +12,7 @@ import com.github.mejiomah17.yasb.core.postgres.type.UuidDatabaseType
 import java.sql.Timestamp
 import java.util.UUID
 
-interface PostgresTable<T : PostgresTable<T>> : Table<T> {
+interface PostgresJdbcTable<T : PostgresJdbcTable<T>> : Table<T> {
     fun text(name: String): Column<T, String> {
         return register(Column(name, this, TextDatabaseType))
     }

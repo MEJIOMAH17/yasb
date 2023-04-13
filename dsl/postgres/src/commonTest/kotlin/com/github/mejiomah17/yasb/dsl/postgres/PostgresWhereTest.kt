@@ -7,7 +7,7 @@ import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.WhereTest
 import com.github.mejiomah17.yasb.dsl.eq
 import com.github.mejiomah17.yasb.dsl.from
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.select
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -93,7 +93,7 @@ class PostgresWhereTest : WhereTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 }

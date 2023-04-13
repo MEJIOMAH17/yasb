@@ -3,11 +3,11 @@ package com.github.mejiomah17.yasb.dsl.postgres.join
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.postgres.PostgresDatabaseDialect
-import com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable
+import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcDatabaseDialect
+import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcTable
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.dsl.postgres.PostgresTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, PostgresTest() {
@@ -43,23 +43,23 @@ class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, 
 
     override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
 
-    override fun transactionFactory(): PostgresTransactionFactory = PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
 
-    override fun dialect(): DatabaseDialect = PostgresDatabaseDialect
+    override fun dialect(): DatabaseDialect = PostgresJdbcDatabaseDialect
 
-    object FirstTable : PostgresTable<FirstTable> {
+    object FirstTable : PostgresJdbcTable<FirstTable> {
         override val tableName: String = "FIRST"
         val a = text("A")
         val b = text("B")
     }
 
-    object SecondTable : PostgresTable<SecondTable> {
+    object SecondTable : PostgresJdbcTable<SecondTable> {
         override val tableName: String = "SECOND"
         val a = text("A")
         val b = text("B")
     }
 
-    object ThirdTable : PostgresTable<ThirdTable> {
+    object ThirdTable : PostgresJdbcTable<ThirdTable> {
         override val tableName: String = "THIRD"
         val a = text("A")
         val b = text("B")

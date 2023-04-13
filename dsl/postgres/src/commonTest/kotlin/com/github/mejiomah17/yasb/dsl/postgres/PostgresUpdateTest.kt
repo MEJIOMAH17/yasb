@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.UpdateTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresUpdateTest : UpdateTest<TestTable>, PostgresTest() {
@@ -33,7 +33,7 @@ class PostgresUpdateTest : UpdateTest<TestTable>, PostgresTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 }

@@ -10,7 +10,7 @@ import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 
-class PostgresTransactionFactoryTest : TransactionFactoryTest() {
+class PostgresJdbcTransactionFactoryTest : TransactionFactoryTest() {
     companion object {
         lateinit var dataSource: HikariDataSource
         lateinit var container: PostgresContainer
@@ -37,8 +37,8 @@ class PostgresTransactionFactoryTest : TransactionFactoryTest() {
         }
     }
 
-    override fun createTransactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun createTransactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 
     override fun TransactionFactory<*>.callTransaction() {

@@ -1,12 +1,12 @@
 package com.github.mejiomah17.yasb.dsl.postgres
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.postgres.PostgresDatabaseDialect
+import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.dsl.LimitTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresTransactionFactory
+import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import org.junit.jupiter.api.BeforeEach
 
-class PostgresLimitTest : LimitTest<TestTable, PostgresTransactionFactory, PostgresDatabaseDialect>, PostgresTest() {
+class PostgresLimitTest : LimitTest<TestTable, PostgresJdbcTransactionFactory, PostgresJdbcDatabaseDialect>, PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -31,8 +31,8 @@ class PostgresLimitTest : LimitTest<TestTable, PostgresTransactionFactory, Postg
         }
     }
 
-    override fun transactionFactory(): PostgresTransactionFactory {
-        return PostgresTransactionFactory(dataSource)
+    override fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
     }
 
     override fun tableTest(): TestTable {
