@@ -3,7 +3,6 @@ include(
     "core",
     "core:jdbc",
     "core:jdbc:postgres",
-    "core:jdbc:sqlite",
     "dsl",
     "dsl:test-fixtures",
     "dsl:postgres",
@@ -12,6 +11,9 @@ include(
     "dsl:generator:flyway",
     "dsl:generator:postgres",
     "dsl:generator:sqlite",
+    "database:sqlite",
+    "database:sqlite:jdbc",
+    "database:sqlite:android",
     "gradle-plugin"
 )
 pluginManagement {

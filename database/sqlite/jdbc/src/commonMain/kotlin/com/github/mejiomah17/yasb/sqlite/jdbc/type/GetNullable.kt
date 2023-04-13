@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.sqlite.type
+package com.github.mejiomah17.yasb.sqlite.jdbc.type
 
 import java.sql.ResultSet
 

@@ -1,12 +1,12 @@
 package com.github.mejiomah17.yasb.dsl.sqlite
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.sqlite.SqliteDatabaseDialect
 import com.github.mejiomah17.yasb.dsl.LimitTest
 import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import org.junit.jupiter.api.BeforeEach
 
-class SqliteLimitTest : LimitTest<TestTable, SqliteTransactionFactory, SqliteDatabaseDialect>, SqliteTest() {
+class SqliteLimitTest : LimitTest<TestTable, SqliteTransactionFactory, SqliteJdbcDatabaseDialect>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {

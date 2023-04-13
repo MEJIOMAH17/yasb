@@ -1,7 +1,7 @@
-package com.github.mejiomah17.yasb.core.sqlite.parameter
+package com.github.mejiomah17.yasb.sqlite.jdbc.parameter
 
 import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
-import com.github.mejiomah17.yasb.core.sqlite.type.TextDatabaseType
+import com.github.mejiomah17.yasb.sqlite.jdbc.type.TextDatabaseType
 
 class TextParameter(
     override val value: String?

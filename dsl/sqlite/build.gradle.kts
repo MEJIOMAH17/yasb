@@ -5,7 +5,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":dsl"))
-                api(project(":core:jdbc:sqlite"))
+                api(project(":database:sqlite:jdbc"))
 
                 implementation(kotlin("stdlib"))
                 implementation("org.xerial:sqlite-jdbc:3.41.2.1")

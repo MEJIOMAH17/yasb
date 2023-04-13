@@ -191,6 +191,6 @@ class GeneratorPluginTest {
 
     enum class DB(val gradleDeclaration: String, val tableSuperClass: String) {
         Postgres("com.github.mejiomah17.yasb.Database.Postgres()", "com.github.mejiomah17.yasb.core.postgres.ddl.PostgresTable"),
-        Sqlite("com.github.mejiomah17.yasb.Database.Sqlite()", "com.github.mejiomah17.yasb.core.sqlite.ddl.SqliteTable");
+        Sqlite("com.github.mejiomah17.yasb.Database.Sqlite()", "com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable");
     }
 }

@@ -2,9 +2,9 @@ package com.github.mejiomah17.yasb.dsl.sqlite
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.sqlite.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.FromTest
 import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 
 class SqliteFromTest : FromTest<TestTable>, SqliteTest() {

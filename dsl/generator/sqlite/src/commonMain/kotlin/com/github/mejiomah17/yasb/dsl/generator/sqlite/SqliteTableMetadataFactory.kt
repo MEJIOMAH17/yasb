@@ -1,10 +1,10 @@
 package com.github.mejiomah17.yasb.dsl.generator.sqlite
 
-import com.github.mejiomah17.yasb.core.sqlite.ddl.SqliteTable
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadata
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import java.sql.Connection
 
 open class SqliteTableMetadataFactory(
@@ -26,7 +26,7 @@ open class SqliteTableMetadataFactory(
             }.toList()
         return TableMetadata(
             tableName,
-            SqliteTable::class,
+            SqliteJdbcTable::class,
             columns
         )
     }

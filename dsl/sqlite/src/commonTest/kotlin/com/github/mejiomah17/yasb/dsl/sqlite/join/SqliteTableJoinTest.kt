@@ -3,11 +3,11 @@ package com.github.mejiomah17.yasb.dsl.sqlite.join
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.sqlite.SqliteDatabaseDialect
-import com.github.mejiomah17.yasb.core.sqlite.ddl.SqliteTable
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.dsl.sqlite.SqliteTest
 import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import org.junit.jupiter.api.BeforeEach
 
 class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, SqliteTest() {
@@ -45,21 +45,21 @@ class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, Sqli
 
     override fun transactionFactory(): SqliteTransactionFactory = SqliteTransactionFactory(dataSource)
 
-    override fun dialect(): DatabaseDialect = SqliteDatabaseDialect
+    override fun dialect(): DatabaseDialect = SqliteJdbcDatabaseDialect
 
-    object FirstTable : SqliteTable<FirstTable> {
+    object FirstTable : SqliteJdbcTable<FirstTable> {
         override val tableName: String = "FIRST"
         val a = text("A")
         val b = text("B")
     }
 
-    object SecondTable : SqliteTable<SecondTable> {
+    object SecondTable : SqliteJdbcTable<SecondTable> {
         override val tableName: String = "SECOND"
         val a = text("A")
         val b = text("B")
     }
 
-    object ThirdTable : SqliteTable<ThirdTable> {
+    object ThirdTable : SqliteJdbcTable<ThirdTable> {
         override val tableName: String = "THIRD"
         val a = text("A")
         val b = text("B")

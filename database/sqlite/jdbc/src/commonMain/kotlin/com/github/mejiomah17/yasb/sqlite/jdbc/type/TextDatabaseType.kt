@@ -1,8 +1,8 @@
-package com.github.mejiomah17.yasb.core.sqlite.type
+package com.github.mejiomah17.yasb.sqlite.jdbc.type
 
 import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.sqlite.parameter.TextParameter
+import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 

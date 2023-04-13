@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.sqlite.parameter
+package com.github.mejiomah17.yasb.sqlite.jdbc.parameter
 
 import com.github.mejiomah17.yasb.core.jdbc.parameter.JDBCParameter
 
