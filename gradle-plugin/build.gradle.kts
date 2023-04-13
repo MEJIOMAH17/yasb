@@ -16,7 +16,6 @@ dependencies {
 tasks.withType<Test>() {
     useJUnitPlatform()
     dependsOn(project(":dsl:postgres").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":dsl:sqlite").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":database:sqlite").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":database:sqlite:jdbc").tasks.getByName("publishToMavenLocal"))

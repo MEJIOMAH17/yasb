@@ -1,13 +1,13 @@
-package com.github.mejiomah17.yasb.dsl.sqlite.join
+package com.github.mejiomah17.yasb.sqlite.jdbc.join
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
-import com.github.mejiomah17.yasb.dsl.sqlite.SqliteTest
-import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteTest
 import org.junit.jupiter.api.BeforeEach
 
 class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, SqliteTest() {
@@ -43,7 +43,7 @@ class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, Sqli
 
     override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
 
-    override fun transactionFactory(): SqliteTransactionFactory = SqliteTransactionFactory(dataSource)
+    override fun transactionFactory(): SqliteJdbcTransactionFactory = SqliteJdbcTransactionFactory(dataSource)
 
     override fun dialect(): DatabaseDialect = SqliteJdbcDatabaseDialect
 

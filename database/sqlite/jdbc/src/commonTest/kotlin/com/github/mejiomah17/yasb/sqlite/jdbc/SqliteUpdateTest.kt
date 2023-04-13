@@ -1,13 +1,12 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
-import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.dsl.UpdateTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 
-class SqliteInsertTest : InsertWithReturningTest<TestTable>, SqliteTest() {
+class SqliteUpdateTest : UpdateTest<TestTable>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -33,7 +32,7 @@ class SqliteInsertTest : InsertWithReturningTest<TestTable>, SqliteTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): SqliteTransactionFactory {
-        return SqliteTransactionFactory(dataSource)
+    override fun transactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 }

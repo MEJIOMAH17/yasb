@@ -6,7 +6,6 @@ include(
     "dsl",
     "dsl:test-fixtures",
     "dsl:postgres",
-    "dsl:sqlite",
     "dsl:generator",
     "dsl:generator:flyway",
     "dsl:generator:postgres",

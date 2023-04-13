@@ -1,6 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
-
-import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 object TestTable : SqliteJdbcTable<TestTable> {
     override val tableName: String = "test"

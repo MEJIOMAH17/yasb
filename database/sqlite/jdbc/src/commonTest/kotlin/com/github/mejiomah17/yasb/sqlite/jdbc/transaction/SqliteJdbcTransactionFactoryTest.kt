@@ -1,13 +1,14 @@
-package com.github.mejiomah17.yasb.dsl.sqlite.transaction
+package com.github.mejiomah17.yasb.sqlite.jdbc.transaction
 
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactoryTest
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 
-class SqliteTransactionFactoryTest : TransactionFactoryTest() {
+class SqliteJdbcTransactionFactoryTest : TransactionFactoryTest() {
     companion object {
         lateinit var dataSource: HikariDataSource
 
@@ -28,8 +29,8 @@ class SqliteTransactionFactoryTest : TransactionFactoryTest() {
         }
     }
 
-    override fun createTransactionFactory(): SqliteTransactionFactory {
-        return SqliteTransactionFactory(dataSource)
+    override fun createTransactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 
     override fun TransactionFactory<*>.callTransaction() {

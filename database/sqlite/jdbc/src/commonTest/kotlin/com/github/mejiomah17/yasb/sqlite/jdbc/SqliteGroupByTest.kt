@@ -1,22 +1,25 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.FromTest
-import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.dsl.GroupByTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 
-class SqliteFromTest : FromTest<TestTable>, SqliteTest() {
+class SqliteGroupByTest : GroupByTest<TestTable>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {
-                it.execute("DELETE from test")
+                it.execute("DELETE FROM test")
                 it.execute(
                     """INSERT INTO test (a,b) values (
                     |'the a',
                     |'the b'
+                    | ),
+                    | (
+                    |'the a',
+                    |'the asd'
                     | )
                     """.trimMargin()
                 )
@@ -40,7 +43,7 @@ class SqliteFromTest : FromTest<TestTable>, SqliteTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): SqliteTransactionFactory {
-        return SqliteTransactionFactory(dataSource)
+    override fun transactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 }

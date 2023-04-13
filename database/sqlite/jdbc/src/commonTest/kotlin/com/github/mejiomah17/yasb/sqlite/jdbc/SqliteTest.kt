@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource

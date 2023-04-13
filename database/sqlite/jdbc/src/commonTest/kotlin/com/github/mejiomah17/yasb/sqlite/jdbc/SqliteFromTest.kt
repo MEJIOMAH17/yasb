@@ -1,31 +1,23 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.WhereTest
-import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
+import com.github.mejiomah17.yasb.dsl.FromTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 
-class SqliteWhereTest : WhereTest<TestTable>, SqliteTest() {
+class SqliteFromTest : FromTest<TestTable>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {
-                it.execute("DELETE FROM test")
+                it.execute("DELETE from test")
                 it.execute(
                     """INSERT INTO test (a,b) values (
-                    'the a',
-                    'the b'
-                     );
-                    """.trimIndent()
-                )
-                it.execute(
-                    """ INSERT INTO test (a,b) values (
-                    '42',
-                    '42'
-                    )
-                    """.trimIndent()
+                    |'the a',
+                    |'the b'
+                    | )
+                    """.trimMargin()
                 )
             }
         }
@@ -47,7 +39,7 @@ class SqliteWhereTest : WhereTest<TestTable>, SqliteTest() {
         return TestTable
     }
 
-    override fun transactionFactory(): SqliteTransactionFactory {
-        return SqliteTransactionFactory(dataSource)
+    override fun transactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 }

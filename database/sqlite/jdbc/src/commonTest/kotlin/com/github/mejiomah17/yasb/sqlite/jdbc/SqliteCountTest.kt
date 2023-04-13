@@ -1,12 +1,12 @@
-package com.github.mejiomah17.yasb.dsl.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.dsl.LimitTest
-import com.github.mejiomah17.yasb.dsl.sqlite.transaction.SqliteTransactionFactory
-import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
+import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.dsl.CountTest
+import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 
-class SqliteLimitTest : LimitTest<TestTable, SqliteTransactionFactory, SqliteJdbcDatabaseDialect>, SqliteTest() {
+class SqliteCountTest : CountTest<TestTable>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -27,15 +27,23 @@ class SqliteLimitTest : LimitTest<TestTable, SqliteTransactionFactory, SqliteJdb
         }
     }
 
-    override fun transactionFactory(): SqliteTransactionFactory {
-        return SqliteTransactionFactory(dataSource)
-    }
-
     override fun columnA(): Column<TestTable, String> {
         return TestTable.a
     }
 
+    override fun columnB(): Column<TestTable, String> {
+        return TestTable.b
+    }
+
+    override fun parameter(): Parameter<String> {
+        return TextParameter("param")
+    }
+
     override fun tableTest(): TestTable {
         return TestTable
+    }
+
+    override fun transactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 }
