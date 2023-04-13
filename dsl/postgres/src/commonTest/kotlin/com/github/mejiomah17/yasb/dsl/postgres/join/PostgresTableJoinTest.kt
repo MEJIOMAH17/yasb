@@ -3,11 +3,11 @@ package com.github.mejiomah17.yasb.dsl.postgres.join
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcDatabaseDialect
-import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcTable
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.dsl.postgres.PostgresTest
 import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, PostgresTest() {

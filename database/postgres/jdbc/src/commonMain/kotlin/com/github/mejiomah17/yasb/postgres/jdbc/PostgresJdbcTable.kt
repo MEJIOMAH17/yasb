@@ -1,14 +1,14 @@
-package com.github.mejiomah17.yasb.core.postgres
+package com.github.mejiomah17.yasb.postgres.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.postgres.type.BooleanDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.DoublePrecisionDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.JsonbDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.LongDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.TextDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.TimestampDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.UuidDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.BooleanDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.DoublePrecisionDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.JsonbDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.LongDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.TextDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.TimestampDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.UuidDatabaseType
 import java.sql.Timestamp
 import java.util.UUID
 

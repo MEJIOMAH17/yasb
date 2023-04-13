@@ -1,8 +1,8 @@
-package com.github.mejiomah17.yasb.core.postgres.type
+package com.github.mejiomah17.yasb.postgres.jdbc.type
 
 import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.postgres.parameter.JsonbParameter
+import com.github.mejiomah17.yasb.postgres.jdbc.parameter.JsonbParameter
 import org.postgresql.util.PGobject
 import java.sql.PreparedStatement
 import java.sql.ResultSet

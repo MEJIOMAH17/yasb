@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.postgres.parameter
+package com.github.mejiomah17.yasb.postgres.jdbc.parameter
 
 import com.github.mejiomah17.yasb.core.jdbc.parameter.JDBCParameter
 

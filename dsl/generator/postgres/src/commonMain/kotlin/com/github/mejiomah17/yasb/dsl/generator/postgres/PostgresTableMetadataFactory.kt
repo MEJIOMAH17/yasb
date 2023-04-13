@@ -1,10 +1,10 @@
 package com.github.mejiomah17.yasb.dsl.generator.postgres
 
-import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcTable
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadata
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
 import java.sql.Connection
 
 open class PostgresTableMetadataFactory(

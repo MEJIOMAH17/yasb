@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.postgres.type
+package com.github.mejiomah17.yasb.postgres.jdbc.type
 
 import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.core.parameter.Parameter

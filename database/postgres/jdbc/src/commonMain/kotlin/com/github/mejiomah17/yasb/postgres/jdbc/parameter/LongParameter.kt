@@ -1,7 +1,7 @@
-package com.github.mejiomah17.yasb.core.postgres.parameter
+package com.github.mejiomah17.yasb.postgres.jdbc.parameter
 
 import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
-import com.github.mejiomah17.yasb.core.postgres.type.LongDatabaseType
+import com.github.mejiomah17.yasb.postgres.jdbc.type.LongDatabaseType
 
 class LongParameter(
     override val value: Long?

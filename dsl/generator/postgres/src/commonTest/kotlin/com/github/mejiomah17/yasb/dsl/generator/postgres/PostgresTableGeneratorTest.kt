@@ -59,7 +59,7 @@ class PostgresTableGeneratorTest {
                     """
                             package com.github.mejiomah17
 
-                            object TestTable : com.github.mejiomah17.yasb.core.postgres.PostgresJdbcTable<TestTable> {
+                            object TestTable : com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable<TestTable> {
                                 override val tableName = "test"
                                 val a = textNullable("a")
                                 val b = text("b")

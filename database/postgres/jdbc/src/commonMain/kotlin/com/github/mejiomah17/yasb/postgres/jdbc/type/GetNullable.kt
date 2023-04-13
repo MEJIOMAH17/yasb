@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.core.postgres.type
+package com.github.mejiomah17.yasb.postgres.jdbc.type
 
 import java.sql.ResultSet
 

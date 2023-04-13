@@ -2,12 +2,12 @@ package com.github.mejiomah17.yasb.dsl.postgres
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.postgres.parameter.TextParameter
 import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
 import com.github.mejiomah17.yasb.dsl.from
 import com.github.mejiomah17.yasb.dsl.insertInto
 import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.select
+import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,9 +1,9 @@
 package com.github.mejiomah17.yasb.dsl.postgres
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.postgres.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.dsl.LimitTest
 import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import org.junit.jupiter.api.BeforeEach
 
 class PostgresLimitTest : LimitTest<TestTable, PostgresJdbcTransactionFactory, PostgresJdbcDatabaseDialect>, PostgresTest() {
