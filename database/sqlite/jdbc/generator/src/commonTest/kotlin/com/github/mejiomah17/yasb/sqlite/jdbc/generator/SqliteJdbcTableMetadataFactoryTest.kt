@@ -1,8 +1,8 @@
-package com.github.mejiomah17.yasb.dsl.generator.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.BigInt
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.Bool
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.Text
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.BigInt
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Bool
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Text
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class SqliteTableMetadataFactoryTest {
+class SqliteJdbcTableMetadataFactoryTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 
@@ -50,7 +50,7 @@ class SqliteTableMetadataFactoryTest {
     @Test
     fun `creates table definition`() {
         dataSource.connection.use {
-            val table = SqliteTableMetadataFactory(SqliteColumnMetadataFactory()).create(it, "test", null)
+            val table = SqliteJdbcTableMetadataFactory(SqliteJdbcColumnMetadataFactory()).create(it, "test", null)
             table.tableName shouldBe "test"
             table.columns shouldBe listOf(
                 Text("a", nullable = true),

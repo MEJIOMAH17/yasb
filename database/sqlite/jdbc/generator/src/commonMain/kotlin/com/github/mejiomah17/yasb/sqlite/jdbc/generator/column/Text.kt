@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.generator.sqlite.column
+package com.github.mejiomah17.yasb.sqlite.jdbc.generator.column
 
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadata
 import com.github.mejiomah17.yasb.dsl.generator.toCamelCase

@@ -9,10 +9,10 @@ include(
     "dsl:generator",
     "dsl:generator:flyway",
     "dsl:generator:postgres",
-    "dsl:generator:sqlite",
     "database:sqlite",
-    "database:sqlite:jdbc",
     "database:sqlite:android",
+    "database:sqlite:jdbc",
+    "database:sqlite:jdbc:generator",
     "gradle-plugin"
 )
 pluginManagement {

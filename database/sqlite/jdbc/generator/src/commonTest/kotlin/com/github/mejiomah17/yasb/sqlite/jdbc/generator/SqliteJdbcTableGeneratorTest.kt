@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.generator.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.TableGenerator
 import com.zaxxer.hikari.HikariConfig
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class SqliteTableGeneratorTest {
+class SqliteJdbcTableGeneratorTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 
@@ -45,7 +45,7 @@ class SqliteTableGeneratorTest {
     fun `generates correct table definition`() {
         dataSource.connection.use {
             TableGenerator().generateTable(
-                SqliteTableMetadataFactory(SqliteColumnMetadataFactory())
+                SqliteJdbcTableMetadataFactory(SqliteJdbcColumnMetadataFactory())
                     .create(it, "test", schemaPattern = null),
                 "com.github.mejiomah17"
             ).run {

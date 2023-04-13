@@ -5,8 +5,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":dsl"))
-                api(project(":database:sqlite:jdbc" +
-                        ""))
+                api(project(":database:sqlite:jdbc"))
                 api(project(":dsl:generator"))
 
                 implementation(kotlin("stdlib"))

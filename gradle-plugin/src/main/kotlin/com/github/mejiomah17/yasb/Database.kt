@@ -3,8 +3,8 @@ package com.github.mejiomah17.yasb
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.postgres.PostgresColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.postgres.PostgresTableMetadataFactory
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.SqliteColumnMetadataFactory
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.SqliteTableMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcColumnMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcTableMetadataFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.postgresql.Driver
@@ -70,8 +70,8 @@ sealed class Database : Serializable {
     }
 
     class Sqlite(
-        override val tableMetadataFactory: SqliteTableMetadataFactory = SqliteTableMetadataFactory(
-            SqliteColumnMetadataFactory()
+        override val tableMetadataFactory: SqliteJdbcTableMetadataFactory = SqliteJdbcTableMetadataFactory(
+            SqliteJdbcColumnMetadataFactory()
         )
     ) : Database() {
         override fun datasource(): CloseableDataSource {

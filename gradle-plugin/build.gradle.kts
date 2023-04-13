@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation(project(":dsl:generator:flyway"))
     implementation(project(":dsl:generator:postgres"))
-    implementation(project(":dsl:generator:sqlite"))
+    implementation(project(":database:sqlite:jdbc:generator"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     testImplementation("io.kotest:kotest-assertions-core:5.2.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
@@ -19,6 +19,7 @@ tasks.withType<Test>() {
     dependsOn(project(":core:jdbc:postgres").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":database:sqlite").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":database:sqlite:jdbc").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database:sqlite:jdbc:generator").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))

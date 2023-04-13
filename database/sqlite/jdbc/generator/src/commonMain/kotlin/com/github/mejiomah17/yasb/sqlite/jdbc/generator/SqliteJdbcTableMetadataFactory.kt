@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.generator.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
@@ -7,7 +7,7 @@ import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import java.sql.Connection
 
-open class SqliteTableMetadataFactory(
+open class SqliteJdbcTableMetadataFactory(
     private val columnMetadataFactory: ColumnMetadataFactory
 ) : TableMetadataFactory {
     override fun create(connection: Connection, tableName: String, schemaPattern: String?): TableMetadata {

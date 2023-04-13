@@ -1,12 +1,12 @@
-package com.github.mejiomah17.yasb.dsl.generator.sqlite
+package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadata
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.BigInt
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.Bool
-import com.github.mejiomah17.yasb.dsl.generator.sqlite.column.Text
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.BigInt
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Bool
+import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Text
 
-class SqliteColumnMetadataFactory : ColumnMetadataFactory {
+class SqliteJdbcColumnMetadataFactory : ColumnMetadataFactory {
     override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {
         return when (type.lowercase()) {
             "text" -> Text(name, nullable)
