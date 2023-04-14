@@ -6,7 +6,7 @@ plugins {
 }
 dependencies {
     implementation(project(":dsl:generator:flyway"))
-    implementation(project(":dsl:generator:postgres"))
+    implementation(project(":database:postgres:jdbc:generator"))
     implementation(project(":database:sqlite:jdbc:generator"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     testImplementation("io.kotest:kotest-assertions-core:5.2.2")

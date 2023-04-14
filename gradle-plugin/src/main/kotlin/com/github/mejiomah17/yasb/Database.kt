@@ -1,8 +1,8 @@
 package com.github.mejiomah17.yasb
 
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
-import com.github.mejiomah17.yasb.dsl.generator.postgres.PostgresColumnMetadataFactory
-import com.github.mejiomah17.yasb.dsl.generator.postgres.PostgresTableMetadataFactory
+import com.github.mejiomah17.yasb.postgres.jdbc.generator.PostgresColumnMetadataFactory
+import com.github.mejiomah17.yasb.postgres.jdbc.generator.PostgresTableMetadataFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcColumnMetadataFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcTableMetadataFactory
 import com.zaxxer.hikari.HikariConfig
