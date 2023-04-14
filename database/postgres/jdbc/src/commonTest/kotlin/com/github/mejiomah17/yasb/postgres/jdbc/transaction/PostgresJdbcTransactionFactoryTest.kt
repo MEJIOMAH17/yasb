@@ -1,10 +1,11 @@
-package com.github.mejiomah17.yasb.dsl.postgres.transaction
+package com.github.mejiomah17.yasb.postgres.jdbc.transaction
 
-import com.github.mejiomah17.yasb.dsl.postgres.PostgresContainer
-import com.github.mejiomah17.yasb.dsl.postgres.PostgresContainer.Companion.LOGIN
-import com.github.mejiomah17.yasb.dsl.postgres.PostgresContainer.Companion.PASSWORD
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactoryTest
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.LOGIN
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.PASSWORD
+import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll

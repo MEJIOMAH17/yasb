@@ -5,7 +5,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":dsl"))
-                api(project(":dsl:postgres"))
+                api(project(":database:postgres:jdbc"))
                 api(project(":dsl:generator"))
 
                 implementation(kotlin("stdlib"))

@@ -1,9 +1,8 @@
-package com.github.mejiomah17.yasb.dsl.postgres
+package com.github.mejiomah17.yasb.postgres.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.UpdateTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 

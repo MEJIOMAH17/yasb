@@ -1,13 +1,17 @@
-package com.github.mejiomah17.yasb.dsl.postgres
+package com.github.mejiomah17.yasb.postgres.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.GroupByTest
-import com.github.mejiomah17.yasb.dsl.postgres.transaction.PostgresJdbcTransactionFactory
+import com.github.mejiomah17.yasb.dsl.FromTest
+import com.github.mejiomah17.yasb.dsl.from
+import com.github.mejiomah17.yasb.dsl.select
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import java.sql.Timestamp
 
-class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
+class PostgresFromTest : FromTest<TestTable>, PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -19,12 +23,6 @@ class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
                     |'the b',
                     |'3e2220cd-e6a5-4eae-a258-6ed41e91c221',
                     |'2022-05-13 02:09:09.683194'::timestamp
-                    | ),
-                    | (
-                    |'the a',
-                    |'the asd',
-                    |'3e2220cd-e6a5-4eae-a258-6ed41e91c222',
-                    |'2022-05-13 02:09:09.683195'::timestamp
                     | )
                     """.trimMargin()
                 )
@@ -50,5 +48,19 @@ class PostgresGroupByTest : GroupByTest<TestTable>, PostgresTest() {
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory {
         return PostgresJdbcTransactionFactory(dataSource)
+    }
+
+    @Test
+    override fun `from returns columns`() {
+        transactionFactory().readUncommitted {
+            val row = select(columnA(), columnB(), TestTable.c, TestTable.d)
+                .from(tableTest())
+                .execute()
+                .single()
+            row[columnA()] shouldBe "the a"
+            row[columnB()] shouldBe "the b"
+            row[TestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c221"
+            row[TestTable.d] shouldBe Timestamp.valueOf("2022-05-13 02:09:09.683194")
+        }
     }
 }

@@ -1,6 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.postgres
-
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
+package com.github.mejiomah17.yasb.postgres.jdbc
 
 object TestTable : PostgresJdbcTable<TestTable> {
     override val tableName: String = "test"

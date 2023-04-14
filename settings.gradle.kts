@@ -4,7 +4,6 @@ include(
     "core:jdbc",
     "dsl",
     "dsl:test-fixtures",
-    "dsl:postgres",
     "dsl:generator",
     "dsl:generator:flyway",
     "dsl:generator:postgres",
