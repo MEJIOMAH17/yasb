@@ -5,6 +5,12 @@ plugins {
 kotlin {
     android()
     sourceSets {
+        val androidMain by getting {
+            dependencies {
+                api(project(":core"))
+                api(project(":database:sqlite"))
+            }
+        }
         val androidTest by getting {
             dependencies {
                 implementation("androidx.test:runner:1.5.2")
