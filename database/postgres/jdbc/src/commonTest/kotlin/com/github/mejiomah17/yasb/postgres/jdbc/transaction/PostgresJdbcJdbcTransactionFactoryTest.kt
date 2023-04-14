@@ -1,7 +1,7 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.transaction
 
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactoryTest
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactoryTest
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.LOGIN
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.PASSWORD
@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 
-class PostgresJdbcTransactionFactoryTest : TransactionFactoryTest() {
+class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
         lateinit var dataSource: HikariDataSource
         lateinit var container: PostgresContainer

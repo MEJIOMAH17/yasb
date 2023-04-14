@@ -12,7 +12,7 @@ import com.github.mejiomah17.yasb.dsl.Update
 import com.github.mejiomah17.yasb.dsl.jdbc
 import java.sql.Connection
 
-sealed interface Transaction {
+interface JdbcTransaction {
     val connection: Connection
 
     // TODO test

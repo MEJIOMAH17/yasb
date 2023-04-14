@@ -10,46 +10,46 @@ abstract class TransactionFactory<D : DatabaseDialect>(
     abstract fun dialect(): D
 
     fun <T> readUncommitted(
-        block: context(D) TransactionReadUncommitted.() -> T
+        block: context(D) JdbcTransactionReadUncommitted.() -> T
     ): T {
         return transaction(
-            creator = { ImplTransactionReadUncommitted(it) },
-            jdbcLevel = TransactionReadUncommitted.jdbcLevel,
+            creator = { ImplJdbcTransactionReadUncommitted(it) },
+            jdbcLevel = JdbcTransactionReadUncommitted.jdbcLevel,
             block = block
         )
     }
 
     fun <T> readCommitted(
-        block: context(D) TransactionReadCommitted.() -> T
+        block: context(D) JdbcTransactionReadCommitted.() -> T
     ): T {
         return transaction(
-            creator = { ImplTransactionReadCommitted(it) },
-            jdbcLevel = TransactionReadCommitted.jdbcLevel,
+            creator = { ImplJdbcTransactionReadCommitted(it) },
+            jdbcLevel = JdbcTransactionReadCommitted.jdbcLevel,
             block = block
         )
     }
 
     fun <T> repeatableRead(
-        block: context(D) TransactionRepeatableRead.() -> T
+        block: context(D) JdbcTransactionRepeatableRead.() -> T
     ): T {
         return transaction(
-            creator = { ImplTransactionRepeatableRead(it) },
-            jdbcLevel = TransactionRepeatableRead.jdbcLevel,
+            creator = { ImplJdbcTransactionRepeatableRead(it) },
+            jdbcLevel = JdbcTransactionRepeatableRead.jdbcLevel,
             block = block
         )
     }
 
     fun <T> serializable(
-        block: context(D) TransactionSerializable.() -> T
+        block: context(D) JdbcTransactionSerializable.() -> T
     ): T {
         return transaction(
-            creator = { TransactionSerializableImpl(it) },
-            jdbcLevel = TransactionSerializable.jdbcValue,
+            creator = { JdbcTransactionSerializableImpl(it) },
+            jdbcLevel = JdbcTransactionSerializable.jdbcValue,
             block = block
         )
     }
 
-    private fun <T : Transaction, R> transaction(
+    private fun <T : JdbcTransaction, R> transaction(
         creator: (Connection) -> T,
         jdbcLevel: Int,
         block: context(D) T.() -> R
