@@ -1,4 +1,5 @@
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -6,6 +7,15 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
     java
     id("maven-publish")
+}
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.4.2")
+    }
 }
 group = "com.github.mejiomah17.yasb"
 version = "0.5.0-kotlin-${project.property("kotlin.version")}"
@@ -23,6 +33,7 @@ subprojects {
     if (!name().contains("generator")) {
         tasks.withType<KotlinCompile>().all {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
+            this.kotlinOptions.jvmTarget = "1.8"
         }
     }
     if (project in jvmProjects) {
@@ -30,9 +41,17 @@ subprojects {
     } else if (project in mppProjects) {
         project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
         project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+            val mpp = this
             afterEvaluate {
                 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon>() {
                     this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
+                }
+                mpp.jvm() {
+                    val main by compilations.getting {
+                        compilerOptions.configure {
+                            jvmTarget.set(JvmTarget.JVM_1_8)
+                        }
+                    }
                 }
             }
         }
@@ -53,6 +72,7 @@ fun Project.configureRepositories() {
                 password = githubToken
             }
         }
+        google()
     }
 }
 

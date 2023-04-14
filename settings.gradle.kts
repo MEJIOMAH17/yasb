@@ -16,8 +16,14 @@ include(
     "gradle-plugin"
 )
 pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
     plugins {
         kotlin("jvm").version(extra["kotlin.version"] as String)
         kotlin("multiplatform").version(extra["kotlin.version"] as String)
+        id("com.android.library").version("7.4")
     }
 }

@@ -56,3 +56,7 @@ tasks.withType<KotlinCompile>() {
 kotlin {
     this.sourceSets.main.get().kotlin.srcDir(generated)
 }
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+tasks.withType<KotlinCompile>().all {
+    this.kotlinOptions.jvmTarget = "11"
+}
