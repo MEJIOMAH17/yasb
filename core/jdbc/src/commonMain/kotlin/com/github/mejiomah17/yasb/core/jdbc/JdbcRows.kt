@@ -1,15 +1,16 @@
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.jdbc
 
+import com.github.mejiomah17.yasb.core.Row
+import com.github.mejiomah17.yasb.core.Rows
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import java.io.Closeable
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class Rows(
+class JdbcRows(
     private val preparedStatement: PreparedStatement,
     private val queryForExecute: QueryForExecute,
     private val resultSet: ResultSet
-) : Sequence<Row>, Closeable {
+) : Rows {
     override fun iterator(): Iterator<Row> {
         return object : Iterator<Row> {
             private var rowConsumed = true

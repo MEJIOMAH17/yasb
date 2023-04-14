@@ -1,11 +1,12 @@
 package com.github.mejiomah17.yasb.dsl.transaction
 
+import com.github.mejiomah17.yasb.core.Row
+import com.github.mejiomah17.yasb.core.Rows
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.Insert
 import com.github.mejiomah17.yasb.dsl.InsertWithReturn
-import com.github.mejiomah17.yasb.dsl.Row
-import com.github.mejiomah17.yasb.dsl.Rows
 import com.github.mejiomah17.yasb.dsl.SelectQuery
 import com.github.mejiomah17.yasb.dsl.Update
 import com.github.mejiomah17.yasb.dsl.jdbc
@@ -38,7 +39,7 @@ sealed interface Transaction {
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
-        return Rows(statement, queryForExecute, resultSet)
+        return JdbcRows(statement, queryForExecute, resultSet)
     }
 
     fun <T : Table<T>> Insert<T>.execute() {
@@ -69,7 +70,7 @@ sealed interface Transaction {
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
-        return Rows(statement, queryForExecute, resultSet)
+        return JdbcRows(statement, queryForExecute, resultSet)
     }
 
     fun <T : Table<T>> InsertWithReturn<T>.execute(): List<Row> {
