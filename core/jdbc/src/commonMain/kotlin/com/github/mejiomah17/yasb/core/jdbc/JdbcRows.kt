@@ -6,7 +6,7 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class JdbcRows(
+internal class JdbcRows(
     private val preparedStatement: PreparedStatement,
     private val queryForExecute: QueryForExecute<ResultSet>,
     private val resultSet: ResultSet
@@ -22,6 +22,8 @@ class JdbcRows(
             }
 
             override fun next(): Row {
+                // call for side effect resultSet.next()
+                hasNext()
                 return Row(
                     queryForExecute.returnExpressions.mapIndexed { index, expression ->
                         expression to expression.databaseType().extractFromSource(resultSet, index + 1)
