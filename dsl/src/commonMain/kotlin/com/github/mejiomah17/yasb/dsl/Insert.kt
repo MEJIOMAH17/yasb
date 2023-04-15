@@ -10,9 +10,9 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class Insert<T : Table<T>> internal constructor(
+class Insert<T : Table<T, S>, S> internal constructor(
     private val table: T,
-    private val columnsToValues: Map<Column<T, *>, List<Any?>>
+    private val columnsToValues: Map<Column<T, *, S>, List<Any?>>
 ) {
     private val size: Int = columnsToValues.values.first().size
 
@@ -22,13 +22,13 @@ class Insert<T : Table<T>> internal constructor(
         }
     }
 
-    fun buildInsertQuery(): QueryPart {
+    fun buildInsertQuery(): QueryPart<S> {
         val columns = columnsToValues.keys.joinToString(",") { it.name }
         val valuesSql = StringBuilder()
-        val parameters = mutableListOf<Parameter<*>>()
+        val parameters = mutableListOf<Parameter<*, S>>()
         for (i in 0 until size) {
             val rowInSql = columnsToValues.map { (column, values) ->
-                column as Column<T, Any>
+                column as Column<T, Any, S>
                 val value = values[i]
                 if (value is DefaultQueryPart) {
                     value.sqlDefinition
@@ -53,11 +53,11 @@ class Insert<T : Table<T>> internal constructor(
     }
 }
 
-class InsertWithReturn<T : Table<T>> internal constructor(
-    private val insert: Insert<T>,
-    private val returning: Returning
+class InsertWithReturn<T : Table<T, S>, S> internal constructor(
+    private val insert: Insert<T, S>,
+    private val returning: Returning<S>
 ) {
-    fun buildInsertQuery(): QueryForExecute {
+    fun buildInsertQuery(): QueryForExecute<S> {
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
         return QueryForExecute(
@@ -73,14 +73,14 @@ class InsertWithReturn<T : Table<T>> internal constructor(
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
 context(SupportsInsertWithDefaultValue)
-fun <T : Table<T>, E> insertInto(
+fun <T : Table<T, S>, S, E> insertInto(
     table: T,
     source: Iterable<E>,
-    block: T.(InsertContext<T>, E) -> Unit
-): Insert<T> {
-    val columns = mutableMapOf<Column<T, *>, MutableList<Any?>>()
+    block: T.(InsertContext<T, S>, E) -> Unit
+): Insert<T, S> {
+    val columns = mutableMapOf<Column<T, *, S>, MutableList<Any?>>()
     source.forEachIndexed { i, e ->
-        val insertContext = InsertContext<T>()
+        val insertContext = InsertContext<T, S>()
         block(table, insertContext, e)
         insertContext.columns.forEach { (column, value) ->
             // iterate over this feeling
@@ -98,12 +98,12 @@ fun <T : Table<T>, E> insertInto(
     return Insert(table, columns)
 }
 
-fun <T : Table<T>> insertInto(
+fun <T : Table<T, S>, S> insertInto(
     table: T,
-    block: T.(InsertContext<T>) -> Unit
-): Insert<T> {
-    val columns = mutableMapOf<Column<T, *>, List<Any?>>()
-    val insertContext = InsertContext<T>()
+    block: T.(InsertContext<T, S>) -> Unit
+): Insert<T, S> {
+    val columns = mutableMapOf<Column<T, *, S>, List<Any?>>()
+    val insertContext = InsertContext<T, S>()
     block(table, insertContext)
     insertContext.columns.forEach { (column, value) ->
         columns[column] = listOf(value)
@@ -111,11 +111,11 @@ fun <T : Table<T>> insertInto(
     return Insert(table, columns)
 }
 
-fun <T : Table<T>> insertInto(
+fun <T : Table<T, S>, S> insertInto(
     table: T,
-    returning: Returning,
-    block: T.(InsertContext<T>) -> Unit
-): InsertWithReturn<T> {
+    returning: Returning<S>,
+    block: T.(InsertContext<T, S>) -> Unit
+): InsertWithReturn<T, S> {
     return InsertWithReturn(insertInto(table, block), returning)
 }
 
@@ -124,18 +124,18 @@ fun <T : Table<T>> insertInto(
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
 context(SupportsInsertWithDefaultValue)
-fun <T : Table<T>, E> insertInto(
+fun <T : Table<T, S>, S, E> insertInto(
     table: T,
-    returning: Returning,
+    returning: Returning<S>,
     source: Iterable<E>,
-    block: T.(InsertContext<T>, E) -> Unit
-): InsertWithReturn<T> {
+    block: T.(InsertContext<T, S>, E) -> Unit
+): InsertWithReturn<T, S> {
     return InsertWithReturn(insertInto(table, source, block), returning)
 }
 
-class InsertContext<T : Table<T>> {
-    internal val columns = mutableMapOf<Column<T, *>, Any?>()
-    operator fun <V> set(column: Column<T, V>, value: V) {
+class InsertContext<T : Table<T, S>, S> {
+    internal val columns = mutableMapOf<Column<T, *, S>, Any?>()
+    operator fun <V> set(column: Column<T, V, S>, value: V) {
         columns[column] = value
     }
 }

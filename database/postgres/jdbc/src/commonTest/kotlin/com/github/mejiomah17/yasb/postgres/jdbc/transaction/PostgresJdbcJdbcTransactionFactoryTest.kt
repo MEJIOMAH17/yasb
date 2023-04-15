@@ -10,6 +10,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import java.sql.ResultSet
 
 class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
@@ -42,7 +43,7 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return PostgresJdbcTransactionFactory(dataSource)
     }
 
-    override fun TransactionFactory<*>.callTransaction() {
+    override fun TransactionFactory<*, ResultSet>.callTransaction() {
         this.readUncommitted {
         }
     }

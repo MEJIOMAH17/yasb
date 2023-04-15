@@ -7,16 +7,16 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class ExpressionAlias<T>(
-    private val expression: AliasableExpression<T>,
+class ExpressionAlias<T, S>(
+    private val expression: AliasableExpression<T, S>,
     val name: String
-) : Expression<T> {
+) : Expression<T, S> {
 
-    override fun databaseType(): DatabaseType<T> {
+    override fun databaseType(): DatabaseType<T, S> {
         return expression.databaseType()
     }
 
-    override fun build(): QueryPart {
+    override fun build(): QueryPart<S> {
         val underlying = expression.build()
         return QueryPartImpl(
             sqlDefinition = "(${underlying.sqlDefinition}) AS $name",
@@ -25,14 +25,14 @@ class ExpressionAlias<T>(
     }
 }
 
-fun <T> Parameter<T>.`as`(name: String): ExpressionAlias<T> {
+fun <T, S> Parameter<T, S>.`as`(name: String): ExpressionAlias<T, S> {
     return ExpressionAlias(
-        expression = object : AliasableExpression<T> {
-            override fun databaseType(): DatabaseType<T> {
+        expression = object : AliasableExpression<T, S> {
+            override fun databaseType(): DatabaseType<T, S> {
                 return this@`as`.databaseType
             }
 
-            override fun build(): QueryPart {
+            override fun build(): QueryPart<S> {
                 return QueryPartImpl(
                     sqlDefinition = this@`as`.parameterInSql,
                     parameters = listOf(this@`as`)
@@ -43,7 +43,7 @@ fun <T> Parameter<T>.`as`(name: String): ExpressionAlias<T> {
     )
 }
 
-fun <T> AliasableExpression<T>.`as`(name: String): ExpressionAlias<T> {
+fun <T, S> AliasableExpression<T, S>.`as`(name: String): ExpressionAlias<T, S> {
     return ExpressionAlias(
         expression = this,
         name = name

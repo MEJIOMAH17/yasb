@@ -10,13 +10,13 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface LimitTest<T : Table<T>, F, D> where F : TransactionFactory<D>, D : DatabaseDialect, D : SupportsLimit {
+interface LimitTest<T : Table<T, S>, F, D, S> where F : TransactionFactory<D, S>, D : DatabaseDialect<S>, D : SupportsLimit {
 
     @Test
     fun `limit generates correct sql`() {
         transactionFactory().readCommitted {
             select(columnA())
-                .from(TestTable)
+                .from(TestTable())
                 .limit(1)
                 .buildSelectQuery()
                 .sqlDefinition shouldBe "SELECT test.a FROM test LIMIT 1"
@@ -27,7 +27,7 @@ interface LimitTest<T : Table<T>, F, D> where F : TransactionFactory<D>, D : Dat
     fun `limit 1 return single record`() {
         transactionFactory().readCommitted {
             select(columnA())
-                .from(TestTable)
+                .from(TestTable())
                 .limit(1)
                 .execute() shouldHaveSize 1
         }
@@ -37,7 +37,7 @@ interface LimitTest<T : Table<T>, F, D> where F : TransactionFactory<D>, D : Dat
     fun `limit called after where`() {
         transactionFactory().readCommitted {
             select(columnA())
-                .from(TestTable)
+                .from(TestTable())
                 .where { columnA().eq("the a") }
                 .limit(1)
                 .execute()
@@ -45,6 +45,6 @@ interface LimitTest<T : Table<T>, F, D> where F : TransactionFactory<D>, D : Dat
     }
 
     fun transactionFactory(): F
-    fun columnA(): Column<T, String>
+    fun columnA(): Column<T, String, S>
     fun tableTest(): T
 }

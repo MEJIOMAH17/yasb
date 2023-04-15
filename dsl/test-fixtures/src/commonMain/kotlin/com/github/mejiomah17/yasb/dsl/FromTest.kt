@@ -1,25 +1,26 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.alias.`as`
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface FromTest<T : Table<T>> : SelectionTest<T> {
+interface FromTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
     @Test
     fun `from creates From`() {
         val select = select(columnA())
 
-        val result = select.from(TestTable)
+        val result = select.from(TestTable())
 
         result.select shouldBe select
-        result.source shouldBe TestTable
+        result.source shouldBe TestTable()
     }
 
     @Test
     fun `from creates From for aliased table`() {
         val select = select(columnA())
-        val table = TestTable.`as`("xxx")
+        val table = TestTable<S>().`as`("xxx")
         val result = select.from(table)
 
         result.select shouldBe select

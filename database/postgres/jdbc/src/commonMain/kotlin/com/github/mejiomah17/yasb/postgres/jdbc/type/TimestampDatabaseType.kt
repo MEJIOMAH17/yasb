@@ -8,13 +8,17 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): Timestamp? {
+    override fun extractFromSource(resultSet: ResultSet, index: Int): Timestamp? {
         return resultSet.getTimestamp(index)
     }
 
-    override fun applyParameterToStatement(parameter: Parameter<Timestamp>, statement: PreparedStatement, index: Int) {
+    override fun applyParameterToStatement(
+        parameter: Parameter<Timestamp, ResultSet>,
+        statement: PreparedStatement,
+        index: Int
+    ) {
         statement.setTimestamp(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp> = ::TimestampParameter
+    override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet> = ::TimestampParameter
 }

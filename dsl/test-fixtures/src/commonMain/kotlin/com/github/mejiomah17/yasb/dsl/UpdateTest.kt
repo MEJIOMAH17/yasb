@@ -1,10 +1,11 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Table
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface UpdateTest<T : Table<T>> : SelectionTest<T> {
+interface UpdateTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
 
     @Test
     fun updates_values_without_where() {

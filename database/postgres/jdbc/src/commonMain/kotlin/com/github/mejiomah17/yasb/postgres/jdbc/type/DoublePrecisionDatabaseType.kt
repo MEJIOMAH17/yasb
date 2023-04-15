@@ -7,15 +7,19 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object DoublePrecisionDatabaseType : JDBCDatabaseType<Double> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): Double? {
+    override fun extractFromSource(resultSet: ResultSet, index: Int): Double? {
         return resultSet.getNullable {
             resultSet.getDouble(index)
         }
     }
 
-    override fun applyParameterToStatement(parameter: Parameter<Double>, statement: PreparedStatement, index: Int) {
+    override fun applyParameterToStatement(
+        parameter: Parameter<Double, ResultSet>,
+        statement: PreparedStatement,
+        index: Int
+    ) {
         statement.setObject(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Double?) -> Parameter<Double> = ::DoubleParameter
+    override fun parameterFactory(): (Double?) -> Parameter<Double, ResultSet> = ::DoubleParameter
 }

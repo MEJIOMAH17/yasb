@@ -8,7 +8,7 @@ import java.sql.ResultSet
 
 class JdbcRows(
     private val preparedStatement: PreparedStatement,
-    private val queryForExecute: QueryForExecute,
+    private val queryForExecute: QueryForExecute<ResultSet>,
     private val resultSet: ResultSet
 ) : Rows {
     override fun iterator(): Iterator<Row> {
@@ -24,7 +24,7 @@ class JdbcRows(
             override fun next(): Row {
                 return Row(
                     queryForExecute.returnExpressions.mapIndexed { index, expression ->
-                        expression to expression.databaseType().jdbc().extractFromResultSet(resultSet, index + 1)
+                        expression to expression.databaseType().extractFromSource(resultSet, index + 1)
                     }.toMap()
                 )
             }

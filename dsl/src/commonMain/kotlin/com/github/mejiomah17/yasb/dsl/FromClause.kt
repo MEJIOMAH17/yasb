@@ -2,4 +2,4 @@ package com.github.mejiomah17.yasb.dsl
 
 interface FromClause
 
-interface FromClauseAndSelectQuery : FromClause, SelectQuery
+interface FromClauseAndSelectQuery<S> : FromClause, SelectQuery<S>

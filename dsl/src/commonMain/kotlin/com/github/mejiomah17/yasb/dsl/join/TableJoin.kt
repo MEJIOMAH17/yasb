@@ -6,13 +6,13 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.dsl.ConditionContext
 import com.github.mejiomah17.yasb.dsl.FromClauseAndSelectQuery
 
-class TableJoin(
-    private val select: FromClauseAndSelectQuery,
-    private val with: SelectionSource,
+class TableJoin<S>(
+    private val select: FromClauseAndSelectQuery<S>,
+    private val with: SelectionSource<S>,
     private val joinType: JoinType,
-    private val on: Expression<Boolean>
-) : FromClauseAndSelectQuery {
-    override fun buildSelectQuery(): QueryForExecute {
+    private val on: Expression<Boolean, S>
+) : FromClauseAndSelectQuery<S> {
+    override fun buildSelectQuery(): QueryForExecute<S> {
         val selectQuery = select.buildSelectQuery()
         val onQuery = on.build()
         return QueryForExecute(
@@ -23,10 +23,10 @@ class TableJoin(
     }
 }
 
-fun FromClauseAndSelectQuery.innerJoin(
-    with: SelectionSource,
-    on: ConditionContext.() -> Expression<Boolean>
-): FromClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.innerJoin(
+    with: SelectionSource<S>,
+    on: ConditionContext.() -> Expression<Boolean, S>
+): FromClauseAndSelectQuery<S> {
     return TableJoin(
         select = this,
         with = with,
@@ -35,10 +35,10 @@ fun FromClauseAndSelectQuery.innerJoin(
     )
 }
 
-fun FromClauseAndSelectQuery.leftJoin(
-    with: SelectionSource,
-    on: ConditionContext.() -> Expression<Boolean>
-): FromClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.leftJoin(
+    with: SelectionSource<S>,
+    on: ConditionContext.() -> Expression<Boolean, S>
+): FromClauseAndSelectQuery<S> {
     return TableJoin(
         select = this,
         with = with,
@@ -47,10 +47,10 @@ fun FromClauseAndSelectQuery.leftJoin(
     )
 }
 
-fun FromClauseAndSelectQuery.rightJoin(
-    with: SelectionSource,
-    on: ConditionContext.() -> Expression<Boolean>
-): FromClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.rightJoin(
+    with: SelectionSource<S>,
+    on: ConditionContext.() -> Expression<Boolean, S>
+): FromClauseAndSelectQuery<S> {
     return TableJoin(
         select = this,
         with = with,
@@ -59,10 +59,10 @@ fun FromClauseAndSelectQuery.rightJoin(
     )
 }
 
-fun FromClauseAndSelectQuery.fullJoin(
-    with: SelectionSource,
-    on: ConditionContext.() -> Expression<Boolean>
-): FromClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.fullJoin(
+    with: SelectionSource<S>,
+    on: ConditionContext.() -> Expression<Boolean, S>
+): FromClauseAndSelectQuery<S> {
     return TableJoin(
         select = this,
         with = with,

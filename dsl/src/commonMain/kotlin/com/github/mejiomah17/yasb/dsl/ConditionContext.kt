@@ -12,110 +12,110 @@ import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 object ConditionContext
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.eq(other: ExpressionForCondition<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.eq(other: ExpressionForCondition<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.eq(other: Parameter<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.eq(other: Parameter<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.eq(other: T): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.eq(other: T): AliasableExpressionForCondition<Boolean, S> {
     return eq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greater(other: ExpressionForCondition<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greater(other: ExpressionForCondition<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, ">")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greater(other: Parameter<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greater(other: Parameter<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, ">")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greater(other: T): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greater(other: T): AliasableExpressionForCondition<Boolean, S> {
     return greater(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greaterEq(other: ExpressionForCondition<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greaterEq(other: ExpressionForCondition<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, ">=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greaterEq(other: Parameter<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greaterEq(other: Parameter<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, ">=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.greaterEq(other: T): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.greaterEq(other: T): AliasableExpressionForCondition<Boolean, S> {
     return greaterEq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.less(other: ExpressionForCondition<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.less(other: ExpressionForCondition<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "<")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.less(other: Parameter<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.less(other: Parameter<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "<")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.less(other: T): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.less(other: T): AliasableExpressionForCondition<Boolean, S> {
     return less(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.lessEq(other: ExpressionForCondition<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.lessEq(other: ExpressionForCondition<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "<=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.lessEq(other: Parameter<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.lessEq(other: Parameter<T, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "<=")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.lessEq(other: T): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.lessEq(other: T): AliasableExpressionForCondition<Boolean, S> {
     return lessEq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect)
-fun ExpressionForCondition<String?>.like(other: Parameter<String?>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <S> ExpressionForCondition<String?, S>.like(other: Parameter<String?, S>): AliasableExpressionForCondition<Boolean, S> {
     return condition(other, "like")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun ExpressionForCondition<String?>.like(other: String): AliasableExpressionForCondition<Boolean> {
-    val parameter: Parameter<String?> = databaseType().parameterFactory().invoke(other)
+context (ConditionContext, DatabaseDialect<S>)
+fun <S> ExpressionForCondition<String?, S>.like(other: String): AliasableExpressionForCondition<Boolean, S> {
+    val parameter: Parameter<String?, S> = databaseType().parameterFactory().invoke(other)
     return like(parameter)
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.inListParameters(list: Iterable<Parameter<T>>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.inListParameters(list: Iterable<Parameter<T, S>>): AliasableExpressionForCondition<Boolean, S> {
     return condition(list, "in")
 }
 
-context (ConditionContext, DatabaseDialect)
-fun <T> ExpressionForCondition<T>.inList(list: Iterable<T>): AliasableExpressionForCondition<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <T, S> ExpressionForCondition<T, S>.inList(list: Iterable<T>): AliasableExpressionForCondition<Boolean, S> {
     return inListParameters(list.map { databaseType().parameterFactory().invoke(it) })
 }
 
-context (ConditionContext, DatabaseDialect)
-fun ExpressionForCondition<Boolean>.and(other: ExpressionForCondition<Boolean>): AliasableExpressionForCondition<Boolean> {
-    return object : AliasableExpressionForCondition<Boolean> {
-        override fun databaseType(): DatabaseType<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <S> ExpressionForCondition<Boolean, S>.and(other: ExpressionForCondition<Boolean, S>): AliasableExpressionForCondition<Boolean, S> {
+    return object : AliasableExpressionForCondition<Boolean, S> {
+        override fun databaseType(): DatabaseType<Boolean, S> {
             return booleanType()
         }
 
-        override fun build(): QueryPart {
+        override fun build(): QueryPart<S> {
             val first = this@and.build()
             val second = other.build()
             return QueryPartImpl(
@@ -126,14 +126,14 @@ fun ExpressionForCondition<Boolean>.and(other: ExpressionForCondition<Boolean>):
     }
 }
 
-context (ConditionContext, DatabaseDialect)
-fun ExpressionForCondition<Boolean>.or(other: ExpressionForCondition<Boolean>): AliasableExpressionForCondition<Boolean> {
-    return object : AliasableExpressionForCondition<Boolean> {
-        override fun databaseType(): DatabaseType<Boolean> {
+context (ConditionContext, DatabaseDialect<S>)
+fun <S> ExpressionForCondition<Boolean, S>.or(other: ExpressionForCondition<Boolean, S>): AliasableExpressionForCondition<Boolean, S> {
+    return object : AliasableExpressionForCondition<Boolean, S> {
+        override fun databaseType(): DatabaseType<Boolean, S> {
             return booleanType()
         }
 
-        override fun build(): QueryPart {
+        override fun build(): QueryPart<S> {
             val first = this@or.build()
             val second = other.build()
             return QueryPartImpl(
@@ -144,16 +144,17 @@ fun ExpressionForCondition<Boolean>.or(other: ExpressionForCondition<Boolean>): 
     }
 }
 
-context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForCondition<T>.condition(
-    other: ExpressionForCondition<T>,
+context (ConditionContext, DatabaseDialect<S>)
+private fun <T, S> ExpressionForCondition<T, S>.condition(
+    other: ExpressionForCondition<T, S>,
     operator: String
-): AliasableExpressionForCondition<Boolean> {
-    return object : AliasableExpressionForCondition<Boolean> {
-        override fun databaseType(): DatabaseType<Boolean> {
+): AliasableExpressionForCondition<Boolean, S> {
+    return object : AliasableExpressionForCondition<Boolean, S> {
+        override fun databaseType(): DatabaseType<Boolean, S> {
             return booleanType()
         }
 
-        override fun build(): QueryPart {
+        override fun build(): QueryPart<S> {
             val leftExpression = this@condition.build()
             val rightExpression = other.build()
             return QueryPartImpl(
@@ -164,16 +165,17 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
     }
 }
 
-context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForCondition<T>.condition(
-    other: Parameter<T>,
+context (ConditionContext, DatabaseDialect<S>)
+private fun <T, S> ExpressionForCondition<T, S>.condition(
+    other: Parameter<T, S>,
     operator: String
-): AliasableExpressionForCondition<Boolean> {
-    return object : AliasableExpressionForCondition<Boolean> {
-        override fun databaseType(): DatabaseType<Boolean> {
+): AliasableExpressionForCondition<Boolean, S> {
+    return object : AliasableExpressionForCondition<Boolean, S> {
+        override fun databaseType(): DatabaseType<Boolean, S> {
             return booleanType()
         }
 
-        override fun build(): QueryPart {
+        override fun build(): QueryPart<S> {
             val leftExpression = this@condition.build()
             return QueryPartImpl(
                 sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInSql}",
@@ -183,16 +185,17 @@ context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForConditi
     }
 }
 
-context (ConditionContext, DatabaseDialect) private fun <T> ExpressionForCondition<T>.condition(
-    others: Iterable<Parameter<T>>,
+context (ConditionContext, DatabaseDialect<S>)
+private fun <T, S> ExpressionForCondition<T, S>.condition(
+    others: Iterable<Parameter<T, S>>,
     operator: String
-): AliasableExpressionForCondition<Boolean> {
-    return object : AliasableExpressionForCondition<Boolean> {
-        override fun databaseType(): DatabaseType<Boolean> {
+): AliasableExpressionForCondition<Boolean, S> {
+    return object : AliasableExpressionForCondition<Boolean, S> {
+        override fun databaseType(): DatabaseType<Boolean, S> {
             return booleanType()
         }
 
-        override fun build(): QueryPart {
+        override fun build(): QueryPart<S> {
             val leftExpression = this@condition.build()
             val parameters = others.joinToString(",") {
                 it.parameterInSql

@@ -5,6 +5,6 @@ import kotlin.reflect.KClass
 
 class TableMetadata(
     val tableName: String,
-    val tableClass: KClass<out Table<*>>,
+    val tableClass: KClass<out Table<*, *>>,
     val columns: List<ColumnMetadata>
 )

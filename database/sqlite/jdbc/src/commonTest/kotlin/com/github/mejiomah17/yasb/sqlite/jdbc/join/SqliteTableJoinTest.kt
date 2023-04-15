@@ -1,6 +1,5 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc.join
 
-import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
@@ -9,8 +8,10 @@ import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteTest
 import org.junit.jupiter.api.BeforeEach
+import java.sql.ResultSet
 
-class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, SqliteTest() {
+class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable, ResultSet, SqliteJdbcDatabaseDialect>,
+    SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -28,24 +29,24 @@ class SqliteTableJoinTest : TableJoinTest<SqliteTableJoinTest.SecondTable>, Sqli
         }
     }
 
-    override fun firstTable(): Table<*> = FirstTable
+    override fun firstTable(): Table<*, ResultSet> = FirstTable
 
-    override fun joinColumnFromFirstTable(): Column<*, String> = FirstTable.a
-    override fun dataColumnFromFirstTable(): Column<*, String> = FirstTable.b
+    override fun joinColumnFromFirstTable(): Column<*, String, ResultSet> = FirstTable.a
+    override fun dataColumnFromFirstTable(): Column<*, String, ResultSet> = FirstTable.b
 
     override fun secondTable(): SecondTable = SecondTable
 
-    override fun joinColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.a
-    override fun dataColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.b
-    override fun thirdTable(): Table<*> = ThirdTable
+    override fun joinColumnFromSecondTable(): Column<SecondTable, String, ResultSet> = SecondTable.a
+    override fun dataColumnFromSecondTable(): Column<SecondTable, String, ResultSet> = SecondTable.b
+    override fun thirdTable(): Table<*, ResultSet> = ThirdTable
 
-    override fun joinColumnFromThirdTable(): Column<*, String> = ThirdTable.a
+    override fun joinColumnFromThirdTable(): Column<*, String, ResultSet> = ThirdTable.a
 
-    override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
+    override fun dataColumnFromThirdTable(): Column<*, String, ResultSet> = ThirdTable.b
 
     override fun transactionFactory(): SqliteJdbcTransactionFactory = SqliteJdbcTransactionFactory(dataSource)
 
-    override fun dialect(): DatabaseDialect = SqliteJdbcDatabaseDialect
+    override fun dialect(): SqliteJdbcDatabaseDialect = SqliteJdbcDatabaseDialect
 
     object FirstTable : SqliteJdbcTable<FirstTable> {
         override val tableName: String = "FIRST"

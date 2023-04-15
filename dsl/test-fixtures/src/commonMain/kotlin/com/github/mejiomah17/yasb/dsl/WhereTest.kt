@@ -1,12 +1,13 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface WhereTest<T : Table<T>> : SelectionTest<T> {
+interface WhereTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
     @Test
     fun `where filters query`() {
         transactionFactory().readUncommitted {

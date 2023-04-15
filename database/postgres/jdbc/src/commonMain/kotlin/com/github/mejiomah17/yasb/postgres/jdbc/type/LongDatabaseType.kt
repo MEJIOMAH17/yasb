@@ -7,15 +7,19 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object LongDatabaseType : JDBCDatabaseType<Long> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): Long? {
+    override fun extractFromSource(resultSet: ResultSet, index: Int): Long? {
         return resultSet.getNullable {
             resultSet.getLong(index)
         }
     }
 
-    override fun applyParameterToStatement(parameter: Parameter<Long>, statement: PreparedStatement, index: Int) {
+    override fun applyParameterToStatement(
+        parameter: Parameter<Long, ResultSet>,
+        statement: PreparedStatement,
+        index: Int
+    ) {
         statement.setObject(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Long?) -> Parameter<Long> = ::LongParameter
+    override fun parameterFactory(): (Long?) -> Parameter<Long, ResultSet> = ::LongParameter
 }

@@ -4,8 +4,9 @@ import com.github.mejiomah17.yasb.core.jdbc.JDBCDatabaseType
 import com.github.mejiomah17.yasb.postgres.jdbc.type.BooleanDatabaseType
 import com.github.mejiomah17.yasb.postgres.jdbc.type.LongDatabaseType
 import com.github.mejiomah17.yasb.sqlite.PostgresDatabaseDialect
+import java.sql.ResultSet
 
-object PostgresJdbcDatabaseDialect : PostgresDatabaseDialect {
+object PostgresJdbcDatabaseDialect : PostgresDatabaseDialect<ResultSet> {
     override fun booleanType(): JDBCDatabaseType<Boolean> {
         return BooleanDatabaseType
     }

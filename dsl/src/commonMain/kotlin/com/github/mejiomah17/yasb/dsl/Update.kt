@@ -8,15 +8,15 @@ import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 // TODO test
-class Update<T : Table<T>> internal constructor(
+class Update<T : Table<T, S>, S> internal constructor(
     private val table: T,
-    private val columnsToValues: Map<Column<T, *>, Any?>,
-    private val where: Expression<Boolean>?
+    private val columnsToValues: Map<Column<T, *, S>, Any?>,
+    private val where: Expression<Boolean, S>?
 ) {
-    fun buildUpdateQuery(): QueryPart {
-        val parameters = mutableListOf<Parameter<*>>()
+    fun buildUpdateQuery(): QueryPart<S> {
+        val parameters = mutableListOf<Parameter<*, S>>()
         val setPart = columnsToValues.map { (column, value) ->
-            column as Column<T, Any>
+            column as Column<T, Any, S>
             val sqlValue = if (value is DefaultQueryPart) {
                 value.sqlDefinition
             } else {
@@ -36,28 +36,28 @@ class Update<T : Table<T>> internal constructor(
     }
 }
 
-class UpdateContext<T : Table<T>> {
-    internal val columns = mutableMapOf<Column<T, *>, Any?>()
-    operator fun <V> set(column: Column<T, V>, value: V) {
+class UpdateContext<T : Table<T, S>, S> {
+    internal val columns = mutableMapOf<Column<T, *, S>, Any?>()
+    operator fun <V> set(column: Column<T, V, S>, value: V) {
         columns[column] = value
     }
 }
 
-fun <T : Table<T>> update(
+fun <T : Table<T, S>, S> update(
     table: T,
-    set: T.(UpdateContext<T>) -> Unit,
-    where: ConditionContext.() -> Expression<Boolean>
-): Update<T> {
-    val context = UpdateContext<T>()
+    set: T.(UpdateContext<T, S>) -> Unit,
+    where: ConditionContext.() -> Expression<Boolean, S>
+): Update<T, S> {
+    val context = UpdateContext<T, S>()
     table.set(context)
     return Update(table, context.columns, where(ConditionContext))
 }
 
-fun <T : Table<T>> update(
+fun <T : Table<T, S>, S> update(
     table: T,
-    set: T.(UpdateContext<T>) -> Unit
-): Update<T> {
-    val context = UpdateContext<T>()
+    set: T.(UpdateContext<T, S>) -> Unit
+): Update<T, S> {
+    val context = UpdateContext<T, S>()
     table.set(context)
     return Update(table, context.columns, null)
 }

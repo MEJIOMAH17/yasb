@@ -1,6 +1,5 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.join
 
-import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
@@ -9,8 +8,10 @@ import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresTest
 import org.junit.jupiter.api.BeforeEach
+import java.sql.ResultSet
 
-class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, PostgresTest() {
+class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PostgresJdbcDatabaseDialect>,
+    PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -28,24 +29,24 @@ class PostgresTableJoinTest : TableJoinTest<PostgresTableJoinTest.SecondTable>, 
         }
     }
 
-    override fun firstTable(): Table<*> = FirstTable
+    override fun firstTable(): Table<*, ResultSet> = FirstTable
 
-    override fun joinColumnFromFirstTable(): Column<*, String> = FirstTable.a
-    override fun dataColumnFromFirstTable(): Column<*, String> = FirstTable.b
+    override fun joinColumnFromFirstTable(): Column<*, String, ResultSet> = FirstTable.a
+    override fun dataColumnFromFirstTable(): Column<*, String, ResultSet> = FirstTable.b
 
     override fun secondTable(): SecondTable = SecondTable
 
-    override fun joinColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.a
-    override fun dataColumnFromSecondTable(): Column<SecondTable, String> = SecondTable.b
-    override fun thirdTable(): Table<*> = ThirdTable
+    override fun joinColumnFromSecondTable(): Column<SecondTable, String, ResultSet> = SecondTable.a
+    override fun dataColumnFromSecondTable(): Column<SecondTable, String, ResultSet> = SecondTable.b
+    override fun thirdTable(): Table<*, ResultSet> = ThirdTable
 
-    override fun joinColumnFromThirdTable(): Column<*, String> = ThirdTable.a
+    override fun joinColumnFromThirdTable(): Column<*, String, ResultSet> = ThirdTable.a
 
-    override fun dataColumnFromThirdTable(): Column<*, String> = ThirdTable.b
+    override fun dataColumnFromThirdTable(): Column<*, String, ResultSet> = ThirdTable.b
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
 
-    override fun dialect(): DatabaseDialect = PostgresJdbcDatabaseDialect
+    override fun dialect(): PostgresJdbcDatabaseDialect = PostgresJdbcDatabaseDialect
 
     object FirstTable : PostgresJdbcTable<FirstTable> {
         override val tableName: String = "FIRST"

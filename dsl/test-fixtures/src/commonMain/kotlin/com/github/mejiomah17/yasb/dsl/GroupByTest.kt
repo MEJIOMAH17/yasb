@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.alias.`as`
@@ -7,7 +8,7 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface GroupByTest<T : Table<T>> : SelectionTest<T> {
+interface GroupByTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
     @Test
     fun `groupBy creates correct sql for from clause`() {
         val result = select(columnA(), parameter().`as`("p"))

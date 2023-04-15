@@ -2,8 +2,8 @@ package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.expression.Expression
 
-class Select(
-    val expressions: List<Expression<*>>
+class Select<S>(
+    val expressions: List<Expression<*, S>>
 ) {
     init {
         require(expressions.isNotEmpty()) {
@@ -12,10 +12,10 @@ class Select(
     }
 }
 
-fun select(vararg expressions: Expression<*>): Select {
+fun <S> select(vararg expressions: Expression<*, S>): Select<S> {
     return Select(expressions.toList())
 }
 
-fun select(expressions: List<Expression<*>>): Select {
+fun <S> select(expressions: List<Expression<*, S>>): Select<S> {
     return Select(expressions)
 }

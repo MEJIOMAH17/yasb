@@ -3,12 +3,12 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class GroupBy internal constructor(
-    private val selectQuery: SelectQuery,
+class GroupBy<S> internal constructor(
+    private val selectQuery: SelectQuery<S>,
     private val groupingElementList: GroupingElementList
-) : GroupByClauseAndSelectQuery {
+) : GroupByClauseAndSelectQuery<S> {
 
-    override fun buildSelectQuery(): QueryForExecute {
+    override fun buildSelectQuery(): QueryForExecute<S> {
         val query = selectQuery.buildSelectQuery()
         val groupDefinition = groupingElementList.joinToString(",") {
             it.sqlDefinition
@@ -21,33 +21,33 @@ class GroupBy internal constructor(
     }
 }
 
-fun FromClauseAndSelectQuery.groupBy(
-    columns: List<Column<*, *>>
-): GroupByClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.groupBy(
+    columns: List<Column<*, *, S>>
+): GroupByClauseAndSelectQuery<S> {
     return GroupBy(
         selectQuery = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun FromClauseAndSelectQuery.groupBy(
-    vararg columns: Column<*, *>
-): GroupByClauseAndSelectQuery {
+fun <S> FromClauseAndSelectQuery<S>.groupBy(
+    vararg columns: Column<*, *, S>
+): GroupByClauseAndSelectQuery<S> {
     return groupBy(columns.toList())
 }
 
-fun WhereClauseAndSelectQuery.groupBy(
-    columns: List<Column<*, *>>
-): GroupByClauseAndSelectQuery {
+fun <S> WhereClauseAndSelectQuery<S>.groupBy(
+    columns: List<Column<*, *, S>>
+): GroupByClauseAndSelectQuery<S> {
     return GroupBy(
         selectQuery = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun WhereClauseAndSelectQuery.groupBy(
-    vararg columns: Column<*, *>
-): GroupByClauseAndSelectQuery {
+fun <S> WhereClauseAndSelectQuery<S>.groupBy(
+    vararg columns: Column<*, *, S>
+): GroupByClauseAndSelectQuery<S> {
     return groupBy(columns.toList())
 }
 
@@ -57,6 +57,6 @@ internal interface GroupingElement {
     val sqlDefinition: String
 }
 
-private class ColumnReference(column: Column<*, *>) : GroupingElement {
+private class ColumnReference(column: Column<*, *, *>) : GroupingElement {
     override val sqlDefinition: String = column.build().sqlDefinition
 }

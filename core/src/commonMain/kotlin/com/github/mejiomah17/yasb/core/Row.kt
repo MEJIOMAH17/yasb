@@ -2,8 +2,8 @@ package com.github.mejiomah17.yasb.core
 
 import com.github.mejiomah17.yasb.core.expression.Expression
 
-class Row(private val columnToValues: Map<Expression<*>, Any?>) {
-    operator fun <T> get(column: Expression<T>): T {
+class Row(private val columnToValues: Map<Expression<*, *>, Any?>) {
+    operator fun <T> get(column: Expression<T, *>): T {
         return columnToValues[column] as T
     }
 

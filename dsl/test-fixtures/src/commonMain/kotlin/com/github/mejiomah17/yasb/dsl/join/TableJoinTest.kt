@@ -11,7 +11,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface TableJoinTest<T : Table<T>> {
+interface TableJoinTest<T : Table<T, S>, S, D : DatabaseDialect<S>> {
     // <editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
@@ -596,15 +596,15 @@ interface TableJoinTest<T : Table<T>> {
     }
     // </editor-fold>
 
-    fun firstTable(): Table<*>
-    fun joinColumnFromFirstTable(): Column<*, String>
-    fun dataColumnFromFirstTable(): Column<*, String>
+    fun firstTable(): Table<*, S>
+    fun joinColumnFromFirstTable(): Column<*, String, S>
+    fun dataColumnFromFirstTable(): Column<*, String, S>
     fun secondTable(): T
-    fun joinColumnFromSecondTable(): Column<T, String>
-    fun dataColumnFromSecondTable(): Column<T, String>
-    fun thirdTable(): Table<*>
-    fun joinColumnFromThirdTable(): Column<*, String>
-    fun dataColumnFromThirdTable(): Column<*, String>
-    fun transactionFactory(): TransactionFactory<*>
-    fun dialect(): DatabaseDialect
+    fun joinColumnFromSecondTable(): Column<T, String, S>
+    fun dataColumnFromSecondTable(): Column<T, String, S>
+    fun thirdTable(): Table<*, S>
+    fun joinColumnFromThirdTable(): Column<*, String, S>
+    fun dataColumnFromThirdTable(): Column<*, String, S>
+    fun transactionFactory(): TransactionFactory<D, S>
+    fun dialect(): D
 }

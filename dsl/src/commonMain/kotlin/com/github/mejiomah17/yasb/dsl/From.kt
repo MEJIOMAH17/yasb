@@ -3,11 +3,11 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class From(
-    val select: Select,
-    val source: SelectionSource
-) : FromClauseAndSelectQuery {
-    override fun buildSelectQuery(): QueryForExecute {
+class From<S>(
+    val select: Select<S>,
+    val source: SelectionSource<S>
+) : FromClauseAndSelectQuery<S> {
+    override fun buildSelectQuery(): QueryForExecute<S> {
         val builtExpressions = select.expressions.map { it.build() }
         val selectionPart = builtExpressions.map { it.sqlDefinition }.joinToString(", ")
         return QueryForExecute(
@@ -18,6 +18,6 @@ class From(
     }
 }
 
-fun Select.from(source: SelectionSource): From {
+fun <S> Select<S>.from(source: SelectionSource<S>): From<S> {
     return From(this, source)
 }

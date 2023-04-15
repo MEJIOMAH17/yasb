@@ -9,11 +9,15 @@ import java.sql.ResultSet
 import java.util.UUID
 
 object UuidDatabaseType : JDBCDatabaseType<UUID> {
-    override fun extractFromResultSet(resultSet: ResultSet, index: Int): UUID? {
+    override fun extractFromSource(resultSet: ResultSet, index: Int): UUID? {
         return resultSet.getString(index)?.let { UUID.fromString(it) }
     }
 
-    override fun applyParameterToStatement(parameter: Parameter<UUID>, statement: PreparedStatement, index: Int) {
+    override fun applyParameterToStatement(
+        parameter: Parameter<UUID, ResultSet>,
+        statement: PreparedStatement,
+        index: Int
+    ) {
         statement.setObject(
             index,
             PGobject().apply {
@@ -23,5 +27,5 @@ object UuidDatabaseType : JDBCDatabaseType<UUID> {
         )
     }
 
-    override fun parameterFactory(): (UUID?) -> Parameter<UUID> = ::UuidParameter
+    override fun parameterFactory(): (UUID?) -> Parameter<UUID, ResultSet> = ::UuidParameter
 }

@@ -6,11 +6,11 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsLimit
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class Limit internal constructor(
-    private val selectQuery: SelectQuery,
+class Limit<S> internal constructor(
+    private val selectQuery: SelectQuery<S>,
     private val limit: Int
-) : SelectQuery {
-    override fun buildSelectQuery(): QueryForExecute {
+) : SelectQuery<S> {
+    override fun buildSelectQuery(): QueryForExecute<S> {
         val query = selectQuery.buildSelectQuery()
         return QueryForExecute(
             sqlDefinition = "${query.sqlDefinition} LIMIT $limit",
@@ -20,16 +20,16 @@ class Limit internal constructor(
     }
 }
 
-context(DatabaseDialect, SupportsLimit)
-fun FromClauseAndSelectQuery.limit(limit: Int): Limit {
+context(DatabaseDialect<S>, SupportsLimit)
+fun <S> FromClauseAndSelectQuery<S>.limit(limit: Int): Limit<S> {
     return Limit(
         this,
         limit
     )
 }
 
-context(DatabaseDialect, SupportsLimit)
-fun WhereClauseAndSelectQuery.limit(limit: Int): Limit {
+context(DatabaseDialect<S>, SupportsLimit)
+fun <S> WhereClauseAndSelectQuery<S>.limit(limit: Int): Limit<S> {
     return Limit(
         this,
         limit

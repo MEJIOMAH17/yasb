@@ -10,11 +10,12 @@ import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.sql.ResultSet
 import java.sql.Timestamp
 import java.time.Instant
 import java.util.UUID
 
-class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
+class PostgresInsertTest : InsertWithReturningTest<TestTable, ResultSet, PostgresJdbcDatabaseDialect>, PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -51,15 +52,15 @@ class PostgresInsertTest : InsertWithReturningTest<TestTable>, PostgresTest() {
         }
     }
 
-    override fun columnA(): Column<TestTable, String> {
+    override fun columnA(): Column<TestTable, String, ResultSet> {
         return TestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String> {
+    override fun columnB(): Column<TestTable, String, ResultSet> {
         return TestTable.b
     }
 
-    override fun parameter(): Parameter<String> {
+    override fun parameter(): Parameter<String, ResultSet> {
         return TextParameter("param")
     }
 

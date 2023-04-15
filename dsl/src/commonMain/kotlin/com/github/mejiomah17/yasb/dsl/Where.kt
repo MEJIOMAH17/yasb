@@ -6,11 +6,11 @@ import com.github.mejiomah17.yasb.dsl.ConditionContext
 import com.github.mejiomah17.yasb.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.dsl.WhereClauseAndSelectQuery
 
-class Where(
-    private val select: FromClauseAndSelectQuery,
-    private val where: Expression<Boolean>
-) : WhereClauseAndSelectQuery {
-    override fun buildSelectQuery(): QueryForExecute {
+class Where<S>(
+    private val select: FromClauseAndSelectQuery<S>,
+    private val where: Expression<Boolean, S>
+) : WhereClauseAndSelectQuery<S> {
+    override fun buildSelectQuery(): QueryForExecute<S> {
         val selectExpression = select.buildSelectQuery()
         val whereExpression = where.build()
         return QueryForExecute(
@@ -21,6 +21,6 @@ class Where(
     }
 }
 
-fun FromClauseAndSelectQuery.where(expression: ConditionContext.() -> Expression<Boolean>): Where {
+fun <S> FromClauseAndSelectQuery<S>.where(expression: ConditionContext.() -> Expression<Boolean, S>): Where<S> {
     return Where(this, expression(ConditionContext))
 }

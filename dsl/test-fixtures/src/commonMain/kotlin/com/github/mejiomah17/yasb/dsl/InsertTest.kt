@@ -1,11 +1,12 @@
 package com.github.mejiomah17.yasb.dsl
 
+import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Table
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface InsertTest<T : Table<T>> : SelectionTest<T> {
+interface InsertTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
 
     @Test
     fun select_values_after_insert() {
