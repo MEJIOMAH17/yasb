@@ -9,10 +9,10 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class TableAlias<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE>(val table: T, val name: String) :
+class TableAlias<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE>(val table: TABLE, val name: String) :
     SelectionSource<DRIVER_DATA_SOURCE> {
 
-    operator fun <V> get(column: Column<T, V, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<V, DRIVER_DATA_SOURCE> {
+    operator fun <V> get(column: Column<TABLE, V, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<V, DRIVER_DATA_SOURCE> {
         return object : AliasableExpressionForCondition<V, DRIVER_DATA_SOURCE> {
             override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE> {
                 return column.databaseType
@@ -31,6 +31,6 @@ class TableAlias<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE>(val table
     override val parameters: List<Parameter<*, DRIVER_DATA_SOURCE>> = table.parameters
 }
 
-fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> T.`as`(name: String): TableAlias<T, DRIVER_DATA_SOURCE> {
+fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> TABLE.`as`(name: String): TableAlias<TABLE, DRIVER_DATA_SOURCE> {
     return TableAlias(table = this, name = name)
 }

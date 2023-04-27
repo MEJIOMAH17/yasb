@@ -44,7 +44,7 @@ interface JdbcTransaction {
         return JdbcRows(statement, queryForExecute, resultSet)
     }
 
-    fun <T : Table<T, *>> Insert<T, *>.execute() {
+    fun <TABLE : Table<TABLE, *>> Insert<TABLE, *>.execute() {
         val queryForExecute = buildInsertQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
@@ -54,7 +54,7 @@ interface JdbcTransaction {
         statement.execute()
     }
 
-    fun <T : Table<T, *>> Update<T, *>.execute() {
+    fun <TABLE : Table<TABLE, *>> Update<TABLE, *>.execute() {
         val queryForExecute = buildUpdateQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
@@ -64,7 +64,7 @@ interface JdbcTransaction {
         statement.execute()
     }
 
-    fun <T : Table<T, *>> InsertWithReturn<T, *>.lazy(): Rows {
+    fun <TABLE : Table<TABLE, *>> InsertWithReturn<TABLE, *>.lazy(): Rows {
         val queryForExecute = buildInsertQuery() as QueryForExecute<ResultSet>
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
@@ -75,7 +75,7 @@ interface JdbcTransaction {
         return JdbcRows(statement, queryForExecute, resultSet)
     }
 
-    fun <T : Table<T, *>> InsertWithReturn<T, *>.execute(): List<Row> {
+    fun <TABLE : Table<TABLE, *>> InsertWithReturn<TABLE, *>.execute(): List<Row> {
         return lazy().toList()
     }
 }

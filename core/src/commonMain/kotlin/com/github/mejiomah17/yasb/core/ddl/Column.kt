@@ -6,9 +6,9 @@ import com.github.mejiomah17.yasb.core.expression.ExpressionForCondition
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class Column<T : Table<T, DRIVER_DATA_SOURCE>, V, DRIVER_DATA_SOURCE>(
+class Column<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, V, DRIVER_DATA_SOURCE>(
     val name: String,
-    val table: T,
+    val table: TABLE,
     val databaseType: DatabaseType<V, DRIVER_DATA_SOURCE>
 ) : AliasableExpression<V, DRIVER_DATA_SOURCE>, ExpressionForCondition<V, DRIVER_DATA_SOURCE> {
     override fun build(): QueryPart<DRIVER_DATA_SOURCE> {

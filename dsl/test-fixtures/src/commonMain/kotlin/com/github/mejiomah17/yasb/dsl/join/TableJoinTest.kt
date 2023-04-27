@@ -15,7 +15,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface TableJoinTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> {
+interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> {
     // <editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
@@ -603,9 +603,9 @@ interface TableJoinTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D 
     fun firstTable(): Table<*, DRIVER_DATA_SOURCE>
     fun joinColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE>
     fun dataColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE>
-    fun secondTable(): T
-    fun joinColumnFromSecondTable(): Column<T, String, DRIVER_DATA_SOURCE>
-    fun dataColumnFromSecondTable(): Column<T, String, DRIVER_DATA_SOURCE>
+    fun secondTable(): TABLE
+    fun joinColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE>
+    fun dataColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE>
     fun thirdTable(): Table<*, DRIVER_DATA_SOURCE>
     fun joinColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>
     fun dataColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>

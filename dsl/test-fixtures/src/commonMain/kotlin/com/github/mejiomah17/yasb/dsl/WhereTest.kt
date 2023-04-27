@@ -10,8 +10,8 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface WhereTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
-    SelectionTest<T, DRIVER_DATA_SOURCE, D> {
+interface WhereTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<TABLE, DRIVER_DATA_SOURCE, D> {
     @Test
     fun `where filters query`() {
         transactionFactory().readUncommitted {

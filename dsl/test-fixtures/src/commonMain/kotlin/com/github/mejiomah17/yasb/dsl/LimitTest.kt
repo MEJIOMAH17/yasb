@@ -14,7 +14,7 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface LimitTest<T : Table<T, DRIVER_DATA_SOURCE>, F, D, DRIVER_DATA_SOURCE> where F : TransactionFactory<D, DRIVER_DATA_SOURCE>, D : DatabaseDialect<DRIVER_DATA_SOURCE>, D : SupportsLimit {
+interface LimitTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, F, D, DRIVER_DATA_SOURCE> where F : TransactionFactory<D, DRIVER_DATA_SOURCE>, D : DatabaseDialect<DRIVER_DATA_SOURCE>, D : SupportsLimit {
 
     @Test
     fun `limit generates correct sql`() {
@@ -49,6 +49,6 @@ interface LimitTest<T : Table<T, DRIVER_DATA_SOURCE>, F, D, DRIVER_DATA_SOURCE> 
     }
 
     fun transactionFactory(): F
-    fun columnA(): Column<T, String, DRIVER_DATA_SOURCE>
-    fun tableTest(): T
+    fun columnA(): Column<TABLE, String, DRIVER_DATA_SOURCE>
+    fun tableTest(): TABLE
 }

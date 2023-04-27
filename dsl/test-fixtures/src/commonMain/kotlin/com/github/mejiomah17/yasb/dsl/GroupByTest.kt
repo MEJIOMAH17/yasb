@@ -12,8 +12,8 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface GroupByTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
-    SelectionTest<T, DRIVER_DATA_SOURCE, D> {
+interface GroupByTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<TABLE, DRIVER_DATA_SOURCE, D> {
     @Test
     fun `groupBy creates correct sql for from clause`() {
         val result = select(columnA(), parameter().`as`("p"))
