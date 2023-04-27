@@ -11,13 +11,5 @@ object TextDatabaseType : JDBCDatabaseType<String> {
         return resultSet.getString(index)
     }
 
-    override fun applyParameterToStatement(
-        parameter: Parameter<String, ResultSet, PreparedStatement>,
-        statement: PreparedStatement,
-        index: Int
-    ) {
-        statement.setString(index, parameter.value)
-    }
-
     override fun parameterFactory(): (String?) -> Parameter<String, ResultSet, PreparedStatement> = ::TextParameter
 }

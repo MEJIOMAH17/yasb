@@ -13,13 +13,5 @@ object DoublePrecisionDatabaseType : JDBCDatabaseType<Double> {
         }
     }
 
-    override fun applyParameterToStatement(
-        parameter: Parameter<Double, ResultSet, PreparedStatement>,
-        statement: PreparedStatement,
-        index: Int
-    ) {
-        statement.setObject(index, parameter.value)
-    }
-
     override fun parameterFactory(): (Double?) -> Parameter<Double, ResultSet, PreparedStatement> = ::DoubleParameter
 }

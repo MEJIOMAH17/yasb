@@ -13,13 +13,5 @@ object LongDatabaseType : JDBCDatabaseType<Long> {
         }
     }
 
-    override fun applyParameterToStatement(
-        parameter: Parameter<Long, ResultSet, PreparedStatement>,
-        statement: PreparedStatement,
-        index: Int
-    ) {
-        statement.setObject(index, parameter.value)
-    }
-
     override fun parameterFactory(): (Long?) -> Parameter<Long, ResultSet, PreparedStatement> = ::LongParameter
 }

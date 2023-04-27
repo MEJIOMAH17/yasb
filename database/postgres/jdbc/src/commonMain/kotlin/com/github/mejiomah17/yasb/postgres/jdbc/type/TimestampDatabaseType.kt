@@ -12,14 +12,6 @@ object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
         return resultSet.getTimestamp(index)
     }
 
-    override fun applyParameterToStatement(
-        parameter: Parameter<Timestamp, ResultSet, PreparedStatement>,
-        statement: PreparedStatement,
-        index: Int
-    ) {
-        statement.setTimestamp(index, parameter.value)
-    }
-
     override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet, PreparedStatement> =
         ::TimestampParameter
 }

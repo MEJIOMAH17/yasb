@@ -10,7 +10,6 @@ import com.github.mejiomah17.yasb.core.dsl.Update
 import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import com.github.mejiomah17.yasb.dsl.jdbc
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -39,7 +38,7 @@ interface JdbcTransaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any, ResultSet, PreparedStatement>
-            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
+            parameter.applyToStatement(statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return JdbcRows(statement, queryForExecute, resultSet)
@@ -50,7 +49,7 @@ interface JdbcTransaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any, ResultSet, PreparedStatement>
-            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
+            parameter.applyToStatement(statement, i + 1)
         }
         statement.execute()
     }
@@ -60,7 +59,7 @@ interface JdbcTransaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any, ResultSet, PreparedStatement>
-            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
+            parameter.applyToStatement(statement, i + 1)
         }
         statement.execute()
     }
@@ -70,7 +69,7 @@ interface JdbcTransaction {
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
             parameter as Parameter<Any, ResultSet, PreparedStatement>
-            parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
+            parameter.applyToStatement(statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return JdbcRows(statement, queryForExecute, resultSet)
