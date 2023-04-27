@@ -20,7 +20,6 @@ kotlin {
     }
 }
 
-
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
 }
