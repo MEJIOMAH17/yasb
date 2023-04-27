@@ -3,9 +3,11 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.dsl.LimitTest
 import org.junit.jupiter.api.BeforeEach
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class PostgresLimitTest : LimitTest<TestTable, PostgresJdbcTransactionFactory, PostgresJdbcDatabaseDialect, ResultSet>,
+class PostgresLimitTest :
+    LimitTest<TestTable, PostgresJdbcTransactionFactory, PostgresJdbcDatabaseDialect, ResultSet, PreparedStatement>,
     PostgresTest() {
     @BeforeEach
     fun setup() {
@@ -39,7 +41,7 @@ class PostgresLimitTest : LimitTest<TestTable, PostgresJdbcTransactionFactory, P
         return TestTable
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 }

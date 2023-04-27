@@ -14,12 +14,12 @@ object BooleanDatabaseType : JDBCDatabaseType<Boolean> {
     }
 
     override fun applyParameterToStatement(
-        parameter: Parameter<Boolean, ResultSet>,
+        parameter: Parameter<Boolean, ResultSet, PreparedStatement>,
         statement: PreparedStatement,
         index: Int
     ) {
         statement.setObject(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, ResultSet> = ::BooleanParameter
+    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, ResultSet, PreparedStatement> = ::BooleanParameter
 }

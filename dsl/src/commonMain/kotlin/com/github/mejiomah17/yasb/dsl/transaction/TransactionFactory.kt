@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import java.sql.Connection
 import javax.sql.DataSource
 
-abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE>(
+abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val datasource: DataSource
 ) {
     abstract fun dialect(): D

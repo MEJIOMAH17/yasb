@@ -7,7 +7,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 object BooleanDatabaseType : AndroidDatabaseType<Boolean> {
 
-    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, Cursor> = ::BooleanParameter
+    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, Cursor, String> = ::BooleanParameter
     override fun extractFromSource(source: Cursor, index: Int): Boolean? {
         TODO()
     }

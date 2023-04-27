@@ -5,9 +5,10 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.WhereTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class SqliteWhereTest : WhereTest<TestTable, ResultSet, SqliteJdbcDatabaseDialect>, SqliteTest() {
+class SqliteWhereTest : WhereTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect>, SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -31,15 +32,15 @@ class SqliteWhereTest : WhereTest<TestTable, ResultSet, SqliteJdbcDatabaseDialec
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet> {
+    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.b
     }
 
-    override fun parameter(): Parameter<String, ResultSet> {
+    override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 

@@ -9,10 +9,12 @@ import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Timestamp
 
-class PostgresFromTest : FromTest<TestTable, ResultSet, PostgresJdbcDatabaseDialect>, PostgresTest() {
+class PostgresFromTest : FromTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+    PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -31,15 +33,15 @@ class PostgresFromTest : FromTest<TestTable, ResultSet, PostgresJdbcDatabaseDial
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet> {
+    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.b
     }
 
-    override fun parameter(): Parameter<String, ResultSet> {
+    override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 

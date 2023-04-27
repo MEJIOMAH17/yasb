@@ -10,6 +10,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
@@ -43,7 +44,7 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return PostgresJdbcTransactionFactory(dataSource)
     }
 
-    override fun TransactionFactory<*, ResultSet>.callTransaction() {
+    override fun TransactionFactory<*, ResultSet, PreparedStatement>.callTransaction() {
         this.readUncommitted {
         }
     }

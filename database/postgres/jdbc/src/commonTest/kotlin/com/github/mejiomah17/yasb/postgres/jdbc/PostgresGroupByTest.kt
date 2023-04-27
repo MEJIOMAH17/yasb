@@ -5,9 +5,11 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.GroupByTest
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class PostgresGroupByTest : GroupByTest<TestTable, ResultSet, PostgresJdbcDatabaseDialect>, PostgresTest() {
+class PostgresGroupByTest : GroupByTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+    PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -32,15 +34,15 @@ class PostgresGroupByTest : GroupByTest<TestTable, ResultSet, PostgresJdbcDataba
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet> {
+    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.b
     }
 
-    override fun parameter(): Parameter<String, ResultSet> {
+    override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 

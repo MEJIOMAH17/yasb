@@ -7,12 +7,12 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.SupportsLimit
 
-object SqliteAndroidDatabaseDialect : DatabaseDialect<Cursor>, SupportsLimit {
-    override fun booleanType(): DatabaseType<Boolean, Cursor> {
+object SqliteAndroidDatabaseDialect : DatabaseDialect<Cursor, String>, SupportsLimit {
+    override fun booleanType(): DatabaseType<Boolean, Cursor, String> {
         return BooleanDatabaseType
     }
 
-    override fun longType(): DatabaseType<Long, Cursor> {
+    override fun longType(): DatabaseType<Long, Cursor, String> {
         return LongDatabaseType
     }
 }

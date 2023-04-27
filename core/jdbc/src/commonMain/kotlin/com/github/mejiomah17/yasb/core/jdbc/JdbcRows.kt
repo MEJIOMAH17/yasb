@@ -9,7 +9,7 @@ import java.sql.ResultSet
 // TODO INTERNAL
 class JdbcRows(
     private val preparedStatement: PreparedStatement,
-    private val queryForExecute: QueryForExecute<ResultSet>,
+    private val queryForExecute: QueryForExecute<ResultSet, PreparedStatement>,
     private val resultSet: ResultSet
 ) : Rows {
     override fun iterator(): Iterator<Row> {

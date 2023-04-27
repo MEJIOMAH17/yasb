@@ -15,7 +15,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE>> {
+interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
     // <editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
@@ -600,15 +600,15 @@ interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SO
     }
     // </editor-fold>
 
-    fun firstTable(): Table<*, DRIVER_DATA_SOURCE>
-    fun joinColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE>
-    fun dataColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE>
+    fun firstTable(): Table<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun joinColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun dataColumnFromFirstTable(): Column<*, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     fun secondTable(): TABLE
-    fun joinColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE>
-    fun dataColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE>
-    fun thirdTable(): Table<*, DRIVER_DATA_SOURCE>
-    fun joinColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>
-    fun dataColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>
-    fun transactionFactory(): TransactionFactory<DIALECT, DRIVER_DATA_SOURCE>
+    fun joinColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun dataColumnFromSecondTable(): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun thirdTable(): Table<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun joinColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun dataColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun transactionFactory(): TransactionFactory<DIALECT, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     fun dialect(): DIALECT
 }

@@ -12,12 +12,12 @@ object TextDatabaseType : JDBCDatabaseType<String> {
     }
 
     override fun applyParameterToStatement(
-        parameter: Parameter<String, ResultSet>,
+        parameter: Parameter<String, ResultSet, PreparedStatement>,
         statement: PreparedStatement,
         index: Int
     ) {
         statement.setString(index, parameter.value)
     }
 
-    override fun parameterFactory(): (String?) -> Parameter<String, ResultSet> = ::TextParameter
+    override fun parameterFactory(): (String?) -> Parameter<String, ResultSet, PreparedStatement> = ::TextParameter
 }

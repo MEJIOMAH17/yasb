@@ -8,8 +8,8 @@ import com.github.mejiomah17.yasb.core.dsl.insertInto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface InsertWithReturningTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE>> :
-    InsertTest<TABLE, DRIVER_DATA_SOURCE, DIALECT> {
+interface InsertWithReturningTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> :
+    InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT> {
 
     @Test
     fun output_returns_values() {

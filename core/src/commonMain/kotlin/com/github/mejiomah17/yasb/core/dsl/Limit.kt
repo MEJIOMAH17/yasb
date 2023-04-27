@@ -6,11 +6,11 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsLimit
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class Limit<DRIVER_DATA_SOURCE> internal constructor(
-    private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE>,
+class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
+    private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val limit: Int
-) : SelectQuery<DRIVER_DATA_SOURCE> {
-    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE> {
+) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = selectQuery.buildSelectQuery()
         return QueryForExecute(
             sqlDefinition = "${query.sqlDefinition} LIMIT $limit",
@@ -20,16 +20,16 @@ class Limit<DRIVER_DATA_SOURCE> internal constructor(
     }
 }
 
-context(DatabaseDialect<DRIVER_DATA_SOURCE>, SupportsLimit)
-fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE> {
+context(DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, SupportsLimit)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Limit(
         this,
         limit
     )
 }
 
-context(DatabaseDialect<DRIVER_DATA_SOURCE>, SupportsLimit)
-fun <DRIVER_DATA_SOURCE> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE> {
+context(DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, SupportsLimit)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Limit(
         this,
         limit

@@ -13,12 +13,13 @@ object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
     }
 
     override fun applyParameterToStatement(
-        parameter: Parameter<Timestamp, ResultSet>,
+        parameter: Parameter<Timestamp, ResultSet, PreparedStatement>,
         statement: PreparedStatement,
         index: Int
     ) {
         statement.setTimestamp(index, parameter.value)
     }
 
-    override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet> = ::TimestampParameter
+    override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet, PreparedStatement> =
+        ::TimestampParameter
 }

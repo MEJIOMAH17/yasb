@@ -12,6 +12,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.dsl.jdbc
 import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 interface JdbcTransaction {
@@ -27,55 +28,55 @@ interface JdbcTransaction {
         connection.rollback()
     }
 
-    fun SelectQuery<*>.execute(): List<Row> {
+    fun SelectQuery<*, *>.execute(): List<Row> {
         return lazy().use {
             it.toList()
         }
     }
 
-    fun SelectQuery<*>.lazy(): Rows {
-        val queryForExecute = buildSelectQuery() as QueryForExecute<ResultSet>
+    fun SelectQuery<*, *>.lazy(): Rows {
+        val queryForExecute = buildSelectQuery() as QueryForExecute<ResultSet, PreparedStatement>
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
-            parameter as Parameter<Any, ResultSet>
+            parameter as Parameter<Any, ResultSet, PreparedStatement>
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return JdbcRows(statement, queryForExecute, resultSet)
     }
 
-    fun <TABLE : Table<TABLE, *>> Insert<TABLE, *>.execute() {
+    fun <TABLE : Table<TABLE, *, *>> Insert<TABLE, *, *>.execute() {
         val queryForExecute = buildInsertQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
-            parameter as Parameter<Any, ResultSet>
+            parameter as Parameter<Any, ResultSet, PreparedStatement>
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         statement.execute()
     }
 
-    fun <TABLE : Table<TABLE, *>> Update<TABLE, *>.execute() {
+    fun <TABLE : Table<TABLE, *, *>> Update<TABLE, *, *>.execute() {
         val queryForExecute = buildUpdateQuery()
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
-            parameter as Parameter<Any, ResultSet>
+            parameter as Parameter<Any, ResultSet, PreparedStatement>
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         statement.execute()
     }
 
-    fun <TABLE : Table<TABLE, *>> InsertWithReturn<TABLE, *>.lazy(): Rows {
-        val queryForExecute = buildInsertQuery() as QueryForExecute<ResultSet>
+    fun <TABLE : Table<TABLE, *, *>> InsertWithReturn<TABLE, *, *>.lazy(): Rows {
+        val queryForExecute = buildInsertQuery() as QueryForExecute<ResultSet, PreparedStatement>
         val statement = connection.prepareStatement(queryForExecute.sqlDefinition)
         queryForExecute.parameters.forEachIndexed { i, parameter ->
-            parameter as Parameter<Any, ResultSet>
+            parameter as Parameter<Any, ResultSet, PreparedStatement>
             parameter.databaseType.jdbc().applyParameterToStatement(parameter, statement, i + 1)
         }
         val resultSet = statement.executeQuery()
         return JdbcRows(statement, queryForExecute, resultSet)
     }
 
-    fun <TABLE : Table<TABLE, *>> InsertWithReturn<TABLE, *>.execute(): List<Row> {
+    fun <TABLE : Table<TABLE, *, *>> InsertWithReturn<TABLE, *, *>.execute(): List<Row> {
         return lazy().toList()
     }
 }

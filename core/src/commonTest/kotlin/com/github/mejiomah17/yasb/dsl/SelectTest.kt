@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test
 class SelectTest {
     @Test
     fun `select method constructs Select`() {
-        val expression = object : Expression<Any, Any> {
-            override fun databaseType(): DatabaseType<Any, Any> {
+        val expression = object : Expression<Any, Any, Any> {
+            override fun databaseType(): DatabaseType<Any, Any, Any> {
                 TODO("Not yet implemented")
             }
 
-            override fun build(): QueryPart<Any> {
+            override fun build(): QueryPart<Any, Any> {
                 TODO("Not yet implemented")
             }
         }
@@ -29,7 +29,7 @@ class SelectTest {
     @Test
     fun `select method throws exception if input is empty`() {
         shouldThrow<java.lang.IllegalArgumentException> {
-            select<Any>()
+            select<Any, Any>()
         }.message shouldBe "Select query should have at least 1 arg"
     }
 }

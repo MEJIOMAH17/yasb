@@ -12,110 +12,139 @@ import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 object ConditionContext
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.eq(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.eq(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.eq(other: Parameter<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.eq(other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.eq(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.eq(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return eq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greater(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greater(
+    other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, ">")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greater(other: Parameter<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greater(
+    other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, ">")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greater(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greater(
+    other: T
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return greater(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greaterEq(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greaterEq(
+    other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, ">=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greaterEq(other: Parameter<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greaterEq(
+    other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, ">=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.greaterEq(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.greaterEq(
+    other: T
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return greaterEq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.less(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.less(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "<")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.less(other: Parameter<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.less(other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "<")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.less(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.less(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return less(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.lessEq(other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lessEq(
+    other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "<=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.lessEq(other: Parameter<T, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lessEq(
+    other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "<=")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.lessEq(other: T): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lessEq(
+    other: T
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return lessEq(databaseType().parameterFactory().invoke(other))
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <DRIVER_DATA_SOURCE> ExpressionForCondition<String?, DRIVER_DATA_SOURCE>.like(other: Parameter<String?, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.like(
+    other: Parameter<String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(other, "like")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <DRIVER_DATA_SOURCE> ExpressionForCondition<String?, DRIVER_DATA_SOURCE>.like(other: String): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    val parameter: Parameter<String?, DRIVER_DATA_SOURCE> = databaseType().parameterFactory().invoke(other)
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.like(
+    other: String
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    val parameter: Parameter<String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+        databaseType().parameterFactory().invoke(other)
     return like(parameter)
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.inListParameters(list: Iterable<Parameter<T, DRIVER_DATA_SOURCE>>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.inListParameters(
+    list: Iterable<Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return condition(list, "in")
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.inList(list: Iterable<T>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.inList(
+    list: Iterable<T>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return inListParameters(list.map { databaseType().parameterFactory().invoke(it) })
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <DRIVER_DATA_SOURCE> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>.and(other: ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.and(
+    other: ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
+        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val first = this@and.build()
             val second = other.build()
             return QueryPartImpl(
@@ -126,14 +155,16 @@ fun <DRIVER_DATA_SOURCE> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>.and
     }
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-fun <DRIVER_DATA_SOURCE> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>.or(other: ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE> {
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.or(
+    other: ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
+        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val first = this@or.build()
             val second = other.build()
             return QueryPartImpl(
@@ -144,17 +175,17 @@ fun <DRIVER_DATA_SOURCE> ExpressionForCondition<Boolean, DRIVER_DATA_SOURCE>.or(
     }
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-private fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.condition(
-    other: ExpressionForCondition<T, DRIVER_DATA_SOURCE>,
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.condition(
+    other: ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     operator: String
-): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE> {
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
+        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val leftExpression = this@condition.build()
             val rightExpression = other.build()
             return QueryPartImpl(
@@ -165,17 +196,17 @@ private fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE
     }
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-private fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.condition(
-    other: Parameter<T, DRIVER_DATA_SOURCE>,
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.condition(
+    other: Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     operator: String
-): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE> {
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
+        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val leftExpression = this@condition.build()
             return QueryPartImpl(
                 sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInSql}",
@@ -185,17 +216,17 @@ private fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE
     }
 }
 
-context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE>)
-private fun <T, DRIVER_DATA_SOURCE> ExpressionForCondition<T, DRIVER_DATA_SOURCE>.condition(
-    others: Iterable<Parameter<T, DRIVER_DATA_SOURCE>>,
+context (ConditionContext, DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.condition(
+    others: Iterable<Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>,
     operator: String
-): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE> {
-        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE> {
+): AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    return object : AliasableExpressionForCondition<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+        override fun databaseType(): DatabaseType<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
+        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val leftExpression = this@condition.build()
             val parameters = others.joinToString(",") {
                 it.parameterInSql

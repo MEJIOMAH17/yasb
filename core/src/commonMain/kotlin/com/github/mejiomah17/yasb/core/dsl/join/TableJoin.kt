@@ -6,13 +6,13 @@ import com.github.mejiomah17.yasb.core.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class TableJoin<DRIVER_DATA_SOURCE>(
-    private val select: FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>,
-    private val with: SelectionSource<DRIVER_DATA_SOURCE>,
+class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
+    private val select: FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    private val with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val joinType: JoinType,
-    private val on: Expression<Boolean, DRIVER_DATA_SOURCE>
-) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
-    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE> {
+    private val on: Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectQuery = select.buildSelectQuery()
         val onQuery = on.build()
         return QueryForExecute(
@@ -23,10 +23,10 @@ class TableJoin<DRIVER_DATA_SOURCE>(
     }
 }
 
-fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.innerJoin(
-    with: SelectionSource<DRIVER_DATA_SOURCE>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>
-): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.innerJoin(
+    with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return TableJoin(
         select = this,
         with = with,
@@ -35,10 +35,10 @@ fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.innerJoin(
     )
 }
 
-fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.leftJoin(
-    with: SelectionSource<DRIVER_DATA_SOURCE>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>
-): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.leftJoin(
+    with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return TableJoin(
         select = this,
         with = with,
@@ -47,10 +47,10 @@ fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.leftJoin(
     )
 }
 
-fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.rightJoin(
-    with: SelectionSource<DRIVER_DATA_SOURCE>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>
-): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.rightJoin(
+    with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return TableJoin(
         select = this,
         with = with,
@@ -59,10 +59,10 @@ fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.rightJoin(
     )
 }
 
-fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.fullJoin(
-    with: SelectionSource<DRIVER_DATA_SOURCE>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>
-): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.fullJoin(
+    with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+): FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return TableJoin(
         select = this,
         with = with,

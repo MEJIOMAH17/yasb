@@ -12,11 +12,13 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Timestamp
 import java.util.UUID
 
-class PostgresWhereTest : WhereTest<TestTable, ResultSet, PostgresJdbcDatabaseDialect>, PostgresTest() {
+class PostgresWhereTest : WhereTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+    PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
@@ -77,15 +79,15 @@ class PostgresWhereTest : WhereTest<TestTable, ResultSet, PostgresJdbcDatabaseDi
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet> {
+    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.b
     }
 
-    override fun parameter(): Parameter<String, ResultSet> {
+    override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 

@@ -3,9 +3,11 @@ package com.github.mejiomah17.yasb.sqlite.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.dsl.LimitTest
 import org.junit.jupiter.api.BeforeEach
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class SqliteLimitTest : LimitTest<TestTable, SqliteJdbcTransactionFactory, SqliteJdbcDatabaseDialect, ResultSet>,
+class SqliteLimitTest :
+    LimitTest<TestTable, SqliteJdbcTransactionFactory, SqliteJdbcDatabaseDialect, ResultSet, PreparedStatement>,
     SqliteTest() {
     @BeforeEach
     fun setup() {
@@ -31,7 +33,7 @@ class SqliteLimitTest : LimitTest<TestTable, SqliteJdbcTransactionFactory, Sqlit
         return SqliteJdbcTransactionFactory(dataSource)
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet> {
+    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
         return TestTable.a
     }
 

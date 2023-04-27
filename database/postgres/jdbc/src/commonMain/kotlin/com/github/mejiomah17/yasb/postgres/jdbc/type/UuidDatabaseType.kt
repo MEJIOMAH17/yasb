@@ -14,7 +14,7 @@ object UuidDatabaseType : JDBCDatabaseType<UUID> {
     }
 
     override fun applyParameterToStatement(
-        parameter: Parameter<UUID, ResultSet>,
+        parameter: Parameter<UUID, ResultSet, PreparedStatement>,
         statement: PreparedStatement,
         index: Int
     ) {
@@ -27,5 +27,5 @@ object UuidDatabaseType : JDBCDatabaseType<UUID> {
         )
     }
 
-    override fun parameterFactory(): (UUID?) -> Parameter<UUID, ResultSet> = ::UuidParameter
+    override fun parameterFactory(): (UUID?) -> Parameter<UUID, ResultSet, PreparedStatement> = ::UuidParameter
 }

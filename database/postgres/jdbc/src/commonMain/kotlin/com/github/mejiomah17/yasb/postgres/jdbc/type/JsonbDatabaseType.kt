@@ -13,7 +13,7 @@ object JsonbDatabaseType : JDBCDatabaseType<String> {
     }
 
     override fun applyParameterToStatement(
-        parameter: Parameter<String, ResultSet>,
+        parameter: Parameter<String, ResultSet, PreparedStatement>,
         statement: PreparedStatement,
         index: Int
     ) {
@@ -26,5 +26,5 @@ object JsonbDatabaseType : JDBCDatabaseType<String> {
         )
     }
 
-    override fun parameterFactory(): (String?) -> Parameter<String, ResultSet> = ::JsonbParameter
+    override fun parameterFactory(): (String?) -> Parameter<String, ResultSet, PreparedStatement> = ::JsonbParameter
 }
