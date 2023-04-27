@@ -12,12 +12,13 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface CountTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
+interface CountTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<T, DRIVER_DATA_SOURCE, D> {
     @Test
     fun `count returns count of elements`() {
         transactionFactory().readCommitted {
             val count = count(columnA()).`as`("aCount")
-            val from: From<S> = select(count)
+            val from: From<DRIVER_DATA_SOURCE> = select(count)
                 .from(tableTest())
             from
                 .execute()

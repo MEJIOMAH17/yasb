@@ -3,12 +3,12 @@ package com.github.mejiomah17.yasb.core.dsl
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class GroupBy<S> internal constructor(
-    private val selectQuery: SelectQuery<S>,
+class GroupBy<DRIVER_DATA_SOURCE> internal constructor(
+    private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE>,
     private val groupingElementList: GroupingElementList
-) : GroupByClauseAndSelectQuery<S> {
+) : GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
 
-    override fun buildSelectQuery(): QueryForExecute<S> {
+    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE> {
         val query = selectQuery.buildSelectQuery()
         val groupDefinition = groupingElementList.joinToString(",") {
             it.sqlDefinition
@@ -21,33 +21,33 @@ class GroupBy<S> internal constructor(
     }
 }
 
-fun <S> FromClauseAndSelectQuery<S>.groupBy(
-    columns: List<Column<*, *, S>>
-): GroupByClauseAndSelectQuery<S> {
+fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.groupBy(
+    columns: List<Column<*, *, DRIVER_DATA_SOURCE>>
+): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
     return GroupBy(
         selectQuery = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun <S> FromClauseAndSelectQuery<S>.groupBy(
-    vararg columns: Column<*, *, S>
-): GroupByClauseAndSelectQuery<S> {
+fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.groupBy(
+    vararg columns: Column<*, *, DRIVER_DATA_SOURCE>
+): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
     return groupBy(columns.toList())
 }
 
-fun <S> WhereClauseAndSelectQuery<S>.groupBy(
-    columns: List<Column<*, *, S>>
-): GroupByClauseAndSelectQuery<S> {
+fun <DRIVER_DATA_SOURCE> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE>.groupBy(
+    columns: List<Column<*, *, DRIVER_DATA_SOURCE>>
+): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
     return GroupBy(
         selectQuery = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun <S> WhereClauseAndSelectQuery<S>.groupBy(
-    vararg columns: Column<*, *, S>
-): GroupByClauseAndSelectQuery<S> {
+fun <DRIVER_DATA_SOURCE> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE>.groupBy(
+    vararg columns: Column<*, *, DRIVER_DATA_SOURCE>
+): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
     return groupBy(columns.toList())
 }
 

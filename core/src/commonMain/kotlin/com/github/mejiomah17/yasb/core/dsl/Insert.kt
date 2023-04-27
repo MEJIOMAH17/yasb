@@ -10,9 +10,9 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class Insert<T : Table<T, S>, S> internal constructor(
+class Insert<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> internal constructor(
     private val table: T,
-    private val columnsToValues: Map<Column<T, *, S>, List<Any?>>
+    private val columnsToValues: Map<Column<T, *, DRIVER_DATA_SOURCE>, List<Any?>>
 ) {
     private val size: Int = columnsToValues.values.first().size
 
@@ -22,13 +22,13 @@ class Insert<T : Table<T, S>, S> internal constructor(
         }
     }
 
-    fun buildInsertQuery(): QueryPart<S> {
+    fun buildInsertQuery(): QueryPart<DRIVER_DATA_SOURCE> {
         val columns = columnsToValues.keys.joinToString(",") { it.name }
         val valuesSql = StringBuilder()
-        val parameters = mutableListOf<Parameter<*, S>>()
+        val parameters = mutableListOf<Parameter<*, DRIVER_DATA_SOURCE>>()
         for (i in 0 until size) {
             val rowInSql = columnsToValues.map { (column, values) ->
-                column as Column<T, Any, S>
+                column as Column<T, Any, DRIVER_DATA_SOURCE>
                 val value = values[i]
                 if (value is DefaultQueryPart) {
                     DefaultQueryPart.sqlDefinition
@@ -53,11 +53,11 @@ class Insert<T : Table<T, S>, S> internal constructor(
     }
 }
 
-class InsertWithReturn<T : Table<T, S>, S> internal constructor(
-    private val insert: Insert<T, S>,
-    private val returning: Returning<S>
+class InsertWithReturn<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> internal constructor(
+    private val insert: Insert<T, DRIVER_DATA_SOURCE>,
+    private val returning: Returning<DRIVER_DATA_SOURCE>
 ) {
-    fun buildInsertQuery(): QueryForExecute<S> {
+    fun buildInsertQuery(): QueryForExecute<DRIVER_DATA_SOURCE> {
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
         return QueryForExecute(
@@ -73,14 +73,14 @@ class InsertWithReturn<T : Table<T, S>, S> internal constructor(
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
 context(SupportsInsertWithDefaultValue)
-fun <T : Table<T, S>, S, E> insertInto(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, E> insertInto(
     table: T,
     source: Iterable<E>,
-    block: T.(InsertContext<T, S>, E) -> Unit
-): Insert<T, S> {
-    val columns = mutableMapOf<Column<T, *, S>, MutableList<Any?>>()
+    block: T.(InsertContext<T, DRIVER_DATA_SOURCE>, E) -> Unit
+): Insert<T, DRIVER_DATA_SOURCE> {
+    val columns = mutableMapOf<Column<T, *, DRIVER_DATA_SOURCE>, MutableList<Any?>>()
     source.forEachIndexed { i, e ->
-        val insertContext = InsertContext<T, S>()
+        val insertContext = InsertContext<T, DRIVER_DATA_SOURCE>()
         block(table, insertContext, e)
         insertContext.columns.forEach { (column, value) ->
             // iterate over this feeling
@@ -98,12 +98,12 @@ fun <T : Table<T, S>, S, E> insertInto(
     return Insert(table, columns)
 }
 
-fun <T : Table<T, S>, S> insertInto(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> insertInto(
     table: T,
-    block: T.(InsertContext<T, S>) -> Unit
-): Insert<T, S> {
-    val columns = mutableMapOf<Column<T, *, S>, List<Any?>>()
-    val insertContext = InsertContext<T, S>()
+    block: T.(InsertContext<T, DRIVER_DATA_SOURCE>) -> Unit
+): Insert<T, DRIVER_DATA_SOURCE> {
+    val columns = mutableMapOf<Column<T, *, DRIVER_DATA_SOURCE>, List<Any?>>()
+    val insertContext = InsertContext<T, DRIVER_DATA_SOURCE>()
     block(table, insertContext)
     insertContext.columns.forEach { (column, value) ->
         columns[column] = listOf(value)
@@ -111,11 +111,11 @@ fun <T : Table<T, S>, S> insertInto(
     return Insert(table, columns)
 }
 
-fun <T : Table<T, S>, S> insertInto(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> insertInto(
     table: T,
-    returning: Returning<S>,
-    block: T.(InsertContext<T, S>) -> Unit
-): InsertWithReturn<T, S> {
+    returning: Returning<DRIVER_DATA_SOURCE>,
+    block: T.(InsertContext<T, DRIVER_DATA_SOURCE>) -> Unit
+): InsertWithReturn<T, DRIVER_DATA_SOURCE> {
     return InsertWithReturn(insertInto(table, block), returning)
 }
 
@@ -124,18 +124,18 @@ fun <T : Table<T, S>, S> insertInto(
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
 context(SupportsInsertWithDefaultValue)
-fun <T : Table<T, S>, S, E> insertInto(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, E> insertInto(
     table: T,
-    returning: Returning<S>,
+    returning: Returning<DRIVER_DATA_SOURCE>,
     source: Iterable<E>,
-    block: T.(InsertContext<T, S>, E) -> Unit
-): InsertWithReturn<T, S> {
+    block: T.(InsertContext<T, DRIVER_DATA_SOURCE>, E) -> Unit
+): InsertWithReturn<T, DRIVER_DATA_SOURCE> {
     return InsertWithReturn(insertInto(table, source, block), returning)
 }
 
-class InsertContext<T : Table<T, S>, S> {
-    internal val columns = mutableMapOf<Column<T, *, S>, Any?>()
-    operator fun <V> set(column: Column<T, V, S>, value: V) {
+class InsertContext<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> {
+    internal val columns = mutableMapOf<Column<T, *, DRIVER_DATA_SOURCE>, Any?>()
+    operator fun <V> set(column: Column<T, V, DRIVER_DATA_SOURCE>, value: V) {
         columns[column] = value
     }
 }

@@ -7,16 +7,16 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class ExpressionAlias<T, S>(
-    private val expression: AliasableExpression<T, S>,
+class ExpressionAlias<T, DRIVER_DATA_SOURCE>(
+    private val expression: AliasableExpression<T, DRIVER_DATA_SOURCE>,
     val name: String
-) : Expression<T, S> {
+) : Expression<T, DRIVER_DATA_SOURCE> {
 
-    override fun databaseType(): DatabaseType<T, S> {
+    override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE> {
         return expression.databaseType()
     }
 
-    override fun build(): QueryPart<S> {
+    override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
         val underlying = expression.build()
         return QueryPartImpl(
             sqlDefinition = "(${underlying.sqlDefinition}) AS $name",
@@ -25,14 +25,14 @@ class ExpressionAlias<T, S>(
     }
 }
 
-fun <T, S> Parameter<T, S>.`as`(name: String): ExpressionAlias<T, S> {
+fun <T, DRIVER_DATA_SOURCE> Parameter<T, DRIVER_DATA_SOURCE>.`as`(name: String): ExpressionAlias<T, DRIVER_DATA_SOURCE> {
     return ExpressionAlias(
-        expression = object : AliasableExpression<T, S> {
-            override fun databaseType(): DatabaseType<T, S> {
+        expression = object : AliasableExpression<T, DRIVER_DATA_SOURCE> {
+            override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE> {
                 return this@`as`.databaseType
             }
 
-            override fun build(): QueryPart<S> {
+            override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
                 return QueryPartImpl(
                     sqlDefinition = this@`as`.parameterInSql,
                     parameters = listOf(this@`as`)
@@ -43,7 +43,7 @@ fun <T, S> Parameter<T, S>.`as`(name: String): ExpressionAlias<T, S> {
     )
 }
 
-fun <T, S> AliasableExpression<T, S>.`as`(name: String): ExpressionAlias<T, S> {
+fun <T, DRIVER_DATA_SOURCE> AliasableExpression<T, DRIVER_DATA_SOURCE>.`as`(name: String): ExpressionAlias<T, DRIVER_DATA_SOURCE> {
     return ExpressionAlias(
         expression = this,
         name = name

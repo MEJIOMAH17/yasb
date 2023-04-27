@@ -6,19 +6,19 @@ import com.github.mejiomah17.yasb.core.expression.ExpressionForCondition
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
-class Column<T : Table<T, S>, V, S>(
+class Column<T : Table<T, DRIVER_DATA_SOURCE>, V, DRIVER_DATA_SOURCE>(
     val name: String,
     val table: T,
-    val databaseType: DatabaseType<V, S>
-) : AliasableExpression<V, S>, ExpressionForCondition<V, S> {
-    override fun build(): QueryPart<S> {
+    val databaseType: DatabaseType<V, DRIVER_DATA_SOURCE>
+) : AliasableExpression<V, DRIVER_DATA_SOURCE>, ExpressionForCondition<V, DRIVER_DATA_SOURCE> {
+    override fun build(): QueryPart<DRIVER_DATA_SOURCE> {
         return QueryPartImpl(
             sqlDefinition = "${table.tableName}.$name",
             parameters = emptyList()
         )
     }
 
-    override fun databaseType(): DatabaseType<V, S> {
+    override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE> {
         return databaseType
     }
 

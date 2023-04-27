@@ -9,7 +9,8 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface InsertTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
+interface InsertTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<T, DRIVER_DATA_SOURCE, D> {
 
     @Test
     fun select_values_after_insert() {

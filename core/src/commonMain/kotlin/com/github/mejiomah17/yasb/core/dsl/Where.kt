@@ -6,11 +6,11 @@ import com.github.mejiomah17.yasb.core.dsl.WhereClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
 
-class Where<S>(
-    private val select: FromClauseAndSelectQuery<S>,
-    private val where: Expression<Boolean, S>
-) : WhereClauseAndSelectQuery<S> {
-    override fun buildSelectQuery(): QueryForExecute<S> {
+class Where<DRIVER_DATA_SOURCE>(
+    private val select: FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>,
+    private val where: Expression<Boolean, DRIVER_DATA_SOURCE>
+) : WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE> {
+    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE> {
         val selectExpression = select.buildSelectQuery()
         val whereExpression = where.build()
         return QueryForExecute(
@@ -21,6 +21,6 @@ class Where<S>(
     }
 }
 
-fun <S> FromClauseAndSelectQuery<S>.where(expression: ConditionContext.() -> Expression<Boolean, S>): Where<S> {
+fun <DRIVER_DATA_SOURCE> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE>.where(expression: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>): Where<DRIVER_DATA_SOURCE> {
     return Where(this, expression(ConditionContext))
 }

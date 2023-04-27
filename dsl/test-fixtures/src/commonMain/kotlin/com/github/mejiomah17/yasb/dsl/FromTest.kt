@@ -8,7 +8,8 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface FromTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T, S, D> {
+interface FromTest<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<T, DRIVER_DATA_SOURCE, D> {
     @Test
     fun `from creates From`() {
         val select = select(columnA())
@@ -22,7 +23,7 @@ interface FromTest<T : Table<T, S>, S, D : DatabaseDialect<S>> : SelectionTest<T
     @Test
     fun `from creates From for aliased table`() {
         val select = select(columnA())
-        val table = TestTable<S>().`as`("xxx")
+        val table = TestTable<DRIVER_DATA_SOURCE>().`as`("xxx")
         val result = select.from(table)
 
         result.select shouldBe select

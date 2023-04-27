@@ -8,15 +8,15 @@ import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 // TODO test
-class Update<T : Table<T, S>, S> internal constructor(
+class Update<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> internal constructor(
     private val table: T,
-    private val columnsToValues: Map<Column<T, *, S>, Any?>,
-    private val where: Expression<Boolean, S>?
+    private val columnsToValues: Map<Column<T, *, DRIVER_DATA_SOURCE>, Any?>,
+    private val where: Expression<Boolean, DRIVER_DATA_SOURCE>?
 ) {
-    fun buildUpdateQuery(): QueryPart<S> {
-        val parameters = mutableListOf<Parameter<*, S>>()
+    fun buildUpdateQuery(): QueryPart<DRIVER_DATA_SOURCE> {
+        val parameters = mutableListOf<Parameter<*, DRIVER_DATA_SOURCE>>()
         val setPart = columnsToValues.map { (column, value) ->
-            column as Column<T, Any, S>
+            column as Column<T, Any, DRIVER_DATA_SOURCE>
             val sqlValue = if (value is DefaultQueryPart) {
                 DefaultQueryPart.sqlDefinition
             } else {
@@ -36,28 +36,28 @@ class Update<T : Table<T, S>, S> internal constructor(
     }
 }
 
-class UpdateContext<T : Table<T, S>, S> {
-    internal val columns = mutableMapOf<Column<T, *, S>, Any?>()
-    operator fun <V> set(column: Column<T, V, S>, value: V) {
+class UpdateContext<T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> {
+    internal val columns = mutableMapOf<Column<T, *, DRIVER_DATA_SOURCE>, Any?>()
+    operator fun <V> set(column: Column<T, V, DRIVER_DATA_SOURCE>, value: V) {
         columns[column] = value
     }
 }
 
-fun <T : Table<T, S>, S> update(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> update(
     table: T,
-    set: T.(UpdateContext<T, S>) -> Unit,
-    where: ConditionContext.() -> Expression<Boolean, S>
-): Update<T, S> {
-    val context = UpdateContext<T, S>()
+    set: T.(UpdateContext<T, DRIVER_DATA_SOURCE>) -> Unit,
+    where: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE>
+): Update<T, DRIVER_DATA_SOURCE> {
+    val context = UpdateContext<T, DRIVER_DATA_SOURCE>()
     table.set(context)
     return Update(table, context.columns, where(ConditionContext))
 }
 
-fun <T : Table<T, S>, S> update(
+fun <T : Table<T, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE> update(
     table: T,
-    set: T.(UpdateContext<T, S>) -> Unit
-): Update<T, S> {
-    val context = UpdateContext<T, S>()
+    set: T.(UpdateContext<T, DRIVER_DATA_SOURCE>) -> Unit
+): Update<T, DRIVER_DATA_SOURCE> {
+    val context = UpdateContext<T, DRIVER_DATA_SOURCE>()
     table.set(context)
     return Update(table, context.columns, null)
 }

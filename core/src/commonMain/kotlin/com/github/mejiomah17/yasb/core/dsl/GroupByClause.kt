@@ -2,4 +2,4 @@ package com.github.mejiomah17.yasb.core.dsl
 
 interface GroupByClause
 
-interface GroupByClauseAndSelectQuery<S> : GroupByClause, SelectQuery<S>
+interface GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE> : GroupByClause, SelectQuery<DRIVER_DATA_SOURCE>

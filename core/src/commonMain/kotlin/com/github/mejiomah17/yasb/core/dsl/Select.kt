@@ -2,8 +2,8 @@ package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.expression.Expression
 
-class Select<S>(
-    val expressions: List<Expression<*, S>>
+class Select<DRIVER_DATA_SOURCE>(
+    val expressions: List<Expression<*, DRIVER_DATA_SOURCE>>
 ) {
     init {
         require(expressions.isNotEmpty()) {
@@ -12,10 +12,10 @@ class Select<S>(
     }
 }
 
-fun <S> select(vararg expressions: Expression<*, S>): Select<S> {
+fun <DRIVER_DATA_SOURCE> select(vararg expressions: Expression<*, DRIVER_DATA_SOURCE>): Select<DRIVER_DATA_SOURCE> {
     return Select(expressions.toList())
 }
 
-fun <S> select(expressions: List<Expression<*, S>>): Select<S> {
+fun <DRIVER_DATA_SOURCE> select(expressions: List<Expression<*, DRIVER_DATA_SOURCE>>): Select<DRIVER_DATA_SOURCE> {
     return Select(expressions)
 }
