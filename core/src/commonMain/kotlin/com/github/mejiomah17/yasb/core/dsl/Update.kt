@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
@@ -18,7 +18,7 @@ class Update<T : Table<T, S>, S> internal constructor(
         val setPart = columnsToValues.map { (column, value) ->
             column as Column<T, Any, S>
             val sqlValue = if (value is DefaultQueryPart) {
-                value.sqlDefinition
+                DefaultQueryPart.sqlDefinition
             } else {
                 val parameter = column.databaseType.parameterFactory().invoke(value)
                 parameters.add(parameter)

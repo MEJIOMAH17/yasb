@@ -4,6 +4,10 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsLimit
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.dsl.eq
+import com.github.mejiomah17.yasb.core.dsl.from
+import com.github.mejiomah17.yasb.core.dsl.limit
+import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.collections.shouldHaveSize

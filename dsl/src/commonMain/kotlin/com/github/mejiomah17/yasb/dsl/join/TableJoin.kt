@@ -1,10 +1,10 @@
 package com.github.mejiomah17.yasb.dsl.join
 
 import com.github.mejiomah17.yasb.core.SelectionSource
+import com.github.mejiomah17.yasb.core.dsl.ConditionContext
+import com.github.mejiomah17.yasb.core.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import com.github.mejiomah17.yasb.dsl.ConditionContext
-import com.github.mejiomah17.yasb.dsl.FromClauseAndSelectQuery
 
 class TableJoin<S>(
     private val select: FromClauseAndSelectQuery<S>,

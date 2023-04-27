@@ -3,6 +3,8 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.dsl.Returning
+import com.github.mejiomah17.yasb.core.dsl.insertInto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 

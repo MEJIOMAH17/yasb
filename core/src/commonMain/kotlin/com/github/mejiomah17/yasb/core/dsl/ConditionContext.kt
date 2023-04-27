@@ -1,6 +1,6 @@
 @file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
 
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.DatabaseType

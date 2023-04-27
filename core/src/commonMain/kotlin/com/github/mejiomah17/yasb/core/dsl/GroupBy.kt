@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.query.QueryForExecute

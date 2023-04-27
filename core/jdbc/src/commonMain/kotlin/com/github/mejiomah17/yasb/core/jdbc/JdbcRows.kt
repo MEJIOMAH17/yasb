@@ -6,7 +6,8 @@ import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-internal class JdbcRows(
+// TODO INTERNAL
+class JdbcRows(
     private val preparedStatement: PreparedStatement,
     private val queryForExecute: QueryForExecute<ResultSet>,
     private val resultSet: ResultSet
@@ -14,11 +15,13 @@ internal class JdbcRows(
     override fun iterator(): Iterator<Row> {
         return object : Iterator<Row> {
             private var rowConsumed = true
+            private var hasNext = false
             override fun hasNext(): Boolean {
                 if (rowConsumed) {
-                    rowConsumed = resultSet.next()
+                    hasNext = resultSet.next()
+                    rowConsumed = false
                 }
-                return rowConsumed
+                return hasNext
             }
 
             override fun next(): Row {
@@ -28,7 +31,9 @@ internal class JdbcRows(
                     queryForExecute.returnExpressions.mapIndexed { index, expression ->
                         expression to expression.databaseType().extractFromSource(resultSet, index + 1)
                     }.toMap()
-                )
+                ).also {
+                    rowConsumed = true
+                }
             }
         }
     }

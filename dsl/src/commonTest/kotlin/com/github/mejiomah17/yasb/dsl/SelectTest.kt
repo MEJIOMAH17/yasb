@@ -1,6 +1,7 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseType
+import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import io.kotest.assertions.throwables.shouldThrow

@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
 interface FromClause
 

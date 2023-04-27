@@ -1,6 +1,6 @@
 @file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
 
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
@@ -31,7 +31,7 @@ class Insert<T : Table<T, S>, S> internal constructor(
                 column as Column<T, Any, S>
                 val value = values[i]
                 if (value is DefaultQueryPart) {
-                    value.sqlDefinition
+                    DefaultQueryPart.sqlDefinition
                 } else {
                     val parameter = column.databaseType.parameterFactory().invoke(value)
                     parameters.add(parameter)

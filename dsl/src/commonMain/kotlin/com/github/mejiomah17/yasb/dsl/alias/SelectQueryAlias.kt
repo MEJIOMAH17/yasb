@@ -3,11 +3,11 @@ package com.github.mejiomah17.yasb.dsl.alias
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.ddl.Column
+import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
-import com.github.mejiomah17.yasb.dsl.SelectQuery
 
 class SelectQueryAlias<S>(val source: SelectQuery<S>, val name: String) : SelectionSource<S> {
     private val query = source.buildSelectQuery()
