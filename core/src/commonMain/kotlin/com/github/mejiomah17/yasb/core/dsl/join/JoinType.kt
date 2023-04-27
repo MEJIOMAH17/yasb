@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.join
+package com.github.mejiomah17.yasb.core.dsl.join
 
 enum class JoinType {
     INNER,

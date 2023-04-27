@@ -3,10 +3,14 @@ package com.github.mejiomah17.yasb.dsl.join
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
+import com.github.mejiomah17.yasb.core.dsl.join.fullJoin
+import com.github.mejiomah17.yasb.core.dsl.join.innerJoin
+import com.github.mejiomah17.yasb.core.dsl.join.leftJoin
+import com.github.mejiomah17.yasb.core.dsl.join.rightJoin
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.dsl.alias.`as`
 import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

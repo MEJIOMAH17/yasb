@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.alias
+package com.github.mejiomah17.yasb.core.dsl.alias
 
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.SelectionSource

@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.join
+package com.github.mejiomah17.yasb.core.dsl.join
 
 import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.dsl.ConditionContext
