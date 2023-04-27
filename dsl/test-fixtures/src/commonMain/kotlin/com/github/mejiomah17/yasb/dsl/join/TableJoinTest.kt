@@ -15,7 +15,7 @@ import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> {
+interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE>> {
     // <editor-fold desc="Inner">
     @Test
     fun `builds correct query for inner join`() {
@@ -609,6 +609,6 @@ interface TableJoinTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SO
     fun thirdTable(): Table<*, DRIVER_DATA_SOURCE>
     fun joinColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>
     fun dataColumnFromThirdTable(): Column<*, String, DRIVER_DATA_SOURCE>
-    fun transactionFactory(): TransactionFactory<D, DRIVER_DATA_SOURCE>
-    fun dialect(): D
+    fun transactionFactory(): TransactionFactory<DIALECT, DRIVER_DATA_SOURCE>
+    fun dialect(): DIALECT
 }

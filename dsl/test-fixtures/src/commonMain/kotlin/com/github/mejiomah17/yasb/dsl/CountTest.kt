@@ -12,8 +12,8 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface CountTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, D : DatabaseDialect<DRIVER_DATA_SOURCE>> :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, D> {
+interface CountTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE>, DRIVER_DATA_SOURCE, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE>> :
+    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DIALECT> {
     @Test
     fun `count returns count of elements`() {
         transactionFactory().readCommitted {
