@@ -7,6 +7,7 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.where
 import com.github.mejiomah17.yasb.dsl.WhereTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -17,7 +18,8 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 import java.util.UUID
 
-class PostgresWhereTest : WhereTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+class PostgresWhereTest :
+    WhereTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @BeforeEach
     fun setup() {

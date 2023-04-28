@@ -8,13 +8,22 @@ import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.limit
 import com.github.mejiomah17.yasb.core.dsl.select
+import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.core.where
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface LimitTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, F, DIALECT, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> where F : TransactionFactory<DIALECT, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DIALECT : SupportsLimit {
+interface LimitTest<
+    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    DRIVER_DATA_SOURCE,
+    DRIVER_STATEMENT,
+    DIALECT,
+    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    F : TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION>
+    > where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+            DIALECT : SupportsLimit {
 
     @Test
     fun `limit generates correct sql`() {

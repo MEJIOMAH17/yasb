@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb.sqlite.jdbc.join
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
@@ -12,7 +13,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteTableJoinTest :
-    TableJoinTest<SqliteTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect>,
+    TableJoinTest<SqliteTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
     SqliteTest() {
     @BeforeEach
     fun setup() {

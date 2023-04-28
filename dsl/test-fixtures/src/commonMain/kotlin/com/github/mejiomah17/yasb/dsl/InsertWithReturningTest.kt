@@ -5,11 +5,17 @@ import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.Returning
 import com.github.mejiomah17.yasb.core.dsl.insertInto
+import com.github.mejiomah17.yasb.core.transaction.Transaction
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-interface InsertWithReturningTest<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> :
-    InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT> {
+interface InsertWithReturningTest<
+    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    DRIVER_DATA_SOURCE,
+    DRIVER_STATEMENT,
+    DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> :
+    InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
 
     @Test
     fun output_returns_values() {

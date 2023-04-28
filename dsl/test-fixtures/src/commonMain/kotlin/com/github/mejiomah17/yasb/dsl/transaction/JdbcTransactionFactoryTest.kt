@@ -1,8 +1,6 @@
 package com.github.mejiomah17.yasb.dsl.transaction
 
 import org.junit.jupiter.api.Test
-import java.sql.PreparedStatement
-import java.sql.ResultSet
 
 abstract class JdbcTransactionFactoryTest {
     @Test
@@ -10,6 +8,6 @@ abstract class JdbcTransactionFactoryTest {
         createTransactionFactory().callTransaction()
     }
 
-    abstract fun createTransactionFactory(): TransactionFactory<*, ResultSet, PreparedStatement>
-    abstract fun TransactionFactory<*, ResultSet, PreparedStatement>.callTransaction()
+    abstract fun createTransactionFactory(): JdbcTransactionFactory<*>
+    abstract fun JdbcTransactionFactory<*>.callTransaction()
 }

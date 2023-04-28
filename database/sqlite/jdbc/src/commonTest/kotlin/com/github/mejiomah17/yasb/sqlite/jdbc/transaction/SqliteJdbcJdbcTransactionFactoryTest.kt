@@ -1,14 +1,12 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc.transaction
 
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactoryTest
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
-import java.sql.PreparedStatement
-import java.sql.ResultSet
 
 class SqliteJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
@@ -35,7 +33,7 @@ class SqliteJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return SqliteJdbcTransactionFactory(dataSource)
     }
 
-    override fun TransactionFactory<*, ResultSet, PreparedStatement>.callTransaction() {
+    override fun JdbcTransactionFactory<*>.callTransaction() {
         this.readUncommitted {
         }
     }

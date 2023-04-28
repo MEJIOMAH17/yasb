@@ -1,7 +1,7 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.transaction
 
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactoryTest
-import com.github.mejiomah17.yasb.dsl.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.LOGIN
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.PASSWORD
@@ -10,8 +10,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
-import java.sql.PreparedStatement
-import java.sql.ResultSet
 
 class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
@@ -44,7 +42,7 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return PostgresJdbcTransactionFactory(dataSource)
     }
 
-    override fun TransactionFactory<*, ResultSet, PreparedStatement>.callTransaction() {
+    override fun JdbcTransactionFactory<*>.callTransaction() {
         this.readUncommitted {
         }
     }

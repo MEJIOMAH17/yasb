@@ -1,10 +1,11 @@
 package com.github.mejiomah17.yasb.dsl.transaction
 
+import com.github.mejiomah17.yasb.core.transaction.TransactionRepeatableRead
 import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 
-interface JdbcTransactionAtLeastRepeatableRead : JdbcTransactionAtLeastReadCommitted
-
-interface JdbcTransactionRepeatableRead : JdbcTransactionAtLeastRepeatableRead {
+interface JdbcTransactionRepeatableRead : JdbcTransaction, TransactionRepeatableRead<ResultSet, PreparedStatement> {
     companion object {
         val jdbcLevel = Connection.TRANSACTION_REPEATABLE_READ
     }

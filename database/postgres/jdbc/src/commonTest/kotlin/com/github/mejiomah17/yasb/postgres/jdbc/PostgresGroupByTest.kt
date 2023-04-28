@@ -3,12 +3,14 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.GroupByTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class PostgresGroupByTest : GroupByTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+class PostgresGroupByTest :
+    GroupByTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @BeforeEach
     fun setup() {

@@ -6,6 +6,7 @@ import com.github.mejiomah17.yasb.core.dsl.insertInto
 import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +18,8 @@ import java.time.Instant
 import java.util.UUID
 
 class PostgresInsertTest :
-    InsertWithReturningTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>, PostgresTest() {
+    InsertWithReturningTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    PostgresTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {

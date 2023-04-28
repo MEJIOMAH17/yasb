@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb.postgres.jdbc.join
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
@@ -12,7 +13,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresTableJoinTest :
-    TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect>,
+    TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @BeforeEach
     fun setup() {

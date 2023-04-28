@@ -1,10 +1,11 @@
 package com.github.mejiomah17.yasb.dsl.transaction
 
+import com.github.mejiomah17.yasb.core.transaction.TransactionReadCommitted
 import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 
-interface JdbcTransactionAtLeastReadCommitted : JdbcTransactionAtLeastReadUncommitted
-
-interface JdbcTransactionReadCommitted : JdbcTransactionAtLeastReadCommitted {
+interface JdbcTransactionReadCommitted : JdbcTransaction, TransactionReadCommitted<ResultSet, PreparedStatement> {
     companion object {
         val jdbcLevel = Connection.TRANSACTION_READ_COMMITTED
     }

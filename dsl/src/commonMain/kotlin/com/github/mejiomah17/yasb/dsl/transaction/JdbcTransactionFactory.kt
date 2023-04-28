@@ -1,17 +1,25 @@
+@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
+
 package com.github.mejiomah17.yasb.dsl.transaction
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
+import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
+import com.github.mejiomah17.yasb.core.transaction.TransactionReadCommitted
+import com.github.mejiomah17.yasb.core.transaction.TransactionReadUncommitted
+import com.github.mejiomah17.yasb.core.transaction.TransactionRepeatableRead
+import com.github.mejiomah17.yasb.core.transaction.TransactionSerializable
 import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 import javax.sql.DataSource
 
-abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
+abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedStatement>>(
     private val datasource: DataSource
-) {
-    abstract fun dialect(): D
+) : TransactionFactory<ResultSet, PreparedStatement, D, JdbcTransaction> {
 
-    fun <T> readUncommitted(
-        block: context(D) JdbcTransactionReadUncommitted.() -> T
-    ): T {
+    override fun <V> readUncommitted(
+        block: context(D, TransactionReadUncommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+    ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadUncommitted(it) },
             jdbcLevel = JdbcTransactionReadUncommitted.jdbcLevel,
@@ -19,9 +27,9 @@ abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER
         )
     }
 
-    fun <T> readCommitted(
-        block: context(D) JdbcTransactionReadCommitted.() -> T
-    ): T {
+    override fun <V> readCommitted(
+        block: context(D, TransactionReadCommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+    ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadCommitted(it) },
             jdbcLevel = JdbcTransactionReadCommitted.jdbcLevel,
@@ -29,9 +37,9 @@ abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER
         )
     }
 
-    fun <T> repeatableRead(
-        block: context(D) JdbcTransactionRepeatableRead.() -> T
-    ): T {
+    override fun <V> repeatableRead(
+        block: context(D, TransactionRepeatableRead<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+    ): V {
         return transaction(
             creator = { ImplJdbcTransactionRepeatableRead(it) },
             jdbcLevel = JdbcTransactionRepeatableRead.jdbcLevel,
@@ -39,9 +47,9 @@ abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER
         )
     }
 
-    fun <T> serializable(
-        block: context(D) JdbcTransactionSerializable.() -> T
-    ): T {
+    override fun <V> serializable(
+        block: context(D, TransactionSerializable<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+    ): V {
         return transaction(
             creator = { JdbcTransactionSerializableImpl(it) },
             jdbcLevel = JdbcTransactionSerializable.jdbcValue,
@@ -52,7 +60,7 @@ abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER
     private fun <T : JdbcTransaction, R> transaction(
         creator: (Connection) -> T,
         jdbcLevel: Int,
-        block: context(D) T.() -> R
+        block: context(D, T) T.() -> R
     ): R {
         // TODO retry
         return datasource.connection.use { connection ->
@@ -60,7 +68,8 @@ abstract class TransactionFactory<D : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER
             connection.autoCommit = false
             try {
                 val result = dialect().run {
-                    block(creator(connection))
+                    val transaction = creator(connection)
+                    block(dialect(), transaction, transaction)
                 }
                 connection.commit()
                 result

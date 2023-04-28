@@ -3,12 +3,14 @@ package com.github.mejiomah17.yasb.sqlite.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.CountTest
+import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.jupiter.api.BeforeEach
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class SqliteCountTest : CountTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect>, SqliteTest() {
+class SqliteCountTest : CountTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
+    SqliteTest() {
     @BeforeEach
     fun setup() {
         dataSource.connection.use {
