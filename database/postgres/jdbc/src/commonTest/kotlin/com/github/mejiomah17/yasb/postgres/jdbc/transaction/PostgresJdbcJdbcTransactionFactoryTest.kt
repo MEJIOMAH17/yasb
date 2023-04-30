@@ -1,6 +1,6 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.transaction
 
-import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactory
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionFactory
 import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactoryTest
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.LOGIN

@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.dsl.transaction
+package com.github.mejiomah17.yasb.core.jdbc.transaction
 
 import com.github.mejiomah17.yasb.core.transaction.TransactionRepeatableRead
 import java.sql.Connection

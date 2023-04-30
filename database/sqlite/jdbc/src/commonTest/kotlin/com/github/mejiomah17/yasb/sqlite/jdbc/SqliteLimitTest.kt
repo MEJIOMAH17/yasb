@@ -1,8 +1,8 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.dsl.LimitTest
-import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import org.junit.jupiter.api.BeforeEach
 import java.sql.PreparedStatement
 import java.sql.ResultSet

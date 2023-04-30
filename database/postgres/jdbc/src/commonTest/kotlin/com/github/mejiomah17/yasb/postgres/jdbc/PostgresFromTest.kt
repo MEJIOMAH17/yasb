@@ -3,9 +3,9 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.FromTest
-import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach

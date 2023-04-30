@@ -2,8 +2,8 @@ package com.github.mejiomah17.yasb.sqlite.jdbc.join
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
-import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory

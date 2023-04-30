@@ -2,7 +2,7 @@
 
 package com.github.mejiomah17.yasb.sqlite.jdbc
 
-import com.github.mejiomah17.yasb.dsl.transaction.JdbcTransactionFactory
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionFactory
 import javax.sql.DataSource
 
 class SqliteJdbcTransactionFactory(dataSource: DataSource) :

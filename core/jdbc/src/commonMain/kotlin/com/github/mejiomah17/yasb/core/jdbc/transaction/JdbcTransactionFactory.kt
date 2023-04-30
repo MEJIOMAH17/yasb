@@ -1,6 +1,6 @@
 @file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
 
-package com.github.mejiomah17.yasb.dsl.transaction
+package com.github.mejiomah17.yasb.core.jdbc.transaction
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
