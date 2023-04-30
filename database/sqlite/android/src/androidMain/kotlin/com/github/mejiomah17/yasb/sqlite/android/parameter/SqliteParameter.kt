@@ -1,4 +1,4 @@
-package com.github.mejiomah17.sqlite.android.parameter
+package com.github.mejiomah17.yasb.sqlite.android.parameter
 
 import android.database.Cursor
 import com.github.mejiomah17.yasb.core.parameter.Parameter

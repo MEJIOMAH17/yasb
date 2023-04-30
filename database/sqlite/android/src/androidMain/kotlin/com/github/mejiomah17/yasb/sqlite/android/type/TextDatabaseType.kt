@@ -1,9 +1,9 @@
-package com.github.mejiomah17.sqlite.android.type
+package com.github.mejiomah17.yasb.sqlite.android.type
 
 import android.database.Cursor
-import com.github.mejiomah17.sqlite.android.AndroidDatabaseType
-import com.github.mejiomah17.sqlite.android.parameter.TextParameter
 import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.sqlite.android.AndroidDatabaseType
+import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
 
 object TextDatabaseType : AndroidDatabaseType<String> {
     override fun parameterFactory(): (String?) -> Parameter<String, Cursor, String> = ::TextParameter
