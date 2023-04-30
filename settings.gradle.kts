@@ -4,8 +4,6 @@ include(
     "core",
     "core:jdbc",
     "core:jdbc:test-fixtures",
-    "dsl:generator",
-    "dsl:generator:flyway",
     "database:sqlite",
     "database:sqlite:android",
     "database:sqlite:jdbc",
@@ -13,7 +11,9 @@ include(
     "database:postgres",
     "database:postgres:jdbc",
     "database:postgres:jdbc:generator",
-    "gradle-plugin"
+    "gradle-plugin",
+    "gradle-plugin:generator",
+    "gradle-plugin:generator:flyway"
 )
 pluginManagement {
     repositories {

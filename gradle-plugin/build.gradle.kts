@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm")
 }
 dependencies {
-    implementation(project(":dsl:generator:flyway"))
+    implementation(project(":gradle-plugin:generator:flyway"))
     implementation(project(":database:postgres:jdbc:generator"))
     implementation(project(":database:sqlite:jdbc:generator"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
@@ -22,7 +22,7 @@ tasks.withType<Test>() {
     dependsOn(project(":database:postgres:jdbc").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":dsl").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":gradle-plugin:generator").tasks.getByName("publishToMavenLocal"))
 }
 val pluginName = "${rootProject.group}.${name()}"
 version = rootProject.version

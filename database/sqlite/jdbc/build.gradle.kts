@@ -6,7 +6,6 @@ kotlin {
             dependencies {
                 api(project(":core:jdbc"))
                 api(project(":database:sqlite"))
-                api(project(":dsl"))
                 implementation("org.xerial:sqlite-jdbc:3.41.2.1")
             }
         }

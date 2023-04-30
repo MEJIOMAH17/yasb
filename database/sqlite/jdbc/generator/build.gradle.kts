@@ -4,9 +4,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":dsl"))
                 api(project(":database:sqlite:jdbc"))
-                api(project(":dsl:generator"))
+                api(project(":gradle-plugin:generator"))
 
                 implementation(kotlin("stdlib"))
                 implementation("org.xerial:sqlite-jdbc:3.41.2.1")

@@ -4,9 +4,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":dsl"))
                 api(project(":database:postgres:jdbc"))
-                api(project(":dsl:generator"))
+                api(project(":gradle-plugin:generator"))
 
                 implementation(kotlin("stdlib"))
                 implementation("org.postgresql:postgresql:42.3.3")
