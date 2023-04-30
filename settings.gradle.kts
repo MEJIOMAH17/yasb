@@ -1,9 +1,9 @@
 rootProject.name = "yasb"
 include(
+    "core:test-fixtures",
     "core",
     "core:jdbc",
     "core:jdbc:test-fixtures",
-    "dsl:test-fixtures",
     "dsl:generator",
     "dsl:generator:flyway",
     "database:sqlite",

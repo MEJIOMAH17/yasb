@@ -4,7 +4,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":dsl"))
+                api(project(":core"))
                 implementation(kotlin("stdlib"))
             }
         }

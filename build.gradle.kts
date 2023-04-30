@@ -1,4 +1,3 @@
-
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -25,7 +24,7 @@ repositories {
 }
 val jvmProjects = setOf(project(":gradle-plugin"))
 val mppProjects = subprojects - jvmProjects
-val projectsWithPublication = subprojects - project(":dsl:test-fixtures")
+val projectsWithPublication = subprojects - setOf(project(":core:test-fixtures"), project("core:jdbc:test-fixtures"))
 
 subprojects {
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
