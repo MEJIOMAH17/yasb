@@ -2,7 +2,7 @@ rootProject.name = "yasb"
 include(
     "core",
     "core:jdbc",
-    "dsl",
+    "core:jdbc:test-fixtures",
     "dsl:test-fixtures",
     "dsl:generator",
     "dsl:generator:flyway",
