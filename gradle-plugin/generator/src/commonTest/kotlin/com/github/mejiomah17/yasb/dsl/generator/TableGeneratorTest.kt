@@ -2,7 +2,7 @@ package com.github.mejiomah17.yasb.dsl.generator
 
 import com.github.mejiomah17.yasb.core.ddl.Table
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 class TableGeneratorTest {
     @Test

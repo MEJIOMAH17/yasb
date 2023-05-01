@@ -5,13 +5,13 @@ import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.dsl.CountTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
-import org.junit.jupiter.api.BeforeEach
+import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteCountTest : CountTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
     SqliteTest() {
-    @BeforeEach
+    @Before
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {

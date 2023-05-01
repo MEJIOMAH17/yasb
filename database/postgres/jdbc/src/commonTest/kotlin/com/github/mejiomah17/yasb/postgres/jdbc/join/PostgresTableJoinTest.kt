@@ -8,14 +8,14 @@ import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresTest
-import org.junit.jupiter.api.BeforeEach
+import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresTableJoinTest :
     TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
-    @BeforeEach
+    @Before
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {

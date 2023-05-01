@@ -6,15 +6,15 @@ import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Text
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import org.junit.AfterClass
+import org.junit.BeforeClass
+import org.junit.Test
 
 class SqliteJdbcTableMetadataFactoryTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 
-        @BeforeAll
+        @BeforeClass
         @JvmStatic
         fun init() {
             dataSource = HikariDataSource(
@@ -40,7 +40,7 @@ class SqliteJdbcTableMetadataFactoryTest {
             }
         }
 
-        @AfterAll
+        @AfterClass
         @JvmStatic
         fun close() {
             kotlin.runCatching { dataSource.close() }

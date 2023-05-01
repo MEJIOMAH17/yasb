@@ -8,15 +8,15 @@ import com.github.mejiomah17.yasb.postgres.jdbc.PostgresContainer.Companion.PASS
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import org.junit.AfterClass
+import org.junit.BeforeClass
 
 class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
         lateinit var dataSource: HikariDataSource
         lateinit var container: PostgresContainer
 
-        @BeforeAll
+        @BeforeClass
         @JvmStatic
         fun init() {
             container = PostgresContainer()
@@ -30,7 +30,7 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
             )
         }
 
-        @AfterAll
+        @AfterClass
         @JvmStatic
         fun close() {
             kotlin.runCatching { container.close() }

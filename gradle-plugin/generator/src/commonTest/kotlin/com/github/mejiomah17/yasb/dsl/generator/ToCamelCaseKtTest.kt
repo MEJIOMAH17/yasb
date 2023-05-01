@@ -1,7 +1,7 @@
 package com.github.mejiomah17.yasb.dsl.generator
 
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 class ToCamelCaseKtTest {
     @Test

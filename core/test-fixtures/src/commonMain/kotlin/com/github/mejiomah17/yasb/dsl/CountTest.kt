@@ -11,7 +11,7 @@ import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 interface CountTest<
     TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

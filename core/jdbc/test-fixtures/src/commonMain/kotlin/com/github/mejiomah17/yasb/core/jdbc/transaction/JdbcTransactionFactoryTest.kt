@@ -1,6 +1,6 @@
 package com.github.mejiomah17.yasb.core.jdbc.transaction
 
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 abstract class JdbcTransactionFactoryTest {
     @Test

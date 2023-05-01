@@ -8,14 +8,14 @@ import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteTest
-import org.junit.jupiter.api.BeforeEach
+import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteTableJoinTest :
     TableJoinTest<SqliteTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
     SqliteTest() {
-    @BeforeEach
+    @Before
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {

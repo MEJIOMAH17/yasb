@@ -4,16 +4,16 @@ import com.github.mejiomah17.yasb.postgres.jdbc.generator.column.Text
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import org.junit.AfterClass
+import org.junit.BeforeClass
+import org.junit.Test
 
 class PostgresTableMetadataFactoryTest {
     companion object {
         lateinit var dataSource: HikariDataSource
         lateinit var container: PostgresContainer
 
-        @BeforeAll
+        @BeforeClass
         @JvmStatic
         fun init() {
             container = PostgresContainer()
@@ -39,7 +39,7 @@ class PostgresTableMetadataFactoryTest {
             }
         }
 
-        @AfterAll
+        @AfterClass
         @JvmStatic
         fun close() {
             kotlin.runCatching { container.close() }

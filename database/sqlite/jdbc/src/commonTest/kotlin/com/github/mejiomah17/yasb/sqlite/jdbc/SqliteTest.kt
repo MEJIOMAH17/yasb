@@ -2,14 +2,14 @@ package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
+import org.junit.AfterClass
+import org.junit.BeforeClass
 
 abstract class SqliteTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 
-        @BeforeAll
+        @BeforeClass
         @JvmStatic
         fun init() {
             dataSource = HikariDataSource(
@@ -55,7 +55,7 @@ abstract class SqliteTest {
             }
         }
 
-        @AfterAll
+        @AfterClass
         @JvmStatic
         fun close() {
             kotlin.runCatching { dataSource.close() }

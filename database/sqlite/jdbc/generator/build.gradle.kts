@@ -15,13 +15,9 @@ kotlin {
             dependencies {
                 implementation("com.zaxxer:HikariCP:5.0.0")
                 implementation("io.kotest:kotest-assertions-core:5.0.2")
-                implementation("org.junit.jupiter:junit-jupiter:5.8.2")
+                implementation("junit:junit:4.13.2")
                 implementation("io.mockk:mockk:1.12.3")
             }
         }
     }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }

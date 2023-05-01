@@ -14,7 +14,7 @@ import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 interface TableJoinTest<
     TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

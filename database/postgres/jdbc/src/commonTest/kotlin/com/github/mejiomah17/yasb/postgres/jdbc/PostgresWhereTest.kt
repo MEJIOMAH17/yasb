@@ -11,8 +11,8 @@ import com.github.mejiomah17.yasb.dsl.WhereTest
 import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.Before
+import org.junit.Test
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Timestamp
@@ -21,7 +21,7 @@ import java.util.UUID
 class PostgresWhereTest :
     WhereTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
-    @BeforeEach
+    @Before
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {

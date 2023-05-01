@@ -3,14 +3,14 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.dsl.LimitTest
-import org.junit.jupiter.api.BeforeEach
+import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresLimitTest :
     LimitTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction, PostgresJdbcTransactionFactory>,
     PostgresTest() {
-    @BeforeEach
+    @Before
     fun setup() {
         dataSource.connection.use {
             it.createStatement().use {

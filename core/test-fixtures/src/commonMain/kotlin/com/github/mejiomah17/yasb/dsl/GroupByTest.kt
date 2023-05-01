@@ -11,7 +11,7 @@ import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 interface GroupByTest<
     TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

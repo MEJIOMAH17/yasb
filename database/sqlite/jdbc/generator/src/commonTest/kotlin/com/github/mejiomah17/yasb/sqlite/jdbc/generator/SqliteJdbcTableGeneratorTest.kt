@@ -4,15 +4,15 @@ import com.github.mejiomah17.yasb.dsl.generator.TableGenerator
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import org.junit.AfterClass
+import org.junit.BeforeClass
+import org.junit.Test
 
 class SqliteJdbcTableGeneratorTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 
-        @BeforeAll
+        @BeforeClass
         @JvmStatic
         fun init() {
             dataSource = HikariDataSource(
@@ -34,7 +34,7 @@ class SqliteJdbcTableGeneratorTest {
             }
         }
 
-        @AfterAll
+        @AfterClass
         @JvmStatic
         fun close() {
             kotlin.runCatching { dataSource.close() }
