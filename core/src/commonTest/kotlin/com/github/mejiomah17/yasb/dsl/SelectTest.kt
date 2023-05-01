@@ -10,7 +10,7 @@ import org.junit.Test
 
 class SelectTest {
     @Test
-    fun `select method constructs Select`() {
+    fun `select_method_constructs_Select`() {
         val expression = object : Expression<Any, Any, Any> {
             override fun databaseType(): DatabaseType<Any, Any, Any> {
                 TODO("Not yet implemented")
@@ -27,7 +27,7 @@ class SelectTest {
     }
 
     @Test
-    fun `select method throws exception if input is empty`() {
+    fun `select_method_throws_exception_if_input_is_empty`() {
         shouldThrow<java.lang.IllegalArgumentException> {
             select<Any, Any>()
         }.message shouldBe "Select query should have at least 1 arg"

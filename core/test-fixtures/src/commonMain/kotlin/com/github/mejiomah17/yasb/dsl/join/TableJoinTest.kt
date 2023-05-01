@@ -25,7 +25,7 @@ interface TableJoinTest<
     > {
     // <editor-fold desc="Inner">
     @Test
-    fun `builds correct query for inner join`() {
+    fun `builds_correct_query_for_inner_join`() {
         dialect().run {
             val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
                 .from(firstTable())
@@ -37,7 +37,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from inner join`() {
+    fun `select_values_from_inner_join`() {
         transactionFactory().readCommitted {
             val row = select(dataColumnFromFirstTable(), dataColumnFromSecondTable())
                 .from(firstTable())
@@ -51,7 +51,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for inner join with aliased table`() {
+    fun `builds_correct_query_for_inner_join_with_aliased_table`() {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -65,7 +65,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from inner join with aliased table`() {
+    fun `select_values_from_inner_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -82,7 +82,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for inner join with nested query`() {
+    fun `builds_correct_query_for_inner_join_with_nested_query`() {
         dialect().run {
             val nestedQuery = select(joinColumnFromSecondTable())
                 .from(secondTable())
@@ -98,7 +98,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from inner join with nested query`() {
+    fun `select_values_from_inner_join_with_nested_query`() {
         transactionFactory().readCommitted {
             val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
                 .from(secondTable())
@@ -119,7 +119,7 @@ interface TableJoinTest<
 
     // <editor-fold desc="LEFT">
     @Test
-    fun `builds correct query for left join`() {
+    fun `builds_correct_query_for_left_join`() {
         dialect().run {
             val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
                 .from(firstTable())
@@ -131,7 +131,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from left join`() {
+    fun `select_values_from_left_join`() {
         transactionFactory().readCommitted {
             val rows = select(
                 joinColumnFromFirstTable(),
@@ -152,7 +152,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for left join with aliased table`() {
+    fun `builds_correct_query_for_left_join_with_aliased_table`() {
         val secondTable = secondTable().`as`("xxx")
         val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
         dialect().run {
@@ -166,7 +166,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from left join with aliased table`() {
+    fun `select_values_from_left_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -190,7 +190,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for left join with nested query`() {
+    fun `builds_correct_query_for_left_join_with_nested_query`() {
         dialect().run {
             val nestedQuery = select(joinColumnFromSecondTable())
                 .from(secondTable())
@@ -206,7 +206,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from left join with nested query`() {
+    fun `select_values_from_left_join_with_nested_query`() {
         transactionFactory().readCommitted {
             val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
                 .from(secondTable())
@@ -235,7 +235,7 @@ interface TableJoinTest<
 
     // <editor-fold desc="RIGHT">
     @Test
-    fun `builds correct query for right join`() {
+    fun `builds_correct_query_for_right_join`() {
         dialect().run {
             val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
                 .from(firstTable())
@@ -247,7 +247,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from right join`() {
+    fun `select_values_from_right_join`() {
         transactionFactory().readCommitted {
             val rows = select(
                 joinColumnFromFirstTable(),
@@ -268,7 +268,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for right join with aliased table`() {
+    fun `builds_correct_query_for_right_join_with_aliased_table`() {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -282,7 +282,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from right join with aliased table`() {
+    fun `select_values_from_right_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -306,7 +306,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for right join with nested query`() {
+    fun `builds_correct_query_for_right_join_with_nested_query`() {
         dialect().run {
             val nestedQuery = select(joinColumnFromSecondTable())
                 .from(secondTable())
@@ -322,7 +322,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from right join with nested query`() {
+    fun `select_values_from_right_join_with_nested_query`() {
         transactionFactory().readCommitted {
             val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
                 .from(secondTable())
@@ -350,7 +350,7 @@ interface TableJoinTest<
 
     // <editor-fold desc="FULL">
     @Test
-    fun `builds correct query for full join`() {
+    fun `builds_correct_query_for_full_join`() {
         dialect().run {
             val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable())
                 .from(firstTable())
@@ -362,7 +362,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from full join`() {
+    fun `select_values_from_full_join`() {
         transactionFactory().readCommitted {
             val rows = select(
                 joinColumnFromFirstTable(),
@@ -385,7 +385,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for full join with aliased table`() {
+    fun `builds_correct_query_for_full_join_with_aliased_table`() {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -399,7 +399,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from full join with aliased table`() {
+    fun `select_values_from_full_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -425,7 +425,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for full join with nested query`() {
+    fun `builds_correct_query_for_full_join_with_nested_query`() {
         dialect().run {
             val nestedQuery = select(joinColumnFromSecondTable())
                 .from(secondTable())
@@ -441,7 +441,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from full join with nested query`() {
+    fun `select_values_from_full_join_with_nested_query`() {
         transactionFactory().readCommitted {
             val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
                 .from(secondTable())
@@ -471,7 +471,7 @@ interface TableJoinTest<
 
     // <editor-fold desc="Multiple joins">
     @Test
-    fun `builds correct query for multiple join`() {
+    fun `builds_correct_query_for_multiple_join`() {
         dialect().run {
             val query = select(joinColumnFromFirstTable(), joinColumnFromSecondTable(), joinColumnFromThirdTable())
                 .from(firstTable())
@@ -486,7 +486,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from for multiple join`() {
+    fun `select_values_from_for_multiple_join`() {
         transactionFactory().readCommitted {
             val rows = select(
                 joinColumnFromFirstTable(),
@@ -512,7 +512,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for multiple join with aliased table`() {
+    fun `builds_correct_query_for_multiple_join_with_aliased_table`() {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -529,7 +529,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from for multiple join with aliased table`() {
+    fun `select_values_from_for_multiple_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[joinColumnFromSecondTable()]
@@ -558,7 +558,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `builds correct query for multiple join with nested query`() {
+    fun `builds_correct_query_for_multiple_join_with_nested_query`() {
         dialect().run {
             val nestedQuery = select(joinColumnFromSecondTable())
                 .from(secondTable())
@@ -576,7 +576,7 @@ interface TableJoinTest<
     }
 
     @Test
-    fun `select values from multiple join with nested query`() {
+    fun `select_values_from_multiple_join_with_nested_query`() {
         transactionFactory().readCommitted {
             val nestedQuery = select(joinColumnFromSecondTable(), dataColumnFromSecondTable())
                 .from(secondTable())

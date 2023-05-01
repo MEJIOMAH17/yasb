@@ -16,7 +16,7 @@ class GeneratorPluginTest {
     private val yasbPluginDeclaration = """id("com.github.mejiomah17.yasb.gradle-plugin")"""
 
     @Test
-    fun `does not fail on empty project`() {
+    fun `does_not_fail_on_empty_project`() {
         val projectDir = gradleDir(
             """
              plugins {
@@ -29,7 +29,7 @@ class GeneratorPluginTest {
     }
 
     @Test
-    fun `does not fail when task has no configuration`() {
+    fun `does_not_fail_when_task_has_no_configuration`() {
         val projectDir = gradleDir(
             """
             plugins {
@@ -44,7 +44,7 @@ class GeneratorPluginTest {
 
     @ParameterizedTest
     @EnumSource(DB::class)
-    fun `generates table definition`(db: DB) {
+    fun `generates_table_definition`(db: DB) {
         val migrationsDir = createMigration()
         val packageName = (0..5).joinToString(".") {
             Random.nextString()
@@ -93,7 +93,7 @@ class GeneratorPluginTest {
 
     @ParameterizedTest
     @EnumSource(DB::class)
-    fun `build can use generated code`(db: DB) {
+    fun `build_can_use_generated_code`(db: DB) {
         val migrationsDir = createMigration()
         val packageName = (0..5).joinToString(".") {
             Random.nextString()

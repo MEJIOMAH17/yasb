@@ -42,7 +42,7 @@ class SqliteJdbcTableGeneratorTest {
     }
 
     @Test
-    fun `generates correct table definition`() {
+    fun `generates_correct_table_definition`() {
         dataSource.connection.use {
             TableGenerator().generateTable(
                 SqliteJdbcTableMetadataFactory(SqliteJdbcColumnMetadataFactory())

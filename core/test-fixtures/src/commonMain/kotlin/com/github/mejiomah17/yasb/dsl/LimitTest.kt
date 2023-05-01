@@ -26,7 +26,7 @@ interface LimitTest<
             DIALECT : SupportsLimit {
 
     @Test
-    fun `limit generates correct sql`() {
+    fun `limit_generates_correct_sql`() {
         transactionFactory().readCommitted {
             select(columnA())
                 .from(TestTable())
@@ -37,7 +37,7 @@ interface LimitTest<
     }
 
     @Test
-    fun `limit 1 return single record`() {
+    fun `limit_1_return_single_record`() {
         transactionFactory().readCommitted {
             select(columnA())
                 .from(TestTable())
@@ -47,7 +47,7 @@ interface LimitTest<
     }
 
     @Test
-    fun `limit called after where`() {
+    fun `limit_called_after_where`() {
         transactionFactory().readCommitted {
             select(columnA())
                 .from(TestTable())

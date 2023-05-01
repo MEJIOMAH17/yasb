@@ -56,7 +56,7 @@ class PostgresFromTest :
     }
 
     @Test
-    override fun `from returns columns`() {
+    override fun `from_returns_columns`() {
         transactionFactory().readUncommitted {
             val row = select(columnA(), columnB(), TestTable.c, TestTable.d)
                 .from(tableTest())

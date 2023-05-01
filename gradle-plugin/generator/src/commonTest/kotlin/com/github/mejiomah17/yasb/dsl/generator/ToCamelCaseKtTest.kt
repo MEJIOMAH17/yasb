@@ -5,27 +5,27 @@ import org.junit.Test
 
 class ToCamelCaseKtTest {
     @Test
-    fun `do nothing on camel cased source`() {
+    fun `do_nothing_on_camel_cased_source`() {
         "toCamelCaseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
 
     @Test
-    fun `lowercase first letter`() {
+    fun `lowercase_first_letter`() {
         "ToCamelCaseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
 
     @Test
-    fun `remove space and uppercase next letter`() {
+    fun `remove_space_and_uppercase_next_letter`() {
         "toCamel caseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
 
     @Test
-    fun `remove dash and uppercase next letter`() {
+    fun `remove_dash_and_uppercase_next_letter`() {
         "toCamel-caseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
 
     @Test
-    fun `remove underscore and uppercase next letter`() {
+    fun `remove_underscore_and_uppercase_next_letter`() {
         "toCamel_caseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
 }

@@ -20,7 +20,7 @@ interface WhereTest<
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
-    fun `where filters query`() {
+    fun `where_filters_query`() {
         transactionFactory().readUncommitted {
             val queryWithoutWhere = select(columnA(), columnB()).from(tableTest())
             val given = queryWithoutWhere.execute()
@@ -37,7 +37,7 @@ interface WhereTest<
     }
 
     @Test
-    fun `where builds correct sql for param`() {
+    fun `where_builds_correct_sql_for_param`() {
         transactionFactory().readUncommitted {
             select(columnA(), columnB())
                 .from(tableTest())
@@ -49,7 +49,7 @@ interface WhereTest<
     }
 
     @Test
-    fun `where builds correct sql for column`() {
+    fun `where_builds_correct_sql_for_column`() {
         transactionFactory().readUncommitted {
             select(columnA(), columnB())
                 .from(tableTest())
@@ -61,7 +61,7 @@ interface WhereTest<
     }
 
     @Test
-    fun `where has correct returnExpressions`() {
+    fun `where_has_correct_returnExpressions`() {
         transactionFactory().readUncommitted {
             select(columnA(), columnB())
                 .from(tableTest())
@@ -73,7 +73,7 @@ interface WhereTest<
     }
 
     @Test
-    fun `where has correct parameters`() {
+    fun `where_has_correct_parameters`() {
         transactionFactory().readUncommitted {
             val params = select(columnA(), columnB())
                 .from(tableTest())

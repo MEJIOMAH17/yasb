@@ -22,7 +22,7 @@ interface GroupByTest<
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
-    fun `groupBy creates correct sql for from clause`() {
+    fun `groupBy_creates_correct_sql_for_from_clause`() {
         val result = select(columnA(), parameter().`as`("p"))
             .from(tableTest())
             .groupBy(columnA())
@@ -32,7 +32,7 @@ interface GroupByTest<
     }
 
     @Test
-    fun `groupBy creates correct sql for where clause`(): Unit = databaseDialect.run {
+    fun `groupBy_creates_correct_sql_for_where_clause`(): Unit = databaseDialect.run {
         val result = select(columnA(), parameter().`as`("p"))
             .from(tableTest())
             .where { columnA().eq("the a") }
@@ -43,7 +43,7 @@ interface GroupByTest<
     }
 
     @Test
-    fun `groupBy returns correct expressions`() {
+    fun `groupBy_returns_correct_expressions`() {
         select(columnA())
             .from(tableTest())
             .groupBy(columnA())
@@ -52,7 +52,7 @@ interface GroupByTest<
     }
 
     @Test
-    fun `groupBy grouping values`() {
+    fun `groupBy_grouping_values`() {
         transactionFactory().readUncommitted {
             val queryWithoutGroupBy = select(columnA()).from(tableTest())
             val given = queryWithoutGroupBy.execute()
@@ -66,7 +66,7 @@ interface GroupByTest<
     }
 
     @Test
-    fun `groupBy executes after where expression`() {
+    fun `groupBy_executes_after_where_expression`() {
         transactionFactory().readUncommitted {
             val repeatingColumn = select(columnA()).from(tableTest())
                 .where { columnA().eq("the a") }

@@ -18,7 +18,7 @@ interface FromTest<
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
-    fun `from creates From`() {
+    fun `from_creates_From`() {
         val select = select(columnA())
 
         val result = select.from(TestTable())
@@ -28,7 +28,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from creates From for aliased table`() {
+    fun `from_creates_From_for_aliased_table`() {
         val select = select(columnA())
         val table = TestTable<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>().`as`("xxx")
         val result = select.from(table)
@@ -38,7 +38,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from creates correct sql`() {
+    fun `from_creates_correct_sql`() {
         val result = select(columnA(), columnB(), parameter().`as`("p"))
             .from(tableTest())
             .buildSelectQuery()
@@ -47,7 +47,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from creates correct sql for aliased table`() {
+    fun `from_creates_correct_sql_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
         val result = select(table[columnA()], table[columnB()], parameter().`as`("p"))
             .from(table)
@@ -57,7 +57,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns correct expressions`() {
+    fun `from_returns_correct_expressions`() {
         select(columnA(), columnB())
             .from(tableTest())
             .buildSelectQuery()
@@ -65,7 +65,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns correct expressions for aliased table`() {
+    fun `from_returns_correct_expressions_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
         val aColumn = table[columnA()]
         val bColumn = table[columnB()]
@@ -76,7 +76,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns columns`() {
+    fun `from_returns_columns`() {
         transactionFactory().readUncommitted {
             val row = select(columnA(), columnB())
                 .from(tableTest())
@@ -88,7 +88,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns columns for aliased table`() {
+    fun `from_returns_columns_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
         val aColumn = table[columnA()]
         val bColumn = table[columnB()]
@@ -103,7 +103,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns columns for nested query`() {
+    fun `from_returns_columns_for_nested_query`() {
         val param = parameter().`as`("p")
         transactionFactory().readUncommitted {
             val nestedQuery = select(columnA(), columnB(), param)
@@ -126,7 +126,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns parameter`() {
+    fun `from_returns_parameter`() {
         val param = parameter().`as`("p")
         transactionFactory().readUncommitted {
             val row = select(param)
@@ -138,7 +138,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns correct parameters`() {
+    fun `from_returns_correct_parameters`() {
         val param = parameter()
         select(param.`as`("p"))
             .from(tableTest())
@@ -147,7 +147,7 @@ interface FromTest<
     }
 
     @Test
-    fun `from returns correct sql for nested query`() {
+    fun `from_returns_correct_sql_for_nested_query`() {
         val result = select(columnA(), columnB(), parameter().`as`("p"))
             .from(
                 select(columnA(), columnB())

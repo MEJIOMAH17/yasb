@@ -48,7 +48,7 @@ class PostgresTableMetadataFactoryTest {
     }
 
     @Test
-    fun `creates table definition`() {
+    fun `creates_table_definition`() {
         dataSource.connection.use {
             val table = PostgresTableMetadataFactory(PostgresColumnMetadataFactory()).create(it, "test", null)
             table.tableName shouldBe "test"

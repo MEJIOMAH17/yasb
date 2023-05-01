@@ -46,7 +46,7 @@ class PostgresWhereTest :
     }
 
     @Test
-    fun `where filters query by uuid`() {
+    fun `where_filters_query_by_uuid`() {
         transactionFactory().readUncommitted {
             val queryWithoutWhere = select(columnA(), columnB(), TestTable.c).from(tableTest())
             val given = queryWithoutWhere.execute()
@@ -64,7 +64,7 @@ class PostgresWhereTest :
     }
 
     @Test
-    fun `where filters query by timestamp`() {
+    fun `where_filters_query_by_timestamp`() {
         transactionFactory().readUncommitted {
             val queryWithoutWhere = select(columnA(), columnB(), TestTable.c, TestTable.d).from(tableTest())
             val given = queryWithoutWhere.execute()

@@ -4,7 +4,7 @@ import org.junit.Test
 
 abstract class JdbcTransactionFactoryTest {
     @Test
-    fun `does not throw any on transaction block`() {
+    fun `does_not_throw_any_on_transaction_block`() {
         createTransactionFactory().callTransaction()
     }
 

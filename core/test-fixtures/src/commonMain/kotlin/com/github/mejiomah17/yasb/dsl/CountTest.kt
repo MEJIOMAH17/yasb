@@ -22,7 +22,7 @@ interface CountTest<
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
-    fun `count returns count of elements`() {
+    fun `count_returns_count_of_elements`() {
         transactionFactory().readCommitted {
             val count = count(columnA()).`as`("aCount")
             val from: From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = select(count)

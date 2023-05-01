@@ -6,7 +6,7 @@ import org.junit.Test
 
 class TableGeneratorTest {
     @Test
-    fun `creates correct code`() {
+    fun `creates_correct_code`() {
         TableGenerator().generateTable(
             table = TableMetadata(
                 tableName = "test",
@@ -33,7 +33,7 @@ class TableGeneratorTest {
     }
 
     @Test
-    fun `do not duplicate table suffix correct code`() {
+    fun `do_not_duplicate_table_suffix_correct_code`() {
         val result = TableGenerator().generateTable(
             table = TableMetadata(
                 tableName = "test_table",
