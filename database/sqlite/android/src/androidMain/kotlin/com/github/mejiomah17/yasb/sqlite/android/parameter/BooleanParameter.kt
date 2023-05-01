@@ -7,7 +7,4 @@ class BooleanParameter(
     override val value: Boolean?
 ) : SqliteParameter<Boolean>() {
     override val databaseType: AndroidDatabaseType<Boolean> = BooleanDatabaseType
-    override fun applyToStatement(statement: (String) -> Unit, index: Int) {
-        statement.invoke(value.toString())
-    }
 }

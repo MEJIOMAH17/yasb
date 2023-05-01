@@ -9,6 +9,7 @@ object BooleanDatabaseType : AndroidDatabaseType<Boolean> {
 
     override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, Cursor, (String) -> Unit> = ::BooleanParameter
     override fun extractFromSource(source: Cursor, index: Int): Boolean? {
-        TODO()
+        // TODO TEST!!!
+        return source.getString(index).toBooleanStrictOrNull()
     }
 }
