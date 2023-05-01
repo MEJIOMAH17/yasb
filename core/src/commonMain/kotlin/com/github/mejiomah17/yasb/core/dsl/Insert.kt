@@ -2,6 +2,7 @@
 
 package com.github.mejiomah17.yasb.core.dsl
 
+import com.github.mejiomah17.yasb.core.SupportsInsertReturning
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
@@ -61,7 +62,7 @@ class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
         return QueryForExecute(
-            sqlDefinition = query.sqlDefinition + "RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
+            sqlDefinition = query.sqlDefinition + " RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
             parameters = query.parameters + returnExpressions.flatMap { it.parameters },
             returnExpressions = returning.expressions
         )
@@ -111,6 +112,7 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
     return Insert(table, columns)
 }
 
+context(SupportsInsertReturning)
 fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> insertInto(
     table: TABLE,
     returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -123,7 +125,7 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
  * SupportInsertWithDefaultValue - [block] could skip column initialization.
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
-context(SupportsInsertWithDefaultValue)
+context(SupportsInsertWithDefaultValue, SupportsInsertReturning)
 fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, E> insertInto(
     table: TABLE,
     returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

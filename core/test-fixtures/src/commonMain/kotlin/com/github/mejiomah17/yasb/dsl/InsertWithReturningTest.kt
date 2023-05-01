@@ -1,6 +1,9 @@
+@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
+
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
+import com.github.mejiomah17.yasb.core.SupportsInsertReturning
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.dsl.Returning
 import com.github.mejiomah17.yasb.core.dsl.insertInto
@@ -19,19 +22,21 @@ interface InsertWithReturningTest<
     @Test
     fun output_returns_values() {
         transactionFactory().repeatableRead {
-            val row = insertInto(tableTest(), returning = Returning(tableTest().a, tableTest().b)) {
-                it[tableTest().a] = "abc"
-                it[tableTest().b] = "bca"
-            }.execute().single()
-            row[tableTest().a] shouldBe "abc"
-            row[tableTest().b] shouldBe "bca"
+            if (this is SupportsInsertReturning) {
+                val row = insertInto(tableTest(), returning = Returning(tableTest().a, tableTest().b)) {
+                    it[tableTest().a] = "abc"
+                    it[tableTest().b] = "bca"
+                }.execute().single()
+                row[tableTest().a] shouldBe "abc"
+                row[tableTest().b] shouldBe "bca"
+            }
         }
     }
 
     @Test
     fun output_returns_values_for_iterable_insert() {
         transactionFactory().repeatableRead {
-            if (this is SupportsInsertWithDefaultValue) {
+            if (this is SupportsInsertWithDefaultValue && this is SupportsInsertReturning) {
                 val values = (0..100).toList()
                 val rows =
                     insertInto(
