@@ -19,7 +19,6 @@ interface LimitTest<
     DRIVER_STATEMENT,
     DIALECT,
     TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    F : TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION>
     > : SqlTest where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
                       DIALECT : SupportsLimit {
     @Test
@@ -53,6 +52,7 @@ interface LimitTest<
                 .execute()
         }
     }
-    fun transactionFactory(): F
+
+    fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION>
     fun tableTest(): TABLE
 }
