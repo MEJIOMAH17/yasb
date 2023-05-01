@@ -15,7 +15,7 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 class PostgresFromTest :
-    FromTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    FromTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @Before
     fun setup() {
@@ -35,20 +35,20 @@ class PostgresFromTest :
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    fun columnA(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.b
+    fun columnB(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.b
     }
 
     override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
     }
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory {
@@ -58,14 +58,14 @@ class PostgresFromTest :
     @Test
     override fun `from_returns_columns`() {
         transactionFactory().readUncommitted {
-            val row = select(columnA(), columnB(), TestTable.c, TestTable.d)
+            val row = select(columnA(), columnB(), PostgresJdbcTestTable.c, PostgresJdbcTestTable.d)
                 .from(tableTest())
                 .execute()
                 .single()
             row[columnA()] shouldBe "the a"
             row[columnB()] shouldBe "the b"
-            row[TestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c221"
-            row[TestTable.d] shouldBe Timestamp.valueOf("2022-05-13 02:09:09.683194")
+            row[PostgresJdbcTestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c221"
+            row[PostgresJdbcTestTable.d] shouldBe Timestamp.valueOf("2022-05-13 02:09:09.683194")
         }
     }
 }

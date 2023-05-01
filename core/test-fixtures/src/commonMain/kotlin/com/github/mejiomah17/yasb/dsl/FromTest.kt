@@ -1,7 +1,6 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
@@ -10,7 +9,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface FromTest<
-    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -19,18 +18,18 @@ interface FromTest<
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `from_creates_From`() {
-        val select = select(columnA())
+        val select = select(tableTest().a)
 
-        val result = select.from(TestTable())
+        val result = select.from(tableTest())
 
         result.select shouldBe select
-        result.source shouldBe TestTable()
+        result.source shouldBe tableTest()
     }
 
     @Test
     fun `from_creates_From_for_aliased_table`() {
-        val select = select(columnA())
-        val table = TestTable<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>().`as`("xxx")
+        val select = select(tableTest().a)
+        val table = tableTest().`as`("xxx")
         val result = select.from(table)
 
         result.select shouldBe select
@@ -39,7 +38,7 @@ interface FromTest<
 
     @Test
     fun `from_creates_correct_sql`() {
-        val result = select(columnA(), columnB(), parameter().`as`("p"))
+        val result = select(tableTest().a, tableTest().b, parameter().`as`("p"))
             .from(tableTest())
             .buildSelectQuery()
             .sqlDefinition
@@ -49,7 +48,7 @@ interface FromTest<
     @Test
     fun `from_creates_correct_sql_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
-        val result = select(table[columnA()], table[columnB()], parameter().`as`("p"))
+        val result = select(table[tableTest().a], table[tableTest().b], parameter().`as`("p"))
             .from(table)
             .buildSelectQuery()
             .sqlDefinition
@@ -58,17 +57,17 @@ interface FromTest<
 
     @Test
     fun `from_returns_correct_expressions`() {
-        select(columnA(), columnB())
+        select(tableTest().a, tableTest().b)
             .from(tableTest())
             .buildSelectQuery()
-            .returnExpressions.shouldBe(listOf(columnA(), columnB()))
+            .returnExpressions.shouldBe(listOf(tableTest().a, tableTest().b))
     }
 
     @Test
     fun `from_returns_correct_expressions_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
-        val aColumn = table[columnA()]
-        val bColumn = table[columnB()]
+        val aColumn = table[tableTest().a]
+        val bColumn = table[tableTest().b]
         select(aColumn, bColumn)
             .from(table)
             .buildSelectQuery()
@@ -78,20 +77,20 @@ interface FromTest<
     @Test
     fun `from_returns_columns`() {
         transactionFactory().readUncommitted {
-            val row = select(columnA(), columnB())
+            val row = select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .execute()
                 .single()
-            row[columnA()] shouldBe "the a"
-            row[columnB()] shouldBe "the b"
+            row[tableTest().a] shouldBe "the a"
+            row[tableTest().b] shouldBe "the b"
         }
     }
 
     @Test
     fun `from_returns_columns_for_aliased_table`() {
         val table = tableTest().`as`("xxx")
-        val aColumn = table[columnA()]
-        val bColumn = table[columnB()]
+        val aColumn = table[tableTest().a]
+        val bColumn = table[tableTest().b]
         transactionFactory().readUncommitted {
             val row = select(aColumn, bColumn)
                 .from(table)
@@ -106,11 +105,11 @@ interface FromTest<
     fun `from_returns_columns_for_nested_query`() {
         val param = parameter().`as`("p")
         transactionFactory().readUncommitted {
-            val nestedQuery = select(columnA(), columnB(), param)
+            val nestedQuery = select(tableTest().a, tableTest().b, param)
                 .from(tableTest())
                 .`as`("xxx")
-            val columnA = nestedQuery[columnA()]
-            val columnB = nestedQuery[columnB()]
+            val columnA = nestedQuery[tableTest().a]
+            val columnB = nestedQuery[tableTest().b]
             val paramFromQuery = nestedQuery[param]
 
             val query = select(columnA, columnB, paramFromQuery)
@@ -148,9 +147,9 @@ interface FromTest<
 
     @Test
     fun `from_returns_correct_sql_for_nested_query`() {
-        val result = select(columnA(), columnB(), parameter().`as`("p"))
+        val result = select(tableTest().a, tableTest().b, parameter().`as`("p"))
             .from(
-                select(columnA(), columnB())
+                select(tableTest().a, tableTest().b)
                     .from(tableTest())
                     .`as`("xxx")
             )

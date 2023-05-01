@@ -1,7 +1,6 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
@@ -12,7 +11,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface WhereTest<
-    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -22,27 +21,27 @@ interface WhereTest<
     @Test
     fun `where_filters_query`() {
         transactionFactory().readUncommitted {
-            val queryWithoutWhere = select(columnA(), columnB()).from(tableTest())
+            val queryWithoutWhere = select(tableTest().a, tableTest().b).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
-            given.get(1)[columnA()].shouldBe("42")
+            given.get(1)[tableTest().a].shouldBe("42")
 
             val result = queryWithoutWhere.where {
-                columnA().eq("42")
+                tableTest().a.eq("42")
             }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
-            row[columnA()] shouldBe "42"
+            row[tableTest().a] shouldBe "42"
         }
     }
 
     @Test
     fun `where_builds_correct_sql_for_param`() {
         transactionFactory().readUncommitted {
-            select(columnA(), columnB())
+            select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
-                    columnA().eq("42")
+                    tableTest().a.eq("42")
                 }.buildSelectQuery()
                 .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
         }
@@ -51,10 +50,10 @@ interface WhereTest<
     @Test
     fun `where_builds_correct_sql_for_column`() {
         transactionFactory().readUncommitted {
-            select(columnA(), columnB())
+            select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
-                    columnA().eq(columnB())
+                    tableTest().a.eq(tableTest().b)
                 }.buildSelectQuery()
                 .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
         }
@@ -63,22 +62,22 @@ interface WhereTest<
     @Test
     fun `where_has_correct_returnExpressions`() {
         transactionFactory().readUncommitted {
-            select(columnA(), columnB())
+            select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
-                    columnA().eq("42")
+                    tableTest().a.eq("42")
                 }.buildSelectQuery()
-                .returnExpressions shouldBe listOf(columnA(), columnB())
+                .returnExpressions shouldBe listOf(tableTest().a, tableTest().b)
         }
     }
 
     @Test
     fun `where_has_correct_parameters`() {
         transactionFactory().readUncommitted {
-            val params = select(columnA(), columnB())
+            val params = select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
-                    columnA().eq("42")
+                    tableTest().a.eq("42")
                 }.buildSelectQuery()
                 .parameters
             params.shouldHaveSize(1)

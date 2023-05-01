@@ -1,7 +1,6 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
@@ -14,7 +13,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface GroupByTest<
-    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -23,9 +22,9 @@ interface GroupByTest<
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `groupBy_creates_correct_sql_for_from_clause`() {
-        val result = select(columnA(), parameter().`as`("p"))
+        val result = select(tableTest().a, parameter().`as`("p"))
             .from(tableTest())
-            .groupBy(columnA())
+            .groupBy(tableTest().a)
             .buildSelectQuery()
             .sqlDefinition
         result shouldBe "SELECT test.a, (?) AS p FROM test GROUP BY test.a"
@@ -33,10 +32,10 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_creates_correct_sql_for_where_clause`(): Unit = databaseDialect.run {
-        val result = select(columnA(), parameter().`as`("p"))
+        val result = select(tableTest().a, parameter().`as`("p"))
             .from(tableTest())
-            .where { columnA().eq("the a") }
-            .groupBy(columnA())
+            .where { tableTest().a.eq("the a") }
+            .groupBy(tableTest().a)
             .buildSelectQuery()
             .sqlDefinition
         result shouldBe "SELECT test.a, (?) AS p FROM test WHERE test.a = ? GROUP BY test.a"
@@ -44,36 +43,36 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_returns_correct_expressions`() {
-        select(columnA())
+        select(tableTest().a)
             .from(tableTest())
-            .groupBy(columnA())
+            .groupBy(tableTest().a)
             .buildSelectQuery()
-            .returnExpressions.shouldBe(listOf(columnA()))
+            .returnExpressions.shouldBe(listOf(tableTest().a))
     }
 
     @Test
     fun `groupBy_grouping_values`() {
         transactionFactory().readUncommitted {
-            val queryWithoutGroupBy = select(columnA()).from(tableTest())
+            val queryWithoutGroupBy = select(tableTest().a).from(tableTest())
             val given = queryWithoutGroupBy.execute()
             given.shouldHaveSize(2)
 
-            val repeatingColumn = queryWithoutGroupBy.groupBy(columnA()).execute()
+            val repeatingColumn = queryWithoutGroupBy.groupBy(tableTest().a).execute()
             repeatingColumn.shouldHaveSize(1)
             val row = repeatingColumn.single()
-            row[columnA()] shouldBe "the a"
+            row[tableTest().a] shouldBe "the a"
         }
     }
 
     @Test
     fun `groupBy_executes_after_where_expression`() {
         transactionFactory().readUncommitted {
-            val repeatingColumn = select(columnA()).from(tableTest())
-                .where { columnA().eq("the a") }
-                .groupBy(columnA()).execute()
+            val repeatingColumn = select(tableTest().a).from(tableTest())
+                .where { tableTest().a.eq("the a") }
+                .groupBy(tableTest().a).execute()
             repeatingColumn.shouldHaveSize(1)
             val row = repeatingColumn.single()
-            row[columnA()] shouldBe "the a"
+            row[tableTest().a] shouldBe "the a"
         }
     }
 }

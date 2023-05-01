@@ -18,7 +18,7 @@ import java.time.Instant
 import java.util.UUID
 
 class PostgresInsertTest :
-    InsertWithReturningTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    InsertWithReturningTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @Before
     fun setup() {
@@ -44,32 +44,33 @@ class PostgresInsertTest :
                 it[d] = now
                 it[e] = 42.42
             }.execute()
-            val row = select(columnA(), columnB(), TestTable.c, TestTable.d, TestTable.e)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(columnA(), columnB(), PostgresJdbcTestTable.c, PostgresJdbcTestTable.d, PostgresJdbcTestTable.e)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[columnA()] shouldBe "abc"
             row[columnB()] shouldBe "bca"
-            row[TestTable.c] shouldBe randomUUID
-            row[TestTable.d] shouldBe now
-            row[TestTable.e] shouldBe 42.42
+            row[PostgresJdbcTestTable.c] shouldBe randomUUID
+            row[PostgresJdbcTestTable.d] shouldBe now
+            row[PostgresJdbcTestTable.e] shouldBe 42.42
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    fun columnA(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.b
+    fun columnB(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.b
     }
 
     override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
     }
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory {

@@ -19,7 +19,7 @@ import java.sql.Timestamp
 import java.util.UUID
 
 class PostgresWhereTest :
-    WhereTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    WhereTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @Before
     fun setup() {
@@ -48,53 +48,54 @@ class PostgresWhereTest :
     @Test
     fun `where_filters_query_by_uuid`() {
         transactionFactory().readUncommitted {
-            val queryWithoutWhere = select(columnA(), columnB(), TestTable.c).from(tableTest())
+            val queryWithoutWhere = select(columnA(), columnB(), PostgresJdbcTestTable.c).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
-            given.get(1)[TestTable.c].toString().shouldBe("3e2220cd-e6a5-4eae-a258-6ed41e91c222")
+            given.get(1)[PostgresJdbcTestTable.c].toString().shouldBe("3e2220cd-e6a5-4eae-a258-6ed41e91c222")
 
             val query = queryWithoutWhere.where {
-                TestTable.c.eq(UUID.fromString("3e2220cd-e6a5-4eae-a258-6ed41e91c222"))
+                PostgresJdbcTestTable.c.eq(UUID.fromString("3e2220cd-e6a5-4eae-a258-6ed41e91c222"))
             }
             val result = query.execute()
             result.shouldHaveSize(1)
             val row = result.single()
-            row[TestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c222"
+            row[PostgresJdbcTestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c222"
         }
     }
 
     @Test
     fun `where_filters_query_by_timestamp`() {
         transactionFactory().readUncommitted {
-            val queryWithoutWhere = select(columnA(), columnB(), TestTable.c, TestTable.d).from(tableTest())
+            val queryWithoutWhere =
+                select(columnA(), columnB(), PostgresJdbcTestTable.c, PostgresJdbcTestTable.d).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
-            given.get(1)[TestTable.d].shouldBe(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
+            given.get(1)[PostgresJdbcTestTable.d].shouldBe(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
 
             val query = queryWithoutWhere.where {
-                TestTable.d.eq(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
+                PostgresJdbcTestTable.d.eq(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
             }
             val result = query.execute()
             result.shouldHaveSize(1)
             val row = result.single()
-            row[TestTable.d] shouldBe Timestamp.valueOf("2022-05-13 02:09:09.683195")
+            row[PostgresJdbcTestTable.d] shouldBe Timestamp.valueOf("2022-05-13 02:09:09.683195")
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    fun columnA(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.b
+    fun columnB(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.b
     }
 
     override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
     }
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory {

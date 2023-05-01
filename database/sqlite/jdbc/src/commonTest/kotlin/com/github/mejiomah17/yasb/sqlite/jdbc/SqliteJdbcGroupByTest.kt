@@ -32,11 +32,11 @@ class SqliteJdbcGroupByTest :
         }
     }
 
-    override fun columnA(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
+    fun columnA(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
         return SqliteJdbcTestTable.a
     }
 
-    override fun columnB(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
+    fun columnB(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
         return SqliteJdbcTestTable.b
     }
 

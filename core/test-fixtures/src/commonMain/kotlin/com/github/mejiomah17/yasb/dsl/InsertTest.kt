@@ -2,7 +2,6 @@ package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.insertInto
 import com.github.mejiomah17.yasb.core.dsl.select
@@ -11,7 +10,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface InsertTest<
-    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -23,15 +22,15 @@ interface InsertTest<
     fun select_values_after_insert() {
         transactionFactory().repeatableRead {
             insertInto(tableTest()) {
-                it[columnA()] = "abc"
-                it[columnB()] = "bca"
+                it[tableTest().a] = "abc"
+                it[tableTest().b] = "bca"
             }.execute()
-            val row = select(columnA(), columnB())
+            val row = select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .execute()
                 .single()
-            row[columnA()] shouldBe "abc"
-            row[columnB()] shouldBe "bca"
+            row[tableTest().a] shouldBe "abc"
+            row[tableTest().b] shouldBe "bca"
         }
     }
 
@@ -42,16 +41,16 @@ interface InsertTest<
                 val values = (0..100).toList()
 
                 insertInto(tableTest(), values) { context, value ->
-                    context[columnA()] = value.toString()
-                    context[columnB()] = "bca"
+                    context[tableTest().a] = value.toString()
+                    context[tableTest().b] = "bca"
                 }.execute()
-                val rows = select(columnA(), columnB())
+                val rows = select(tableTest().a, tableTest().b)
                     .from(tableTest())
                     .execute()
                 values.forEach {
                     val row = rows[it]
-                    row[columnA()] shouldBe it.toString()
-                    row[columnB()] shouldBe "bca"
+                    row[tableTest().a] shouldBe it.toString()
+                    row[tableTest().b] shouldBe "bca"
                 }
             }
         }
@@ -64,29 +63,29 @@ interface InsertTest<
                 val values = (0..100).toList()
                 insertInto(tableTest(), values) { context, value ->
                     if (value % 2 == 0) {
-                        context[columnA()] = value.toString()
+                        context[tableTest().a] = value.toString()
                     } else {
-                        context[columnA()] = "abc"
+                        context[tableTest().a] = "abc"
                     }
                     if (value % 3 == 0) {
-                        context[columnB()] = "bca"
+                        context[tableTest().b] = "bca"
                     }
                 }.execute()
-                val rows = select(columnA(), columnB())
+                val rows = select(tableTest().a, tableTest().b)
                     .from(tableTest())
                     .execute()
                 values.forEach { value ->
                     val row = rows[value]
                     if (value % 2 == 0) {
-                        row[columnA()] shouldBe value.toString()
+                        row[tableTest().a] shouldBe value.toString()
                     } else {
-                        row[columnA()] shouldBe "abc"
+                        row[tableTest().a] shouldBe "abc"
                     }
 
                     if (value % 3 == 0) {
-                        row[columnB()] shouldBe "bca"
+                        row[tableTest().b] shouldBe "bca"
                     } else {
-                        row[columnB()] shouldBe null
+                        row[tableTest().b] shouldBe null
                     }
                 }
             }
@@ -97,17 +96,17 @@ interface InsertTest<
     fun select_values_after_insert_in_different_transaction() {
         transactionFactory().repeatableRead {
             insertInto(tableTest()) {
-                it[columnA()] = "abc"
-                it[columnB()] = "bca"
+                it[tableTest().a] = "abc"
+                it[tableTest().b] = "bca"
             }.execute()
         }
         transactionFactory().repeatableRead {
-            val row = select(columnA(), columnB())
+            val row = select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .execute()
                 .single()
-            row[columnA()] shouldBe "abc"
-            row[columnB()] shouldBe "bca"
+            row[tableTest().a] shouldBe "abc"
+            row[tableTest().b] shouldBe "bca"
         }
     }
 }

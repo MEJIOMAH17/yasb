@@ -10,7 +10,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresUpdateTest :
-    UpdateTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    UpdateTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
     @Before
     fun setup() {
@@ -21,20 +21,20 @@ class PostgresUpdateTest :
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    fun columnA(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.b
+    fun columnB(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.b
     }
 
     override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
     }
 
     override fun transactionFactory(): PostgresJdbcTransactionFactory {

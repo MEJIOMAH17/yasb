@@ -3,7 +3,6 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.dsl.From
 import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.count
@@ -14,7 +13,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface CountTest<
-    TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -24,7 +23,7 @@ interface CountTest<
     @Test
     fun `count_returns_count_of_elements`() {
         transactionFactory().readCommitted {
-            val count = count(columnA()).`as`("aCount")
+            val count = count(tableTest().a).`as`("aCount")
             val from: From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = select(count)
                 .from(tableTest())
             from

@@ -8,7 +8,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresLimitTest :
-    LimitTest<TestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction, PostgresJdbcTransactionFactory>,
+    LimitTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction, PostgresJdbcTransactionFactory>,
     PostgresTest() {
     @Before
     fun setup() {
@@ -38,11 +38,11 @@ class PostgresLimitTest :
         return PostgresJdbcTransactionFactory(dataSource)
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    override fun columnA(): Column<PostgresJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return PostgresJdbcTestTable.a
     }
 }
