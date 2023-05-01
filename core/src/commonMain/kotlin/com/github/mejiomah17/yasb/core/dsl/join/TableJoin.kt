@@ -1,6 +1,9 @@
+@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
 package com.github.mejiomah17.yasb.core.dsl.join
 
 import com.github.mejiomah17.yasb.core.SelectionSource
+import com.github.mejiomah17.yasb.core.SupportsFullJoin
+import com.github.mejiomah17.yasb.core.SupportsRightJoin
 import com.github.mejiomah17.yasb.core.dsl.ConditionContext
 import com.github.mejiomah17.yasb.core.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
@@ -47,6 +50,7 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_
     )
 }
 
+context(SupportsRightJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.rightJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
@@ -59,6 +63,7 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_
     )
 }
 
+context(SupportsFullJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.fullJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>

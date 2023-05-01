@@ -1,6 +1,7 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.dsl.TestTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -84,5 +85,31 @@ abstract class SqliteJdbcTest {
 
     fun transactionFactory(): SqliteJdbcTransactionFactory {
         return SqliteJdbcTransactionFactory(dataSource)
+    }
+
+    fun firstTable() = FirstTable
+
+    fun secondTable() = SecondTable
+
+    fun thirdTable() = ThirdTable
+
+    fun dialect(): SqliteJdbcDatabaseDialect = SqliteJdbcDatabaseDialect
+
+    object FirstTable : SqliteJdbcTable<FirstTable>, TestTable<FirstTable, ResultSet, PreparedStatement> {
+        override val tableName: String = "FIRST"
+        override val a = text("A")
+        override val b = text("B")
+    }
+
+    object SecondTable : SqliteJdbcTable<SecondTable>, TestTable<SecondTable, ResultSet, PreparedStatement> {
+        override val tableName: String = "SECOND"
+        override val a = text("A")
+        override val b = text("B")
+    }
+
+    object ThirdTable : SqliteJdbcTable<ThirdTable>, TestTable<ThirdTable, ResultSet, PreparedStatement> {
+        override val tableName: String = "THIRD"
+        override val a = text("A")
+        override val b = text("B")
     }
 }

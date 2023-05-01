@@ -1,8 +1,8 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.join
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
+import com.github.mejiomah17.yasb.dsl.TestTable
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
@@ -27,38 +27,36 @@ class PostgresTableJoinTest :
         )
     }
 
-    override fun firstTable(): Table<*, ResultSet, PreparedStatement> = FirstTable
+    override fun firstTable(): TestTable<*, ResultSet, PreparedStatement> = FirstTable
 
-    override fun joinColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.a
-    override fun dataColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.b
+    fun joinColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.a
+    fun dataColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.b
 
     override fun secondTable(): SecondTable = SecondTable
 
-    override fun joinColumnFromSecondTable(): Column<SecondTable, String, ResultSet, PreparedStatement> = SecondTable.a
-    override fun dataColumnFromSecondTable(): Column<SecondTable, String, ResultSet, PreparedStatement> = SecondTable.b
-    override fun thirdTable(): Table<*, ResultSet, PreparedStatement> = ThirdTable
+    override fun thirdTable(): TestTable<*, ResultSet, PreparedStatement> = ThirdTable
 
-    override fun joinColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.a
+    fun joinColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.a
 
-    override fun dataColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.b
+    fun dataColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.b
 
     override fun dialect(): PostgresJdbcDatabaseDialect = PostgresJdbcDatabaseDialect
 
-    object FirstTable : PostgresJdbcTable<FirstTable> {
+    object FirstTable : PostgresJdbcTable<FirstTable>, TestTable<FirstTable, ResultSet, PreparedStatement> {
         override val tableName: String = "FIRST"
-        val a = text("A")
-        val b = text("B")
+        override val a = text("A")
+        override val b = text("B")
     }
 
-    object SecondTable : PostgresJdbcTable<SecondTable> {
+    object SecondTable : PostgresJdbcTable<SecondTable>, TestTable<SecondTable, ResultSet, PreparedStatement> {
         override val tableName: String = "SECOND"
-        val a = text("A")
-        val b = text("B")
+        override val a = text("A")
+        override val b = text("B")
     }
 
-    object ThirdTable : PostgresJdbcTable<ThirdTable> {
+    object ThirdTable : PostgresJdbcTable<ThirdTable>, TestTable<ThirdTable, ResultSet, PreparedStatement> {
         override val tableName: String = "THIRD"
-        val a = text("A")
-        val b = text("B")
+        override val a = text("A")
+        override val b = text("B")
     }
 }

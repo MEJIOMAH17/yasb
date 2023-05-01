@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.dsl.TestTable
 import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
 import com.github.mejiomah17.yasb.sqlite.android.transaction.AndroidTransactionFactory
 import org.junit.Before
@@ -17,11 +18,29 @@ abstract class SqliteAndroidTest {
             context,
             initSql = listOf(
                 """
-                                CREATE TABLE test(
-                                   a string DEFAULT NULL,
-                                   b string DEFAULT NULL
-                                )
-                """.trimIndent()
+                            CREATE TABLE test(
+                               a string DEFAULT NULL,
+                               b string DEFAULT NULL
+                            )
+                        """.trimIndent(),
+                """
+                            CREATE TABLE FIRST(
+                               A string,
+                               B string
+                            );
+                        """.trimIndent(),
+                """
+                            CREATE TABLE SECOND(
+                               A string,
+                               B string
+                            );
+                        """.trimIndent(),
+                """
+                            CREATE TABLE THIRD(
+                               A string,
+                               B string
+                            );
+                        """.trimIndent()
             ),
             cleanSql = """
                     DROP TABLE IF EXISTS test
@@ -75,7 +94,33 @@ abstract class SqliteAndroidTest {
         companion object {
             // If you change the database schema, you must increment the database version.
             const val DATABASE_VERSION = 1
-            const val DATABASE_NAME = "FeedReadedr.db"
+            const val DATABASE_NAME = "Test.db"
         }
+    }
+
+    fun firstTable() = FirstTable
+
+    fun secondTable() = SecondTable
+
+    fun thirdTable() = ThirdTable
+
+    fun dialect(): SqliteAndroidDatabaseDialect = SqliteAndroidDatabaseDialect
+
+    object FirstTable : SqliteAndroidTable<FirstTable>, TestTable<FirstTable, Cursor, (String) -> Unit> {
+        override val tableName: String = "FIRST"
+        override val a = text("A")
+        override val b = text("B")
+    }
+
+    object SecondTable : SqliteAndroidTable<SecondTable>, TestTable<SecondTable, Cursor, (String) -> Unit> {
+        override val tableName: String = "SECOND"
+        override val a = text("A")
+        override val b = text("B")
+    }
+
+    object ThirdTable : SqliteAndroidTable<ThirdTable>, TestTable<ThirdTable, Cursor, (String) -> Unit> {
+        override val tableName: String = "THIRD"
+        override val a = text("A")
+        override val b = text("B")
     }
 }
