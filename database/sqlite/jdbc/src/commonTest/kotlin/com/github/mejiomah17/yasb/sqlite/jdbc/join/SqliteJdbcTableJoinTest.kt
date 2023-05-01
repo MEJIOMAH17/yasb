@@ -9,5 +9,4 @@ import java.sql.ResultSet
 
 class SqliteJdbcTableJoinTest :
     SqliteTableJoinTest<SqliteJdbcTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteJdbcTest() {
-}
+    SqliteJdbcTest()

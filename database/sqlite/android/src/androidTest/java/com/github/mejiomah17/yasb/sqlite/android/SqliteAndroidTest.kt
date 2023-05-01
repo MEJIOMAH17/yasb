@@ -22,25 +22,25 @@ abstract class SqliteAndroidTest {
                                a string DEFAULT NULL,
                                b string DEFAULT NULL
                             )
-                        """.trimIndent(),
+                """.trimIndent(),
                 """
                             CREATE TABLE FIRST(
                                A string,
                                B string
                             );
-                        """.trimIndent(),
+                """.trimIndent(),
                 """
                             CREATE TABLE SECOND(
                                A string,
                                B string
                             );
-                        """.trimIndent(),
+                """.trimIndent(),
                 """
                             CREATE TABLE THIRD(
                                A string,
                                B string
                             );
-                        """.trimIndent()
+                """.trimIndent()
             ),
             cleanSql = """
                     DROP TABLE IF EXISTS test

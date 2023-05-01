@@ -251,7 +251,6 @@ interface TableJoinTest<
                     }.buildSelectQuery().sqlDefinition
                 query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST RIGHT JOIN SECOND ON FIRST.A = SECOND.A"
             }
-
         }
     }
 
@@ -386,7 +385,6 @@ interface TableJoinTest<
     fun `select_values_from_full_join`() {
         transactionFactory().readCommitted {
             if (this is SupportsFullJoin) {
-
                 val rows = select(
                     firstTable().a,
                     firstTable().b,
@@ -428,7 +426,6 @@ interface TableJoinTest<
     fun `select_values_from_full_join_with_aliased_table`() {
         transactionFactory().readCommitted {
             if (this is SupportsFullJoin) {
-
                 val secondTable = secondTable().`as`("xxx")
                 val joinColumnFromSecondTable = secondTable[secondTable().a]
                 val dataColumnFromSecondTable = secondTable[secondTable().b]
@@ -457,7 +454,6 @@ interface TableJoinTest<
     fun `builds_correct_query_for_full_join_with_nested_query`() {
         dialect().run {
             if (this is SupportsFullJoin) {
-
                 val nestedQuery = select(secondTable().a)
                     .from(secondTable())
                     .`as`("xxx")
@@ -476,7 +472,6 @@ interface TableJoinTest<
     fun `select_values_from_full_join_with_nested_query`() {
         transactionFactory().readCommitted {
             if (this is SupportsFullJoin) {
-
                 val nestedQuery = select(secondTable().a, secondTable().b)
                     .from(secondTable())
                     .`as`("xxx")

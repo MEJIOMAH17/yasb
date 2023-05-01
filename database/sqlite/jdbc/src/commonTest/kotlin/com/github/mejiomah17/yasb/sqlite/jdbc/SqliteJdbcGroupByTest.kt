@@ -7,6 +7,4 @@ import java.sql.ResultSet
 
 class SqliteJdbcGroupByTest :
     SqliteGroupByTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteJdbcTest() {
-
-}
+    SqliteJdbcTest()

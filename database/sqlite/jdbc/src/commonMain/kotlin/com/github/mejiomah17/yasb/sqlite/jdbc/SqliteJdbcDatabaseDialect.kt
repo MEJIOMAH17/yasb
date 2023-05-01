@@ -11,7 +11,8 @@ import com.github.mejiomah17.yasb.sqlite.jdbc.type.LongDatabaseType
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-object SqliteJdbcDatabaseDialect : SqliteDatabaseDialect<ResultSet, PreparedStatement>,
+object SqliteJdbcDatabaseDialect :
+    SqliteDatabaseDialect<ResultSet, PreparedStatement>,
     SupportsLimit,
     SupportsRightJoin,
     SupportsFullJoin,

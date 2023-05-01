@@ -7,5 +7,4 @@ import java.sql.ResultSet
 
 class SqliteJdbcUpdateTest :
     SqliteUpdateTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteJdbcTest() {
-}
+    SqliteJdbcTest()

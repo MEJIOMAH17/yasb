@@ -7,5 +7,4 @@ import java.sql.ResultSet
 
 class SqliteJdbcWhereTest :
     SqliteWhereTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteJdbcTest() {
-}
+    SqliteJdbcTest()

@@ -18,7 +18,7 @@ interface LimitTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > : SqlTest where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
                       DIALECT : SupportsLimit {
     @Test
