@@ -1,9 +1,12 @@
 package com.github.mejiomah17.yasb.sqlite.android
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
 import com.github.mejiomah17.yasb.sqlite.android.transaction.AndroidTransactionFactory
 import org.junit.Before
 
@@ -12,17 +15,14 @@ abstract class SqliteAndroidTest {
     val dbHelper: SQLiteOpenHelper by lazy {
         DbHelper(
             context,
-            initSql = arrayListOf(*initSqlScripts().toTypedArray()).also {
-                it.add(
-                    0,
-                    """
+            initSql = listOf(
+                """
                                 CREATE TABLE test(
                                    a string DEFAULT NULL,
                                    b string DEFAULT NULL
                                 )
-                    """.trimIndent()
-                )
-            },
+                """.trimIndent()
+            ),
             cleanSql = """
                     DROP TABLE IF EXISTS test
             """.trimIndent()
@@ -34,10 +34,20 @@ abstract class SqliteAndroidTest {
         context = InstrumentationRegistry.getInstrumentation().context
     }
 
-    protected abstract fun initSqlScripts(): List<String>
-
     fun transactionFactory(): AndroidTransactionFactory {
         return AndroidTransactionFactory(dbHelper.writableDatabase)
+    }
+
+    fun parameter(): Parameter<String, Cursor, (String) -> Unit> {
+        return TextParameter("param")
+    }
+
+    fun tableTest(): SqliteAndroidTestTable {
+        return SqliteAndroidTestTable
+    }
+
+    fun executeSql(sql: String) {
+        dbHelper.writableDatabase.execSQL(sql)
     }
 
     class DbHelper(

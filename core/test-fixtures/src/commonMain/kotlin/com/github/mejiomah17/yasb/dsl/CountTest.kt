@@ -20,6 +20,7 @@ interface CountTest<
     TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+
     @Test
     fun `count_returns_count_of_elements`() {
         transactionFactory().readCommitted {

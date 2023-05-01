@@ -6,30 +6,25 @@ import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresTest
-import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresTableJoinTest :
     TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
     PostgresTest() {
-    @Before
-    fun setup() {
-        dataSource.connection.use {
-            it.createStatement().use {
-                it.execute("TRUNCATE TABLE FIRST")
-                it.execute("TRUNCATE TABLE SECOND")
-                it.execute("TRUNCATE TABLE THIRD")
-                it.execute("INSERT INTO FIRST (A,B) values ('XXX','B1')")
-                it.execute("INSERT INTO FIRST (A,B) values ('YYY','C1')")
-                it.execute("INSERT INTO SECOND (A,B) values ('XXX','B2')")
-                it.execute("INSERT INTO SECOND (A,B) values ('ZZZ','D1')")
-                it.execute("INSERT INTO THIRD (A,B) values ('XXX','B3')")
-                it.execute("INSERT INTO THIRD (A,B) values ('ZZZ','E1')")
-            }
-        }
+    override fun initSqlScripts(): List<String> {
+        return listOf(
+            "TRUNCATE TABLE FIRST",
+            "TRUNCATE TABLE SECOND",
+            "TRUNCATE TABLE THIRD",
+            "INSERT INTO FIRST (A,B) values ('XXX','B1')",
+            "INSERT INTO FIRST (A,B) values ('YYY','C1')",
+            "INSERT INTO SECOND (A,B) values ('XXX','B2')",
+            "INSERT INTO SECOND (A,B) values ('ZZZ','D1')",
+            "INSERT INTO THIRD (A,B) values ('XXX','B3')",
+            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')"
+        )
     }
 
     override fun firstTable(): Table<*, ResultSet, PreparedStatement> = FirstTable
@@ -46,8 +41,6 @@ class PostgresTableJoinTest :
     override fun joinColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.a
 
     override fun dataColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.b
-
-    override fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
 
     override fun dialect(): PostgresJdbcDatabaseDialect = PostgresJdbcDatabaseDialect
 

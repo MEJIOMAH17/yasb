@@ -13,6 +13,7 @@ import com.github.mejiomah17.yasb.core.dsl.join.rightJoin
 import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
+import com.github.mejiomah17.yasb.dsl.SqlTest
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 
@@ -22,7 +23,8 @@ interface TableJoinTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > {
+    > : SqlTest {
+
     // <editor-fold desc="Inner">
     @Test
     fun `builds_correct_query_for_inner_join`() {

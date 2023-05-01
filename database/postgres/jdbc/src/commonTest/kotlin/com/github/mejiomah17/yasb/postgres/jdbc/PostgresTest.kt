@@ -1,9 +1,13 @@
 package com.github.mejiomah17.yasb.postgres.jdbc
 
+import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.postgres.jdbc.parameter.TextParameter
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.AfterClass
 import org.junit.BeforeClass
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 
 abstract class PostgresTest {
     companion object {
@@ -68,6 +72,26 @@ abstract class PostgresTest {
         fun close() {
             kotlin.runCatching { container.close() }
             kotlin.runCatching { dataSource.close() }
+        }
+    }
+
+    fun transactionFactory(): PostgresJdbcTransactionFactory {
+        return PostgresJdbcTransactionFactory(dataSource)
+    }
+
+    fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
+        return TextParameter("param")
+    }
+
+    fun tableTest(): PostgresJdbcTestTable {
+        return PostgresJdbcTestTable
+    }
+
+    fun executeSql(sql: String) {
+        dataSource.connection.use {
+            it.createStatement().use {
+                it.execute(sql)
+            }
         }
     }
 }

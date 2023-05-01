@@ -1,9 +1,13 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc
 
+import com.github.mejiomah17.yasb.core.parameter.Parameter
+import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.junit.AfterClass
 import org.junit.BeforeClass
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 
 abstract class SqliteJdbcTest {
     companion object {
@@ -60,5 +64,25 @@ abstract class SqliteJdbcTest {
         fun close() {
             kotlin.runCatching { dataSource.close() }
         }
+    }
+
+    fun executeSql(sql: String) {
+        dataSource.connection.use {
+            it.createStatement().use { statement ->
+                statement.execute(sql)
+            }
+        }
+    }
+
+    fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
+        return TextParameter("param")
+    }
+
+    fun tableTest(): SqliteJdbcTestTable {
+        return SqliteJdbcTestTable
+    }
+
+    fun transactionFactory(): SqliteJdbcTransactionFactory {
+        return SqliteJdbcTransactionFactory(dataSource)
     }
 }

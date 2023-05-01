@@ -7,29 +7,25 @@ import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTest
-import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
-import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteJdbcTableJoinTest :
     TableJoinTest<SqliteJdbcTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
     SqliteJdbcTest() {
-    @Before
-    fun setup() {
-        dataSource.connection.use {
-            it.createStatement().use {
-                it.execute("DELETE FROM FIRST")
-                it.execute("DELETE FROM SECOND")
-                it.execute("DELETE FROM THIRD")
-                it.execute("INSERT INTO FIRST (A,B) values ('XXX','B1')")
-                it.execute("INSERT INTO FIRST (A,B) values ('YYY','C1')")
-                it.execute("INSERT INTO SECOND (A,B) values ('XXX','B2')")
-                it.execute("INSERT INTO SECOND (A,B) values ('ZZZ','D1')")
-                it.execute("INSERT INTO THIRD (A,B) values ('XXX','B3')")
-                it.execute("INSERT INTO THIRD (A,B) values ('ZZZ','E1')")
-            }
-        }
+
+    override fun initSqlScripts(): List<String> {
+        return listOf(
+            "DELETE FROM FIRST",
+            "DELETE FROM SECOND",
+            "DELETE FROM THIRD",
+            "INSERT INTO FIRST (A,B) values ('XXX','B1')",
+            "INSERT INTO FIRST (A,B) values ('YYY','C1')",
+            "INSERT INTO SECOND (A,B) values ('XXX','B2')",
+            "INSERT INTO SECOND (A,B) values ('ZZZ','D1')",
+            "INSERT INTO THIRD (A,B) values ('XXX','B3')",
+            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')"
+        )
     }
 
     override fun firstTable(): Table<*, ResultSet, PreparedStatement> = FirstTable
@@ -46,8 +42,6 @@ class SqliteJdbcTableJoinTest :
     override fun joinColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.a
 
     override fun dataColumnFromThirdTable(): Column<*, String, ResultSet, PreparedStatement> = ThirdTable.b
-
-    override fun transactionFactory(): SqliteJdbcTransactionFactory = SqliteJdbcTransactionFactory(dataSource)
 
     override fun dialect(): SqliteJdbcDatabaseDialect = SqliteJdbcDatabaseDialect
 
