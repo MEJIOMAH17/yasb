@@ -13,6 +13,7 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
+                implementation(project(":database:sqlite:test-fixtures"))
                 implementation("androidx.test:runner:1.5.2")
                 implementation("androidx.test:rules:1.5.0")
                 implementation("androidx.sqlite:sqlite:2.3.1")
@@ -25,7 +26,7 @@ android {
     namespace = "com.example.namespace"
     compileSdk = 33
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
     }
     compileOptions {

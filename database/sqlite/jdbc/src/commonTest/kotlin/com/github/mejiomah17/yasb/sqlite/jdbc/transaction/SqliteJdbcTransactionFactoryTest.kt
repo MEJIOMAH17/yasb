@@ -8,7 +8,7 @@ import com.zaxxer.hikari.HikariDataSource
 import org.junit.AfterClass
 import org.junit.BeforeClass
 
-class SqliteJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
+class SqliteJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
     companion object {
         lateinit var dataSource: HikariDataSource
 

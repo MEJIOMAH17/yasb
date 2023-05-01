@@ -6,15 +6,15 @@ import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTransactionFactory
-import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteTest
 import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class SqliteTableJoinTest :
-    TableJoinTest<SqliteTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteTest() {
+class SqliteJdbcTableJoinTest :
+    TableJoinTest<SqliteJdbcTableJoinTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
+    SqliteJdbcTest() {
     @Before
     fun setup() {
         dataSource.connection.use {

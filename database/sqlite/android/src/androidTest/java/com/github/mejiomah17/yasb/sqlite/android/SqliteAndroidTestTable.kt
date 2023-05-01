@@ -1,7 +1,12 @@
 package com.github.mejiomah17.yasb.sqlite.android
 
-object SqliteAndroidTestTable : SqliteAndroidTable<SqliteAndroidTestTable> {
+import android.database.Cursor
+import com.github.mejiomah17.yasb.sqlite.SqliteTestTable
+
+object SqliteAndroidTestTable :
+    SqliteAndroidTable<SqliteAndroidTestTable>,
+    SqliteTestTable<SqliteAndroidTestTable, Cursor, (String) -> Unit> {
     override val tableName: String = "test"
-    val a = text("a")
-    val b = text("b")
+    override val a = text("a")
+    override val b = text("b")
 }

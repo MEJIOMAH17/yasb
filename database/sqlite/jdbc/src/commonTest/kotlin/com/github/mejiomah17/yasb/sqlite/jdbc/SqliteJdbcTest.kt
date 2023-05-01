@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource
 import org.junit.AfterClass
 import org.junit.BeforeClass
 
-abstract class SqliteTest {
+abstract class SqliteJdbcTest {
     companion object {
         lateinit var dataSource: HikariDataSource
 

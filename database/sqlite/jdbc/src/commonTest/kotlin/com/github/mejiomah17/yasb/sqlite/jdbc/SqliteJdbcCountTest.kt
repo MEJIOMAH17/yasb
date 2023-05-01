@@ -3,15 +3,15 @@ package com.github.mejiomah17.yasb.sqlite.jdbc
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.WhereTest
+import com.github.mejiomah17.yasb.dsl.CountTest
 import com.github.mejiomah17.yasb.sqlite.jdbc.parameter.TextParameter
 import org.junit.Before
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class SqliteWhereTest :
-    WhereTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
-    SqliteTest() {
+class SqliteJdbcCountTest :
+    CountTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
+    SqliteJdbcTest() {
     @Before
     fun setup() {
         dataSource.connection.use {
@@ -19,17 +19,14 @@ class SqliteWhereTest :
                 it.execute("DELETE FROM test")
                 it.execute(
                     """INSERT INTO test (a,b) values (
-                    'the a',
-                    'the b'
-                     );
-                    """.trimIndent()
-                )
-                it.execute(
-                    """ INSERT INTO test (a,b) values (
-                    '42',
-                    '42'
-                    )
-                    """.trimIndent()
+                    |'the a',
+                    |'the b'
+                    | ),
+                    | (
+                    |'the a',
+                    |'the asd'
+                    | )
+                    """.trimMargin()
                 )
             }
         }
