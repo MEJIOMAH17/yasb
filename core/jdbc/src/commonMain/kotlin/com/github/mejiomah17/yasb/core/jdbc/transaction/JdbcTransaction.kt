@@ -19,12 +19,12 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
     val connection: Connection
 
     // TODO test
-    override fun commit() {
+    fun commit() {
         connection.commit()
     }
 
     // TODO test
-    override fun rollback() {
+    fun rollback() {
         connection.rollback()
     }
 

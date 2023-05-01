@@ -6,7 +6,7 @@ import com.github.mejiomah17.yasb.sqlite.android.AndroidDatabaseType
 import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
 
 object TextDatabaseType : AndroidDatabaseType<String> {
-    override fun parameterFactory(): (String?) -> Parameter<String, Cursor, String> = ::TextParameter
+    override fun parameterFactory(): (String?) -> Parameter<String, Cursor, (String) -> Unit> = ::TextParameter
     override fun extractFromSource(source: Cursor, index: Int): String? {
         return source.getString(index)
     }

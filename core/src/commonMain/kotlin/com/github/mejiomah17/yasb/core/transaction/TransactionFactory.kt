@@ -14,18 +14,18 @@ interface TransactionFactory<
     fun dialect(): DIALECT
 
     fun <V> readUncommitted(
-        block: context(DIALECT, TransactionReadUncommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
+        block: context(DIALECT, TransactionAtLeastReadUncommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
     ): V
 
     fun <V> readCommitted(
-        block: context(DIALECT, TransactionReadCommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
+        block: context(DIALECT, TransactionAtLeastReadCommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
     ): V
 
     fun <V> repeatableRead(
-        block: context(DIALECT, TransactionRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
+        block: context(DIALECT, TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
     ): V
 
     fun <V> serializable(
-        block: context(DIALECT, TransactionSerializable<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
+        block: context(DIALECT, TransactionAtLeastSerializable<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) TRANSACTION.() -> V
     ): V
 }

@@ -3,11 +3,11 @@
 package com.github.mejiomah17.yasb.core.jdbc.transaction
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastReadCommitted
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastReadUncommitted
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastSerializable
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
-import com.github.mejiomah17.yasb.core.transaction.TransactionReadCommitted
-import com.github.mejiomah17.yasb.core.transaction.TransactionReadUncommitted
-import com.github.mejiomah17.yasb.core.transaction.TransactionRepeatableRead
-import com.github.mejiomah17.yasb.core.transaction.TransactionSerializable
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -18,7 +18,7 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
 ) : TransactionFactory<ResultSet, PreparedStatement, D, JdbcTransaction> {
 
     override fun <V> readUncommitted(
-        block: context(D, TransactionReadUncommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+        block: context(D, TransactionAtLeastReadUncommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadUncommitted(it) },
@@ -28,7 +28,7 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
     }
 
     override fun <V> readCommitted(
-        block: context(D, TransactionReadCommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+        block: context(D, TransactionAtLeastReadCommitted<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadCommitted(it) },
@@ -38,7 +38,7 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
     }
 
     override fun <V> repeatableRead(
-        block: context(D, TransactionRepeatableRead<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+        block: context(D, TransactionAtLeastRepeatableRead<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionRepeatableRead(it) },
@@ -48,7 +48,7 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
     }
 
     override fun <V> serializable(
-        block: context(D, TransactionSerializable<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
+        block: context(D, TransactionAtLeastSerializable<ResultSet, PreparedStatement>) JdbcTransaction.() -> V
     ): V {
         return transaction(
             creator = { JdbcTransactionSerializableImpl(it) },

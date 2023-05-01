@@ -16,6 +16,7 @@ kotlin {
                 implementation("androidx.test:runner:1.5.2")
                 implementation("androidx.test:rules:1.5.0")
                 implementation("androidx.sqlite:sqlite:2.3.1")
+                implementation("io.kotest:kotest-assertions-core:5.0.2")
             }
         }
     }

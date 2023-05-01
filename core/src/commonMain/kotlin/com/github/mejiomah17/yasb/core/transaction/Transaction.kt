@@ -9,9 +9,6 @@ import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.dsl.Update
 
 interface Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    fun commit()
-
-    fun rollback()
 
     fun SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row>
 
