@@ -8,7 +8,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteLimitTest :
-    LimitTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction, SqliteJdbcTransactionFactory>,
+    LimitTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction, SqliteJdbcTransactionFactory>,
     SqliteTest() {
     @Before
     fun setup() {
@@ -34,11 +34,11 @@ class SqliteLimitTest :
         return SqliteJdbcTransactionFactory(dataSource)
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    override fun columnA(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return SqliteJdbcTestTable.a
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): SqliteJdbcTestTable {
+        return SqliteJdbcTestTable
     }
 }

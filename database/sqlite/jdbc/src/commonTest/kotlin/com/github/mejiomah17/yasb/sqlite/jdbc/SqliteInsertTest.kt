@@ -10,7 +10,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteInsertTest :
-    InsertWithReturningTest<TestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
+    InsertWithReturningTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransaction>,
     SqliteTest() {
     @Before
     fun setup() {
@@ -21,20 +21,20 @@ class SqliteInsertTest :
         }
     }
 
-    override fun columnA(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.a
+    override fun columnA(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return SqliteJdbcTestTable.a
     }
 
-    override fun columnB(): Column<TestTable, String, ResultSet, PreparedStatement> {
-        return TestTable.b
+    override fun columnB(): Column<SqliteJdbcTestTable, String, ResultSet, PreparedStatement> {
+        return SqliteJdbcTestTable.b
     }
 
     override fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
         return TextParameter("param")
     }
 
-    override fun tableTest(): TestTable {
-        return TestTable
+    override fun tableTest(): SqliteJdbcTestTable {
+        return SqliteJdbcTestTable
     }
 
     override fun transactionFactory(): SqliteJdbcTransactionFactory {

@@ -8,6 +8,7 @@ include(
     "database:sqlite:android",
     "database:sqlite:jdbc",
     "database:sqlite:jdbc:generator",
+    "database:sqlite:test-fixtures",
     "database:postgres",
     "database:postgres:jdbc",
     "database:postgres:jdbc:generator",
