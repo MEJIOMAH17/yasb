@@ -3,7 +3,7 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.insertInto
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -14,7 +14,7 @@ import java.time.Instant
 import java.util.UUID
 
 class PostgresInsertTest :
-    InsertWithReturningTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    InsertWithReturningTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
     PostgresTest() {
     override fun initSqlScripts(): List<String> {
         return listOf(

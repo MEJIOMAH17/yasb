@@ -8,7 +8,7 @@ import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.count
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 
@@ -17,13 +17,13 @@ interface CountTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
 
     @Test
     fun `count_returns_count_of_elements`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val count = count(tableTest().a).`as`("aCount")
             val from: From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = select(count)
                 .from(tableTest())

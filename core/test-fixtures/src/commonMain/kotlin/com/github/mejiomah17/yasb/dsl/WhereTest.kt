@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import com.github.mejiomah17.yasb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -15,12 +15,12 @@ interface WhereTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `where_filters_query`() {
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val queryWithoutWhere = select(tableTest().a, tableTest().b).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)

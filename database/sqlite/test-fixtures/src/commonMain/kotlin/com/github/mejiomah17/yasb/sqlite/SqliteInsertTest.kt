@@ -1,6 +1,6 @@
 package com.github.mejiomah17.yasb.sqlite
 
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
 import com.github.mejiomah17.yasb.dsl.TestTable
 
@@ -9,7 +9,7 @@ interface SqliteInsertTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     InsertWithReturningTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
 

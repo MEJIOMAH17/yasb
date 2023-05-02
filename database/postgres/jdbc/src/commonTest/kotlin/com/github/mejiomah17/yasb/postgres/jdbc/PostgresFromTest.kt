@@ -2,7 +2,7 @@ package com.github.mejiomah17.yasb.postgres.jdbc
 
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yasb.dsl.FromTest
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -11,7 +11,7 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 class PostgresFromTest :
-    FromTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    FromTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
     PostgresTest() {
     override fun initSqlScripts(): List<String> {
         return listOf(

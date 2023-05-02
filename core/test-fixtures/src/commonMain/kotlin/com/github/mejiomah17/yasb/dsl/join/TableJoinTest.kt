@@ -13,7 +13,7 @@ import com.github.mejiomah17.yasb.core.dsl.join.innerJoin
 import com.github.mejiomah17.yasb.core.dsl.join.leftJoin
 import com.github.mejiomah17.yasb.core.dsl.join.rightJoin
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.dsl.SqlTest
 import com.github.mejiomah17.yasb.dsl.TestTable
@@ -25,7 +25,7 @@ interface TableJoinTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > : SqlTest {
 
     // <editor-fold desc="Inner">
@@ -43,7 +43,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_inner_join`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val row = select(firstTable().b, secondTable().b)
                 .from(firstTable())
                 .innerJoin(secondTable()) {
@@ -72,7 +72,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_inner_join_with_aliased_table`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[secondTable().a]
             val dataColumnFromSecondTable = secondTable[secondTable().b]
@@ -105,7 +105,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_inner_join_with_nested_query`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val nestedQuery = select(secondTable().a, secondTable().b)
                 .from(secondTable())
                 .`as`("xxx")
@@ -138,7 +138,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_left_join`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val rows = select(
                 firstTable().a,
                 firstTable().b,
@@ -173,7 +173,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_left_join_with_aliased_table`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[secondTable().a]
             val dataColumnFromSecondTable = secondTable[secondTable().b]
@@ -213,7 +213,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_left_join_with_nested_query`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val nestedQuery = select(secondTable().a, secondTable().b)
                 .from(secondTable())
                 .`as`("xxx")
@@ -256,7 +256,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_right_join`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsRightJoin) {
                 val rows = select(
                     firstTable().a,
@@ -295,7 +295,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_right_join_with_aliased_table`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsRightJoin) {
                 val secondTable = secondTable().`as`("xxx")
                 val joinColumnFromSecondTable = secondTable[secondTable().a]
@@ -339,7 +339,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_right_join_with_nested_query`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsRightJoin) {
                 val nestedQuery = select(secondTable().a, secondTable().b)
                     .from(secondTable())
@@ -383,7 +383,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_full_join`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsFullJoin) {
                 val rows = select(
                     firstTable().a,
@@ -424,7 +424,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_full_join_with_aliased_table`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsFullJoin) {
                 val secondTable = secondTable().`as`("xxx")
                 val joinColumnFromSecondTable = secondTable[secondTable().a]
@@ -470,7 +470,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_full_join_with_nested_query`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             if (this is SupportsFullJoin) {
                 val nestedQuery = select(secondTable().a, secondTable().b)
                     .from(secondTable())
@@ -517,7 +517,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_for_multiple_join`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val rows = select(
                 firstTable().a,
                 firstTable().b,
@@ -560,7 +560,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_for_multiple_join_with_aliased_table`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val secondTable = secondTable().`as`("xxx")
             val joinColumnFromSecondTable = secondTable[secondTable().a]
             val dataColumnFromSecondTable = secondTable[secondTable().b]
@@ -607,7 +607,7 @@ interface TableJoinTest<
 
     @Test
     fun `select_values_from_multiple_join_with_nested_query`() {
-        transactionFactory().readCommitted {
+        transactionFactory().repeatableRead {
             val nestedQuery = select(secondTable().a, secondTable().b)
                 .from(secondTable())
                 .`as`("xxx")
@@ -640,6 +640,6 @@ interface TableJoinTest<
     fun firstTable(): TestTable<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     fun secondTable(): TABLE
     fun thirdTable(): TestTable<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION>
+    fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
     fun dialect(): DIALECT
 }

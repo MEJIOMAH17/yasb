@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 
@@ -13,7 +13,7 @@ interface FromTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
@@ -76,7 +76,7 @@ interface FromTest<
 
     @Test
     fun `from_returns_columns`() {
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val row = select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .execute()
@@ -91,7 +91,7 @@ interface FromTest<
         val table = tableTest().`as`("xxx")
         val aColumn = table[tableTest().a]
         val bColumn = table[tableTest().b]
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val row = select(aColumn, bColumn)
                 .from(table)
                 .execute()
@@ -104,7 +104,7 @@ interface FromTest<
     @Test
     fun `from_returns_columns_for_nested_query`() {
         val param = parameter().`as`("p")
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val nestedQuery = select(tableTest().a, tableTest().b, param)
                 .from(tableTest())
                 .`as`("xxx")
@@ -127,7 +127,7 @@ interface FromTest<
     @Test
     fun `from_returns_parameter`() {
         val param = parameter().`as`("p")
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val row = select(param)
                 .from(tableTest())
                 .execute()

@@ -6,7 +6,7 @@ import com.github.mejiomah17.yasb.core.dsl.eq
 import com.github.mejiomah17.yasb.core.dsl.from
 import com.github.mejiomah17.yasb.core.dsl.groupBy
 import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.transaction.Transaction
+import com.github.mejiomah17.yasb.core.transaction.TransactionAtLeastRepeatableRead
 import com.github.mejiomah17.yasb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -17,7 +17,7 @@ interface GroupByTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
@@ -52,7 +52,7 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_grouping_values`() {
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val queryWithoutGroupBy = select(tableTest().a).from(tableTest())
             val given = queryWithoutGroupBy.execute()
             given.shouldHaveSize(2)
@@ -66,7 +66,7 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_executes_after_where_expression`() {
-        transactionFactory().readUncommitted {
+        transactionFactory().repeatableRead {
             val repeatingColumn = select(tableTest().a).from(tableTest())
                 .where { tableTest().a.eq("the a") }
                 .groupBy(tableTest().a).execute()

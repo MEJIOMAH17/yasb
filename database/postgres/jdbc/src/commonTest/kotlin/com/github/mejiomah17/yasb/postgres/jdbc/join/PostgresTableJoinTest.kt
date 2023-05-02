@@ -1,7 +1,7 @@
 package com.github.mejiomah17.yasb.postgres.jdbc.join
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
+import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yasb.dsl.TestTable
 import com.github.mejiomah17.yasb.dsl.join.TableJoinTest
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
@@ -11,7 +11,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresTableJoinTest :
-    TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransaction>,
+    TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
     PostgresTest() {
     override fun initSqlScripts(): List<String> {
         return listOf(
