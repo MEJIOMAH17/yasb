@@ -20,7 +20,7 @@ class UuidParameter(
             index,
             PGobject().apply {
                 type = "uuid"
-                value = this@UuidParameter.value.toString()
+                value = this@UuidParameter.value?.toString()
             }
         )
     }

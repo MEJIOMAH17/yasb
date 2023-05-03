@@ -5,6 +5,7 @@ import com.github.mejiomah17.yasb.core.dsl.insertInto
 import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yasb.dsl.InsertWithReturningTest
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 import java.sql.PreparedStatement
@@ -53,6 +54,18 @@ class PostgresInsertTest :
             row[PostgresJdbcTestTable.c] shouldBe randomUUID
             row[PostgresJdbcTestTable.d] shouldBe now
             row[PostgresJdbcTestTable.e] shouldBe 42.42
+        }
+    }
+
+    @Test
+    fun insert_null_uuid_does_not_throw_exception() {
+        shouldNotThrowAny {
+            transactionFactory().repeatableRead {
+                insertInto(tableTest()) {
+                    it[a] = "a"
+                    it[c] = null
+                }.execute()
+            }
         }
     }
 }

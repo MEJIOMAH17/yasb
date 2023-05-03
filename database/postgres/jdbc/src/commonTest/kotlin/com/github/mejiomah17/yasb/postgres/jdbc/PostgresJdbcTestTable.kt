@@ -10,7 +10,7 @@ object PostgresJdbcTestTable :
     override val tableName: String = "test"
     override val a = text("a")
     override val b = text("b")
-    val c = uuid("c")
+    val c = uuidNullable("c")
     val d = timestamp("d")
     val e = doublePrecision("e")
 }
