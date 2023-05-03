@@ -1,6 +1,9 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.TableGenerator
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteColumnMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteTableMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
@@ -45,7 +48,7 @@ class SqliteJdbcTableGeneratorTest {
     fun `generates_correct_table_definition`() {
         dataSource.connection.use {
             TableGenerator().generateTable(
-                SqliteJdbcTableMetadataFactory(SqliteJdbcColumnMetadataFactory())
+                SqliteTableMetadataFactory(SqliteJdbcTable::class.qualifiedName!!, SqliteColumnMetadataFactory())
                     .create(it, "test", schemaPattern = null),
                 "com.github.mejiomah17"
             ).run {

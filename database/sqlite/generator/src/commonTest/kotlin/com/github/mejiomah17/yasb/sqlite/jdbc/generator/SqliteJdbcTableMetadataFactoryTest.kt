@@ -1,8 +1,11 @@
 package com.github.mejiomah17.yasb.sqlite.jdbc.generator
 
-import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.BigInt
-import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Bool
-import com.github.mejiomah17.yasb.sqlite.jdbc.generator.column.Text
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteColumnMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteTableMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.generator.column.BigInt
+import com.github.mejiomah17.yasb.sqlite.generator.column.Bool
+import com.github.mejiomah17.yasb.sqlite.generator.column.Text
+import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.kotest.matchers.shouldBe
@@ -50,7 +53,10 @@ class SqliteJdbcTableMetadataFactoryTest {
     @Test
     fun `creates_table_definition`() {
         dataSource.connection.use {
-            val table = SqliteJdbcTableMetadataFactory(SqliteJdbcColumnMetadataFactory()).create(it, "test", null)
+            val table = SqliteTableMetadataFactory(
+                SqliteJdbcTable::class.qualifiedName!!,
+                SqliteColumnMetadataFactory()
+            ).create(it, "test", null)
             table.tableName shouldBe "test"
             table.columns shouldBe listOf(
                 Text("a", nullable = true),

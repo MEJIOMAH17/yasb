@@ -14,7 +14,7 @@ class TableGenerator {
             content = buildString {
                 appendLine("package $classPackage")
                 appendLine()
-                appendLine("object $className : ${table.tableClass.qualifiedName}<$className> {")
+                appendLine("object $className : ${table.tableClassQualifiedName}<$className> {")
                 appendLine("    override val tableName = \"${table.tableName}\"")
                 table.columns.forEach {
                     appendLine(

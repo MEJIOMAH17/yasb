@@ -63,6 +63,7 @@ class GeneratorPluginTest {
             dependencies {
                 implementation("com.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${Version.yasbVersion}")
                 implementation("com.github.mejiomah17.yasb:database-sqlite-jdbc-jvm:${Version.yasbVersion}")
+                implementation("com.github.mejiomah17.yasb:database-sqlite-android:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
                 database = ${db.gradleDeclaration}
@@ -190,7 +191,17 @@ class GeneratorPluginTest {
     }
 
     enum class DB(val gradleDeclaration: String, val tableSuperClass: String) {
-        Postgres("com.github.mejiomah17.yasb.Database.Postgres()", "com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable"),
-        Sqlite("com.github.mejiomah17.yasb.Database.Sqlite()", "com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable");
+        Postgres(
+            "com.github.mejiomah17.yasb.Database.Postgres()",
+            "com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable"
+        ),
+        SqliteJdbc(
+            "com.github.mejiomah17.yasb.Database.SqliteJdbc()",
+            "com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable"
+        ),
+        SqliteAndroid(
+            "com.github.mejiomah17.yasb.Database.SqliteAndroid()",
+            "com.github.mejiomah17.yasb.sqlite.android.SqliteAndroidTable"
+        );
     }
 }

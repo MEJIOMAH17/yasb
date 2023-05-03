@@ -3,8 +3,8 @@ package com.github.mejiomah17.yasb
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.generator.PostgresColumnMetadataFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.generator.PostgresTableMetadataFactory
-import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcColumnMetadataFactory
-import com.github.mejiomah17.yasb.sqlite.jdbc.generator.SqliteJdbcTableMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteColumnMetadataFactory
+import com.github.mejiomah17.yasb.sqlite.generator.SqliteTableMetadataFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.postgresql.Driver
@@ -69,9 +69,26 @@ sealed class Database : Serializable {
         }
     }
 
-    class Sqlite(
-        override val tableMetadataFactory: SqliteJdbcTableMetadataFactory = SqliteJdbcTableMetadataFactory(
-            SqliteJdbcColumnMetadataFactory()
+    class SqliteJdbc(
+        override val tableMetadataFactory: SqliteTableMetadataFactory = SqliteTableMetadataFactory(
+            "com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable",
+            SqliteColumnMetadataFactory()
+        )
+    ) : Database() {
+        override fun datasource(): CloseableDataSource {
+            val datasource = HikariDataSource(
+                HikariConfig().also {
+                    it.jdbcUrl = "jdbc:sqlite:"
+                }
+            )
+            return object : DataSource by datasource, Closeable by datasource, CloseableDataSource {}
+        }
+    }
+
+    class SqliteAndroid(
+        override val tableMetadataFactory: SqliteTableMetadataFactory = SqliteTableMetadataFactory(
+            "com.github.mejiomah17.yasb.sqlite.android.SqliteAndroidTable",
+            SqliteColumnMetadataFactory()
         )
     ) : Database() {
         override fun datasource(): CloseableDataSource {

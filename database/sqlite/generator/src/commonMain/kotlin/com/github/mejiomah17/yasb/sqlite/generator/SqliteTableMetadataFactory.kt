@@ -1,13 +1,13 @@
-package com.github.mejiomah17.yasb.sqlite.jdbc.generator
+package com.github.mejiomah17.yasb.sqlite.generator
 
 import com.github.mejiomah17.yasb.dsl.generator.ColumnMetadataFactory
 import com.github.mejiomah17.yasb.dsl.generator.ResultSetIterator
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadata
 import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
-import com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable
 import java.sql.Connection
 
-open class SqliteJdbcTableMetadataFactory(
+class SqliteTableMetadataFactory(
+    private val tableClassQualifiedName: String,
     private val columnMetadataFactory: ColumnMetadataFactory
 ) : TableMetadataFactory {
     override fun create(connection: Connection, tableName: String, schemaPattern: String?): TableMetadata {
@@ -26,7 +26,7 @@ open class SqliteJdbcTableMetadataFactory(
             }.toList()
         return TableMetadata(
             tableName,
-            SqliteJdbcTable::class,
+            tableClassQualifiedName,
             columns
         )
     }
