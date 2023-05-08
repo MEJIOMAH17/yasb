@@ -24,6 +24,9 @@ repositories {
 }
 val jvmProjects = setOf(project(":gradle-plugin"))
 val mppProjects = subprojects - jvmProjects
+val androidOnlyProjects = setOf(project(":database:sqlite:android"))
+val mppProjectsWithJvmTarget = mppProjects - androidOnlyProjects
+val mppProjectsWithAndroidTarget = androidOnlyProjects
 val projectsWithPublication = subprojects - setOf(project(":core:test-fixtures"), project("core:jdbc:test-fixtures"))
 
 subprojects {
@@ -45,10 +48,12 @@ subprojects {
                 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon>() {
                     this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
                 }
-                mpp.jvm() {
-                    val main by compilations.getting {
-                        compilerOptions.configure {
-                            jvmTarget.set(JvmTarget.JVM_1_8)
+                if (project in mppProjectsWithJvmTarget) {
+                    mpp.jvm() {
+                        val main by compilations.getting {
+                            compilerOptions.configure {
+                                jvmTarget.set(JvmTarget.JVM_1_8)
+                            }
                         }
                     }
                 }
@@ -102,17 +107,17 @@ fun Project.configurePublication() {
                     this.version = rootProject.version.toString()
                 }
             }
-        } else if (project in mppProjects) {
+        } else if (project in mppProjectsWithJvmTarget) {
             project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
                 publications {
                     val publicationsFromMainHost =
-                        listOf(jvm()).map { it.name } + "kotlinMultiplatform"
+                        listOfNotNull(jvm()).map { it.name } + "kotlinMultiplatform"
                     matching { it.name in publicationsFromMainHost }.all {
                         val targetPublication = this@all
+
                         tasks.withType<AbstractPublishToMaven>()
                             .matching { it.publication == targetPublication }
                             .configureEach {
-//                                onlyIf { findProperty("isMainHost") == "true" }
                                 publication.run {
                                     groupId = rootProject.group.toString()
                                     artifactId = artifactId.replace(project.name, project.name())

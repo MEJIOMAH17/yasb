@@ -3,7 +3,23 @@ plugins {
     kotlin("multiplatform")
 }
 kotlin {
-    android()
+    android() {
+        publishAllLibraryVariants()
+    }
+    publishing {
+        publications.all {
+            val target = this@all
+            if (target.name == "kotlinMultiplatform") {
+                tasks.withType<AbstractPublishToMaven>()
+                    .matching { it.publication == target }
+                    .all {
+                        this.publication.artifactId = project.name + "-mpp"
+
+                    }
+            }
+
+        }
+    }
     sourceSets {
         val androidMain by getting {
             dependencies {
@@ -43,4 +59,15 @@ android {
 
 tasks.getByName("check") {
     dependsOn("connectedAndroidTest")
+}
+afterEvaluate {
+    publishing {
+        publications.withType<MavenPublication>().all {
+            groupId = rootProject.group.toString()
+            println(this.artifactId)
+            println(artifactId.replace("and.*id".toRegex(), project.name()))
+            artifactId = artifactId.replace("and.*id".toRegex(), project.name())
+            version = rootProject.version.toString()
+        }
+    }
 }
