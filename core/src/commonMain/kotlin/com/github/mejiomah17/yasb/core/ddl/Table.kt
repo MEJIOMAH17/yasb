@@ -1,6 +1,5 @@
 package com.github.mejiomah17.yasb.core.ddl
 
-import com.github.mejiomah17.kotlin.concurrent.collections.ThreadSafeMap
 import com.github.mejiomah17.yasb.core.SelectionSource
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 
@@ -26,4 +25,5 @@ interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIV
     }
 }
 
-private val tableToColumns = ThreadSafeMap<Table<*, *, *>, MutableList<Column<*, *, *, *>>>()
+private val tableToColumns: MutableMap<Table<*, *, *>, MutableList<Column<*, *, *, *>>> =
+    co.touchlab.stately.collections.SharedHashMap()

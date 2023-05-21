@@ -9,6 +9,8 @@ dependencies {
     implementation(project(":database:postgres:jdbc:generator"))
     implementation(project(":database:sqlite:generator"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
+    compileOnly("com.android.application:com.android.application.gradle.plugin:7.4.1")
+
     testImplementation("io.kotest:kotest-assertions-core:5.2.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("io.mockk:mockk:1.12.3")

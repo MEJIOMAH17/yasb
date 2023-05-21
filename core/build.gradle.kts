@@ -4,7 +4,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.github.mejiomah17:concurrent-collections:1.0-SNAPSHOT")
+                implementation("co.touchlab:stately-collections:1.2.5")
             }
         }
         val commonTest by getting {

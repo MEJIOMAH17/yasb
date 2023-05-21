@@ -67,15 +67,6 @@ subprojects {
 fun Project.configureRepositories() {
     repositories {
         mavenCentral()
-        maven {
-            url = uri("https://maven.pkg.github.com/MEJIOMAH17/kotlin-concurrent-collections")
-            credentials {
-                val githubToken: String by project
-                val githubUser: String by project
-                username = githubUser
-                password = githubToken
-            }
-        }
         google()
     }
 }
