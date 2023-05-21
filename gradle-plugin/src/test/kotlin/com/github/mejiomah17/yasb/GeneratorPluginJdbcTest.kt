@@ -153,7 +153,7 @@ class GeneratorPluginJdbcTest {
         Sqlite(
             "com.github.mejiomah17.yasb.Database.SqliteJdbc()",
             "com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable"
-        ),
+        )
     }
 
     fun runBuild(dir: TemporaryFolder, command: String = "build") {

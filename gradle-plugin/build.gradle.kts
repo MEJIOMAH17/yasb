@@ -5,9 +5,9 @@ plugins {
     kotlin("jvm")
 }
 dependencies {
-    implementation(project(":gradle-plugin:generator:flyway"))
-    implementation(project(":database:postgres:jdbc:generator"))
-    implementation(project(":database:sqlite:generator"))
+    implementation(project(":gradle-plugin-generator-flyway"))
+    implementation(project(":database-postgres-jdbc-generator"))
+    implementation(project(":database-sqlite-generator"))
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     compileOnly("com.android.application:com.android.application.gradle.plugin:7.4.1")
 
@@ -17,21 +17,20 @@ dependencies {
 }
 tasks.withType<Test>() {
     useJUnitPlatform()
-    dependsOn(project(":database:sqlite").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database:sqlite:jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database:sqlite:generator").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database:postgres").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database:postgres:jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core:jdbc").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database-sqlite").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database-sqlite-jdbc").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database-sqlite-generator").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database-postgres").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":database-postgres-jdbc").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":core-jdbc").tasks.getByName("publishToMavenLocal"))
     dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":gradle-plugin:generator").tasks.getByName("publishToMavenLocal"))
+    dependsOn(project(":gradle-plugin-generator").tasks.getByName("publishToMavenLocal"))
 }
-val pluginName = "${rootProject.group}.${name()}"
 version = rootProject.version
 gradlePlugin {
     plugins {
-        create(pluginName) {
-            id = pluginName
+        create(name) {
+            id = name
             implementationClass = "com.github.mejiomah17.yasb.GeneratorPlugin"
         }
     }

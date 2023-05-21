@@ -16,18 +16,16 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.4.2")
     }
 }
-group = "com.github.mejiomah17.yasb"
-version = "0.5.0-kotlin-${project.property("kotlin.version")}"
 
 repositories {
     mavenCentral()
 }
 val jvmProjects = setOf(project(":gradle-plugin"))
 val mppProjects = subprojects - jvmProjects
-val androidOnlyProjects = setOf(project(":database:sqlite:android"))
+val androidOnlyProjects = setOf(project(":database-sqlite-android"))
 val mppProjectsWithJvmTarget = mppProjects - androidOnlyProjects
 val mppProjectsWithAndroidTarget = androidOnlyProjects
-val projectsWithPublication = subprojects - setOf(project(":core:test-fixtures"), project("core:jdbc:test-fixtures"))
+val projectsWithPublication = subprojects - setOf(project(":core-test-fixtures"), project("core-jdbc-test-fixtures"))
 
 subprojects {
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
@@ -93,9 +91,6 @@ fun Project.configurePublication() {
             publications {
                 create<MavenPublication>("maven") {
                     from(components["java"])
-                    this.groupId = rootProject.group.toString()
-                    this.artifactId = project.name()
-                    this.version = rootProject.version.toString()
                 }
             }
         } else if (project in mppProjectsWithJvmTarget) {
@@ -109,11 +104,7 @@ fun Project.configurePublication() {
                         tasks.withType<AbstractPublishToMaven>()
                             .matching { it.publication == targetPublication }
                             .configureEach {
-                                publication.run {
-                                    groupId = rootProject.group.toString()
-                                    artifactId = artifactId.replace(project.name, project.name())
-                                    version = rootProject.version.toString()
-                                }
+                                onlyIf { findProperty("isMainHost") == "true" }
                             }
                     }
                 }

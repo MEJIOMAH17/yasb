@@ -7,6 +7,7 @@ import org.junit.rules.TemporaryFolder
 
 class GeneratorPluginTest {
     private val kotlinPluginDeclaration = """kotlin("jvm") version "${Version.kotlinVersion}""""
+
     @Test
     fun `does_not_fail_on_empty_project`() {
         val projectDir = gradleDir(
