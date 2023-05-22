@@ -93,22 +93,6 @@ fun Project.configurePublication() {
                     from(components["java"])
                 }
             }
-        } else if (project in mppProjectsWithJvmTarget) {
-            project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
-                publications {
-                    val publicationsFromMainHost =
-                        listOfNotNull(jvm()).map { it.name } + "kotlinMultiplatform"
-                    matching { it.name in publicationsFromMainHost }.all {
-                        val targetPublication = this@all
-
-                        tasks.withType<AbstractPublishToMaven>()
-                            .matching { it.publication == targetPublication }
-                            .configureEach {
-                                onlyIf { findProperty("isMainHost") == "true" }
-                            }
-                    }
-                }
-            }
         }
     }
 }
