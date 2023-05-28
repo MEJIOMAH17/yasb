@@ -18,7 +18,7 @@ class Update<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
         val setPart = columnsToValues.map { (column, value) ->
             column as Column<TABLE, Any, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
             val sqlValue = if (value is DefaultQueryPart) {
-                DefaultQueryPart.sqlDefinition
+                DefaultQueryPart.sql()
             } else {
                 val parameter = column.databaseType.parameterFactory().invoke(value)
                 parameters.add(parameter)
@@ -28,10 +28,10 @@ class Update<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
         }.joinToString(", ")
 
         val wherePart = where?.build()
-        val whereSql = wherePart?.let { "WHERE ${it.sqlDefinition}" } ?: ""
+        val whereSql = wherePart?.let { "WHERE ${it.sql()}" } ?: ""
         return QueryPartImpl(
-            sqlDefinition = "UPDATE ${table.tableName} SET $setPart $whereSql",
-            parameters = parameters + (wherePart?.parameters ?: emptyList())
+            sql = "UPDATE ${table.tableName} SET $setPart $whereSql",
+            parameters = parameters + (wherePart?.parameters() ?: emptyList())
         )
     }
 }

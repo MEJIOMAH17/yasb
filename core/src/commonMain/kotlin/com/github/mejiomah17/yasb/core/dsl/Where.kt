@@ -14,9 +14,9 @@ class Where<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
         val selectExpression = select.buildSelectQuery()
         val whereExpression = where.build()
         return ReturningQuery(
-            sqlDefinition = "${selectExpression.sqlDefinition} WHERE ${whereExpression.sqlDefinition}",
+            sql = "${selectExpression.sql} WHERE ${whereExpression.sql()}",
             returnExpressions = selectExpression.returnExpressions,
-            parameters = selectExpression.parameters + whereExpression.parameters
+            parameters = selectExpression.parameters + whereExpression.parameters()
         )
     }
 }

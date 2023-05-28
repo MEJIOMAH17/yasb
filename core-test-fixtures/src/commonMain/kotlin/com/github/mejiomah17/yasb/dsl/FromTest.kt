@@ -41,7 +41,7 @@ interface FromTest<
         val result = select(tableTest().a, tableTest().b, parameter().`as`("p"))
             .from(tableTest())
             .buildSelectQuery()
-            .sqlDefinition
+            .sql
         result shouldBe "SELECT test.a, test.b, (?) AS p FROM test"
     }
 
@@ -51,7 +51,7 @@ interface FromTest<
         val result = select(table[tableTest().a], table[tableTest().b], parameter().`as`("p"))
             .from(table)
             .buildSelectQuery()
-            .sqlDefinition
+            .sql
         result shouldBe "SELECT xxx.a, xxx.b, (?) AS p FROM test AS xxx"
     }
 
@@ -154,7 +154,7 @@ interface FromTest<
                     .`as`("xxx")
             )
             .buildSelectQuery()
-            .sqlDefinition
+            .sql
         result shouldBe "SELECT test.a, test.b, (?) AS p FROM (SELECT test.a, test.b FROM test) AS xxx"
     }
 }

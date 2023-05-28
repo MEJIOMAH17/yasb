@@ -14,7 +14,7 @@ class GroupBy<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
             it.sqlDefinition
         }
         return ReturningQuery(
-            sqlDefinition = "${query.sqlDefinition} GROUP BY $groupDefinition",
+            sql = "${query.sql} GROUP BY $groupDefinition",
             parameters = query.parameters,
             returnExpressions = query.returnExpressions
         )
@@ -58,5 +58,5 @@ internal interface GroupingElement {
 }
 
 private class ColumnReference(column: Column<*, *, *, *>) : GroupingElement {
-    override val sqlDefinition: String = column.build().sqlDefinition
+    override val sqlDefinition: String = column.build().sql()
 }

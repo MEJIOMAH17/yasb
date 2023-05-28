@@ -43,7 +43,7 @@ interface WhereTest<
                 .where {
                     tableTest().a.eq("42")
                 }.buildSelectQuery()
-                .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
+                .sql shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
         }
     }
 
@@ -55,7 +55,7 @@ interface WhereTest<
                 .where {
                     tableTest().a.eq(tableTest().b)
                 }.buildSelectQuery()
-                .sqlDefinition shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
+                .sql shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
         }
     }
 

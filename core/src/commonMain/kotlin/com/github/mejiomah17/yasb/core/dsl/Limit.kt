@@ -13,7 +13,7 @@ class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = selectQuery.buildSelectQuery()
         return ReturningQuery(
-            sqlDefinition = "${query.sqlDefinition} LIMIT $limit",
+            sql = "${query.sql} LIMIT $limit",
             parameters = query.parameters,
             returnExpressions = query.returnExpressions
         )

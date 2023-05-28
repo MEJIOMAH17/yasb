@@ -32,7 +32,7 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
                 column as Column<TABLE, Any, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
                 val value = values[i]
                 if (value is DefaultQueryPart) {
-                    DefaultQueryPart.sqlDefinition
+                    DefaultQueryPart.sql()
                 } else {
                     val parameter = column.databaseType.parameterFactory().invoke(value)
                     parameters.add(parameter)
@@ -48,7 +48,7 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
         }
 
         return QueryPartImpl(
-            sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
+            sql = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
             parameters = parameters
         )
     }
@@ -62,8 +62,8 @@ class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
         return ReturningQuery(
-            sqlDefinition = query.sqlDefinition + " RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
-            parameters = query.parameters + returnExpressions.flatMap { it.parameters },
+            sql = query.sql() + " RETURNING ${returnExpressions.joinToString(", ") { it.sql() }}",
+            parameters = query.parameters() + returnExpressions.flatMap { it.parameters() },
             returnExpressions = returning.expressions
         )
     }

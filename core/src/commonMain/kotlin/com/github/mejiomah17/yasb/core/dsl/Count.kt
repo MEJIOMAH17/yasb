@@ -21,8 +21,8 @@ class Count<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val queryPart = expression.build()
         return QueryPartImpl(
-            sqlDefinition = "COUNT(${queryPart.sqlDefinition})",
-            parameters = queryPart.parameters
+            sql = "COUNT(${queryPart.sql()})",
+            parameters = queryPart.parameters()
         )
     }
 }

@@ -14,7 +14,7 @@ class Column<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, V, DRIV
     ExpressionForCondition<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         return QueryPartImpl(
-            sqlDefinition = "${table.tableName}.$name",
+            sql = "${table.tableName}.$name",
             parameters = emptyList()
         )
     }

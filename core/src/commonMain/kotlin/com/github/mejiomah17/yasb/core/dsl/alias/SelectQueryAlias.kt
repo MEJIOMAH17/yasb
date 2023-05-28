@@ -15,8 +15,8 @@ class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 ) :
     SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     private val query = source.buildSelectQuery()
-    override val sqlDefinition: String = "(${query.sqlDefinition}) AS $name"
-    override val parameters: List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = query.parameters
+    override fun sql(): String = "(${query.sql}) AS $name"
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = query.parameters
     operator fun <V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> get(expression: ExpressionAlias<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): AliasableExpressionForCondition<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         return object : AliasableExpressionForCondition<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
@@ -25,7 +25,7 @@ class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 
             override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
                 return QueryPartImpl(
-                    sqlDefinition = "$name.${expression.name}",
+                    sql = "$name.${expression.name}",
                     parameters = emptyList()
                 )
             }
@@ -40,7 +40,7 @@ class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 
             override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
                 return QueryPartImpl(
-                    sqlDefinition = "$name.${column.name}",
+                    sql = "$name.${column.name}",
                     parameters = emptyList()
                 )
             }

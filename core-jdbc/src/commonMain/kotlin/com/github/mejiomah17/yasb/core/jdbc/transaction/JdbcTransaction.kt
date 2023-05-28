@@ -60,7 +60,7 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
     }
 
     private fun prepareStatement(query: QueryPart<ResultSet, PreparedStatement>): PreparedStatement {
-        val statement = connection.prepareStatement(query.sqlDefinition)
+        val statement = connection.prepareStatement(query.sql)
         query.parameters.forEachIndexed { i, parameter ->
             parameter.applyToStatement(statement, i + 1)
         }

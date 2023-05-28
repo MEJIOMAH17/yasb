@@ -6,8 +6,13 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     val tableName: String
-    override val sqlDefinition: String get() = tableName
-    override val parameters: List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> get() = emptyList()
+    override fun sql(): String {
+        return tableName
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return emptyList()
+    }
 
     fun allColumns(): List<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
         return tableToColumns[this] as List<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>

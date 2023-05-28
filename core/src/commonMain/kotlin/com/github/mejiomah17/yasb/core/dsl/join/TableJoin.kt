@@ -20,8 +20,8 @@ class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
         val selectQuery = select.buildSelectQuery()
         val onQuery = on.build()
         return ReturningQuery(
-            sqlDefinition = "${selectQuery.sqlDefinition} $joinType JOIN ${with.sqlDefinition} ON ${onQuery.sqlDefinition}",
-            parameters = selectQuery.parameters + with.parameters + onQuery.parameters,
+            sql = "${selectQuery.sql} $joinType JOIN ${with.sql()} ON ${onQuery.sql()}",
+            parameters = selectQuery.parameters + with.parameters() + onQuery.parameters(),
             returnExpressions = selectQuery.returnExpressions
         )
     }

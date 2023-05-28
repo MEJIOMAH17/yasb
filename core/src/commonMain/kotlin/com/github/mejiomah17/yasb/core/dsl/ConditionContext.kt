@@ -148,8 +148,8 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVE
             val first = this@and.build()
             val second = other.build()
             return QueryPartImpl(
-                sqlDefinition = "(${first.sqlDefinition}) AND (${second.sqlDefinition})",
-                parameters = first.parameters + second.parameters
+                sql = "(${first.sql()}) AND (${second.sql()})",
+                parameters = first.parameters() + second.parameters()
             )
         }
     }
@@ -168,8 +168,8 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVE
             val first = this@or.build()
             val second = other.build()
             return QueryPartImpl(
-                sqlDefinition = "(${first.sqlDefinition}) OR (${second.sqlDefinition})",
-                parameters = first.parameters + second.parameters
+                sql = "(${first.sql()}) OR (${second.sql()})",
+                parameters = first.parameters() + second.parameters()
             )
         }
     }
@@ -189,8 +189,8 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
             val leftExpression = this@condition.build()
             val rightExpression = other.build()
             return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${rightExpression.sqlDefinition}",
-                parameters = leftExpression.parameters + rightExpression.parameters
+                sql = "${leftExpression.sql()} $operator ${rightExpression.sql()}",
+                parameters = leftExpression.parameters() + rightExpression.parameters()
             )
         }
     }
@@ -209,8 +209,8 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
         override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
             val leftExpression = this@condition.build()
             return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInSql}",
-                parameters = leftExpression.parameters + other
+                sql = "${leftExpression.sql()} $operator ${other.parameterInSql}",
+                parameters = leftExpression.parameters() + other
             )
         }
     }
@@ -232,8 +232,8 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
                 it.parameterInSql
             }
             return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ($parameters)",
-                parameters = leftExpression.parameters + others
+                sql = "${leftExpression.sql()} $operator ($parameters)",
+                parameters = leftExpression.parameters() + others
             )
         }
     }

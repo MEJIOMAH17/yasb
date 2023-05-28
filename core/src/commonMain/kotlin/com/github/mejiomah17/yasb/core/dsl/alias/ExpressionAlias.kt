@@ -19,8 +19,8 @@ class ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val underlying = expression.build()
         return QueryPartImpl(
-            sqlDefinition = "(${underlying.sqlDefinition}) AS $name",
-            parameters = underlying.parameters
+            sql = "(${underlying.sql()}) AS $name",
+            parameters = underlying.parameters()
         )
     }
 }
@@ -34,7 +34,7 @@ fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Parameter<T, DRIVER_DATA_SOURCE, D
 
             override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
                 return QueryPartImpl(
-                    sqlDefinition = this@`as`.parameterInSql,
+                    sql = this@`as`.parameterInSql,
                     parameters = listOf(this@`as`)
                 )
             }

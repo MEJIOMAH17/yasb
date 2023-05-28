@@ -46,12 +46,12 @@ interface AndroidTransaction : Transaction<Cursor, (String) -> Unit> {
     }
 
     private fun executeQuery(query: ReturningQuery<Cursor, (String) -> Unit>): AndroidRows {
-        val statement = database.rawQuery(query.sqlDefinition, query.args())
+        val statement = database.rawQuery(query.sql, query.args())
         return AndroidRows(statement, query)
     }
 
     private fun executeQuery(query: QueryPart<Cursor, (String) -> Unit>) {
-        database.execSQL(query.sqlDefinition, query.args())
+        database.execSQL(query.sql, query.args())
     }
 
     private fun QueryPart<Cursor, (String) -> Unit>.args(): Array<String> {
