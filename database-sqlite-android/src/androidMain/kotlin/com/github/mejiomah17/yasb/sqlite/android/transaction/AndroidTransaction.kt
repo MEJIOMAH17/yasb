@@ -9,8 +9,8 @@ import com.github.mejiomah17.yasb.core.dsl.Insert
 import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.dsl.Update
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.sqlite.android.AndroidRows
 
@@ -45,7 +45,7 @@ interface AndroidTransaction : Transaction<Cursor, (String) -> Unit> {
         }
     }
 
-    private fun executeQuery(query: QueryForExecute<Cursor, (String) -> Unit>): AndroidRows {
+    private fun executeQuery(query: ReturningQuery<Cursor, (String) -> Unit>): AndroidRows {
         val statement = database.rawQuery(query.sqlDefinition, query.args())
         return AndroidRows(statement, query)
     }

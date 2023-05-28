@@ -8,8 +8,8 @@ import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.dsl.Update
 import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -54,7 +54,7 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
         return lazy().use { it.toList() }
     }
 
-    private fun executeQuery(query: QueryForExecute<ResultSet, PreparedStatement>): JdbcRows {
+    private fun executeQuery(query: ReturningQuery<ResultSet, PreparedStatement>): JdbcRows {
         val statement = prepareStatement(query)
         return JdbcRows(statement, query, statement.executeQuery())
     }

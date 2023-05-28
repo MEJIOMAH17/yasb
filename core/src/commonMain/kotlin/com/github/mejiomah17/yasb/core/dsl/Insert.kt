@@ -7,9 +7,9 @@ import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.QueryPartImpl
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
@@ -58,10 +58,10 @@ class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT
     private val insert: Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) {
-    fun buildInsertQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    fun buildInsertQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = insert.buildInsertQuery()
         val returnExpressions = returning.expressions.map { it.build() }
-        return QueryForExecute(
+        return ReturningQuery(
             sqlDefinition = query.sqlDefinition + " RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
             parameters = query.parameters + returnExpressions.flatMap { it.parameters },
             returnExpressions = returning.expressions

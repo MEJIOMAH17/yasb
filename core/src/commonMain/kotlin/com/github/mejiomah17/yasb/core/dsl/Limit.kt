@@ -4,15 +4,15 @@ package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsLimit
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val limit: Int
 ) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = selectQuery.buildSelectQuery()
-        return QueryForExecute(
+        return ReturningQuery(
             sqlDefinition = "${query.sqlDefinition} LIMIT $limit",
             parameters = query.parameters,
             returnExpressions = query.returnExpressions

@@ -1,19 +1,19 @@
 package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class GroupBy<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val groupingElementList: GroupingElementList
 ) : GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
 
-    override fun buildSelectQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = selectQuery.buildSelectQuery()
         val groupDefinition = groupingElementList.joinToString(",") {
             it.sqlDefinition
         }
-        return QueryForExecute(
+        return ReturningQuery(
             sqlDefinition = "${query.sqlDefinition} GROUP BY $groupDefinition",
             parameters = query.parameters,
             returnExpressions = query.returnExpressions
