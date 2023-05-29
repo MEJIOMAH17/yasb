@@ -7,14 +7,13 @@ import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
+import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
     private val columnsToValues: Map<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, List<Any?>>
-) {
+) : Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     private val size: Int = columnsToValues.values.first().size
 
     init {
@@ -23,7 +22,7 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
         }
     }
 
-    fun buildInsertQuery(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    private val sqlToParams: Pair<String, List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>> by lazy {
         val columns = columnsToValues.keys.joinToString(",") { it.name }
         val valuesSql = StringBuilder()
         val parameters = mutableListOf<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>()
@@ -46,11 +45,15 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
                 valuesSql.appendLine(",")
             }
         }
+        "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql to parameters
+    }
 
-        return QueryPartImpl(
-            sql = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
-            parameters = parameters
-        )
+    override fun sql(): String {
+        return sqlToParams.first
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return sqlToParams.second
     }
 }
 
@@ -59,10 +62,9 @@ class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT
     private val returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) {
     fun buildInsertQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val query = insert.buildInsertQuery()
         return ReturningQuery(
-            sql = query.sql() + " RETURNING ${returning.expressions.joinToString(", ") { it.sql() }}",
-            parameters = query.parameters() + returning.expressions.flatMap { it.parameters() },
+            sql = insert.sql() + " RETURNING ${returning.expressions.joinToString(", ") { it.sql() }}",
+            parameters = insert.parameters() + returning.expressions.flatMap { it.parameters() },
             returnExpressions = returning.expressions
         )
     }

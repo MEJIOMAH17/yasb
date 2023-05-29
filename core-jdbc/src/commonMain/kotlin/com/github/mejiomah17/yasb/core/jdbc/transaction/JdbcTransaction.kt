@@ -3,12 +3,10 @@ package com.github.mejiomah17.yasb.core.jdbc.transaction
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.dsl.Insert
 import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
-import com.github.mejiomah17.yasb.core.dsl.Update
 import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
-import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import java.sql.Connection
@@ -38,16 +36,12 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
         return executeQuery(buildSelectQuery())
     }
 
-    override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> Insert<TABLE, ResultSet, PreparedStatement>.execute() {
-        prepareStatement(buildInsertQuery()).execute()
-    }
-
-    override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> Update<TABLE, ResultSet, PreparedStatement>.execute() {
-        prepareStatement(buildUpdateQuery()).execute()
+    override fun Query<ResultSet, PreparedStatement>.execute() {
+        prepareStatement(this).execute()
     }
 
     override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> InsertWithReturn<TABLE, ResultSet, PreparedStatement>.lazy(): Rows {
-        return executeQuery(buildInsertQuery())
+        return executeQuery(this.buildInsertQuery())
     }
 
     override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> InsertWithReturn<TABLE, ResultSet, PreparedStatement>.execute(): List<Row> {
@@ -59,7 +53,7 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
         return JdbcRows(statement, query, statement.executeQuery())
     }
 
-    private fun prepareStatement(query: QueryPart<ResultSet, PreparedStatement>): PreparedStatement {
+    private fun prepareStatement(query: Query<ResultSet, PreparedStatement>): PreparedStatement {
         val statement = connection.prepareStatement(query.sql())
         query.parameters().forEachIndexed { i, parameter ->
             parameter.applyToStatement(statement, i + 1)

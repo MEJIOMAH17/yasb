@@ -5,10 +5,9 @@ import android.database.sqlite.SQLiteDatabase
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
 import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.dsl.Insert
 import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
-import com.github.mejiomah17.yasb.core.dsl.Update
+import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.QueryPart
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
@@ -27,12 +26,8 @@ interface AndroidTransaction : Transaction<Cursor, (String) -> Unit> {
         return executeQuery(buildSelectQuery())
     }
 
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> Insert<TABLE, Cursor, (String) -> Unit>.execute() {
-        return executeQuery(buildInsertQuery())
-    }
-
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> Update<TABLE, Cursor, (String) -> Unit>.execute() {
-        return executeQuery(buildUpdateQuery())
+    override fun Query<Cursor, (String) -> Unit>.execute() {
+        return executeQuery(this)
     }
 
     override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> InsertWithReturn<TABLE, Cursor, (String) -> Unit>.lazy(): Rows {
