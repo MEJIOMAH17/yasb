@@ -36,7 +36,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .innerJoin(secondTable()) {
                     firstTable().a.eq(secondTable().a)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST INNER JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -65,7 +65,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .innerJoin(secondTable) {
                     firstTable().a.eq(joinColumnFromSecondTable)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST INNER JOIN SECOND AS xxx ON FIRST.A = xxx.A"
         }
     }
@@ -98,7 +98,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .innerJoin(nestedQuery) {
                     firstTable().a.eq(joinColumnFromSecondTable)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST INNER JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
         }
     }
@@ -131,7 +131,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .leftJoin(secondTable()) {
                     firstTable().a.eq(secondTable().a)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A"
         }
     }
@@ -166,7 +166,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .leftJoin(secondTable) {
                     firstTable().a.eq(joinColumnFromSecondTable)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A"
         }
     }
@@ -206,7 +206,7 @@ interface TableJoinTest<
                 .from(firstTable())
                 .leftJoin(nestedQuery) {
                     firstTable().a.eq(joinColumnFromSecondTable)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
         }
     }
@@ -248,7 +248,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .rightJoin(secondTable()) {
                         firstTable().a.eq(secondTable().a)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST RIGHT JOIN SECOND ON FIRST.A = SECOND.A"
             }
         }
@@ -287,7 +287,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .rightJoin(secondTable) {
                         firstTable().a.eq(joinColumnFromSecondTable)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST RIGHT JOIN SECOND AS xxx ON FIRST.A = xxx.A"
             }
         }
@@ -331,7 +331,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .rightJoin(nestedQuery) {
                         firstTable().a.eq(joinColumnFromSecondTable)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST RIGHT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
             }
         }
@@ -375,7 +375,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .fullJoin(secondTable()) {
                         firstTable().a.eq(secondTable().a)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, SECOND.A FROM FIRST FULL JOIN SECOND ON FIRST.A = SECOND.A"
             }
         }
@@ -416,7 +416,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .fullJoin(secondTable) {
                         firstTable().a.eq(joinColumnFromSecondTable)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST FULL JOIN SECOND AS xxx ON FIRST.A = xxx.A"
             }
         }
@@ -462,7 +462,7 @@ interface TableJoinTest<
                     .from(firstTable())
                     .fullJoin(nestedQuery) {
                         firstTable().a.eq(joinColumnFromSecondTable)
-                    }.buildSelectQuery().sql
+                    }.sql()
                 query shouldBe "SELECT FIRST.A, xxx.A FROM FIRST FULL JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A"
             }
         }
@@ -510,7 +510,7 @@ interface TableJoinTest<
                 }.leftJoin(thirdTable()) {
                     firstTable().a.eq(thirdTable().a)
                 }
-                .buildSelectQuery().sql
+                .sql()
             query shouldBe "SELECT FIRST.A, SECOND.A, THIRD.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
@@ -553,7 +553,7 @@ interface TableJoinTest<
                 }.leftJoin(thirdTable()) {
                     firstTable().a.eq(thirdTable().a)
                 }
-                .buildSelectQuery().sql
+                .sql()
             query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
@@ -600,7 +600,7 @@ interface TableJoinTest<
                     firstTable().a.eq(joinColumnFromSecondTable)
                 }.leftJoin(thirdTable()) {
                     firstTable().a.eq(thirdTable().a)
-                }.buildSelectQuery().sql
+                }.sql()
             query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }

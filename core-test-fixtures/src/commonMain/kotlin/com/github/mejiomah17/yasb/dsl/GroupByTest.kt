@@ -25,8 +25,7 @@ interface GroupByTest<
         val result = select(tableTest().a, parameter().`as`("p"))
             .from(tableTest())
             .groupBy(tableTest().a)
-            .buildSelectQuery()
-            .sql
+            .sql()
         result shouldBe "SELECT test.a, (?) AS p FROM test GROUP BY test.a"
     }
 
@@ -36,8 +35,7 @@ interface GroupByTest<
             .from(tableTest())
             .where { tableTest().a.eq("the a") }
             .groupBy(tableTest().a)
-            .buildSelectQuery()
-            .sql
+            .sql()
         result shouldBe "SELECT test.a, (?) AS p FROM test WHERE test.a = ? GROUP BY test.a"
     }
 
@@ -46,8 +44,8 @@ interface GroupByTest<
         select(tableTest().a)
             .from(tableTest())
             .groupBy(tableTest().a)
-            .buildSelectQuery()
-            .returnExpressions.shouldBe(listOf(tableTest().a))
+            .returnExpressions()
+            .shouldBe(listOf(tableTest().a))
     }
 
     @Test

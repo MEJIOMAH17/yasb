@@ -40,8 +40,7 @@ interface FromTest<
     fun `from_creates_correct_sql`() {
         val result = select(tableTest().a, tableTest().b, parameter().`as`("p"))
             .from(tableTest())
-            .buildSelectQuery()
-            .sql
+            .sql()
         result shouldBe "SELECT test.a, test.b, (?) AS p FROM test"
     }
 
@@ -50,8 +49,7 @@ interface FromTest<
         val table = tableTest().`as`("xxx")
         val result = select(table[tableTest().a], table[tableTest().b], parameter().`as`("p"))
             .from(table)
-            .buildSelectQuery()
-            .sql
+            .sql()
         result shouldBe "SELECT xxx.a, xxx.b, (?) AS p FROM test AS xxx"
     }
 
@@ -59,8 +57,7 @@ interface FromTest<
     fun `from_returns_correct_expressions`() {
         select(tableTest().a, tableTest().b)
             .from(tableTest())
-            .buildSelectQuery()
-            .returnExpressions.shouldBe(listOf(tableTest().a, tableTest().b))
+            .returnExpressions().shouldBe(listOf(tableTest().a, tableTest().b))
     }
 
     @Test
@@ -70,8 +67,8 @@ interface FromTest<
         val bColumn = table[tableTest().b]
         select(aColumn, bColumn)
             .from(table)
-            .buildSelectQuery()
-            .returnExpressions.shouldBe(listOf(aColumn, bColumn))
+            .returnExpressions()
+            .shouldBe(listOf(aColumn, bColumn))
     }
 
     @Test
@@ -141,8 +138,7 @@ interface FromTest<
         val param = parameter()
         select(param.`as`("p"))
             .from(tableTest())
-            .buildSelectQuery()
-            .parameters.single().shouldBe(param)
+            .parameters().single().shouldBe(param)
     }
 
     @Test
@@ -153,8 +149,7 @@ interface FromTest<
                     .from(tableTest())
                     .`as`("xxx")
             )
-            .buildSelectQuery()
-            .sql
+            .sql()
         result shouldBe "SELECT test.a, test.b, (?) AS p FROM (SELECT test.a, test.b FROM test) AS xxx"
     }
 }

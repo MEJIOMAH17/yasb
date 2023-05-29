@@ -1,10 +1,7 @@
 package com.github.mejiomah17.yasb.core.jdbc.transaction
 
-import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
-import com.github.mejiomah17.yasb.core.query.OldReturningQuery
 import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
@@ -25,32 +22,13 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
         connection.rollback()
     }
 
-    override fun SelectQuery<ResultSet, PreparedStatement>.execute(): List<Row> {
-        return lazy().use {
-            it.toList()
-        }
-    }
-
-    override fun SelectQuery<ResultSet, PreparedStatement>.lazy(): Rows {
-        return executeQuery(buildSelectQuery())
-    }
-
     override fun Query<ResultSet, PreparedStatement>.execute() {
         prepareStatement(this).execute()
     }
 
     override fun ReturningQuery<ResultSet, PreparedStatement>.lazy(): Rows {
-        return executeQuery(this)
-    }
-
-    private fun executeQuery(query: OldReturningQuery<ResultSet, PreparedStatement>): JdbcRows {
-        val statement = prepareStatement(query)
-        return JdbcRows(statement, query, statement.executeQuery())
-    }
-
-    private fun executeQuery(query: ReturningQuery<ResultSet, PreparedStatement>): JdbcRows {
-        val statement = prepareStatement(query)
-        return JdbcRows(statement, query, statement.executeQuery())
+        val statement = prepareStatement(this)
+        return JdbcRows(statement, this, statement.executeQuery())
     }
 
     private fun prepareStatement(query: Query<ResultSet, PreparedStatement>): PreparedStatement {

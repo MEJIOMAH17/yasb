@@ -4,19 +4,23 @@ package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.SupportsLimit
-import com.github.mejiomah17.yasb.core.query.OldReturningQuery
+import com.github.mejiomah17.yasb.core.expression.Expression
+import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
-    private val selectQuery: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    private val query: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val limit: Int
 ) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun buildSelectQuery(): OldReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val query = selectQuery.buildSelectQuery()
-        return OldReturningQuery(
-            sql = "${query.sql} LIMIT $limit",
-            parameters = query.parameters,
-            returnExpressions = query.returnExpressions
-        )
+    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return query.returnExpressions()
+    }
+
+    override fun sql(): String {
+        return "${query.sql()} LIMIT $limit"
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return query.parameters()
     }
 }
 

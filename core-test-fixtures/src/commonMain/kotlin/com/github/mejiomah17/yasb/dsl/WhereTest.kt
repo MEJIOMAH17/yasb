@@ -42,8 +42,7 @@ interface WhereTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq("42")
-                }.buildSelectQuery()
-                .sql shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
+                }.sql() shouldBe "SELECT test.a, test.b FROM test WHERE test.a = ?"
         }
     }
 
@@ -54,8 +53,7 @@ interface WhereTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq(tableTest().b)
-                }.buildSelectQuery()
-                .sql shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
+                }.sql() shouldBe "SELECT test.a, test.b FROM test WHERE test.a = test.b"
         }
     }
 
@@ -66,8 +64,8 @@ interface WhereTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq("42")
-                }.buildSelectQuery()
-                .returnExpressions shouldBe listOf(tableTest().a, tableTest().b)
+                }
+                .returnExpressions() shouldBe listOf(tableTest().a, tableTest().b)
         }
     }
 
@@ -78,8 +76,7 @@ interface WhereTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq("42")
-                }.buildSelectQuery()
-                .parameters
+                }.parameters()
             params.shouldHaveSize(1)
             params.single().value shouldBe "42"
         }

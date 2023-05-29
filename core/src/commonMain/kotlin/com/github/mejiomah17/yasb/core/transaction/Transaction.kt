@@ -2,15 +2,10 @@ package com.github.mejiomah17.yasb.core.transaction
 
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 interface Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-
-    fun SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row>
-
-    fun SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows
 
     fun Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute()
 
