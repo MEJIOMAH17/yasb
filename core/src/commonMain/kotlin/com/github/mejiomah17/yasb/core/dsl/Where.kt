@@ -12,11 +12,10 @@ class Where<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 ) : WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectExpression = select.buildSelectQuery()
-        val whereExpression = where.build()
         return ReturningQuery(
-            sql = "${selectExpression.sql} WHERE ${whereExpression.sql()}",
+            sql = "${selectExpression.sql} WHERE ${where.sql()}",
             returnExpressions = selectExpression.returnExpressions,
-            parameters = selectExpression.parameters + whereExpression.parameters()
+            parameters = selectExpression.parameters + where.parameters()
         )
     }
 }

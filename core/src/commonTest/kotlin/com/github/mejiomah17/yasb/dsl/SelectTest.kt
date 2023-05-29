@@ -3,7 +3,7 @@ package com.github.mejiomah17.yasb.dsl
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.dsl.select
 import com.github.mejiomah17.yasb.core.expression.Expression
-import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.parameter.Parameter
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -16,7 +16,11 @@ class SelectTest {
                 TODO("Not yet implemented")
             }
 
-            override fun build(): QueryPart<Any, Any> {
+            override fun sql(): String {
+                TODO("Not yet implemented")
+            }
+
+            override fun parameters(): List<Parameter<*, Any, Any>> {
                 TODO("Not yet implemented")
             }
         }

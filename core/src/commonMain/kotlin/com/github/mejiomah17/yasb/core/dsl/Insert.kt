@@ -60,10 +60,9 @@ class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT
 ) {
     fun buildInsertQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val query = insert.buildInsertQuery()
-        val returnExpressions = returning.expressions.map { it.build() }
         return ReturningQuery(
-            sql = query.sql() + " RETURNING ${returnExpressions.joinToString(", ") { it.sql() }}",
-            parameters = query.parameters() + returnExpressions.flatMap { it.parameters() },
+            sql = query.sql() + " RETURNING ${returning.expressions.joinToString(", ") { it.sql() }}",
+            parameters = query.parameters() + returning.expressions.flatMap { it.parameters() },
             returnExpressions = returning.expressions
         )
     }

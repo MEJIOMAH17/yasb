@@ -8,12 +8,11 @@ class From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     val source: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val builtExpressions = select.expressions.map { it.build() }
-        val selectionPart = builtExpressions.map { it.sql() }.joinToString(", ")
+        val selectionPart = select.expressions.map { it.sql() }.joinToString(", ")
         return ReturningQuery(
             sql = "SELECT $selectionPart FROM ${source.sql()}",
             returnExpressions = select.expressions,
-            parameters = builtExpressions.flatMap { it.parameters() } + source.parameters()
+            parameters = select.expressions.flatMap { it.parameters() } + source.parameters()
         )
     }
 }

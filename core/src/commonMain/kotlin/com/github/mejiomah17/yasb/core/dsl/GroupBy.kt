@@ -58,5 +58,5 @@ internal interface GroupingElement {
 }
 
 private class ColumnReference(column: Column<*, *, *, *>) : GroupingElement {
-    override val sqlDefinition: String = column.build().sql()
+    override val sqlDefinition: String = column.sql()
 }

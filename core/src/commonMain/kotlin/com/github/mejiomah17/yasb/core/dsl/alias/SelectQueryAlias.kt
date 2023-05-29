@@ -6,8 +6,6 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     val source: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -23,11 +21,12 @@ class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
                 return expression.databaseType()
             }
 
-            override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-                return QueryPartImpl(
-                    sql = "$name.${expression.name}",
-                    parameters = emptyList()
-                )
+            override fun sql(): String {
+                return "$name.${expression.name}"
+            }
+
+            override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+                return emptyList()
             }
         }
     }
@@ -38,11 +37,12 @@ class SelectQueryAlias<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
                 return column.databaseType()
             }
 
-            override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-                return QueryPartImpl(
-                    sql = "$name.${column.name}",
-                    parameters = emptyList()
-                )
+            override fun sql(): String {
+                return "$name.${column.name}"
+            }
+
+            override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+                return emptyList()
             }
         }
     }

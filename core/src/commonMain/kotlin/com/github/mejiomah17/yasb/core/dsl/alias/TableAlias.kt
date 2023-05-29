@@ -6,8 +6,6 @@ import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class TableAlias<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     val table: TABLE,
@@ -20,11 +18,12 @@ class TableAlias<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRI
                 return column.databaseType
             }
 
-            override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-                return QueryPartImpl(
-                    sql = "$name.${column.name}",
-                    parameters = column.build().parameters()
-                )
+            override fun sql(): String {
+                return "$name.${column.name}"
+            }
+
+            override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+                return column.parameters()
             }
         }
     }

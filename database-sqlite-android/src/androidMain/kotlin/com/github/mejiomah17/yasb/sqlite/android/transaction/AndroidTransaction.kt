@@ -51,13 +51,14 @@ interface AndroidTransaction : Transaction<Cursor, (String) -> Unit> {
     }
 
     private fun executeQuery(query: QueryPart<Cursor, (String) -> Unit>) {
-        database.execSQL(query.sql, query.args())
+        database.execSQL(query.sql(), query.args())
     }
 
     private fun QueryPart<Cursor, (String) -> Unit>.args(): Array<String> {
-        return Array(parameters.size) {
+        val params = parameters()
+        return Array(params.size) {
             var value = ""
-            parameters[it].applyToStatement({ value = it }, it)
+            params[it].applyToStatement({ value = it }, it)
             value
         }
     }

@@ -18,10 +18,9 @@ class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 ) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectQuery = select.buildSelectQuery()
-        val onQuery = on.build()
         return ReturningQuery(
-            sql = "${selectQuery.sql} $joinType JOIN ${with.sql()} ON ${onQuery.sql()}",
-            parameters = selectQuery.parameters + with.parameters() + onQuery.parameters(),
+            sql = "${selectQuery.sql} $joinType JOIN ${with.sql()} ON ${on.sql()}",
+            parameters = selectQuery.parameters + with.parameters() + on.parameters(),
             returnExpressions = selectQuery.returnExpressions
         )
     }

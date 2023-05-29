@@ -27,11 +27,10 @@ class Update<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
             "${column.name} = $sqlValue"
         }.joinToString(", ")
 
-        val wherePart = where?.build()
-        val whereSql = wherePart?.let { "WHERE ${it.sql()}" } ?: ""
+        val whereSql = where?.let { "WHERE ${it.sql()}" } ?: ""
         return QueryPartImpl(
             sql = "UPDATE ${table.tableName} SET $setPart $whereSql",
-            parameters = parameters + (wherePart?.parameters() ?: emptyList())
+            parameters = parameters + (where?.parameters() ?: emptyList())
         )
     }
 }
