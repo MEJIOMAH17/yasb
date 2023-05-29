@@ -22,15 +22,22 @@ interface InsertWithReturningTest<
     @Test
     fun output_returns_values() {
         transactionFactory().repeatableRead {
-            if (this is SupportsInsertReturning) {
-                val row = insertInto(tableTest(), returning = Returning(tableTest().a, tableTest().b)) {
-                    it[tableTest().a] = "abc"
-                    it[tableTest().b] = "bca"
+            val d = transactionFactory().dialect()
+            if (d is SupportsInsertReturning) {
+                val row = d.run {
+                    insertInto(tableTest(), returning = Returning(tableTest().a, tableTest().b)) {
+                        it[tableTest().a] = "abc"
+                        it[tableTest().b] = "bca"
+                    }
                 }.execute().single()
                 row[tableTest().a] shouldBe "abc"
                 row[tableTest().b] shouldBe "bca"
             }
         }
+    }
+
+    fun DIALECT.x(): DIALECT {
+        return this
     }
 
     @Test
