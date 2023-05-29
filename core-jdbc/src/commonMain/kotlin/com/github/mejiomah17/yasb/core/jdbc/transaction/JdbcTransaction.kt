@@ -2,10 +2,9 @@ package com.github.mejiomah17.yasb.core.jdbc.transaction
 
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
 import com.github.mejiomah17.yasb.core.dsl.SelectQuery
 import com.github.mejiomah17.yasb.core.jdbc.JdbcRows
+import com.github.mejiomah17.yasb.core.query.OldReturningQuery
 import com.github.mejiomah17.yasb.core.query.Query
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
@@ -40,12 +39,13 @@ interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
         prepareStatement(this).execute()
     }
 
-    override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> InsertWithReturn<TABLE, ResultSet, PreparedStatement>.lazy(): Rows {
-        return executeQuery(this.buildInsertQuery())
+    override fun ReturningQuery<ResultSet, PreparedStatement>.lazy(): Rows {
+        return executeQuery(this)
     }
 
-    override fun <TABLE : Table<TABLE, ResultSet, PreparedStatement>> InsertWithReturn<TABLE, ResultSet, PreparedStatement>.execute(): List<Row> {
-        return lazy().use { it.toList() }
+    private fun executeQuery(query: OldReturningQuery<ResultSet, PreparedStatement>): JdbcRows {
+        val statement = prepareStatement(query)
+        return JdbcRows(statement, query, statement.executeQuery())
     }
 
     private fun executeQuery(query: ReturningQuery<ResultSet, PreparedStatement>): JdbcRows {

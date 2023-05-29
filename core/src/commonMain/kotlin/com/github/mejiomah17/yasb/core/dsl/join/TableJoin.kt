@@ -8,7 +8,7 @@ import com.github.mejiomah17.yasb.core.SupportsRightJoin
 import com.github.mejiomah17.yasb.core.dsl.ConditionContext
 import com.github.mejiomah17.yasb.core.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
+import com.github.mejiomah17.yasb.core.query.OldReturningQuery
 
 class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val select: FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -16,9 +16,9 @@ class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val joinType: JoinType,
     private val on: Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): OldReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectQuery = select.buildSelectQuery()
-        return ReturningQuery(
+        return OldReturningQuery(
             sql = "${selectQuery.sql} $joinType JOIN ${with.sql()} ON ${on.sql()}",
             parameters = selectQuery.parameters + with.parameters() + on.parameters(),
             returnExpressions = selectQuery.returnExpressions

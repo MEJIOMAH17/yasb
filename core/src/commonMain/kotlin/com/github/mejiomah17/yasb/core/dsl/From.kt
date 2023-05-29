@@ -1,15 +1,15 @@
 package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.SelectionSource
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
+import com.github.mejiomah17.yasb.core.query.OldReturningQuery
 
 class From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     val select: Select<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     val source: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): OldReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectionPart = select.expressions.map { it.sql() }.joinToString(", ")
-        return ReturningQuery(
+        return OldReturningQuery(
             sql = "SELECT $selectionPart FROM ${source.sql()}",
             returnExpressions = select.expressions,
             parameters = select.expressions.flatMap { it.parameters() } + source.parameters()

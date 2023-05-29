@@ -4,15 +4,15 @@ import com.github.mejiomah17.yasb.core.dsl.ConditionContext
 import com.github.mejiomah17.yasb.core.dsl.FromClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.dsl.WhereClauseAndSelectQuery
 import com.github.mejiomah17.yasb.core.expression.Expression
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
+import com.github.mejiomah17.yasb.core.query.OldReturningQuery
 
 class Where<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val select: FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val where: Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ) : WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun buildSelectQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun buildSelectQuery(): OldReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         val selectExpression = select.buildSelectQuery()
-        return ReturningQuery(
+        return OldReturningQuery(
             sql = "${selectExpression.sql} WHERE ${where.sql()}",
             returnExpressions = selectExpression.returnExpressions,
             parameters = selectExpression.parameters + where.parameters()

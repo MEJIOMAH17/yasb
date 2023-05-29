@@ -2,13 +2,11 @@
 
 package com.github.mejiomah17.yasb.core.dsl
 
-import com.github.mejiomah17.yasb.core.SupportsInsertReturning
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.Query
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
@@ -57,19 +55,6 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
     }
 }
 
-class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
-    private val insert: Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    private val returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-) {
-    fun buildInsertQuery(): ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        return ReturningQuery(
-            sql = insert.sql() + " RETURNING ${returning.expressions.joinToString(", ") { it.sql() }}",
-            parameters = insert.parameters() + returning.expressions.flatMap { it.parameters() },
-            returnExpressions = returning.expressions
-        )
-    }
-}
-
 /**
  * SupportInsertWithDefaultValue - [block] could skip column initialization.
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
@@ -111,29 +96,6 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
         columns[column] = listOf(value)
     }
     return Insert(table, columns)
-}
-
-context(SupportsInsertReturning)
-fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> insertInto(
-    table: TABLE,
-    returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) -> Unit
-): InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return InsertWithReturn(insertInto(table, block), returning)
-}
-
-/**
- * SupportInsertWithDefaultValue - [block] could skip column initialization.
- * Yasb asks database use default value for skipped columns. Consequently, database should support default values
- */
-context(SupportsInsertWithDefaultValue, SupportsInsertReturning)
-fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, E> insertInto(
-    table: TABLE,
-    returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    source: Iterable<E>,
-    block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, E) -> Unit
-): InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return InsertWithReturn(insertInto(table, source, block), returning)
 }
 
 class InsertContext<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
