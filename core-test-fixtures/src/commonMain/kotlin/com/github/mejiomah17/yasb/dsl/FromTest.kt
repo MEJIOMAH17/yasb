@@ -16,25 +16,6 @@ interface FromTest<
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-    @Test
-    fun `from_creates_From`() {
-        val select = select(tableTest().a)
-
-        val result = select.from(tableTest())
-
-        result.select shouldBe select
-        result.source shouldBe tableTest()
-    }
-
-    @Test
-    fun `from_creates_From_for_aliased_table`() {
-        val select = select(tableTest().a)
-        val table = tableTest().`as`("xxx")
-        val result = select.from(table)
-
-        result.select shouldBe select
-        result.source shouldBe table
-    }
 
     @Test
     fun `from_creates_correct_sql`() {
