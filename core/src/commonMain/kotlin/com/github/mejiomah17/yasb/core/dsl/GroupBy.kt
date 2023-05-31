@@ -7,7 +7,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 class GroupBy<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val query: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val groupingElementList: GroupingElementList
-) : GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+) : GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
 
     override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
         return query.returnExpressions()
@@ -25,33 +25,33 @@ class GroupBy<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     }
 }
 
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
     columns: List<Column<*, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
-): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return GroupBy(
         query = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
     vararg columns: Column<*, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return groupBy(columns.toList())
 }
 
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectWhereQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
     columns: List<Column<*, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
-): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return GroupBy(
         query = this,
         groupingElementList = columns.map { ColumnReference(it) }
     )
 }
 
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> WhereClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectWhereQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.groupBy(
     vararg columns: Column<*, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): GroupByClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return groupBy(columns.toList())
 }
 
