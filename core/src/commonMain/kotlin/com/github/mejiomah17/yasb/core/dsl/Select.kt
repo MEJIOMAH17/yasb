@@ -4,7 +4,7 @@ import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class Select<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
-    val expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
+    private val expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
 ) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     init {
         require(expressions.isNotEmpty()) {

@@ -10,16 +10,15 @@ class From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 ) : FromClauseAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
 
     override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return select.expressions
+        return select.returnExpressions()
     }
 
     override fun sql(): String {
-        val selectionPart = select.expressions.map { it.sql() }.joinToString(", ")
-        return "SELECT $selectionPart FROM ${source.sql()}"
+        return "${select.sql()} FROM ${source.sql()}"
     }
 
     override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return select.expressions.flatMap { it.parameters() } + source.parameters()
+        return select.parameters() + source.parameters()
     }
 }
 
