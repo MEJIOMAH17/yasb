@@ -11,6 +11,7 @@ class SqliteColumnMetadataFactory : ColumnMetadataFactory {
         return when (type.lowercase()) {
             "text" -> Text(name, nullable)
             "bool" -> Bool(name, nullable)
+            "boolean" -> Bool(name, nullable)
             "bigint" -> BigInt(name, nullable)
             else -> error("type $type is not supported yet")
         }
