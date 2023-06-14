@@ -225,7 +225,7 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
             val parameters = others.joinToString(",") {
                 it.parameterInSql
             }
-            return "${this@condition.sql()} $operator $parameters"
+            return "${this@condition.sql()} $operator ($parameters)"
         }
 
         override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {

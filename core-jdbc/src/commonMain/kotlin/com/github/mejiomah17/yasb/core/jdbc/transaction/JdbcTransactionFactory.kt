@@ -12,14 +12,14 @@ import javax.sql.DataSource
 abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedStatement>>(
     private val datasource: DataSource
 ) : TransactionFactory<
-    ResultSet,
-    PreparedStatement,
-    D,
-    JdbcTransactionReadUncommitted,
-    JdbcTransactionReadCommitted,
-    JdbcTransactionRepeatableRead,
-    JdbcTransactionSerializable
-    > {
+        ResultSet,
+        PreparedStatement,
+        D,
+        JdbcTransactionReadUncommitted,
+        JdbcTransactionReadCommitted,
+        JdbcTransactionRepeatableRead,
+        JdbcTransactionSerializable
+        > {
 
     override fun <V> readUncommitted(
         block: context(D) JdbcTransactionReadUncommitted.() -> V

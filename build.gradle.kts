@@ -21,7 +21,8 @@ repositories {
     mavenCentral()
 }
 val jvmProjects = setOf(project(":gradle-plugin"))
-val mppProjects = subprojects - jvmProjects
+val aarProjects = setOf(project(":database-sqlite-aar"))
+val mppProjects = subprojects - jvmProjects - aarProjects
 val androidOnlyProjects = setOf(project(":database-sqlite-android"))
 val mppProjectsWithJvmTarget = mppProjects - androidOnlyProjects
 val mppProjectsWithAndroidTarget = androidOnlyProjects

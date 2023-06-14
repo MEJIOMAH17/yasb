@@ -4,10 +4,11 @@ import android.database.Cursor
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
+import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
 
 class AndroidRows(
     val cursor: Cursor,
-    private val returningQuery: ReturningQuery<Cursor, (String) -> Unit>
+    private val returningQuery: ReturningQuery<Cursor, AndroidSqliteDriverStatement>
 ) : Rows {
 
     override fun iterator(): Iterator<Row> {

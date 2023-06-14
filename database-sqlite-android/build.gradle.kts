@@ -11,6 +11,8 @@ kotlin {
             dependencies {
                 api(project(":core"))
                 api(project(":database-sqlite"))
+                api(project(path = ":database-sqlite-aar", configuration = "default"))
+//                implementation(files("sqlite-android-3420000.aar"))
             }
         }
         val androidTest by getting {

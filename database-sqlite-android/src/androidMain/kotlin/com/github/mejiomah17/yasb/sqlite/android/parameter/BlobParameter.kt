@@ -1,17 +1,17 @@
 package com.github.mejiomah17.yasb.sqlite.android.parameter
 
 import com.github.mejiomah17.yasb.sqlite.android.AndroidDatabaseType
-import com.github.mejiomah17.yasb.sqlite.android.type.LongDatabaseType
+import com.github.mejiomah17.yasb.sqlite.android.type.BlobDatabaseType
 
-class LongParameter(
-    override val value: Long?
-) : SqliteParameter<Long>() {
-    override val databaseType: AndroidDatabaseType<Long> = LongDatabaseType
+class BlobParameter(
+    override val value: ByteArray?
+) : SqliteParameter<ByteArray>() {
+    override val databaseType: AndroidDatabaseType<ByteArray> = BlobDatabaseType
     override fun applyToStatement(statement: AndroidSqliteDriverStatement, index: Int) {
         if (value == null) {
             statement.bindNull(index)
         } else {
-            statement.bindLong(index, value)
+            statement.bindBlob(index, value)
         }
     }
 }

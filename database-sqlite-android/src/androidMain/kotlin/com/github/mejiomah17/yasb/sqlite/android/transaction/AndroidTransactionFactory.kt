@@ -3,22 +3,23 @@
 package com.github.mejiomah17.yasb.sqlite.android.transaction
 
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.sqlite.android.SqliteAndroidDatabaseDialect
+import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import org.sqlite.database.sqlite.SQLiteDatabase
 
 class AndroidTransactionFactory(
     private val database: SQLiteDatabase
 ) : TransactionFactory<
-    Cursor,
-        (String) -> Unit,
-    SqliteAndroidDatabaseDialect,
-    AndroidSerializableTransactionImpl,
-    AndroidSerializableTransactionImpl,
-    AndroidSerializableTransactionImpl,
-    AndroidSerializableTransactionImpl
-    > {
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+        AndroidSerializableTransactionImpl,
+        AndroidSerializableTransactionImpl,
+        AndroidSerializableTransactionImpl
+        > {
 
     override fun dialect(): SqliteAndroidDatabaseDialect {
         return SqliteAndroidDatabaseDialect
@@ -40,7 +41,7 @@ class AndroidTransactionFactory(
         return serializable(block)
     }
 
-    private fun <R, T : Transaction<Cursor, (String) -> Unit>> transaction(
+    private fun <R, T : Transaction<Cursor, AndroidSqliteDriverStatement>> transaction(
         transactionCreator: (SQLiteDatabase) -> T,
         block: context(SqliteAndroidDatabaseDialect) (T) -> R
     ): R {
