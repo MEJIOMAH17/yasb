@@ -7,9 +7,9 @@ data class BigInt(private val name: String, private val nullable: Boolean) : Col
 
     override fun columnDefinition(): String {
         return if (!nullable) {
-            "val ${name.toCamelCase()} = bigint(\"$name\")"
+            "val ${name.toCamelCase()} = long(\"$name\")"
         } else {
-            "val ${name.toCamelCase()} = bigintNullable(\"$name\")"
+            "val ${name.toCamelCase()} = longNullable(\"$name\")"
         }
     }
 }

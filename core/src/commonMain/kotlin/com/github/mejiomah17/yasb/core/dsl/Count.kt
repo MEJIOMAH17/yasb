@@ -6,8 +6,7 @@ import com.github.mejiomah17.yasb.core.DatabaseDialect
 import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.expression.Expression
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
+import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class Count<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val expression: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -18,12 +17,12 @@ class Count<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
         return databaseType
     }
 
-    override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val queryPart = expression.build()
-        return QueryPartImpl(
-            sqlDefinition = "COUNT(${queryPart.sqlDefinition})",
-            parameters = queryPart.parameters
-        )
+    override fun sql(): String {
+        return "COUNT(${expression.sql()})"
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return expression.parameters()
     }
 }
 

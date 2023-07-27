@@ -5,6 +5,7 @@ include(
     "core-jdbc",
     "core-jdbc-test-fixtures",
     "database-sqlite",
+    "database-sqlite-aar",
     "database-sqlite-android",
     "database-sqlite-generator",
     "database-sqlite-jdbc",

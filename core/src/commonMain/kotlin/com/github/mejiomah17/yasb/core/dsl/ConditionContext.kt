@@ -7,8 +7,6 @@ import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.expression.AliasableExpressionForCondition
 import com.github.mejiomah17.yasb.core.expression.ExpressionForCondition
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 object ConditionContext
 
@@ -144,13 +142,12 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVE
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            val first = this@and.build()
-            val second = other.build()
-            return QueryPartImpl(
-                sqlDefinition = "(${first.sqlDefinition}) AND (${second.sqlDefinition})",
-                parameters = first.parameters + second.parameters
-            )
+        override fun sql(): String {
+            return "(${this@and.sql()}) AND (${other.sql()})"
+        }
+
+        override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+            return this@and.parameters() + other.parameters()
         }
     }
 }
@@ -164,13 +161,12 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<Boolean, DRIVE
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            val first = this@or.build()
-            val second = other.build()
-            return QueryPartImpl(
-                sqlDefinition = "(${first.sqlDefinition}) OR (${second.sqlDefinition})",
-                parameters = first.parameters + second.parameters
-            )
+        override fun sql(): String {
+            return "(${this@or.sql()}) OR (${other.sql()})"
+        }
+
+        override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+            return this@or.parameters() + other.parameters()
         }
     }
 }
@@ -185,13 +181,12 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            val leftExpression = this@condition.build()
-            val rightExpression = other.build()
-            return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${rightExpression.sqlDefinition}",
-                parameters = leftExpression.parameters + rightExpression.parameters
-            )
+        override fun sql(): String {
+            return "${this@condition.sql()} $operator ${other.sql()}"
+        }
+
+        override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+            return this@condition.parameters() + other.parameters()
         }
     }
 }
@@ -206,12 +201,12 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            val leftExpression = this@condition.build()
-            return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ${other.parameterInSql}",
-                parameters = leftExpression.parameters + other
-            )
+        override fun sql(): String {
+            return "${this@condition.sql()} $operator ${other.parameterInSql}"
+        }
+
+        override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+            return this@condition.parameters() + other
         }
     }
 }
@@ -226,15 +221,15 @@ private fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ExpressionForCondition<T, 
             return booleanType()
         }
 
-        override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            val leftExpression = this@condition.build()
+        override fun sql(): String {
             val parameters = others.joinToString(",") {
                 it.parameterInSql
             }
-            return QueryPartImpl(
-                sqlDefinition = "${leftExpression.sqlDefinition} $operator ($parameters)",
-                parameters = leftExpression.parameters + others
-            )
+            return "${this@condition.sql()} $operator ($parameters)"
+        }
+
+        override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+            return this@condition.parameters() + others
         }
     }
 }

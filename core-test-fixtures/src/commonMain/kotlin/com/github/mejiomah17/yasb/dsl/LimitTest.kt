@@ -27,8 +27,7 @@ interface LimitTest<
             select(tableTest().a)
                 .from(tableTest())
                 .limit(1)
-                .buildSelectQuery()
-                .sqlDefinition shouldBe "SELECT test.a FROM test LIMIT 1"
+                .sql() shouldBe "SELECT test.a FROM test LIMIT 1"
         }
     }
 

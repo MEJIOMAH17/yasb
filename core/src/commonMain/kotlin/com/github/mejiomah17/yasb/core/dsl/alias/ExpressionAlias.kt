@@ -4,8 +4,6 @@ import com.github.mejiomah17.yasb.core.DatabaseType
 import com.github.mejiomah17.yasb.core.expression.AliasableExpression
 import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
 
 class ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val expression: AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -16,12 +14,12 @@ class ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
         return expression.databaseType()
     }
 
-    override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val underlying = expression.build()
-        return QueryPartImpl(
-            sqlDefinition = "(${underlying.sqlDefinition}) AS $name",
-            parameters = underlying.parameters
-        )
+    override fun sql(): String {
+        return "(${expression.sql()}) AS $name"
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return expression.parameters()
     }
 }
 
@@ -32,11 +30,12 @@ fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Parameter<T, DRIVER_DATA_SOURCE, D
                 return this@`as`.databaseType
             }
 
-            override fun build(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-                return QueryPartImpl(
-                    sqlDefinition = this@`as`.parameterInSql,
-                    parameters = listOf(this@`as`)
-                )
+            override fun sql(): String {
+                return this@`as`.parameterInSql
+            }
+
+            override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+                return listOf(this@`as`)
             }
         },
         name = name

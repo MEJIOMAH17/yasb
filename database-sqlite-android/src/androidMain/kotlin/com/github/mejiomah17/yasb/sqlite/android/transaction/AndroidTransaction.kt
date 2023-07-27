@@ -1,64 +1,26 @@
 package com.github.mejiomah17.yasb.sqlite.android.transaction
 
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.dsl.Insert
-import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
-import com.github.mejiomah17.yasb.core.dsl.SelectQuery
-import com.github.mejiomah17.yasb.core.dsl.Update
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import com.github.mejiomah17.yasb.core.query.QueryPart
+import com.github.mejiomah17.yasb.core.query.Query
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import com.github.mejiomah17.yasb.core.transaction.Transaction
 import com.github.mejiomah17.yasb.sqlite.android.AndroidRows
+import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import org.sqlite.database.sqlite.SQLiteDatabase
 
-interface AndroidTransaction : Transaction<Cursor, (String) -> Unit> {
+interface AndroidTransaction : Transaction<Cursor, AndroidSqliteDriverStatement> {
     val database: SQLiteDatabase
 
-    override fun SelectQuery<Cursor, (String) -> Unit>.execute(): List<Row> {
-        return lazy().use {
-            it.toList()
+    override fun Query<Cursor, AndroidSqliteDriverStatement>.execute() {
+        val adapter = SqliteDatabaseAdapter(database)
+        adapter.executeQuery(this.sql(), this.parameters()).use {
+            it.moveToNext()
         }
     }
 
-    override fun SelectQuery<Cursor, (String) -> Unit>.lazy(): Rows {
-        return executeQuery(buildSelectQuery())
-    }
-
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> Insert<TABLE, Cursor, (String) -> Unit>.execute() {
-        return executeQuery(buildInsertQuery())
-    }
-
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> Update<TABLE, Cursor, (String) -> Unit>.execute() {
-        return executeQuery(buildUpdateQuery())
-    }
-
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> InsertWithReturn<TABLE, Cursor, (String) -> Unit>.lazy(): Rows {
-        return executeQuery(buildInsertQuery())
-    }
-
-    override fun <TABLE : Table<TABLE, Cursor, (String) -> Unit>> InsertWithReturn<TABLE, Cursor, (String) -> Unit>.execute(): List<Row> {
-        return lazy().use {
-            it.toList()
-        }
-    }
-
-    private fun executeQuery(query: QueryForExecute<Cursor, (String) -> Unit>): AndroidRows {
-        val statement = database.rawQuery(query.sqlDefinition, query.args())
-        return AndroidRows(statement, query)
-    }
-
-    private fun executeQuery(query: QueryPart<Cursor, (String) -> Unit>) {
-        database.execSQL(query.sqlDefinition, query.args())
-    }
-
-    private fun QueryPart<Cursor, (String) -> Unit>.args(): Array<String> {
-        return Array(parameters.size) {
-            var value = ""
-            parameters[it].applyToStatement({ value = it }, it)
-            value
-        }
+    override fun ReturningQuery<Cursor, AndroidSqliteDriverStatement>.lazy(): Rows {
+        val adapter = SqliteDatabaseAdapter(database)
+        return AndroidRows(adapter.executeQuery(this.sql(), this.parameters()), this)
     }
 }

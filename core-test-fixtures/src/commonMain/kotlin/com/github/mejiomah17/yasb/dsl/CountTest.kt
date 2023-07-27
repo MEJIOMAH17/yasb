@@ -3,7 +3,6 @@
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
-import com.github.mejiomah17.yasb.core.dsl.From
 import com.github.mejiomah17.yasb.core.dsl.alias.`as`
 import com.github.mejiomah17.yasb.core.dsl.count
 import com.github.mejiomah17.yasb.core.dsl.from
@@ -25,7 +24,7 @@ interface CountTest<
     fun `count_returns_count_of_elements`() {
         transactionFactory().repeatableRead {
             val count = count(tableTest().a).`as`("aCount")
-            val from: From<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = select(count)
+            val from = select(count)
                 .from(tableTest())
             from
                 .execute()

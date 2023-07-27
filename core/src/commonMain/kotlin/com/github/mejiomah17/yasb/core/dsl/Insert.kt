@@ -2,19 +2,17 @@
 
 package com.github.mejiomah17.yasb.core.dsl
 
-import com.github.mejiomah17.yasb.core.SupportsInsertReturning
 import com.github.mejiomah17.yasb.core.SupportsInsertWithDefaultValue
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
-import com.github.mejiomah17.yasb.core.query.QueryPart
-import com.github.mejiomah17.yasb.core.query.QueryPartImpl
+import com.github.mejiomah17.yasb.core.query.Query
 
+// TODO extract interface
 class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
     private val columnsToValues: Map<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, List<Any?>>
-) {
+) : Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     private val size: Int = columnsToValues.values.first().size
 
     init {
@@ -23,7 +21,7 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
         }
     }
 
-    fun buildInsertQuery(): QueryPart<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    private val sqlToParams: Pair<String, List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>> by lazy {
         val columns = columnsToValues.keys.joinToString(",") { it.name }
         val valuesSql = StringBuilder()
         val parameters = mutableListOf<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>()
@@ -32,7 +30,7 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
                 column as Column<TABLE, Any, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
                 val value = values[i]
                 if (value is DefaultQueryPart) {
-                    DefaultQueryPart.sqlDefinition
+                    DefaultQueryPart.sql()
                 } else {
                     val parameter = column.databaseType.parameterFactory().invoke(value)
                     parameters.add(parameter)
@@ -46,26 +44,15 @@ class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_
                 valuesSql.appendLine(",")
             }
         }
-
-        return QueryPartImpl(
-            sqlDefinition = "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql,
-            parameters = parameters
-        )
+        "INSERT INTO ${table.tableName} ($columns) VALUES " + valuesSql to parameters
     }
-}
 
-class InsertWithReturn<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
-    private val insert: Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    private val returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-) {
-    fun buildInsertQuery(): QueryForExecute<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        val query = insert.buildInsertQuery()
-        val returnExpressions = returning.expressions.map { it.build() }
-        return QueryForExecute(
-            sqlDefinition = query.sqlDefinition + " RETURNING ${returnExpressions.joinToString(", ") { it.sqlDefinition }}",
-            parameters = query.parameters + returnExpressions.flatMap { it.parameters },
-            returnExpressions = returning.expressions
-        )
+    override fun sql(): String {
+        return sqlToParams.first
+    }
+
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+        return sqlToParams.second
     }
 }
 
@@ -112,32 +99,10 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
     return Insert(table, columns)
 }
 
-context(SupportsInsertReturning)
-fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> insertInto(
-    table: TABLE,
-    returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) -> Unit
-): InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return InsertWithReturn(insertInto(table, block), returning)
-}
-
-/**
- * SupportInsertWithDefaultValue - [block] could skip column initialization.
- * Yasb asks database use default value for skipped columns. Consequently, database should support default values
- */
-context(SupportsInsertWithDefaultValue, SupportsInsertReturning)
-fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, E> insertInto(
-    table: TABLE,
-    returning: Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    source: Iterable<E>,
-    block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, E) -> Unit
-): InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return InsertWithReturn(insertInto(table, source, block), returning)
-}
-
-class InsertContext<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+class InsertContext<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
+    TableEditContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     internal val columns = mutableMapOf<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, Any?>()
-    operator fun <V> set(column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, value: V) {
+    override operator fun <V> set(column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, value: V) {
         columns[column] = value
     }
 }

@@ -2,27 +2,18 @@ package com.github.mejiomah17.yasb.core.transaction
 
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.ddl.Table
-import com.github.mejiomah17.yasb.core.dsl.Insert
-import com.github.mejiomah17.yasb.core.dsl.InsertWithReturn
-import com.github.mejiomah17.yasb.core.dsl.SelectQuery
-import com.github.mejiomah17.yasb.core.dsl.Update
+import com.github.mejiomah17.yasb.core.query.Query
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 interface Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
 
-    fun SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row>
+    fun Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute()
 
-    fun SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows
-
-    fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute()
-
-    fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> Update<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute()
-
-    fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows
-
-    fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> InsertWithReturn<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row> {
+    fun ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row> {
         return lazy().use { it.toList() }
     }
+
+    fun ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows
 }
 
 interface TransactionAtLeastReadUncommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :

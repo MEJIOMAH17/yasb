@@ -2,6 +2,7 @@ package com.github.mejiomah17.yasb.sqlite.jdbc
 
 import com.github.mejiomah17.yasb.core.ddl.Column
 import com.github.mejiomah17.yasb.sqlite.SqliteTable
+import com.github.mejiomah17.yasb.sqlite.jdbc.type.BlobDatabaseType
 import com.github.mejiomah17.yasb.sqlite.jdbc.type.BooleanDatabaseType
 import com.github.mejiomah17.yasb.sqlite.jdbc.type.LongDatabaseType
 import com.github.mejiomah17.yasb.sqlite.jdbc.type.TextDatabaseType
@@ -23,6 +24,14 @@ interface SqliteJdbcTable<T : SqliteJdbcTable<T>> : SqliteTable<T, ResultSet, Pr
 
     override fun boolNullable(name: String): Column<T, Boolean?, ResultSet, PreparedStatement> {
         return registerNullable(Column(name, this as T, BooleanDatabaseType))
+    }
+
+    override fun blob(name: String): Column<T, ByteArray, ResultSet, PreparedStatement> {
+        return register(Column(name, this as T, BlobDatabaseType))
+    }
+
+    override fun blobNullable(name: String): Column<T, ByteArray?, ResultSet, PreparedStatement> {
+        return registerNullable(Column(name, this as T, BlobDatabaseType))
     }
 
     override fun long(name: String): Column<T, Long, ResultSet, PreparedStatement> {

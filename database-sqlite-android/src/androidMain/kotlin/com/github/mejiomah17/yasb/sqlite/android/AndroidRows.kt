@@ -3,12 +3,14 @@ package com.github.mejiomah17.yasb.sqlite.android
 import android.database.Cursor
 import com.github.mejiomah17.yasb.core.Row
 import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.query.QueryForExecute
+import com.github.mejiomah17.yasb.core.query.ReturningQuery
+import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
 
 class AndroidRows(
     val cursor: Cursor,
-    private val queryForExecute: QueryForExecute<Cursor, (String) -> Unit>
+    private val returningQuery: ReturningQuery<Cursor, AndroidSqliteDriverStatement>
 ) : Rows {
+
     override fun iterator(): Iterator<Row> {
         return object : Iterator<Row> {
             private var rowConsumed = true
@@ -25,7 +27,7 @@ class AndroidRows(
                 // call for side effect resultSet.next()
                 hasNext()
                 return Row(
-                    queryForExecute.returnExpressions.mapIndexed { index, expression ->
+                    returningQuery.returnExpressions().mapIndexed { index, expression ->
                         expression to expression.databaseType().extractFromSource(cursor, index)
                     }.toMap()
                 ).also {

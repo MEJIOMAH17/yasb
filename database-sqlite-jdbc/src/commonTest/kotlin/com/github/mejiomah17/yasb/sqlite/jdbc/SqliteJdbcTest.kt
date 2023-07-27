@@ -28,7 +28,10 @@ abstract class SqliteJdbcTest {
                         """
                             CREATE TABLE test(
                                a string DEFAULT NULL,
-                               b string DEFAULT NULL
+                               b string DEFAULT NULL,
+                               c bigint DEFAULT NULL,
+                               d boolean DEFAULT NULL,
+                               e blob DEFAULT NULL
                             )
                         """.trimIndent()
                     )
