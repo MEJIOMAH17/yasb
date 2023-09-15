@@ -7,9 +7,9 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object BlobDatabaseType : JDBCDatabaseType<ByteArray> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): ByteArray? {
-        return resultSet.getNullable {
-            resultSet.getBytes(index)
+    override fun extractFromSource(source: ResultSet, index: Int): ByteArray? {
+        return source.getNullable {
+            source.getBytes(index)
         }
     }
 

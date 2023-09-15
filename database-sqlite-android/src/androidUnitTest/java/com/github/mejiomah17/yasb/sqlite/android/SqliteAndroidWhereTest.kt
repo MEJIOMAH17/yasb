@@ -7,6 +7,4 @@ import com.github.mejiomah17.yasb.sqlite.android.transaction.AndroidSerializable
 
 class SqliteAndroidWhereTest :
     SqliteAndroidTest(),
-    SqliteWhereTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl> {
-
-}
+    SqliteWhereTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>

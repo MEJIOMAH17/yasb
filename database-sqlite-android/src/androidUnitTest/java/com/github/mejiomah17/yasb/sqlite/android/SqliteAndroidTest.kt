@@ -31,7 +31,7 @@ abstract class SqliteAndroidTest {
                     DROP TABLE IF EXISTS FIRST;
                     DROP TABLE IF EXISTS SECOND;
                     DROP TABLE IF EXISTS THIRD;
-            """.trimIndent().split("\n").forEach {
+        """.trimIndent().split("\n").forEach {
             db.execSQL(it)
         }
         listOf(
@@ -43,25 +43,25 @@ abstract class SqliteAndroidTest {
                                d boolean DEFAULT NULL,
                                e blob DEFAULT NULL
                             )
-                """.trimIndent(),
+            """.trimIndent(),
             """
                             CREATE TABLE FIRST(
                                A string,
                                B string
                             );
-                """.trimIndent(),
+            """.trimIndent(),
             """
                             CREATE TABLE SECOND(
                                A string,
                                B string
                             );
-                """.trimIndent(),
+            """.trimIndent(),
             """
                             CREATE TABLE THIRD(
                                A string,
                                B string
                             );
-                """.trimIndent()
+            """.trimIndent()
         ).forEach {
             db.execSQL(it)
         }

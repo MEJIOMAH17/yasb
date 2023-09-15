@@ -50,18 +50,18 @@ internal class YasbSQLiteDirectCursorDriver(
         val clazz = SQLiteQuery::class.java
         val query = clazz.declaredConstructors.first {
             it.parameterTypes.size == 3 &&
-                    it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
-                    it.parameterTypes[1].isAssignableFrom(String::class.java) &&
-                    it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
+                it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
+                it.parameterTypes[1].isAssignableFrom(String::class.java) &&
+                it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
         }.newInstance(mDatabase, mSql, mCancellationSignal) as SQLiteQuery
         val cursor: Cursor
         cursor = try {
-            //<editor-fold desc="original SQLiteDirectCursorDriver invokes query.bindAllArgsAsStrings(selectionArgs);">
+            // <editor-fold desc="original SQLiteDirectCursorDriver invokes query.bindAllArgsAsStrings(selectionArgs);">
             val statement = AndroidSqliteDriverStatementImpl(query)
             params.forEachIndexed { i, it ->
                 it.applyToStatement(statement, i + 1)
             }
-            //</editor-fold>
+            // </editor-fold>
 
             if (factory == null) {
                 SQLiteCursor(this, mEditTable, query)

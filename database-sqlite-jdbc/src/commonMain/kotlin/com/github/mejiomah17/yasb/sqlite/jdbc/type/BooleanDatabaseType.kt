@@ -7,9 +7,9 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object BooleanDatabaseType : JDBCDatabaseType<Boolean> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): Boolean? {
-        return resultSet.getNullable {
-            resultSet.getBoolean(index)
+    override fun extractFromSource(source: ResultSet, index: Int): Boolean? {
+        return source.getNullable {
+            source.getBoolean(index)
         }
     }
 

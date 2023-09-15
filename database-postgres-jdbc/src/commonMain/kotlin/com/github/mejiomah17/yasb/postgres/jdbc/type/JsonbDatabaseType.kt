@@ -7,8 +7,8 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object JsonbDatabaseType : JDBCDatabaseType<String> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): String? {
-        return resultSet.getString(index)
+    override fun extractFromSource(source: ResultSet, index: Int): String? {
+        return source.getString(index)
     }
 
     override fun parameterFactory(): (String?) -> Parameter<String, ResultSet, PreparedStatement> = ::JsonbParameter

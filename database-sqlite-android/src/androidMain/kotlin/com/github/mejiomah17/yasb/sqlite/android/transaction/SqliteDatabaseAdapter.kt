@@ -13,7 +13,7 @@ internal class SqliteDatabaseAdapter(
         sql: String,
         params: List<Parameter<*, Cursor, AndroidSqliteDriverStatement>>
     ): Cursor {
-        //<editor-fold desc="SQLiteDatabase.rawQueryWithFactory">
+        // <editor-fold desc="SQLiteDatabase.rawQueryWithFactory">
         db.acquireReference()
         return try {
             val driver = YasbSQLiteDirectCursorDriver(
@@ -24,6 +24,6 @@ internal class SqliteDatabaseAdapter(
         } finally {
             db.releaseReference()
         }
-        //</editor-fold>
+        // </editor-fold>
     }
 }

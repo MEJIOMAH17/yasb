@@ -7,9 +7,9 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object DoublePrecisionDatabaseType : JDBCDatabaseType<Double> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): Double? {
-        return resultSet.getNullable {
-            resultSet.getDouble(index)
+    override fun extractFromSource(source: ResultSet, index: Int): Double? {
+        return source.getNullable {
+            source.getDouble(index)
         }
     }
 

@@ -12,10 +12,9 @@ kotlin {
                 api(project(":core"))
                 api(project(":database-sqlite"))
                 api(project(path = ":database-sqlite-aar", configuration = "default"))
-//                implementation(files("sqlite-android-3420000.aar"))
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(project(":database-sqlite-test-fixtures"))
                 implementation("androidx.test:runner:1.5.2")

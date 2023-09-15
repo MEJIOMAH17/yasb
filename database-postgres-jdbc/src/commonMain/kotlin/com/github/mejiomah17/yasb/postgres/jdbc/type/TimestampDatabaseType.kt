@@ -8,8 +8,8 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): Timestamp? {
-        return resultSet.getTimestamp(index)
+    override fun extractFromSource(source: ResultSet, index: Int): Timestamp? {
+        return source.getTimestamp(index)
     }
 
     override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet, PreparedStatement> =

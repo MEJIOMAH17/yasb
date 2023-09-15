@@ -3,6 +3,7 @@ package com.github.mejiomah17.yasb
 import Version
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.shouldBe
+import localProperties
 import org.junit.jupiter.api.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
@@ -42,6 +43,7 @@ class GeneratorPluginAndroidTest {
         return tempFolder {
             File(this::class.java.classLoader.getResource("sqlite/android").file)
                 .copyRecursively(this.root)
+            this.root.resolve("local.properties").writeText(localProperties)
             val buildFile = File(this.root, "app/build.gradle.kts")
             buildFile.writeText(
                 buildFile.readText()

@@ -12,12 +12,12 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface SqliteWhereTest<
-        TABLE : TestSqliteTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-        DRIVER_DATA_SOURCE,
-        DRIVER_STATEMENT,
-        DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-        TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-        > :
+    TABLE : TestSqliteTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    DRIVER_DATA_SOURCE,
+    DRIVER_STATEMENT,
+    DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    > :
     WhereTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
 
     override fun initSqlScripts(): List<String> {

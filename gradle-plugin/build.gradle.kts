@@ -17,14 +17,11 @@ dependencies {
 }
 tasks.withType<Test>() {
     useJUnitPlatform()
-    dependsOn(project(":database-sqlite").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database-sqlite-jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database-sqlite-generator").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database-postgres").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":database-postgres-jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core-jdbc").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":core").tasks.getByName("publishToMavenLocal"))
-    dependsOn(project(":gradle-plugin-generator").tasks.getByName("publishToMavenLocal"))
+    rootProject.subprojects.forEach {
+        it.tasks.findByName("publishToMavenLocal")?.also { publish ->
+            dependsOn(publish)
+        }
+    }
 }
 version = rootProject.version
 gradlePlugin {
@@ -51,8 +48,19 @@ val generateVersion = tasks.register("generateVersion") {
         )
     }
 }
+
+val generateLocalProperties = tasks.register("generateLocalProperties") {
+    doLast {
+        generated.resolve("LocalProperties.kt").writeText(
+            """
+            val localProperties = ""${'"'} ${rootProject.rootDir.resolve("local.properties").readText()}""${'"'}
+            """.trimIndent().trim()
+        )
+    }
+}
 tasks.withType<KotlinCompile>() {
     dependsOn(generateVersion)
+    dependsOn(generateLocalProperties)
 }
 kotlin {
     this.sourceSets.main.get().kotlin.srcDir(generated)
@@ -60,4 +68,9 @@ kotlin {
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 tasks.withType<KotlinCompile>().all {
     this.kotlinOptions.jvmTarget = "11"
+}
+ktlint.filter {
+    exclude {
+        it.file.absolutePath.contains("generated")
+    }
 }

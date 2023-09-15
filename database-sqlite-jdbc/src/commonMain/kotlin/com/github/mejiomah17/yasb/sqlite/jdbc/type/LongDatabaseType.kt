@@ -7,9 +7,9 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object LongDatabaseType : JDBCDatabaseType<Long> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): Long? {
-        return resultSet.getNullable {
-            resultSet.getLong(index)
+    override fun extractFromSource(source: ResultSet, index: Int): Long? {
+        return source.getNullable {
+            source.getLong(index)
         }
     }
 
