@@ -26,10 +26,8 @@ tasks.withType<Test>() {
 version = rootProject.version
 gradlePlugin {
     plugins {
-        println("AAAAAAAAAAAAAAAAAAA $name")
         create(name) {
             id = "$group.$name"
-            println("BBBBBBBBBBBBBBBBBBB $group.$name")
             implementationClass = "com.github.mejiomah17.yasb.GeneratorPlugin"
         }
     }
