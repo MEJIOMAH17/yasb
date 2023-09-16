@@ -48,7 +48,7 @@ subprojects {
                     this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
                 }
                 if (project in mppProjectsWithJvmTarget) {
-                    mpp.jvm() {
+                    mpp.jvm {
                         val main by compilations.getting {
                             compilerOptions.configure {
                                 jvmTarget.set(JvmTarget.JVM_1_8)
@@ -71,30 +71,20 @@ fun Project.configureRepositories() {
 }
 
 fun Project.configurePublication() {
-    apply<MavenPublishPlugin>()
-    publishing {
-        repositories {
-            maven {
-                url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
-                credentials {
-                    val githubToken: String by project
-                    val githubUser: String by project
+        apply<MavenPublishPlugin>()
+        publishing {
+            repositories {
+                maven {
+                    url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
+                    credentials {
+                        val githubToken: String by project
+                        val githubUser: String by project
 
-                    username = githubUser
-                    password = githubToken
+                        username = githubUser
+                        password = githubToken
+                    }
                 }
             }
-        }
-        if (project in jvmProjects) {
-            java {
-                withSourcesJar()
-            }
-            publications {
-                create<MavenPublication>("maven") {
-                    from(components["java"])
-                }
-            }
-        }
     }
 }
 
