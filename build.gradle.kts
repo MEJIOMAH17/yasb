@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     kotlin("multiplatform") apply false
@@ -71,20 +72,64 @@ fun Project.configureRepositories() {
 
 fun Project.configurePublication() {
     apply<MavenPublishPlugin>()
+    apply<SigningPlugin>()
     publishing {
-        repositories {
-            maven {
-                url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
-                credentials {
-                    val githubToken: String by project
-                    val githubUser: String by project
+        val nexusUsername: String by project
+        publications {
+            configureEach {
+                if (this !is MavenPublication) return@configureEach
+                version = version.toString()
+                pom {
+                    // todo meaningful names
+                    name = "YASB ${project.name} module"
+                    url = "https://github.com/MEJIOMAH17/yasb"
+                    licenses {
+                        license {
+                            name = "MIT"
+                            url = "https://opensource.org/license/mit/"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = nexusUsername
+                            name = "Mark Epshtein"
+                            email = "epshteinme@gmail.com"
+                        }
+                    }
+                    scm {
+                        url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
+                        connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
+                        developerConnection = "https://github.com/MEJIOMAH17/yasb"
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    val releasesRepoUrl = URI.create("https://s01.oss.sonatype.org/service/local/")
+                    val snapshotsRepoUrl = URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                    name = "mavenCentral"
+                    url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 
-                    username = githubUser
-                    password = githubToken
+                    logger.lifecycle("Set publication repository for version $version to $url")
+
+                    val nexusToken: String by project
+                    credentials {
+                        username = nexusUsername
+                        password = nexusToken
+                    }
                 }
             }
         }
     }
+//    configure<SigningExtension>() {
+//        val signingKeyId = System.getenv("ORG_GRADLE_PROJECT_signingKeyId")
+//        val signingKey = System.getenv("ORG_GRADLE_PROJECT_signingKey")
+//        val signingPassword = System.getenv("ORG_GRADLE_PROJECT_signingKeyPassword")
+//        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+//        publishing.publications.configureEach {
+//            sign(this)
+//        }
+//    }
 }
 
 tasks.build.configure {
