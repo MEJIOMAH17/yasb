@@ -37,9 +37,8 @@ subprojects {
             this.kotlinOptions.jvmTarget = "1.8"
         }
     }
-    if (project in jvmProjects) {
-        apply<org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin>()
-    } else if (project in mppProjects) {
+
+    if (project in mppProjects) {
         project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
         project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
             val mpp = this
@@ -71,20 +70,20 @@ fun Project.configureRepositories() {
 }
 
 fun Project.configurePublication() {
-        apply<MavenPublishPlugin>()
-        publishing {
-            repositories {
-                maven {
-                    url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
-                    credentials {
-                        val githubToken: String by project
-                        val githubUser: String by project
+    apply<MavenPublishPlugin>()
+    publishing {
+        repositories {
+            maven {
+                url = uri("https://maven.pkg.github.com/MEJIOMAH17/yasb")
+                credentials {
+                    val githubToken: String by project
+                    val githubUser: String by project
 
-                        username = githubUser
-                        password = githubToken
-                    }
+                    username = githubUser
+                    password = githubToken
                 }
             }
+        }
     }
 }
 
