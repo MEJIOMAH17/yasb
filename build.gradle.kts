@@ -1,3 +1,4 @@
+import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
@@ -7,6 +8,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     java
     id("maven-publish")
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 buildscript {
     repositories {
@@ -31,6 +33,7 @@ val projectsWithPublication = subprojects - setOf(project(":core-test-fixtures")
 
 subprojects {
     apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
+    apply(plugin = "org.jetbrains.dokka")
     configureRepositories()
     if (!name().contains("generator")) {
         tasks.withType<KotlinCompile>().all {
@@ -43,6 +46,15 @@ subprojects {
         project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
         project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
             val mpp = this
+            if (project in mppProjectsWithJvmTarget) {
+                val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+                    val dokkaHtml = tasks.getByName<AbstractDokkaTask>("dokkaHtml")
+                    dependsOn(dokkaHtml)
+                    archiveAppendix.set("jvm")
+                    archiveClassifier.set("javadoc")
+                    from(dokkaHtml.outputDirectory)
+                }
+            }
             afterEvaluate {
                 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon>() {
                     this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
@@ -73,63 +85,72 @@ fun Project.configureRepositories() {
 fun Project.configurePublication() {
     apply<MavenPublishPlugin>()
     apply<SigningPlugin>()
-    publishing {
-        val nexusUsername: String by project
-        publications {
-            configureEach {
-                if (this !is MavenPublication) return@configureEach
-                version = version.toString()
-                pom {
-                    // todo meaningful names
-                    name = "YASB ${project.name} module"
-                    url = "https://github.com/MEJIOMAH17/yasb"
-                    licenses {
-                        license {
-                            name = "MIT"
-                            url = "https://opensource.org/license/mit/"
+    afterEvaluate {
+        publishing {
+            val nexusUsername: String by project
+            publications {
+                configureEach {
+                    if (this !is MavenPublication) return@configureEach
+                    if (name == "jvm") {
+                        artifact(tasks.getByName("javadocJar")) {
+                            classifier = "javadoc"
                         }
                     }
-                    developers {
-                        developer {
-                            id = nexusUsername
-                            name = "Mark Epshtein"
-                            email = "epshteinme@gmail.com"
+                    version = version.toString()
+                    pom {
+                        name = "An YASB ${project.name} module"
+                        description = name.get()
+                        url = "https://github.com/MEJIOMAH17/yasb"
+                        licenses {
+                            license {
+                                name = "MIT"
+                                url = "https://opensource.org/license/mit/"
+                            }
                         }
-                    }
-                    scm {
-                        url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
-                        connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
-                        developerConnection = "https://github.com/MEJIOMAH17/yasb"
+                        developers {
+                            developer {
+                                id = nexusUsername
+                                name = "Mark Epshtein"
+                                email = "epshteinme@gmail.com"
+                            }
+                        }
+                        scm {
+                            url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
+                            connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
+                            developerConnection = "https://github.com/MEJIOMAH17/yasb"
+                        }
                     }
                 }
-            }
-            repositories {
-                maven {
-                    val releasesRepoUrl = URI.create("https://s01.oss.sonatype.org/service/local/")
-                    val snapshotsRepoUrl = URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                    name = "mavenCentral"
-                    url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                repositories {
+                    maven {
+                        val releasesRepoUrl =
+                            URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                        val snapshotsRepoUrl =
+                            URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                        name = "mavenCentral"
+                        url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 
-                    logger.lifecycle("Set publication repository for version $version to $url")
+                        logger.lifecycle("Set publication repository for version $version to $url")
 
-                    val nexusToken: String by project
-                    credentials {
-                        username = nexusUsername
-                        password = nexusToken
+                        val nexusToken: String by project
+                        credentials {
+                            username = nexusUsername
+                            password = nexusToken
+                        }
                     }
                 }
             }
         }
+        configure<SigningExtension>() {
+            val signingKeyLocation: String by project
+            val secretKey = File(signingKeyLocation).readText()
+            val signingPassword: String by project
+            useInMemoryPgpKeys(secretKey, signingPassword)
+            publishing.publications.configureEach {
+                sign(this)
+            }
+        }
     }
-//    configure<SigningExtension>() {
-//        val signingKeyId = System.getenv("ORG_GRADLE_PROJECT_signingKeyId")
-//        val signingKey = System.getenv("ORG_GRADLE_PROJECT_signingKey")
-//        val signingPassword = System.getenv("ORG_GRADLE_PROJECT_signingKeyPassword")
-//        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-//        publishing.publications.configureEach {
-//            sign(this)
-//        }
-//    }
 }
 
 tasks.build.configure {

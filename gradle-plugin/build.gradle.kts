@@ -3,6 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `java-gradle-plugin`
     kotlin("jvm")
+    java
+}
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 dependencies {
     implementation(project(":gradle-plugin-generator-flyway"))
@@ -29,6 +34,8 @@ gradlePlugin {
         create(name) {
             id = "$group.$name"
             implementationClass = "com.github.mejiomah17.yasb.GeneratorPlugin"
+            displayName = "An YASB gradle plugin"
+            description = "An YASB gradle plugin for codegen"
         }
     }
 }
