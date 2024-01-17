@@ -29,10 +29,10 @@ fun Random.nextString(length: Int = 10): String {
         .joinToString("")
 }
 
-val yasbPluginDeclaration = """id("com.github.mejiomah17.yasb.gradle-plugin")"""
+val yasbPluginDeclaration = """id("io.github.mejiomah17.yasb")"""
 fun runBuild(dir: TemporaryFolder, command: String = "build") {
     GradleRunner.create()
         .withProjectDir(dir.root)
-        .withArguments(command, "--stacktrace")
+        .withArguments(command, "--stacktrace", "--info")
         .build()
 }

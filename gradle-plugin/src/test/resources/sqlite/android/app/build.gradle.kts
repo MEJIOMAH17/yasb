@@ -3,7 +3,7 @@ import com.github.mejiomah17.yasb.GenerateTablesTask
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.github.mejiomah17.yasb.gradle-plugin") version "<placeholder_version>"
+    id("io.github.mejiomah17.yasb") version "<placeholder_version>"
 }
 tasks.withType<GenerateTablesTask> {
     database = com.github.mejiomah17.yasb.Database.SqliteAndroid()
@@ -48,7 +48,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("com.google.android.material:material:1.5.0")
-    implementation("com.github.mejiomah17.yasb:database-sqlite-android:<placeholder_version>")
+    implementation("io.github.mejiomah17.yasb:database-sqlite-android:<placeholder_version>")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

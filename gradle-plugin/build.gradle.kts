@@ -32,7 +32,7 @@ version = rootProject.version
 gradlePlugin {
     plugins {
         create(name) {
-            id = "$group.$name"
+            id = "$group"
             implementationClass = "com.github.mejiomah17.yasb.GeneratorPlugin"
             displayName = "An YASB gradle plugin"
             description = "An YASB gradle plugin for codegen"

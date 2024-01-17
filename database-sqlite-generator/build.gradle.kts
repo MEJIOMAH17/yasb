@@ -6,7 +6,7 @@ kotlin {
             dependencies {
                 api(project(":database-sqlite"))
                 api(project(":gradle-plugin-generator"))
-                implementation("org.xerial:sqlite-jdbc:3.41.2.1")
+                implementation("org.xerial:sqlite-jdbc:3.44.1.0")
                 implementation(kotlin("stdlib"))
             }
         }

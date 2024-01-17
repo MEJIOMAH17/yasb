@@ -8,7 +8,7 @@ kotlin {
                 api(project(":gradle-plugin-generator"))
 
                 implementation(kotlin("stdlib"))
-                implementation("org.postgresql:postgresql:42.3.3")
+                implementation("org.postgresql:postgresql:42.7.1")
             }
         }
         val commonTest by getting {

@@ -32,8 +32,8 @@ class GeneratorPluginJdbcTest {
                 mavenCentral()
             }
             dependencies {
-                implementation("com.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${Version.yasbVersion}")
-                implementation("com.github.mejiomah17.yasb:database-sqlite-jdbc-jvm:${Version.yasbVersion}")
+                implementation("io.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${Version.yasbVersion}")
+                implementation("io.github.mejiomah17.yasb:database-sqlite-jdbc-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
                 database = ${db.gradleDeclaration}
@@ -81,8 +81,8 @@ class GeneratorPluginJdbcTest {
                 mavenCentral()
             }
             dependencies {
-                implementation("com.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${Version.yasbVersion}")
-                implementation("com.github.mejiomah17.yasb:database-sqlite-jdbc-jvm:${Version.yasbVersion}")
+                implementation("io.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${Version.yasbVersion}")
+                implementation("io.github.mejiomah17.yasb:database-sqlite-jdbc-jvm:${Version.yasbVersion}")
             }
             tasks.withType<GenerateTablesTask> {
                 database = ${db.gradleDeclaration}
