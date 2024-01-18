@@ -17,10 +17,10 @@ kotlin {
         val androidUnitTest by getting {
             dependencies {
                 implementation(project(":database-sqlite-test-fixtures"))
-                implementation("androidx.test:runner:1.5.2")
-                implementation("androidx.test:rules:1.5.0")
-                implementation("androidx.sqlite:sqlite:2.3.1")
-                implementation("io.kotest:kotest-assertions-core:5.0.2")
+                implementation(libs.androidx.test.runner)
+                implementation(libs.androidx.test.rules)
+                implementation(libs.androidx.sqlite)
+                implementation(libs.kotest.assertions.core)
             }
         }
     }
@@ -46,14 +46,4 @@ android {
 
 tasks.getByName("check") {
     dependsOn("connectedAndroidTest")
-}
-
-afterEvaluate {
-    publishing {
-        publications.withType<MavenPublication>().all {
-            if (artifactId.lastIndexOf("android") != artifactId.indexOf("android")) {
-                // artifactId = artifactId.replaceFirst("-android", "")
-            }
-        }
-    }
 }

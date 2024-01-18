@@ -6,8 +6,7 @@ import com.github.mejiomah17.yasb.core.query.ReturningQuery
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-// TODO INTERNAL
-class JdbcRows(
+internal class JdbcRows(
     private val preparedStatement: PreparedStatement,
     private val returningQuery: ReturningQuery<ResultSet, PreparedStatement>,
     private val resultSet: ResultSet

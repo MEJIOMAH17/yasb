@@ -6,7 +6,6 @@ import com.github.mejiomah17.yasb.dsl.generator.TableMetadataFactory
 import java.io.File
 import javax.sql.DataSource
 
-// todo test
 object FlywayGenerator {
 
     fun generate(

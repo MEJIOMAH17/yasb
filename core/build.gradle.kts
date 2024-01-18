@@ -4,14 +4,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("co.touchlab:stately-collections:1.2.5")
+                implementation(libs.stately.collections)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation("io.kotest:kotest-assertions-core:5.2.2")
-                implementation("junit:junit:4.13.2")
-                implementation("io.mockk:mockk:1.12.3")
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.junit)
+                implementation(libs.mockk)
             }
         }
     }

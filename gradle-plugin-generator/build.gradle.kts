@@ -11,9 +11,9 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                implementation("io.kotest:kotest-assertions-core:5.0.2")
-                implementation("junit:junit:4.13.2")
-                implementation("io.mockk:mockk:1.12.3")
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.junit)
+                implementation(libs.mockk)
             }
         }
     }

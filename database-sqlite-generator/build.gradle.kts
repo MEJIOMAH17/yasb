@@ -6,17 +6,17 @@ kotlin {
             dependencies {
                 api(project(":database-sqlite"))
                 api(project(":gradle-plugin-generator"))
-                implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+                implementation(libs.sqlite.jdbc)
                 implementation(kotlin("stdlib"))
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(project(":database-sqlite-jdbc"))
-                implementation("com.zaxxer:HikariCP:5.0.0")
-                implementation("io.kotest:kotest-assertions-core:5.0.2")
-                implementation("junit:junit:4.13.2")
-                implementation("io.mockk:mockk:1.12.3")
+                implementation(libs.hikaricp)
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.junit)
+                implementation(libs.mockk)
             }
         }
     }

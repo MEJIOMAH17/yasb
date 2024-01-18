@@ -129,9 +129,6 @@ fun Project.configurePublication() {
                             URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
                         name = "mavenCentral"
                         url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-
-                        logger.lifecycle("Set publication repository for version $version to $url")
-
                         val nexusToken: String by project
                         credentials {
                             username = nexusUsername
