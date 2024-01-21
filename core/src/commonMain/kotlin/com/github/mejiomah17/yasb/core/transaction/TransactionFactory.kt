@@ -3,6 +3,7 @@
 package com.github.mejiomah17.yasb.core.transaction
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
+import com.github.mejiomah17.yasb.core.Repeater
 
 interface TransactionFactory<
     DRIVER_DATA_SOURCE,
@@ -17,18 +18,24 @@ interface TransactionFactory<
     fun dialect(): DIALECT
 
     fun <V> readUncommitted(
-        block: context(DIALECT) TRANSACTION_READ_UNCOMMITTED.() -> V
+        repeater: Repeater<V> = defaultRepeater(),
+        block: context (DIALECT) TRANSACTION_READ_UNCOMMITTED.() -> V
     ): V
 
     fun <V> readCommitted(
+        repeater: Repeater<V> = defaultRepeater(),
         block: context(DIALECT) TRANSACTION_READ_COMMITTED.() -> V
     ): V
 
     fun <V> repeatableRead(
+        repeater: Repeater<V> = defaultRepeater(),
         block: context(DIALECT) TRANSACTION_REPEATABLE_READ.() -> V
     ): V
 
     fun <V> serializable(
+        repeater: Repeater<V> = defaultRepeater(),
         block: context(DIALECT) TRANSACTION_SERIALIZABLE.() -> V
     ): V
+
+    fun <V> defaultRepeater(): Repeater<V>
 }

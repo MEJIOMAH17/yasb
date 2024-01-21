@@ -1,6 +1,5 @@
-package com.github.mejiomah17.yasb.dsl
+package com.github.mejiomah17.yasb.core.dsl
 
-import com.github.mejiomah17.yasb.core.dsl.select
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.Test

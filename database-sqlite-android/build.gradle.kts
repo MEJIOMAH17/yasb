@@ -2,8 +2,9 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
 }
+
 kotlin {
-    android() {
+    androidTarget() {
         publishAllLibraryVariants()
     }
     sourceSets {
@@ -42,6 +43,7 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    this.sourceSets.names.forEach { println(it) }
 }
 
 tasks.getByName("check") {

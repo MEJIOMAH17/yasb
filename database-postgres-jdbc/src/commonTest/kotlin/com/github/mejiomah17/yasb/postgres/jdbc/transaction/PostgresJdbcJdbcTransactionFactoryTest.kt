@@ -42,8 +42,9 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return PostgresJdbcTransactionFactory(dataSource)
     }
 
-    override fun JdbcTransactionFactory<*>.callTransaction() {
-        this.readUncommitted {
+    override fun JdbcTransactionFactory<*>.callTransaction(block: () -> Any): Any {
+        return this.readUncommitted {
+            block()
         }
     }
 }

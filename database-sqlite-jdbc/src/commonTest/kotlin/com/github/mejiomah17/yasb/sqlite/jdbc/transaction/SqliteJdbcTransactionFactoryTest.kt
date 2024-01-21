@@ -33,8 +33,9 @@ class SqliteJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         return SqliteJdbcTransactionFactory(dataSource)
     }
 
-    override fun JdbcTransactionFactory<*>.callTransaction() {
-        this.readUncommitted {
+    override fun JdbcTransactionFactory<*>.callTransaction(block: () -> Any): Any {
+        return this.readUncommitted {
+            block()
         }
     }
 }
