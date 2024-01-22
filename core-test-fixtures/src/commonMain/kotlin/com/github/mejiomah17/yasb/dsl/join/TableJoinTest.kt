@@ -59,7 +59,6 @@ interface TableJoinTest<
     fun `builds_correct_query_for_inner_join_with_aliased_table`() {
         dialect().run {
             val secondTable = secondTable().`as`("xxx")
-            // TODO I should able invoke columns on table alias
             val joinColumnFromSecondTable = secondTable[secondTable().a]
             val query = select(firstTable().a, joinColumnFromSecondTable)
                 .from(firstTable())
