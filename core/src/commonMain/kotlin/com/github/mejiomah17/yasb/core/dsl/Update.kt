@@ -9,7 +9,6 @@ import com.github.mejiomah17.yasb.core.query.Query
 interface UpdateQuery<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 
-// TODO test
 internal class Update<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
     private val columnsToValues: Map<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, Any?>,
