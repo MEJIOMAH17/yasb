@@ -8,7 +8,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.ReturningQuery
 
 class Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
-    private val insert: Insert<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    private val insert: InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
 ) : ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
 
@@ -26,14 +26,14 @@ class Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
 }
 
 context(SupportsInsertReturning)
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Insert<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Returning(this, expressions)
 }
 
 context(SupportsInsertReturning)
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Insert<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     vararg expressions: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Returning(this, expressions.toList())

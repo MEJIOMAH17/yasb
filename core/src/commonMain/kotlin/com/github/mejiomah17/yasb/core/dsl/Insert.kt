@@ -8,11 +8,12 @@ import com.github.mejiomah17.yasb.core.ddl.Table
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 import com.github.mejiomah17.yasb.core.query.Query
 
-// TODO extract interface
-class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
+interface InsertQuery<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> : Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
+internal class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val table: TABLE,
     private val columnsToValues: Map<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, List<Any?>>
-) : Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+) : InsertQuery<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     private val size: Int = columnsToValues.values.first().size
 
     init {
@@ -65,7 +66,7 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
     table: TABLE,
     source: Iterable<E>,
     block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, E) -> Unit
-): Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): InsertQuery<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     val columns = mutableMapOf<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, MutableList<Any?>>()
     source.forEachIndexed { i, e ->
         val insertContext = InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>()
@@ -89,7 +90,7 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
 fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> insertInto(
     table: TABLE,
     block: TABLE.(InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>) -> Unit
-): Insert<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+): InsertQuery<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     val columns = mutableMapOf<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, List<Any?>>()
     val insertContext = InsertContext<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>()
     block(table, insertContext)
