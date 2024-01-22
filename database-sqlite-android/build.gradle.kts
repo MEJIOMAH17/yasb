@@ -15,7 +15,7 @@ kotlin {
                 api(project(path = ":database-sqlite-aar", configuration = "default"))
             }
         }
-        val androidUnitTest by getting {
+        val androidInstrumentedTest by getting {
             dependencies {
                 implementation(project(":database-sqlite-test-fixtures"))
                 implementation(libs.androidx.test.runner)
@@ -28,10 +28,9 @@ kotlin {
 }
 android {
     namespace = "com.example.namespace"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 26
-        targetSdk = 33
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -43,7 +42,6 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    this.sourceSets.names.forEach { println(it) }
 }
 
 tasks.getByName("check") {
