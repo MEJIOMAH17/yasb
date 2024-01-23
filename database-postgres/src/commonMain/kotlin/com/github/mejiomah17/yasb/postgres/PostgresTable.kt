@@ -9,6 +9,8 @@ interface PostgresTable<TABLE : PostgresTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_
     Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     fun text(name: String): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     fun textNullable(name: String): Column<TABLE, String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun varchar(name: String): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    fun varcharNullable(name: String): Column<TABLE, String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     fun bool(name: String): Column<TABLE, Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 
     fun boolNullable(name: String): Column<TABLE, Boolean?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
