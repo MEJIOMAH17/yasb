@@ -32,6 +32,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
+            library("awaitility", "org.awaitility:awaitility:4.2.0")
             library("stately-collections", "co.touchlab:stately-collections:2.0.6")
             library("kotest-assertions-core", "io.kotest:kotest-assertions-core:5.8.0")
             library("junit", "junit:junit:4.13.2")

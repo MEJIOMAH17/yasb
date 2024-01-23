@@ -12,12 +12,10 @@ import java.sql.ResultSet
 interface JdbcTransaction : Transaction<ResultSet, PreparedStatement> {
     val connection: Connection
 
-    // TODO test
     fun commit() {
         connection.commit()
     }
 
-    // TODO test
     fun rollback() {
         connection.rollback()
     }

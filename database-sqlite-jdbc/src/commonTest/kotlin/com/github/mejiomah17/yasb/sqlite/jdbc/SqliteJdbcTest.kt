@@ -9,6 +9,9 @@ import org.junit.AfterClass
 import org.junit.BeforeClass
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import java.util.UUID
+import kotlin.io.path.createTempFile
+import kotlin.io.path.pathString
 
 abstract class SqliteJdbcTest {
     companion object {
@@ -17,9 +20,12 @@ abstract class SqliteJdbcTest {
         @BeforeClass
         @JvmStatic
         fun init() {
+            val tmpFile = createTempFile(
+                UUID.randomUUID().toString()
+            ).pathString
             dataSource = HikariDataSource(
                 HikariConfig().also {
-                    it.jdbcUrl = "jdbc:sqlite:"
+                    it.jdbcUrl = "jdbc:sqlite:file:$tmpFile"
                 }
             )
             dataSource.connection.use {

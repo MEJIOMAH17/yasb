@@ -9,6 +9,7 @@ kotlin {
                 implementation(libs.kotest.assertions.core)
                 implementation(libs.junit)
                 implementation(libs.mockk)
+                implementation(libs.awaitility)
             }
         }
     }
