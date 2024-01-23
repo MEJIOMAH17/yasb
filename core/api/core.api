@@ -1,0 +1,417 @@
+public abstract interface class com/github/mejiomah17/yasb/core/DatabaseDialect {
+	public abstract fun booleanType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public abstract fun longType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/DatabaseType {
+	public abstract fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public abstract fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/Repeater {
+	public static final field Companion Lcom/github/mejiomah17/yasb/core/Repeater$Companion;
+	public abstract fun repeat (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/core/Repeater$Companion {
+}
+
+public final class com/github/mejiomah17/yasb/core/Row {
+	public fun <init> (Ljava/util/Map;)V
+	public final fun get (Lcom/github/mejiomah17/yasb/core/expression/Expression;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/Rows : java/io/Closeable, kotlin/sequences/Sequence {
+	public abstract fun close ()V
+	public abstract fun iterator ()Ljava/util/Iterator;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SelectionSource : com/github/mejiomah17/yasb/core/query/QueryPart {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SupportsFullJoin {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SupportsInsertReturning {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SupportsInsertWithDefaultValue {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SupportsLimit {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/SupportsRightJoin {
+}
+
+public final class com/github/mejiomah17/yasb/core/WhereKt {
+	public static final fun where (Lcom/github/mejiomah17/yasb/core/dsl/DeleteFromQuery;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/DeleteWhereQuery;
+	public static final fun where (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/SelectWhereQuery;
+}
+
+public final class com/github/mejiomah17/yasb/core/ddl/Column : com/github/mejiomah17/yasb/core/expression/AliasableExpression, com/github/mejiomah17/yasb/core/expression/ExpressionForCondition {
+	public fun <init> (Ljava/lang/String;Lcom/github/mejiomah17/yasb/core/ddl/Table;Lcom/github/mejiomah17/yasb/core/DatabaseType;)V
+	public fun databaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public final fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getTable ()Lcom/github/mejiomah17/yasb/core/ddl/Table;
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/ddl/Table : com/github/mejiomah17/yasb/core/SelectionSource {
+	public abstract fun allColumns ()Ljava/util/List;
+	public abstract fun getTableName ()Ljava/lang/String;
+	public abstract fun parameters ()Ljava/util/List;
+	public abstract fun register (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun registerNullable (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/ddl/Table$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/core/ddl/Table;)Ljava/util/List;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/core/ddl/Table;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/core/ddl/Table;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/core/ddl/Table;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/core/ddl/Table;)Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/ConditionContext {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/ConditionContextKt {
+	public static final fun and (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun eq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun eq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun eq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Object;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greater (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greater (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greater (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Object;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greaterEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greaterEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun greaterEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Object;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun inList (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Iterable;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun inListParameters (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Iterable;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun less (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun less (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun less (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Object;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun lessEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun lessEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun lessEq (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/Object;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun like (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/parameter/Parameter;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun like (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public static final fun or (Lcom/github/mejiomah17/yasb/core/dsl/ConditionContext;Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;Lcom/github/mejiomah17/yasb/core/expression/ExpressionForCondition;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/Count : com/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/expression/Expression;Lcom/github/mejiomah17/yasb/core/DatabaseType;)V
+	public fun databaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/CountKt {
+	public static final fun count (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/dsl/Count;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/Delete : com/github/mejiomah17/yasb/core/query/QueryPart {
+	public fun <init> ()V
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/DeleteFromQuery : com/github/mejiomah17/yasb/core/dsl/FromQuery {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/DeleteKt {
+	public static final fun delete ()Lcom/github/mejiomah17/yasb/core/dsl/Delete;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/DeleteWhereQuery : com/github/mejiomah17/yasb/core/dsl/WhereQuery {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/FromKt {
+	public static final fun from (Lcom/github/mejiomah17/yasb/core/dsl/Delete;Lcom/github/mejiomah17/yasb/core/SelectionSource;)Lcom/github/mejiomah17/yasb/core/dsl/DeleteFromQuery;
+	public static final fun from (Lcom/github/mejiomah17/yasb/core/dsl/Select;Lcom/github/mejiomah17/yasb/core/SelectionSource;)Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/FromQuery : com/github/mejiomah17/yasb/core/query/Query {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/GroupBy : com/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery {
+	public fun parameters ()Ljava/util/List;
+	public fun returnExpressions ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/GroupByKt {
+	public static final fun groupBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Ljava/util/List;)Lcom/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery;
+	public static final fun groupBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;[Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery;
+	public static final fun groupBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectWhereQuery;Ljava/util/List;)Lcom/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery;
+	public static final fun groupBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectWhereQuery;[Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/GroupByQuery {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery : com/github/mejiomah17/yasb/core/dsl/GroupByQuery, com/github/mejiomah17/yasb/core/dsl/SelectQuery {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/InsertContext : com/github/mejiomah17/yasb/core/dsl/TableEditContext {
+	public fun <init> ()V
+	public fun set (Lcom/github/mejiomah17/yasb/core/ddl/Column;Ljava/lang/Object;)V
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/InsertKt {
+	public static final fun insertInto (Lcom/github/mejiomah17/yasb/core/SupportsInsertWithDefaultValue;Lcom/github/mejiomah17/yasb/core/ddl/Table;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Lcom/github/mejiomah17/yasb/core/dsl/InsertQuery;
+	public static final fun insertInto (Lcom/github/mejiomah17/yasb/core/ddl/Table;Lkotlin/jvm/functions/Function2;)Lcom/github/mejiomah17/yasb/core/dsl/InsertQuery;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/InsertQuery : com/github/mejiomah17/yasb/core/query/Query {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/Limit : com/github/mejiomah17/yasb/core/dsl/SelectQuery {
+	public fun parameters ()Ljava/util/List;
+	public fun returnExpressions ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/LimitKt {
+	public static final fun limit (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/SupportsLimit;Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;I)Lcom/github/mejiomah17/yasb/core/dsl/Limit;
+	public static final fun limit (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/SupportsLimit;Lcom/github/mejiomah17/yasb/core/dsl/SelectWhereQuery;I)Lcom/github/mejiomah17/yasb/core/dsl/Limit;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/Returning : com/github/mejiomah17/yasb/core/query/ReturningQuery {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/dsl/InsertQuery;Ljava/util/List;)V
+	public fun parameters ()Ljava/util/List;
+	public fun returnExpressions ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/ReturningKt {
+	public static final fun returning (Lcom/github/mejiomah17/yasb/core/SupportsInsertReturning;Lcom/github/mejiomah17/yasb/core/dsl/InsertQuery;Ljava/util/List;)Lcom/github/mejiomah17/yasb/core/dsl/Returning;
+	public static final fun returning (Lcom/github/mejiomah17/yasb/core/SupportsInsertReturning;Lcom/github/mejiomah17/yasb/core/dsl/InsertQuery;[Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/dsl/Returning;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/Select : com/github/mejiomah17/yasb/core/dsl/SelectQuery {
+	public fun <init> (Ljava/util/List;)V
+	public fun parameters ()Ljava/util/List;
+	public fun returnExpressions ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectFromQuery : com/github/mejiomah17/yasb/core/dsl/FromQuery, com/github/mejiomah17/yasb/core/dsl/SelectQuery {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/SelectKt {
+	public static final fun select (Ljava/util/List;)Lcom/github/mejiomah17/yasb/core/dsl/Select;
+	public static final fun select ([Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/dsl/Select;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectQuery : com/github/mejiomah17/yasb/core/query/ReturningQuery {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectWhereQuery : com/github/mejiomah17/yasb/core/dsl/SelectQuery, com/github/mejiomah17/yasb/core/dsl/WhereQuery {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/TableEditContext {
+	public abstract fun set (Lcom/github/mejiomah17/yasb/core/ddl/Column;Ljava/lang/Object;)V
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/UpdateContext : com/github/mejiomah17/yasb/core/dsl/TableEditContext {
+	public fun <init> ()V
+	public fun set (Lcom/github/mejiomah17/yasb/core/ddl/Column;Ljava/lang/Object;)V
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/UpdateKt {
+	public static final fun update (Lcom/github/mejiomah17/yasb/core/ddl/Table;Lkotlin/jvm/functions/Function2;)Lcom/github/mejiomah17/yasb/core/dsl/UpdateQuery;
+	public static final fun update (Lcom/github/mejiomah17/yasb/core/ddl/Table;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/UpdateQuery;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/UpdateQuery : com/github/mejiomah17/yasb/core/query/Query {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/WhereQuery : com/github/mejiomah17/yasb/core/query/Query {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/ExpressionAlias : com/github/mejiomah17/yasb/core/expression/Expression {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/expression/AliasableExpression;Ljava/lang/String;)V
+	public fun databaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public final fun getName ()Ljava/lang/String;
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/ExpressionAliasKt {
+	public static final fun as (Lcom/github/mejiomah17/yasb/core/expression/AliasableExpression;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/dsl/alias/ExpressionAlias;
+	public static final fun as (Lcom/github/mejiomah17/yasb/core/parameter/Parameter;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/dsl/alias/ExpressionAlias;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/SelectQueryAlias : com/github/mejiomah17/yasb/core/SelectionSource {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/dsl/SelectQuery;Ljava/lang/String;)V
+	public final fun get (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public final fun get (Lcom/github/mejiomah17/yasb/core/dsl/alias/ExpressionAlias;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getQuery ()Lcom/github/mejiomah17/yasb/core/dsl/SelectQuery;
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/SelectQueryAliasKt {
+	public static final fun as (Lcom/github/mejiomah17/yasb/core/dsl/SelectQuery;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/dsl/alias/SelectQueryAlias;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/TableAlias : com/github/mejiomah17/yasb/core/SelectionSource {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/ddl/Table;Ljava/lang/String;)V
+	public final fun get (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getTable ()Lcom/github/mejiomah17/yasb/core/ddl/Table;
+	public fun parameters ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/alias/TableAliasKt {
+	public static final fun as (Lcom/github/mejiomah17/yasb/core/ddl/Table;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/dsl/alias/TableAlias;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/join/JoinType : java/lang/Enum {
+	public static final field FULL Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+	public static final field INNER Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+	public static final field LEFT Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+	public static final field RIGHT Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+	public static fun values ()[Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/join/TableJoin : com/github/mejiomah17/yasb/core/dsl/SelectFromQuery {
+	public fun <init> (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lcom/github/mejiomah17/yasb/core/SelectionSource;Lcom/github/mejiomah17/yasb/core/dsl/join/JoinType;Lcom/github/mejiomah17/yasb/core/expression/Expression;)V
+	public fun parameters ()Ljava/util/List;
+	public fun returnExpressions ()Ljava/util/List;
+	public fun sql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/join/TableJoinKt {
+	public static final fun fullJoin (Lcom/github/mejiomah17/yasb/core/SupportsFullJoin;Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lcom/github/mejiomah17/yasb/core/SelectionSource;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;
+	public static final fun innerJoin (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lcom/github/mejiomah17/yasb/core/SelectionSource;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;
+	public static final fun leftJoin (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lcom/github/mejiomah17/yasb/core/SelectionSource;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;
+	public static final fun rightJoin (Lcom/github/mejiomah17/yasb/core/SupportsRightJoin;Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Lcom/github/mejiomah17/yasb/core/SelectionSource;Lkotlin/jvm/functions/Function1;)Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/expression/AliasableExpression : com/github/mejiomah17/yasb/core/expression/Expression {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/expression/AliasableExpressionForCondition : com/github/mejiomah17/yasb/core/expression/AliasableExpression, com/github/mejiomah17/yasb/core/expression/ExpressionForCondition {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/expression/Expression : com/github/mejiomah17/yasb/core/query/QueryPart {
+	public abstract fun databaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/expression/ExpressionForCondition : com/github/mejiomah17/yasb/core/expression/Expression {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/parameter/Parameter {
+	public abstract fun applyToStatement (Ljava/lang/Object;I)V
+	public abstract fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public abstract fun getParameterInSql ()Ljava/lang/String;
+	public abstract fun getValue ()Ljava/lang/Object;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/query/Query : com/github/mejiomah17/yasb/core/query/QueryPart {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/query/QueryPart {
+	public abstract fun parameters ()Ljava/util/List;
+	public abstract fun sql ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/query/ReturningQuery : com/github/mejiomah17/yasb/core/query/Query {
+	public abstract fun returnExpressions ()Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/Transaction {
+	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/Transaction$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/Transaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted : com/github/mejiomah17/yasb/core/transaction/Transaction {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastSerializable : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastSerializable$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionAtLeastSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionFactory {
+	public abstract fun defaultRepeater ()Lcom/github/mejiomah17/yasb/core/Repeater;
+	public abstract fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public abstract fun readCommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public abstract fun readUncommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public abstract fun repeatableRead (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public abstract fun serializable (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionFactory$DefaultImpls {
+	public static synthetic fun readCommitted$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun readUncommitted$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun repeatableRead$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun serializable$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionReadCommitted : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionReadCommitted$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionReadUncommitted : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionReadUncommitted$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionRepeatableRead : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionRepeatableRead$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionSerializable : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastSerializable {
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionSerializable$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/transaction/TransactionSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+}
+

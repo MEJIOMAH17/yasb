@@ -1,0 +1,75 @@
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/PostgresColumnMetadataFactory : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadataFactory {
+	public fun <init> ()V
+	public fun create (Ljava/lang/String;Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/dsl/generator/ColumnMetadata;
+}
+
+public class com/github/mejiomah17/yasb/postgres/jdbc/generator/PostgresTableMetadataFactory : com/github/mejiomah17/yasb/dsl/generator/TableMetadataFactory {
+	public fun <init> (Lcom/github/mejiomah17/yasb/dsl/generator/ColumnMetadataFactory;)V
+	public fun create (Ljava/sql/Connection;Ljava/lang/String;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/dsl/generator/TableMetadata;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/BigInt : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Bool : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/DoublePrecision : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Jsonb : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Jsonb;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Jsonb;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Jsonb;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Text : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Text;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Text;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Text;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Timestamp : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Timestamp;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Timestamp;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Timestamp;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Uuid : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Uuid;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Uuid;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Uuid;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/generator/column/Varchar : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Varchar;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Varchar;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/postgres/jdbc/generator/column/Varchar;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

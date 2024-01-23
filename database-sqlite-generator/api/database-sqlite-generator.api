@@ -1,0 +1,45 @@
+public final class com/github/mejiomah17/yasb/sqlite/generator/SqliteColumnMetadataFactory : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadataFactory {
+	public fun <init> ()V
+	public fun create (Ljava/lang/String;Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/dsl/generator/ColumnMetadata;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/generator/SqliteTableMetadataFactory : com/github/mejiomah17/yasb/dsl/generator/TableMetadataFactory {
+	public fun <init> (Ljava/lang/String;Lcom/github/mejiomah17/yasb/dsl/generator/ColumnMetadataFactory;)V
+	public fun create (Ljava/sql/Connection;Ljava/lang/String;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/dsl/generator/TableMetadata;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/generator/column/BigInt : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/sqlite/generator/column/BigInt;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/sqlite/generator/column/BigInt;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/sqlite/generator/column/BigInt;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/generator/column/Blob : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/generator/column/Bool : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/sqlite/generator/column/Bool;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/sqlite/generator/column/Bool;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/sqlite/generator/column/Bool;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/generator/column/Text : com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public fun <init> (Ljava/lang/String;Z)V
+	public fun columnDefinition ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/sqlite/generator/column/Text;
+	public static synthetic fun copy$default (Lcom/github/mejiomah17/yasb/sqlite/generator/column/Text;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/mejiomah17/yasb/sqlite/generator/column/Text;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

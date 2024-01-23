@@ -1,0 +1,32 @@
+public abstract class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactoryTest : com/github/mejiomah17/yasb/dsl/TransactionFactoryTest {
+	public fun <init> ()V
+	public fun retries_3_times_by_default ()V
+	public fun returns_value_from_transaction ()V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest {
+	public abstract fun commits_transaction ()V
+	public abstract fun commits_transaction_on_complete ()V
+	public abstract fun init ()V
+	public abstract fun rollbacks_transaction ()V
+	public abstract fun rollbacks_transaction_on_exception ()V
+	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
+	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactory;
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$DefaultImpls {
+	public static fun commits_transaction (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest;)V
+	public static fun commits_transaction_on_complete (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest;)V
+	public static fun init (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest;)V
+	public static fun rollbacks_transaction (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest;)V
+	public static fun rollbacks_transaction_on_exception (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest;)V
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$Thread : java/lang/Enum {
+	public static final field READER Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$Thread;
+	public static final field WRITER Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$Thread;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$Thread;
+	public static fun values ()[Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest$Thread;
+}
+

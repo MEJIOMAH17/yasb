@@ -1,0 +1,112 @@
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcDatabaseDialect : com/github/mejiomah17/yasb/core/SupportsFullJoin, com/github/mejiomah17/yasb/core/SupportsInsertReturning, com/github/mejiomah17/yasb/core/SupportsLimit, com/github/mejiomah17/yasb/core/SupportsRightJoin, com/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcDatabaseDialect;
+	public fun booleanType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun longType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable : com/github/mejiomah17/yasb/sqlite/SqliteTable {
+	public abstract fun blob (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun blobNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun long (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun longNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;)Ljava/util/List;
+	public static fun blob (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun blobNullable (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun bool (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun boolNullable (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun long (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun longNullable (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;)Ljava/lang/String;
+	public static fun text (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun textNullable (Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcTransactionFactory : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactory {
+	public fun <init> (Ljavax/sql/DataSource;)V
+	public synthetic fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public fun dialect ()Lcom/github/mejiomah17/yasb/sqlite/jdbc/SqliteJdbcDatabaseDialect;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/parameter/BlobParameter : com/github/mejiomah17/yasb/sqlite/jdbc/parameter/SqliteParameter {
+	public fun <init> ([B)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()[B
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/parameter/BooleanParameter : com/github/mejiomah17/yasb/sqlite/jdbc/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/Boolean;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public fun getValue ()Ljava/lang/Boolean;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/parameter/LongParameter : com/github/mejiomah17/yasb/sqlite/jdbc/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/Long;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public fun getValue ()Ljava/lang/Long;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public abstract class com/github/mejiomah17/yasb/sqlite/jdbc/parameter/SqliteParameter : com/github/mejiomah17/yasb/core/jdbc/parameter/JDBCParameter {
+	public fun <init> ()V
+	public fun getParameterInSql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/parameter/TextParameter : com/github/mejiomah17/yasb/sqlite/jdbc/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/type/BlobDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/jdbc/type/BlobDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)[B
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/type/BooleanDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/jdbc/type/BooleanDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/Boolean;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/type/LongDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/jdbc/type/LongDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/Long;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/jdbc/type/TextDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/jdbc/type/TextDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/String;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+

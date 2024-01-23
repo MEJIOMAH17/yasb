@@ -8,7 +8,7 @@ class PostgresColumnMetadataFactory : ColumnMetadataFactory {
     override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {
         return when (type) {
             "text" -> Text(name, nullable)
-            "varchar" -> Varchar(name,nullable)
+            "varchar" -> Varchar(name, nullable)
             "uuid" -> Uuid(name, nullable)
             "timestamp" -> Timestamp(name, nullable)
             "bool" -> Bool(name, nullable)

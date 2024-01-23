@@ -1,0 +1,140 @@
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType : com/github/mejiomah17/yasb/core/DatabaseType {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/parameter/JDBCParameter : com/github/mejiomah17/yasb/core/parameter/Parameter {
+	public abstract fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction : com/github/mejiomah17/yasb/core/transaction/Transaction {
+	public abstract fun commit ()V
+	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public abstract fun getConnection ()Ljava/sql/Connection;
+	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public abstract fun rollback ()V
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted, com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction, com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadUncommitted {
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted, com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastRepeatableRead {
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead, com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastSerializable {
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;)V
+}
+
+public abstract class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactory : com/github/mejiomah17/yasb/core/transaction/TransactionFactory {
+	public fun <init> (Ljavax/sql/DataSource;)V
+	public fun defaultRepeater ()Lcom/github/mejiomah17/yasb/core/Repeater;
+	public fun readCommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun readUncommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun repeatableRead (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun serializable (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted, com/github/mejiomah17/yasb/core/transaction/TransactionReadCommitted {
+	public static final field Companion Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted$Companion;
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted$Companion {
+	public final fun getJdbcLevel ()I
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadCommitted;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastReadUncommitted, com/github/mejiomah17/yasb/core/transaction/TransactionReadUncommitted {
+	public static final field Companion Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted$Companion;
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted$Companion {
+	public final fun getJdbcLevel ()I
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionReadUncommitted;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastRepeatableRead, com/github/mejiomah17/yasb/core/transaction/TransactionRepeatableRead {
+	public static final field Companion Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead$Companion;
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead$Companion {
+	public final fun getJdbcLevel ()I
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionRepeatableRead;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable, com/github/mejiomah17/yasb/core/transaction/TransactionSerializable {
+	public static final field Companion Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable$Companion;
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable$Companion {
+	public final fun getJdbcValue ()I
+}
+
+public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable$DefaultImpls {
+	public static fun commit (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public static fun rollback (Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionSerializable;)V
+}
+

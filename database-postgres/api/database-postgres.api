@@ -1,0 +1,30 @@
+public abstract interface class com/github/mejiomah17/yasb/postgres/PostgresTable : com/github/mejiomah17/yasb/core/ddl/Table {
+	public abstract fun bigint (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bigintNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun doublePrecision (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun doublePrecisionNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun jsonb (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun jsonbNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun timestamp (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun timestampNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun uuid (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun uuidNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun varchar (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun varcharNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/PostgresTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/postgres/PostgresTable;)Ljava/util/List;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/postgres/PostgresTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/postgres/PostgresTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/postgres/PostgresTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/postgres/PostgresTable;)Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/PostgresDatabaseDialect : com/github/mejiomah17/yasb/core/DatabaseDialect, com/github/mejiomah17/yasb/core/SupportsFullJoin, com/github/mejiomah17/yasb/core/SupportsInsertReturning, com/github/mejiomah17/yasb/core/SupportsInsertWithDefaultValue, com/github/mejiomah17/yasb/core/SupportsLimit, com/github/mejiomah17/yasb/core/SupportsRightJoin {
+}
+

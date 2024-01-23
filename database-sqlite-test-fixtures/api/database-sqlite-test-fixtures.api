@@ -1,0 +1,174 @@
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteCountTest : com/github/mejiomah17/yasb/dsl/CountTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteCountTest$DefaultImpls {
+	public static fun count_returns_count_of_elements (Lcom/github/mejiomah17/yasb/sqlite/SqliteCountTest;)V
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteCountTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteCountTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteCountTest;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteDeleteTest : com/github/mejiomah17/yasb/dsl/DeleteTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteDeleteTest$DefaultImpls {
+	public static fun deletes_everything (Lcom/github/mejiomah17/yasb/sqlite/SqliteDeleteTest;)V
+	public static fun deletes_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteDeleteTest;)V
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteDeleteTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteDeleteTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteDeleteTest;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteFromTest : com/github/mejiomah17/yasb/dsl/FromTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteFromTest$DefaultImpls {
+	public static fun from_creates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_creates_correct_sql_for_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_columns (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_columns_for_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_columns_for_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_correct_expressions (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_correct_expressions_for_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_correct_parameters (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_correct_sql_for_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun from_returns_parameter (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteFromTest;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteGroupByTest : com/github/mejiomah17/yasb/dsl/GroupByTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteGroupByTest$DefaultImpls {
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun groupBy_creates_correct_sql_for_from_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun groupBy_creates_correct_sql_for_where_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun groupBy_executes_after_where_expression (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun groupBy_grouping_values (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun groupBy_returns_correct_expressions (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteGroupByTest;)Ljava/util/List;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteInsertTest : com/github/mejiomah17/yasb/dsl/InsertWithReturningTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteInsertTest$DefaultImpls {
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)Ljava/util/List;
+	public static fun output_returns_values (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun output_returns_values_for_iterable_insert (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun select_values_after_insert (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun select_values_after_insert_collection (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun select_values_after_insert_collection_using_default (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun select_values_after_insert_in_different_transaction (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;)V
+	public static fun x (Lcom/github/mejiomah17/yasb/sqlite/SqliteInsertTest;Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest : com/github/mejiomah17/yasb/dsl/LimitTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest$DefaultImpls {
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)Ljava/util/List;
+	public static fun limit_1_return_single_record (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
+	public static fun limit_called_after_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
+	public static fun limit_generates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest : com/github/mejiomah17/yasb/dsl/join/TableJoinTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest$DefaultImpls {
+	public static fun builds_correct_query_for_full_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_full_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_full_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_inner_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_inner_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_inner_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_left_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_left_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_left_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_multiple_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_multiple_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_multiple_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_right_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_right_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun builds_correct_query_for_right_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)Ljava/util/List;
+	public static fun select_values_from_for_multiple_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_for_multiple_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_full_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_full_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_full_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_inner_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_inner_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_inner_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_left_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_left_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_left_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_multiple_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_right_join (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_right_join_with_aliased_table (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+	public static fun select_values_from_right_join_with_nested_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteUpdateTest : com/github/mejiomah17/yasb/dsl/UpdateTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteUpdateTest$DefaultImpls {
+	public static fun does_not_update_values_with_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)V
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)Ljava/util/List;
+	public static fun updates_values_with_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)V
+	public static fun updates_values_without_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteUpdateTest;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteWhereTest : com/github/mejiomah17/yasb/dsl/WhereTest {
+	public abstract fun initSqlScripts ()Ljava/util/List;
+	public abstract fun where_filters_query_by_blob_column ()V
+	public abstract fun where_filters_query_by_bool_column ()V
+	public abstract fun where_filters_query_by_long_column ()V
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteWhereTest$DefaultImpls {
+	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)Lcom/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect;
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)Ljava/util/List;
+	public static fun where_builds_correct_sql_for_column (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_builds_correct_sql_for_param (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_filters_query (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_filters_query_by_blob_column (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_filters_query_by_bool_column (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_filters_query_by_long_column (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_has_correct_parameters (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+	public static fun where_has_correct_returnExpressions (Lcom/github/mejiomah17/yasb/sqlite/SqliteWhereTest;)V
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/TestSqliteTable : com/github/mejiomah17/yasb/dsl/TestTable {
+	public abstract fun getC ()Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun getD ()Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun getE ()Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/TestSqliteTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/sqlite/TestSqliteTable;)Ljava/util/List;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/sqlite/TestSqliteTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/sqlite/TestSqliteTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/sqlite/TestSqliteTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/sqlite/TestSqliteTable;)Ljava/lang/String;
+}
+

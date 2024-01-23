@@ -1,0 +1,155 @@
+public abstract interface class com/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType : com/github/mejiomah17/yasb/core/DatabaseType {
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/AndroidRows : com/github/mejiomah17/yasb/core/Rows {
+	public fun <init> (Landroid/database/Cursor;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)V
+	public fun close ()V
+	public final fun getCursor ()Landroid/database/Cursor;
+	public fun iterator ()Ljava/util/Iterator;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidDatabaseDialect : com/github/mejiomah17/yasb/core/SupportsLimit, com/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidDatabaseDialect;
+	public fun booleanType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun longType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable : com/github/mejiomah17/yasb/sqlite/SqliteTable {
+	public abstract fun blob (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun blobNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun long (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun longNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;)Ljava/util/List;
+	public static fun blob (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun blobNullable (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun bool (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun boolNullable (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun long (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun longNullable (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;)Ljava/lang/String;
+	public static fun text (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun textNullable (Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/android/parameter/AndroidSqliteDriverStatement {
+	public abstract fun bindBlob (I[B)V
+	public abstract fun bindDouble (ID)V
+	public abstract fun bindLong (IJ)V
+	public abstract fun bindNull (I)V
+	public abstract fun bindString (ILjava/lang/String;)V
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/parameter/BlobParameter : com/github/mejiomah17/yasb/sqlite/android/parameter/SqliteParameter {
+	public fun <init> ([B)V
+	public fun applyToStatement (Lcom/github/mejiomah17/yasb/sqlite/android/parameter/AndroidSqliteDriverStatement;I)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()[B
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/parameter/BooleanParameter : com/github/mejiomah17/yasb/sqlite/android/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/Boolean;)V
+	public fun applyToStatement (Lcom/github/mejiomah17/yasb/sqlite/android/parameter/AndroidSqliteDriverStatement;I)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType;
+	public fun getValue ()Ljava/lang/Boolean;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/parameter/LongParameter : com/github/mejiomah17/yasb/sqlite/android/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/Long;)V
+	public fun applyToStatement (Lcom/github/mejiomah17/yasb/sqlite/android/parameter/AndroidSqliteDriverStatement;I)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType;
+	public fun getValue ()Ljava/lang/Long;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public abstract class com/github/mejiomah17/yasb/sqlite/android/parameter/SqliteParameter : com/github/mejiomah17/yasb/core/parameter/Parameter {
+	public fun <init> ()V
+	public fun getParameterInSql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/parameter/TextParameter : com/github/mejiomah17/yasb/sqlite/android/parameter/SqliteParameter {
+	public fun <init> (Ljava/lang/String;)V
+	public fun applyToStatement (Lcom/github/mejiomah17/yasb/sqlite/android/parameter/AndroidSqliteDriverStatement;I)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidSerializableTransactionImpl : com/github/mejiomah17/yasb/core/transaction/TransactionSerializable, com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction {
+	public fun <init> (Lorg/sqlite/database/sqlite/SQLiteDatabase;)V
+	public fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public fun execute (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public fun getDatabase ()Lorg/sqlite/database/sqlite/SQLiteDatabase;
+	public fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction : com/github/mejiomah17/yasb/core/transaction/Transaction {
+	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public abstract fun getDatabase ()Lorg/sqlite/database/sqlite/SQLiteDatabase;
+	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction$DefaultImpls {
+	public static fun execute (Lcom/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static fun execute (Lcom/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static fun lazy (Lcom/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransactionFactory : com/github/mejiomah17/yasb/core/transaction/TransactionFactory {
+	public fun <init> (Lorg/sqlite/database/sqlite/SQLiteDatabase;)V
+	public fun defaultRepeater ()Lcom/github/mejiomah17/yasb/core/Repeater;
+	public synthetic fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public fun dialect ()Lcom/github/mejiomah17/yasb/sqlite/android/SqliteAndroidDatabaseDialect;
+	public fun readCommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun readUncommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun repeatableRead (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun serializable (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/type/BlobDatabaseType : com/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/android/type/BlobDatabaseType;
+	public fun extractFromSource (Landroid/database/Cursor;I)[B
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/type/BooleanDatabaseType : com/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/android/type/BooleanDatabaseType;
+	public fun extractFromSource (Landroid/database/Cursor;I)Ljava/lang/Boolean;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/type/LongDatabaseType : com/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/android/type/LongDatabaseType;
+	public fun extractFromSource (Landroid/database/Cursor;I)Ljava/lang/Long;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/android/type/TextDatabaseType : com/github/mejiomah17/yasb/sqlite/android/AndroidDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/sqlite/android/type/TextDatabaseType;
+	public fun extractFromSource (Landroid/database/Cursor;I)Ljava/lang/String;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+

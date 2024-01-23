@@ -1,0 +1,177 @@
+public final class com/github/mejiomah17/yasb/core/parameter/TimestampParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/sql/Timestamp;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/sql/Timestamp;
+}
+
+public final class com/github/mejiomah17/yasb/core/parameter/UuidParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/util/UUID;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/util/UUID;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcDatabaseDialect : com/github/mejiomah17/yasb/sqlite/PostgresDatabaseDialect {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcDatabaseDialect;
+	public synthetic fun booleanType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun booleanType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun longType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun longType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable : com/github/mejiomah17/yasb/core/ddl/Table {
+	public abstract fun bigint (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bigintNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun doublePrecision (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun doublePrecisionNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun jsonb (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun jsonbNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun timestamp (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun timestampNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun uuid (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun uuidNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;)Ljava/util/List;
+	public static fun bigint (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun bigintNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun bool (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun boolNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun doublePrecision (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun doublePrecisionNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun jsonb (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun jsonbNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;)Ljava/lang/String;
+	public static fun text (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun textNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun timestamp (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun timestampNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun uuid (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun uuidNullable (Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTransactionFactory : com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactory {
+	public fun <init> (Ljavax/sql/DataSource;)V
+	public synthetic fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public fun dialect ()Lcom/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcDatabaseDialect;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/parameter/BooleanParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/lang/Boolean;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public fun getValue ()Ljava/lang/Boolean;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/parameter/DoubleParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/lang/Double;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public fun getValue ()Ljava/lang/Double;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/parameter/JsonbParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/parameter/LongParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/lang/Long;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public fun getValue ()Ljava/lang/Long;
+	public synthetic fun getValue ()Ljava/lang/Object;
+}
+
+public abstract class com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter : com/github/mejiomah17/yasb/core/jdbc/parameter/JDBCParameter {
+	public fun <init> ()V
+	public fun getParameterInSql ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/parameter/TextParameter : com/github/mejiomah17/yasb/postgres/jdbc/parameter/PostgresParameter {
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun applyToStatement (Ljava/lang/Object;I)V
+	public fun applyToStatement (Ljava/sql/PreparedStatement;I)V
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/DatabaseType;
+	public fun getDatabaseType ()Lcom/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType;
+	public synthetic fun getValue ()Ljava/lang/Object;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/BooleanDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/BooleanDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/Boolean;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/DoublePrecisionDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/DoublePrecisionDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/Double;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/JsonbDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/JsonbDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/String;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/LongDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/LongDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/Long;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/TextDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/TextDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/lang/String;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/TimestampDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/TimestampDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/sql/Timestamp;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+
+public final class com/github/mejiomah17/yasb/postgres/jdbc/type/UuidDatabaseType : com/github/mejiomah17/yasb/core/jdbc/JDBCDatabaseType {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/postgres/jdbc/type/UuidDatabaseType;
+	public synthetic fun extractFromSource (Ljava/lang/Object;I)Ljava/lang/Object;
+	public fun extractFromSource (Ljava/sql/ResultSet;I)Ljava/util/UUID;
+	public fun parameterFactory ()Lkotlin/jvm/functions/Function1;
+}
+

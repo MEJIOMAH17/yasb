@@ -1,0 +1,22 @@
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteDatabaseDialect : com/github/mejiomah17/yasb/core/DatabaseDialect, com/github/mejiomah17/yasb/core/SupportsLimit {
+}
+
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteTable : com/github/mejiomah17/yasb/core/ddl/Table {
+	public abstract fun blob (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun blobNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun long (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun longNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteTable$DefaultImpls {
+	public static fun allColumns (Lcom/github/mejiomah17/yasb/sqlite/SqliteTable;)Ljava/util/List;
+	public static fun parameters (Lcom/github/mejiomah17/yasb/sqlite/SqliteTable;)Ljava/util/List;
+	public static fun register (Lcom/github/mejiomah17/yasb/sqlite/SqliteTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun registerNullable (Lcom/github/mejiomah17/yasb/sqlite/SqliteTable;Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public static fun sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteTable;)Ljava/lang/String;
+}
+

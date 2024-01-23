@@ -1,0 +1,5 @@
+public final class com/github/mejiomah17/yasb/generator/flyway/FlywayGenerator {
+	public static final field INSTANCE Lcom/github/mejiomah17/yasb/generator/flyway/FlywayGenerator;
+	public final fun generate (Ljavax/sql/DataSource;Lcom/github/mejiomah17/yasb/dsl/generator/TableMetadataFactory;Ljava/io/File;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+}
+

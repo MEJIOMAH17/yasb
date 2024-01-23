@@ -1,0 +1,44 @@
+public abstract interface class com/github/mejiomah17/yasb/dsl/generator/ColumnMetadata {
+	public abstract fun columnDefinition ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/dsl/generator/ColumnMetadataFactory : java/io/Serializable {
+	public abstract fun create (Ljava/lang/String;Ljava/lang/String;Z)Lcom/github/mejiomah17/yasb/dsl/generator/ColumnMetadata;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/generator/GeneratedCode {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getFileName ()Ljava/lang/String;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/generator/ResultSetIterator : java/util/Iterator, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Ljava/sql/ResultSet;)V
+	public fun hasNext ()Z
+	public synthetic fun next ()Ljava/lang/Object;
+	public fun next ()Ljava/sql/ResultSet;
+	public fun remove ()V
+}
+
+public final class com/github/mejiomah17/yasb/dsl/generator/TableGenerator {
+	public fun <init> ()V
+	public final fun generateTable (Lcom/github/mejiomah17/yasb/dsl/generator/TableMetadata;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/dsl/generator/GeneratedCode;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/generator/TableMetadata {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public fun <init> (Ljava/lang/String;Lkotlin/reflect/KClass;Ljava/util/List;)V
+	public final fun getColumns ()Ljava/util/List;
+	public final fun getTableClassQualifiedName ()Ljava/lang/String;
+	public final fun getTableName ()Ljava/lang/String;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/dsl/generator/TableMetadataFactory : java/io/Serializable {
+	public abstract fun create (Ljava/sql/Connection;Ljava/lang/String;Ljava/lang/String;)Lcom/github/mejiomah17/yasb/dsl/generator/TableMetadata;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/generator/ToCamelCaseKt {
+	public static final fun toCamelCase (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun toPascalCase (Ljava/lang/String;)Ljava/lang/String;
+}
+

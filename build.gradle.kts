@@ -1,10 +1,12 @@
 import org.jetbrains.dokka.gradle.AbstractDokkaTask
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
 
 plugins {
     kotlin("multiplatform") apply false
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
     java
     id("maven-publish")
@@ -39,6 +41,7 @@ subprojects {
         tasks.withType<KotlinCompile>().all {
             this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
             this.kotlinOptions.jvmTarget = "1.8"
+            this.explicitApiMode.set(ExplicitApiMode.Strict)
         }
     }
 
