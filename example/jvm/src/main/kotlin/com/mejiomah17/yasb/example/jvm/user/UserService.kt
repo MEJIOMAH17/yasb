@@ -1,26 +1,27 @@
 package com.mejiomah17.yasb.example.jvm.user
 
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastReadCommitted
 import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastRepeatableRead
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
+import com.mejiomah17.yasb.example.jvm.pet.PetDao
 import java.util.*
 
 class UserService(
     private val userDao: UserDao,
+    private val petDao: PetDao
 ) {
     context(JdbcTransactionAtLeastRepeatableRead, PostgresJdbcDatabaseDialect)
     fun register(username: String, password: String): RegisterResult {
         if (userDao.exist(username)) {
             return RegisterResult.UserAlreadyExist
         }
-        val user = User(
+        val user = UserRecord(
             id = UUID.randomUUID(),
             username = username,
             password = hash(password)
         )
         userDao.create(user)
-        return RegisterResult.Registered(user)
+        return RegisterResult.Registered(User(user, emptyList()))
     }
 
     context(JdbcTransactionAtLeastRepeatableRead, PostgresJdbcDatabaseDialect)
@@ -28,7 +29,7 @@ class UserService(
         if (!userDao.exist(id)) {
             return UpdateResult.UserDoesNotExist
         }
-        val user = User(
+        val user = UserRecord(
             id = id,
             username = username,
             password = hash(password)
@@ -39,7 +40,14 @@ class UserService(
 
     context(JdbcTransactionAtLeastReadCommitted, PostgresJdbcDatabaseDialect)
     fun find(id: UUID): User? {
-       return userDao.findById(id)
+        val user = userDao.findById(id) ?: return null
+        val pets = petDao.findByOwner(user.id)
+        return User(
+            id = user.id,
+            username = user.username,
+            password = user.password,
+            pets = pets
+        )
     }
 
     /**

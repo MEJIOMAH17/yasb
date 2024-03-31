@@ -1,14 +1,15 @@
 package com.mejiomah17.yasb.example.jvm.user
 
-import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
+import io.ktor.server.routing.post
+import io.ktor.server.routing.put
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.UUID
 
 class UserController(
@@ -69,9 +70,6 @@ class UserController(
     }
 
     private fun User.toJson(): String {
-        return buildJsonObject {
-            put("id", JsonPrimitive(id.toString()))
-            put("username", JsonPrimitive(username))
-        }.toString()
+        return Json.encodeToString(this)
     }
 }

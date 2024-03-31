@@ -5,13 +5,14 @@ import org.testcontainers.utility.DockerImageName
 plugins {
     kotlin("jvm")
     id("io.github.mejiomah17.yasb")
+    id("org.jetbrains.kotlin.plugin.serialization")
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 repositories {
     mavenCentral()
 }
-dependencies{
+dependencies {
     implementation(libs.yasb.postgres.jvm)
     implementation(libs.postgresql)
     implementation(libs.testcontainers.postgresql)
@@ -34,10 +35,12 @@ tasks.withType<GenerateTablesTask> {
     packageName = "com.github.mejiomah17.yasb"
     flywayMigrationDirs.add(projectDir.resolve("src/main/resources/db/migration"))
 }
-kotlin{
+kotlin {
     compilerOptions.freeCompilerArgs.add("-Xcontext-receivers")
 }
-
+project.tasks.getByName("runKtlintCheckOverMainSourceSet").mustRunAfter(
+    tasks.getByName("generateTables")
+)
 tasks.withType<Test> {
     useJUnitPlatform()
 }
