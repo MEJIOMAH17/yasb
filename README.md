@@ -2,6 +2,7 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yasb/core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yasb/core)
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Telegram](https://raw.githubusercontent.com/Patrolavia/telegram-badge/master/ask.svg)](https://t.me/MEJIOMAH17)
 
 **YASB** is a Kotlin-friendly DSL for building SQL queries, providing an intuitive and expressive way to interact with databases. It offers a range of features tailored for Kotlin developers, enabling seamless integration with various databases and explicit control over transactions and queries.
 
