@@ -233,7 +233,13 @@
 | Android | :x:                | :white_check_mark: |
 
 ### Versioning
-YASB uses [semver](https://github.com/semver/semver/blob/master/semver.md).
+In general YASB uses [semver](https://github.com/semver/semver/blob/master/semver.md).
+YASB version consist from four parts:
+1) Major - incompatible API changes
+2) Minor - new functionality in a backward compatible manner
+3) Patch - backward compatible bug fixes
+4) Kotlin compiler - YASB relies on experimental kotlin feature [Context receivers](https://github.com/Kotlin/KEEP/issues/259).
+Each YASB version ends with kotlin compiler version until Context receivers release. 
 
 ### Contributions
 Any contribution is highly welcome. Feel free to raise PR or issue.
