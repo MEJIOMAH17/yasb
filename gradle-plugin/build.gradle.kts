@@ -14,7 +14,6 @@ dependencies {
     implementation(project(":database-postgres-jdbc-generator"))
     implementation(project(":database-sqlite-generator"))
     implementation(libs.kotlin.gradle.plugin)
-    compileOnly(libs.android.application.gradle.plugin)
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.junit.jupiter)
