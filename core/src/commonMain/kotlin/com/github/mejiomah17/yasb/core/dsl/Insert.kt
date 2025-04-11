@@ -61,7 +61,7 @@ internal class Insert<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
  * SupportInsertWithDefaultValue - [block] could skip column initialization.
  * Yasb asks database use default value for skipped columns. Consequently, database should support default values
  */
-context(SupportsInsertWithDefaultValue)
+context(_: SupportsInsertWithDefaultValue)
 fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, E> insertInto(
     table: TABLE,
     source: Iterable<E>,

@@ -26,7 +26,7 @@ class Count<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     }
 }
 
-context (DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+context (dialect: DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> count(expression: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): Count<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return Count(expression, longType())
+    return Count(expression, dialect.longType())
 }

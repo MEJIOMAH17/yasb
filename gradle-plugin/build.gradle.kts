@@ -80,12 +80,12 @@ ktlint.filter {
         it.file.absolutePath.contains("generated")
     }
 }
-afterEvaluate {
-    publishing {
-        publications {
-            this.withType(MavenPublication::class.java) {
-                this.artifactId = project.group.toString() + ".gradle.plugin"
-            }
-        }
-    }
-}
+// afterEvaluate {
+//    publishing {
+//        publications {
+//            this.withType(MavenPublication::class.java) {
+//                this.artifactId = project.group.toString() + ".gradle.plugin"
+//            }
+//        }
+//    }
+// }

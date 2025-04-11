@@ -25,14 +25,14 @@ class Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     }
 }
 
-context(SupportsInsertReturning)
+context(_: SupportsInsertReturning)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Returning(this, expressions)
 }
 
-context(SupportsInsertReturning)
+context(_: SupportsInsertReturning)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     vararg expressions: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {

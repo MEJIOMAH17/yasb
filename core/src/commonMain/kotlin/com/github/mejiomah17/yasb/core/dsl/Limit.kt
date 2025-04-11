@@ -24,7 +24,7 @@ class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     }
 }
 
-context(DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, SupportsLimit)
+context(_: DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, _: SupportsLimit)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Limit(
         this,
@@ -32,7 +32,7 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, D
     )
 }
 
-context(DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, SupportsLimit)
+context(_: DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, _: SupportsLimit)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectWhereQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Limit(
         this,
