@@ -11,7 +11,7 @@ import java.sql.SQLException
 import javax.sql.DataSource
 
 abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedStatement>>(
-    private val datasource: DataSource
+    private val datasource: DataSource,
 ) : TransactionFactory<
         ResultSet,
         PreparedStatement,
@@ -19,54 +19,57 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
         JdbcTransactionReadUncommitted,
         JdbcTransactionReadCommitted,
         JdbcTransactionRepeatableRead,
-        JdbcTransactionSerializable
+        JdbcTransactionSerializable,
         > {
-
     override fun <V> readUncommitted(
         repeater: Repeater<V>,
-        block: context(D) JdbcTransactionReadUncommitted.() -> V
+        block: context(D)
+        JdbcTransactionReadUncommitted.() -> V,
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadUncommitted(it) },
             jdbcLevel = JdbcTransactionReadUncommitted.jdbcLevel,
             block = block,
-            repeater = repeater
+            repeater = repeater,
         )
     }
 
     override fun <V> readCommitted(
         repeater: Repeater<V>,
-        block: context(D) JdbcTransactionReadCommitted.() -> V
+        block: context(D)
+        JdbcTransactionReadCommitted.() -> V,
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionReadCommitted(it) },
             jdbcLevel = JdbcTransactionReadCommitted.jdbcLevel,
             block = block,
-            repeater = repeater
+            repeater = repeater,
         )
     }
 
     override fun <V> repeatableRead(
         repeater: Repeater<V>,
-        block: context(D) JdbcTransactionRepeatableRead.() -> V
+        block: context(D)
+        JdbcTransactionRepeatableRead.() -> V,
     ): V {
         return transaction(
             creator = { ImplJdbcTransactionRepeatableRead(it) },
             jdbcLevel = JdbcTransactionRepeatableRead.jdbcLevel,
             block = block,
-            repeater = repeater
+            repeater = repeater,
         )
     }
 
     override fun <V> serializable(
         repeater: Repeater<V>,
-        block: context(D) JdbcTransactionSerializable.() -> V
+        block: context(D)
+        JdbcTransactionSerializable.() -> V,
     ): V {
         return transaction(
             creator = { JdbcTransactionSerializableImpl(it) },
             jdbcLevel = JdbcTransactionSerializable.jdbcValue,
             block = block,
-            repeater = repeater
+            repeater = repeater,
         )
     }
 
@@ -77,22 +80,25 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
     private fun <T : JdbcTransaction, R> transaction(
         creator: (Connection) -> T,
         jdbcLevel: Int,
-        block: context(D) T.() -> R,
-        repeater: Repeater<R>
-    ): R = repeater.repeat {
-        datasource.connection.use { connection ->
-            connection.transactionIsolation = jdbcLevel
-            connection.autoCommit = false
-            try {
-                val result = dialect().run {
-                    block(dialect(), creator(connection))
+        block: context(D)
+        T.() -> R,
+        repeater: Repeater<R>,
+    ): R =
+        repeater.repeat {
+            datasource.connection.use { connection ->
+                connection.transactionIsolation = jdbcLevel
+                connection.autoCommit = false
+                try {
+                    val result =
+                        dialect().run {
+                            block(dialect(), creator(connection))
+                        }
+                    connection.commit()
+                    result
+                } catch (e: Exception) {
+                    connection.rollback()
+                    throw e
                 }
-                connection.commit()
-                result
-            } catch (e: Exception) {
-                connection.rollback()
-                throw e
             }
         }
-    }
 }

@@ -17,27 +17,30 @@ interface GroupByTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun groupBy_creates_correct_sql_for_from_query() {
-        val result = select(tableTest().a, parameter().`as`("p"))
-            .from(tableTest())
-            .groupBy(tableTest().a)
-            .sql()
+        val result =
+            select(tableTest().a, parameter().`as`("p"))
+                .from(tableTest())
+                .groupBy(tableTest().a)
+                .sql()
         result shouldBe "SELECT test.a, (?) AS p FROM test GROUP BY test.a"
     }
 
     @Test
-    fun groupBy_creates_correct_sql_for_where_query(): Unit = databaseDialect.run {
-        val result = select(tableTest().a, parameter().`as`("p"))
-            .from(tableTest())
-            .where { tableTest().a.eq("the a") }
-            .groupBy(tableTest().a)
-            .sql()
-        result shouldBe "SELECT test.a, (?) AS p FROM test WHERE test.a = ? GROUP BY test.a"
-    }
+    fun groupBy_creates_correct_sql_for_where_query(): Unit =
+        databaseDialect.run {
+            val result =
+                select(tableTest().a, parameter().`as`("p"))
+                    .from(tableTest())
+                    .where { tableTest().a.eq("the a") }
+                    .groupBy(tableTest().a)
+                    .sql()
+            result shouldBe "SELECT test.a, (?) AS p FROM test WHERE test.a = ? GROUP BY test.a"
+        }
 
     @Test
     fun `groupBy_returns_correct_expressions`() {
@@ -65,9 +68,10 @@ interface GroupByTest<
     @Test
     fun `groupBy_executes_after_where_expression`() {
         transactionFactory().repeatableRead {
-            val repeatingColumn = select(tableTest().a).from(tableTest())
-                .where { tableTest().a.eq("the a") }
-                .groupBy(tableTest().a).execute()
+            val repeatingColumn =
+                select(tableTest().a).from(tableTest())
+                    .where { tableTest().a.eq("the a") }
+                    .groupBy(tableTest().a).execute()
             repeatingColumn.shouldHaveSize(1)
             val row = repeatingColumn.single()
             row[tableTest().a] shouldBe "the a"

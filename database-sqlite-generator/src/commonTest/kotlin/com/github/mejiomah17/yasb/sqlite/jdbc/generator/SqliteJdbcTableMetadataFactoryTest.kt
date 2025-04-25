@@ -20,24 +20,25 @@ class SqliteJdbcTableMetadataFactoryTest {
         @BeforeClass
         @JvmStatic
         fun init() {
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = "jdbc:sqlite:"
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = "jdbc:sqlite:"
+                    },
+                )
             dataSource.connection.use {
                 it.createStatement().use {
                     it.execute(
                         """
-                            CREATE TABLE test(
-                               a text,
-                               b text NOT NULL,
-                               c bigint,
-                               d bigint NOT NULL,
-                               e bool,
-                               f bool NOT NULL
-                            );
-                        """.trimIndent()
+                        CREATE TABLE test(
+                           a text,
+                           b text NOT NULL,
+                           c bigint,
+                           d bigint NOT NULL,
+                           e bool,
+                           f bool NOT NULL
+                        );
+                        """.trimIndent(),
                     )
                 }
             }
@@ -53,19 +54,21 @@ class SqliteJdbcTableMetadataFactoryTest {
     @Test
     fun `creates_table_definition`() {
         dataSource.connection.use {
-            val table = SqliteTableMetadataFactory(
-                SqliteJdbcTable::class.qualifiedName!!,
-                SqliteColumnMetadataFactory()
-            ).create(it, "test", null)
+            val table =
+                SqliteTableMetadataFactory(
+                    SqliteJdbcTable::class.qualifiedName!!,
+                    SqliteColumnMetadataFactory(),
+                ).create(it, "test", null)
             table.tableName shouldBe "test"
-            table.columns shouldBe listOf(
-                Text("a", nullable = true),
-                Text("b", nullable = false),
-                BigInt("c", nullable = true),
-                BigInt("d", nullable = false),
-                Bool("e", nullable = true),
-                Bool("f", nullable = false)
-            )
+            table.columns shouldBe
+                listOf(
+                    Text("a", nullable = true),
+                    Text("b", nullable = false),
+                    BigInt("c", nullable = true),
+                    BigInt("d", nullable = false),
+                    Bool("e", nullable = true),
+                    Bool("f", nullable = false),
+                )
         }
     }
 }

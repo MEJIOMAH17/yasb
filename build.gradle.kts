@@ -1,15 +1,18 @@
+import org.gradle.kotlin.dsl.add
 import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     kotlin("multiplatform") apply false
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.17.0"
+//    id("org.jlleitschuh.gradle.ktlint") version "12.2.0" TODO uncomment after 2.2.0 support
     java
     id("maven-publish")
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.jetbrains.dokka") version "2.0.0"
 }
 buildscript {
     repositories {
@@ -33,20 +36,21 @@ val mppProjectsWithAndroidTarget = androidOnlyProjects
 val projectsWithPublication = subprojects - setOf(project(":core-test-fixtures"), project("core-jdbc-test-fixtures"))
 
 subprojects {
-    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
+//    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>() TODO uncomment after 2.2.0 support
     apply(plugin = "org.jetbrains.dokka")
     configureRepositories()
     if (!name().contains("generator")) {
+
         tasks.withType<KotlinCompile>().all {
-            this.kotlinOptions.freeCompilerArgs += "-Xcontext-parameters"
-            this.kotlinOptions.jvmTarget = "1.8"
-            this.explicitApiMode.set(ExplicitApiMode.Strict)
+            compilerOptions.jvmTarget.assign(JvmTarget.JVM_1_8)
+            compilerOptions.freeCompilerArgs.add("-Xcontext-parameters")
+            explicitApiMode.set(ExplicitApiMode.Strict)
         }
     }
 
     if (project in mppProjects) {
         project.apply(plugin = "org.jetbrains.kotlin.multiplatform")
-        project.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+        project.configure<KotlinMultiplatformExtension> {
             val mpp = this
             if (project in mppProjectsWithJvmTarget) {
                 val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
@@ -58,9 +62,6 @@ subprojects {
                 }
             }
             afterEvaluate {
-                tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon>() {
-                    this.kotlinOptions.freeCompilerArgs += "-Xcontext-receivers"
-                }
                 if (project in mppProjectsWithJvmTarget) {
                     mpp.jvm {
                         val main by compilations.getting {
@@ -70,13 +71,15 @@ subprojects {
                         }
                     }
                 }
+                mpp.compilerOptions.freeCompilerArgs.add("-Xcontext-parameters")
             }
         }
     }
     if (project in projectsWithPublication) {
-//        configurePublication()
+        configurePublication()
     }
 }
+
 fun Project.configureRepositories() {
     repositories {
         mavenCentral()
@@ -84,74 +87,80 @@ fun Project.configureRepositories() {
     }
 }
 
-// fun Project.configurePublication() {
-//    apply<MavenPublishPlugin>()
-//    apply<SigningPlugin>()
-//    afterEvaluate {
-//        publishing {
-//            val nexusUsername: String by project
-//            publications {
-//                configureEach {
-//                    if (this !is MavenPublication) return@configureEach
-//                    if (name == "jvm") {
-//                        artifact(tasks.getByName("javadocJar")) {
-//                            classifier = "javadoc"
-//                        }
-//                    }
-//                    version = version.toString()
-//                    pom {
-//                        name = "An YASB ${project.name} module"
-//                        description = name.get()
-//                        url = "https://github.com/MEJIOMAH17/yasb"
-//                        licenses {
-//                            license {
-//                                name = "MIT"
-//                                url = "https://opensource.org/license/mit/"
-//                            }
-//                        }
-//                        developers {
-//                            developer {
-//                                id = nexusUsername
-//                                name = "Mark Epshtein"
-//                                email = "epshteinme@gmail.com"
-//                            }
-//                        }
-//                        scm {
-//                            url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
-//                            connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
-//                            developerConnection = "https://github.com/MEJIOMAH17/yasb"
-//                        }
-//                    }
-//                }
-//                repositories {
-//                    maven {
-//                        val releasesRepoUrl =
-//                            URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-//                        val snapshotsRepoUrl =
-//                            URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-//                        name = "mavenCentral"
-//                        url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-//                        val nexusToken: String by project
-//                        credentials {
-//                            username = nexusUsername
-//                            password = nexusToken
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        configure<SigningExtension>() {
-//            val signingKeyLocation: String by project
-//            val secretKey = File(signingKeyLocation).readText()
-//            val signingPassword: String by project
-//            useInMemoryPgpKeys(secretKey, signingPassword)
-//            publishing.publications.configureEach {
-//                sign(this)
-//            }
-//        }
-//    }
-// }
+fun Project.configurePublication() {
+    apply<MavenPublishPlugin>()
+    apply<SigningPlugin>()
+    afterEvaluate {
+        val nexusUsername: String? = project.properties.getOrDefault("nexusUsername", null)?.toString()
+        val nexusToken: String? = project.properties.getOrDefault("nexusToken", null)?.toString()
+        publishing {
+            publications {
+                configureEach {
+                    if (this !is MavenPublication) return@configureEach
+                    if (name == "jvm") {
+                        artifact(tasks.getByName("javadocJar")) {
+                            classifier = "javadoc"
+                        }
+                    }
+                    version = version.toString()
+                    pom {
+                        name = "An YASB ${project.name} module"
+                        description = name.get()
+                        url = "https://github.com/MEJIOMAH17/yasb"
+                        licenses {
+                            license {
+                                name = "MIT"
+                                url = "https://opensource.org/license/mit/"
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = nexusUsername
+                                name = "Mark Epshtein"
+                                email = "epshteinme@gmail.com"
+                            }
+                        }
+                        scm {
+                            url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
+                            connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
+                            developerConnection = "https://github.com/MEJIOMAH17/yasb"
+                        }
+                    }
+                }
+                if (nexusToken != null && nexusUsername != null) {
+                    repositories {
+                        maven {
+                            val releasesRepoUrl =
+                                URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                            val snapshotsRepoUrl =
+                                URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                            name = "mavenCentral"
+                            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
 
-tasks.build.configure {
-    dependsOn(tasks.ktlintFormat)
+                            credentials {
+                                username = nexusUsername
+                                password = nexusToken
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(nexusUsername!=null){
+            configure<SigningExtension>() {
+                val signingKeyLocation: String by project
+                val secretKey = File(signingKeyLocation).readText()
+                val signingPassword: String by project
+                useInMemoryPgpKeys(secretKey, signingPassword)
+                publishing.publications.configureEach {
+                    sign(this)
+                }
+            }
+        }
+    }
 }
+
+// TODO uncomment after 2.2.0 support
+//tasks.build.configure {
+//    dependsOn(tasks.ktlintFormat)
+//}

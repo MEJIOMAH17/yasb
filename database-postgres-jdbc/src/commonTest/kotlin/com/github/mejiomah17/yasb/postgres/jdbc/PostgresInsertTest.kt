@@ -19,7 +19,7 @@ class PostgresInsertTest :
     PostgresTest() {
     override fun initSqlScripts(): List<String> {
         return listOf(
-            "TRUNCATE TABLE test"
+            "TRUNCATE TABLE test",
         )
     }
 
@@ -44,7 +44,7 @@ class PostgresInsertTest :
                     tableTest().b,
                     PostgresJdbcTestTable.c,
                     PostgresJdbcTestTable.d,
-                    PostgresJdbcTestTable.e
+                    PostgresJdbcTestTable.e,
                 )
                     .from(tableTest())
                     .execute()

@@ -18,22 +18,23 @@ class PostgresTableMetadataFactoryTest {
         fun init() {
             container = PostgresContainer()
             container.start()
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = container.jdbcUrl
-                    it.username = PostgresContainer.LOGIN
-                    it.password = PostgresContainer.PASSWORD
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = container.jdbcUrl
+                        it.username = PostgresContainer.LOGIN
+                        it.password = PostgresContainer.PASSWORD
+                    },
+                )
             dataSource.connection.use {
                 it.createStatement().use {
                     it.execute(
                         """
-                            CREATE TABLE test(
-                               a text,
-                               b text NOT NULL
-                            );
-                        """.trimIndent()
+                        CREATE TABLE test(
+                           a text,
+                           b text NOT NULL
+                        );
+                        """.trimIndent(),
                     )
                 }
             }
@@ -52,10 +53,11 @@ class PostgresTableMetadataFactoryTest {
         dataSource.connection.use {
             val table = PostgresTableMetadataFactory(PostgresColumnMetadataFactory()).create(it, "test", null)
             table.tableName shouldBe "test"
-            table.columns shouldBe listOf(
-                Text("a", nullable = true),
-                Text("b", nullable = false)
-            )
+            table.columns shouldBe
+                listOf(
+                    Text("a", nullable = true),
+                    Text("b", nullable = false),
+                )
         }
     }
 }

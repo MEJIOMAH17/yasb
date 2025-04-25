@@ -75,11 +75,12 @@ java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 tasks.withType<KotlinCompile>().all {
     this.kotlinOptions.jvmTarget = "11"
 }
-ktlint.filter {
-    exclude {
-        it.file.absolutePath.contains("generated")
-    }
-}
+// TODO uncomment after 2.2.0 support
+//ktlint.filter {
+//    exclude {
+//        it.file.absolutePath.contains("generated")
+//    }
+//}
 // afterEvaluate {
 //    publishing {
 //        publications {

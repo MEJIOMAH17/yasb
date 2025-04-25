@@ -8,13 +8,13 @@ import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverSt
 
 class AndroidRows(
     val cursor: Cursor,
-    private val returningQuery: ReturningQuery<Cursor, AndroidSqliteDriverStatement>
+    private val returningQuery: ReturningQuery<Cursor, AndroidSqliteDriverStatement>,
 ) : Rows {
-
     override fun iterator(): Iterator<Row> {
         return object : Iterator<Row> {
             private var rowConsumed = true
             private var hasNext = false
+
             override fun hasNext(): Boolean {
                 if (rowConsumed) {
                     hasNext = cursor.moveToNext()
@@ -29,7 +29,7 @@ class AndroidRows(
                 return Row(
                     returningQuery.returnExpressions().mapIndexed { index, expression ->
                         expression to expression.databaseType().extractFromSource(cursor, index)
-                    }.toMap()
+                    }.toMap(),
                 ).also {
                     rowConsumed = true
                 }

@@ -7,10 +7,12 @@ import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverSt
 import com.github.mejiomah17.yasb.sqlite.android.parameter.BlobParameter
 
 object BlobDatabaseType : AndroidDatabaseType<ByteArray> {
-    override fun parameterFactory(): (ByteArray?) -> Parameter<ByteArray, Cursor, AndroidSqliteDriverStatement> =
-        ::BlobParameter
+    override fun parameterFactory(): (ByteArray?) -> Parameter<ByteArray, Cursor, AndroidSqliteDriverStatement> = ::BlobParameter
 
-    override fun extractFromSource(source: Cursor, index: Int): ByteArray? {
+    override fun extractFromSource(
+        source: Cursor,
+        index: Int,
+    ): ByteArray? {
         return source.getBlob(index)
     }
 }

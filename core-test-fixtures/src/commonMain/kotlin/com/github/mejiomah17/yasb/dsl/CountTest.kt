@@ -1,5 +1,3 @@
-@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
-
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
@@ -16,16 +14,16 @@ interface CountTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
     @Test
-    fun `count_returns_count_of_elements`() {
+    fun count_returns_count_of_elements() {
         transactionFactory().repeatableRead {
             val count = count(tableTest().a).`as`("aCount")
-            val from = select(count)
-                .from(tableTest())
+            val from =
+                select(count)
+                    .from(tableTest())
             from
                 .execute()
                 .single()

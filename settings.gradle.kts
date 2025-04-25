@@ -15,7 +15,7 @@ include(
     "database-postgres-jdbc-generator",
     "gradle-plugin",
     "gradle-plugin-generator",
-    "gradle-plugin-generator-flyway"
+    "gradle-plugin-generator-flyway",
 )
 pluginManagement {
     repositories {

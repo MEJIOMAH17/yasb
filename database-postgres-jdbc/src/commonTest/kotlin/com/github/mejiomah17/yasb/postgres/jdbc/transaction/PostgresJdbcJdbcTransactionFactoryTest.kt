@@ -22,13 +22,14 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         fun init() {
             container = PostgresContainer()
             container.start()
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = container.jdbcUrl
-                    it.username = LOGIN
-                    it.password = PASSWORD
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = container.jdbcUrl
+                        it.username = LOGIN
+                        it.password = PASSWORD
+                    },
+                )
         }
 
         @AfterClass

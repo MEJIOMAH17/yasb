@@ -8,26 +8,32 @@ import java.sql.Connection
 
 class SqliteTableMetadataFactory(
     private val tableClassQualifiedName: String,
-    private val columnMetadataFactory: ColumnMetadataFactory
+    private val columnMetadataFactory: ColumnMetadataFactory,
 ) : TableMetadataFactory {
-    override fun create(connection: Connection, tableName: String, schemaPattern: String?): TableMetadata {
-        val columns = ResultSetIterator(connection.metaData.getColumns(null, schemaPattern, tableName, null))
-            .asSequence()
-            .map {
-                columnMetadataFactory.create(
-                    name = it.getString(4),
-                    type = it.getString(6),
-                    nullable = when (it.getString(18).lowercase()) {
-                        "yes", "true", "1" -> true
-                        "no", "false", "0" -> false
-                        else -> error("unsupported value for boolean metadata ${it.getString(18)}")
-                    }
-                )
-            }.toList()
+    override fun create(
+        connection: Connection,
+        tableName: String,
+        schemaPattern: String?,
+    ): TableMetadata {
+        val columns =
+            ResultSetIterator(connection.metaData.getColumns(null, schemaPattern, tableName, null))
+                .asSequence()
+                .map {
+                    columnMetadataFactory.create(
+                        name = it.getString(4),
+                        type = it.getString(6),
+                        nullable =
+                            when (it.getString(18).lowercase()) {
+                                "yes", "true", "1" -> true
+                                "no", "false", "0" -> false
+                                else -> error("unsupported value for boolean metadata ${it.getString(18)}")
+                            },
+                    )
+                }.toList()
         return TableMetadata(
             tableName,
             tableClassQualifiedName,
-            columns
+            columns,
         )
     }
 }

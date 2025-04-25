@@ -15,10 +15,9 @@ interface UpdateTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
     @Test
     fun updates_values_without_where() {
         transactionFactory().repeatableRead {
@@ -31,12 +30,13 @@ interface UpdateTest<
                 set = {
                     it[tableTest().a] = "qwertypop"
                     it[tableTest().b] = "popqwerty"
-                }
+                },
             ).execute()
-            val row = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "qwertypop"
             row[tableTest().b] shouldBe "popqwerty"
         }
@@ -57,12 +57,13 @@ interface UpdateTest<
                 },
                 where = {
                     tableTest().a.eq("abc")
-                }
+                },
             ).execute()
-            val row = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "qwertypop"
             row[tableTest().b] shouldBe "popqwerty"
         }
@@ -83,12 +84,13 @@ interface UpdateTest<
                 },
                 where = {
                     tableTest().a.eq("abcs")
-                }
+                },
             ).execute()
-            val row = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "abc"
             row[tableTest().b] shouldBe "bca"
         }

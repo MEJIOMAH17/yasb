@@ -8,7 +8,11 @@ import com.github.mejiomah17.yasb.sqlite.generator.column.Bool
 import com.github.mejiomah17.yasb.sqlite.generator.column.Text
 
 class SqliteColumnMetadataFactory : ColumnMetadataFactory {
-    override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {
+    override fun create(
+        name: String,
+        type: String,
+        nullable: Boolean,
+    ): ColumnMetadata {
         return when (type.lowercase()) {
             "text" -> Text(name, nullable)
             "character varying" -> Text(name, nullable)

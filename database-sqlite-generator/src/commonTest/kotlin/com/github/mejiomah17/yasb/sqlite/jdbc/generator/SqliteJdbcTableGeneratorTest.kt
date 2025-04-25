@@ -18,20 +18,21 @@ class SqliteJdbcTableGeneratorTest {
         @BeforeClass
         @JvmStatic
         fun init() {
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = "jdbc:sqlite:"
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = "jdbc:sqlite:"
+                    },
+                )
             dataSource.connection.use {
                 it.createStatement().use {
                     it.execute(
                         """
-                            CREATE TABLE test(
-                               a text NULL,
-                               b text NOT NULL
-                            );
-                        """.trimIndent()
+                        CREATE TABLE test(
+                           a text NULL,
+                           b text NOT NULL
+                        );
+                        """.trimIndent(),
                     )
                 }
             }
@@ -50,17 +51,17 @@ class SqliteJdbcTableGeneratorTest {
             TableGenerator().generateTable(
                 SqliteTableMetadataFactory(SqliteJdbcTable::class.qualifiedName!!, SqliteColumnMetadataFactory())
                     .create(it, "test", schemaPattern = null),
-                "com.github.mejiomah17"
+                "com.github.mejiomah17",
             ).run {
                 content shouldBe
                     """
-                            package com.github.mejiomah17
+                    package com.github.mejiomah17
 
-                            object TestTable : com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable<TestTable> {
-                                override val tableName = "test"
-                                val a = textNullable("a")
-                                val b = text("b")
-                            }
+                    object TestTable : com.github.mejiomah17.yasb.sqlite.jdbc.SqliteJdbcTable<TestTable> {
+                        override val tableName = "test"
+                        val a = textNullable("a")
+                        val b = text("b")
+                    }
 
                     """.trimIndent()
                 fileName shouldBe "TestTable.kt"

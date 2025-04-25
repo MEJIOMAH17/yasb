@@ -8,10 +8,9 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 class Column<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     val name: String,
     val table: TABLE,
-    val databaseType: DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    val databaseType: DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
 ) : AliasableExpression<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     ExpressionForCondition<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-
     override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         return databaseType
     }

@@ -7,11 +7,12 @@ import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverSt
 import com.github.mejiomah17.yasb.sqlite.android.parameter.BooleanParameter
 
 object BooleanDatabaseType : AndroidDatabaseType<Boolean> {
+    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, Cursor, AndroidSqliteDriverStatement> = ::BooleanParameter
 
-    override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, Cursor, AndroidSqliteDriverStatement> =
-        ::BooleanParameter
-
-    override fun extractFromSource(source: Cursor, index: Int): Boolean? {
+    override fun extractFromSource(
+        source: Cursor,
+        index: Int,
+    ): Boolean? {
         return when (source.getLong(index)) {
             0L -> false
             1L -> true

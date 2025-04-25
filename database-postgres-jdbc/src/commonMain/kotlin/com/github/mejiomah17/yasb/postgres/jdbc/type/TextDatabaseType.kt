@@ -7,7 +7,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object TextDatabaseType : JDBCDatabaseType<String> {
-    override fun extractFromSource(source: ResultSet, index: Int): String? {
+    override fun extractFromSource(
+        source: ResultSet,
+        index: Int,
+    ): String? {
         return source.getString(index)
     }
 

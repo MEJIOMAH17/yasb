@@ -7,13 +7,13 @@ import java.sql.PreparedStatement
 import java.sql.Timestamp
 
 class TimestampParameter(
-    override val value: Timestamp?
+    override val value: Timestamp?,
 ) : PostgresParameter<Timestamp>() {
     override val databaseType: JDBCDatabaseType<Timestamp> = TimestampDatabaseType
 
     override fun applyToStatement(
         statement: PreparedStatement,
-        index: Int
+        index: Int,
     ) {
         statement.setTimestamp(index, value)
     }

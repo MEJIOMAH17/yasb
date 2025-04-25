@@ -7,12 +7,12 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.junit.Test
 
 interface TransactionFactoryTest {
-
     @Test
     fun returns_value_from_transaction() {
-        val result = transactionFactory().serializable {
-            42
-        }
+        val result =
+            transactionFactory().serializable {
+                42
+            }
 
         result.shouldBe(42)
     }
@@ -32,5 +32,6 @@ interface TransactionFactoryTest {
     }
 
     fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *>
+
     fun exception(): Exception
 }

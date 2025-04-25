@@ -15,14 +15,14 @@ public final class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidDataba
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable : com/github/mejiomah17/yasb/sqlite/SqliteTable {
-	public abstract fun blob (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun blobNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun long (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun longNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun blob (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun blobNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun long (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun longNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/android/SqliteAndroidTable$DefaultImpls {
@@ -103,9 +103,9 @@ public final class com/github/mejiomah17/yasb/sqlite/android/transaction/Android
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction : com/github/mejiomah17/yasb/core/transaction/Transaction {
-	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
 	public abstract fun getDatabase ()Lorg/sqlite/database/sqlite/SQLiteDatabase;
-	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/android/transaction/AndroidTransaction$DefaultImpls {

@@ -4,7 +4,7 @@ plugins {
 }
 
 kotlin {
-    androidTarget() {
+    androidTarget {
         publishAllLibraryVariants()
     }
     sourceSets {

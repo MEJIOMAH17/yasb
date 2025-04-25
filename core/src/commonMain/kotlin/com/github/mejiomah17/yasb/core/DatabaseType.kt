@@ -8,5 +8,9 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
  */
 interface DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     fun parameterFactory(): (T?) -> Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    fun extractFromSource(source: DRIVER_DATA_SOURCE, index: Int): T?
+
+    fun extractFromSource(
+        source: DRIVER_DATA_SOURCE,
+        index: Int,
+    ): T?
 }

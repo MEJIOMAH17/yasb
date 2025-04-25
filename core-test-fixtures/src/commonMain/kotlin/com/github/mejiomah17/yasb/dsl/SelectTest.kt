@@ -1,5 +1,3 @@
-@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
-
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
@@ -14,7 +12,7 @@ interface SelectTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test

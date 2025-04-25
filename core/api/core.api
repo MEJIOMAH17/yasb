@@ -62,12 +62,12 @@ public final class com/github/mejiomah17/yasb/core/ddl/Column : com/github/mejio
 }
 
 public abstract interface class com/github/mejiomah17/yasb/core/ddl/Table : com/github/mejiomah17/yasb/core/SelectionSource {
-	public abstract fun allColumns ()Ljava/util/List;
+	public fun allColumns ()Ljava/util/List;
 	public abstract fun getTableName ()Ljava/lang/String;
-	public abstract fun parameters ()Ljava/util/List;
-	public abstract fun register (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun registerNullable (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun sql ()Ljava/lang/String;
+	public fun parameters ()Ljava/util/List;
+	public fun register (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun registerNullable (Lcom/github/mejiomah17/yasb/core/ddl/Column;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun sql ()Ljava/lang/String;
 }
 
 public final class com/github/mejiomah17/yasb/core/ddl/Table$DefaultImpls {
@@ -335,7 +335,7 @@ public abstract interface class com/github/mejiomah17/yasb/core/query/ReturningQ
 
 public abstract interface class com/github/mejiomah17/yasb/core/transaction/Transaction {
 	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
-	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public fun execute (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
 	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
 }
 
@@ -375,9 +375,13 @@ public abstract interface class com/github/mejiomah17/yasb/core/transaction/Tran
 	public abstract fun defaultRepeater ()Lcom/github/mejiomah17/yasb/core/Repeater;
 	public abstract fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
 	public abstract fun readCommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun readCommitted$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun readUncommitted (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun readUncommitted$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun repeatableRead (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun repeatableRead$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun serializable (Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun serializable$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yasb/core/transaction/TransactionFactory$DefaultImpls {

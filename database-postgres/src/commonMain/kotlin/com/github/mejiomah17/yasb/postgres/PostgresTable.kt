@@ -8,9 +8,13 @@ import java.util.UUID
 interface PostgresTable<TABLE : PostgresTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     fun text(name: String): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     fun textNullable(name: String): Column<TABLE, String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     fun varchar(name: String): Column<TABLE, String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     fun varcharNullable(name: String): Column<TABLE, String?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     fun bool(name: String): Column<TABLE, Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 
     fun boolNullable(name: String): Column<TABLE, Boolean?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
@@ -32,6 +36,7 @@ interface PostgresTable<TABLE : PostgresTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_
     fun timestampNullable(name: String): Column<TABLE, Timestamp?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 
     fun doublePrecision(name: String): Column<TABLE, Double, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     fun doublePrecisionNullable(name: String): Column<TABLE, Double?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 
     fun bigint(name: String): Column<TABLE, Long, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>

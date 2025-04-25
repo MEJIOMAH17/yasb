@@ -11,5 +11,6 @@ interface SqlTest {
     }
 
     fun initSqlScripts(): List<String>
+
     fun executeSql(sql: String)
 }
