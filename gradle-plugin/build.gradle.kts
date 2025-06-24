@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -73,7 +74,7 @@ kotlin {
 }
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 tasks.withType<KotlinCompile>().all {
-    this.kotlinOptions.jvmTarget = "11"
+    this.compilerOptions.jvmTarget = JvmTarget.JVM_11
 }
 // TODO uncomment after 2.2.0 support
 //ktlint.filter {
