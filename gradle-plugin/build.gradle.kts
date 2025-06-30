@@ -117,12 +117,6 @@ configure<SigningExtension>() {
     }
 }
 
-//afterEvaluate {
-//    tasks.findByName("generateMetadataFileForPluginMavenPublication")!!.dependsOn(
-//        tasks.findByName("plainJavadocJar")
-//    )
-//}
-
 // TODO uncomment after 2.2.0 support
 //ktlint.filter {
 //    exclude {
