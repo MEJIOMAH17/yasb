@@ -28,4 +28,9 @@ class ToCamelCaseKtTest {
     fun `remove_underscore_and_uppercase_next_letter`() {
         "toCamel_caseKtTest".toCamelCase() shouldBe "toCamelCaseKtTest"
     }
+
+    @Test
+    fun `transforms_screaming_upper_case`() {
+        "TO_CAMEL_CASE_KT_TEST".toCamelCase() shouldBe "toCamelCaseKtTest"
+    }
 }

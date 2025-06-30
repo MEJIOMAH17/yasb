@@ -115,6 +115,25 @@ public final class com/github/mejiomah17/yasb/dsl/LimitTest$DefaultImpls {
 	public static fun limit_generates_correct_sql (Lcom/github/mejiomah17/yasb/dsl/LimitTest;)V
 }
 
+public abstract interface class com/github/mejiomah17/yasb/dsl/OrderByTest : com/github/mejiomah17/yasb/dsl/SqlTest {
+	public fun order_by_asc_returns_sorted ()V
+	public fun order_by_called_after_where ()V
+	public fun order_by_desc_returns_sorted ()V
+	public fun order_by_generates_correct_sql ()V
+	public fun order_by_returns_sorted ()V
+	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
+	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/OrderByTest$DefaultImpls {
+	public static fun init (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_asc_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_called_after_where (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_desc_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_generates_correct_sql (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+}
+
 public abstract interface class com/github/mejiomah17/yasb/dsl/SelectTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
 	public fun selects_parameter ()V
 }

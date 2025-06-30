@@ -1,21 +1,25 @@
 package com.github.mejiomah17.yasb.dsl.generator
 
+private val delimiters = setOf('-', '_', ' ', '\t')
+
 fun String.toCamelCase(): String {
+    val str = if(uppercase() == this){
+        lowercase()
+    }else{
+        this
+    }
+
     return buildString {
-        var uppercaseNextLetter = false
-        for ((i, ch) in this@toCamelCase.withIndex()) {
-            if (i == 0) {
-                append(ch.lowercaseChar())
+        str.forEachIndexed { index, c ->
+            if (index == 0) {
+                append(c.lowercase())
+            } else if (c in delimiters) {
+                // ignore
             } else {
-                if (wordDelimiters.contains(ch)) {
-                    uppercaseNextLetter = true
+                if (str[index - 1] in delimiters) {
+                    append(c.uppercaseChar())
                 } else {
-                    if (uppercaseNextLetter) {
-                        append(ch.uppercaseChar())
-                    } else {
-                        append(ch)
-                    }
-                    uppercaseNextLetter = false
+                    append(c)
                 }
             }
         }
@@ -23,25 +27,5 @@ fun String.toCamelCase(): String {
 }
 
 fun String.toPascalCase(): String {
-    return buildString {
-        var uppercaseNextLetter = false
-        for ((i, ch) in this@toPascalCase.withIndex()) {
-            if (i == 0) {
-                append(ch.uppercaseChar())
-            } else {
-                if (wordDelimiters.contains(ch)) {
-                    uppercaseNextLetter = true
-                } else {
-                    if (uppercaseNextLetter) {
-                        append(ch.uppercaseChar())
-                    } else {
-                        append(ch)
-                    }
-                    uppercaseNextLetter = false
-                }
-            }
-        }
-    }
+    return toCamelCase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
 }
-
-private val wordDelimiters = setOf(' ', '-', '_')

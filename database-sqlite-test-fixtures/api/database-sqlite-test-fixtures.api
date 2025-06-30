@@ -85,6 +85,20 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest$DefaultImpl
 	public static fun limit_generates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
 }
 
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteOrderByTest : com/github/mejiomah17/yasb/dsl/OrderByTest {
+	public fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteOrderByTest$DefaultImpls {
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)Ljava/util/List;
+	public static fun order_by_asc_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_called_after_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_desc_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_generates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+}
+
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest : com/github/mejiomah17/yasb/dsl/join/TableJoinTest {
 	public fun initSqlScripts ()Ljava/util/List;
 }

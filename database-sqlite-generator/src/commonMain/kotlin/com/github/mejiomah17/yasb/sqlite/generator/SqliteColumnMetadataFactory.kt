@@ -19,6 +19,7 @@ class SqliteColumnMetadataFactory : ColumnMetadataFactory {
             "bool" -> Bool(name, nullable)
             "boolean" -> Bool(name, nullable)
             "bigint" -> BigInt(name, nullable)
+            "integer" -> BigInt(name, nullable)
             "blob" -> Blob(name, nullable)
             else -> error("type $type is not supported yet")
         }

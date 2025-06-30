@@ -157,7 +157,7 @@ public final class com/github/mejiomah17/yasb/core/dsl/GroupByKt {
 public abstract interface class com/github/mejiomah17/yasb/core/dsl/GroupByQuery {
 }
 
-public abstract interface class com/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery : com/github/mejiomah17/yasb/core/dsl/GroupByQuery, com/github/mejiomah17/yasb/core/dsl/SelectQuery {
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/GroupByQueryAndSelectQuery : com/github/mejiomah17/yasb/core/dsl/GroupByQuery, com/github/mejiomah17/yasb/core/dsl/SelectFromQuery {
 }
 
 public final class com/github/mejiomah17/yasb/core/dsl/InsertContext : com/github/mejiomah17/yasb/core/dsl/TableEditContext {
@@ -182,6 +182,16 @@ public final class com/github/mejiomah17/yasb/core/dsl/Limit : com/github/mejiom
 public final class com/github/mejiomah17/yasb/core/dsl/LimitKt {
 	public static final fun limit (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/SupportsLimit;Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;I)Lcom/github/mejiomah17/yasb/core/dsl/Limit;
 	public static final fun limit (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;Lcom/github/mejiomah17/yasb/core/SupportsLimit;Lcom/github/mejiomah17/yasb/core/dsl/SelectWhereQuery;I)Lcom/github/mejiomah17/yasb/core/dsl/Limit;
+}
+
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/OrderByQuery : com/github/mejiomah17/yasb/core/dsl/SelectFromQuery {
+}
+
+public final class com/github/mejiomah17/yasb/core/dsl/OrderKt {
+	public static final fun asc (Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/expression/Expression;
+	public static final fun desc (Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/expression/Expression;
+	public static final fun orderBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;Ljava/util/List;)Lcom/github/mejiomah17/yasb/core/dsl/OrderByQuery;
+	public static final fun orderBy (Lcom/github/mejiomah17/yasb/core/dsl/SelectFromQuery;[Lcom/github/mejiomah17/yasb/core/expression/Expression;)Lcom/github/mejiomah17/yasb/core/dsl/OrderByQuery;
 }
 
 public final class com/github/mejiomah17/yasb/core/dsl/Returning : com/github/mejiomah17/yasb/core/query/ReturningQuery {
@@ -214,7 +224,7 @@ public final class com/github/mejiomah17/yasb/core/dsl/SelectKt {
 public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectQuery : com/github/mejiomah17/yasb/core/query/ReturningQuery {
 }
 
-public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectWhereQuery : com/github/mejiomah17/yasb/core/dsl/SelectQuery, com/github/mejiomah17/yasb/core/dsl/WhereQuery {
+public abstract interface class com/github/mejiomah17/yasb/core/dsl/SelectWhereQuery : com/github/mejiomah17/yasb/core/dsl/SelectFromQuery, com/github/mejiomah17/yasb/core/dsl/WhereQuery {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/core/dsl/TableEditContext {
@@ -389,6 +399,12 @@ public final class com/github/mejiomah17/yasb/core/transaction/TransactionFactor
 	public static synthetic fun readUncommitted$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun repeatableRead$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun serializable$default (Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;Lcom/github/mejiomah17/yasb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/github/mejiomah17/yasb/core/transaction/TransactionKt {
+	public static final fun execute (Lcom/github/mejiomah17/yasb/core/transaction/Transaction;Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public static final fun execute (Lcom/github/mejiomah17/yasb/core/transaction/Transaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Ljava/util/List;
+	public static final fun lazy (Lcom/github/mejiomah17/yasb/core/transaction/Transaction;Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
 }
 
 public abstract interface class com/github/mejiomah17/yasb/core/transaction/TransactionReadCommitted : com/github/mejiomah17/yasb/core/transaction/TransactionAtLeastReadCommitted {

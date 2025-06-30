@@ -6,7 +6,7 @@ import com.github.mejiomah17.yasb.core.expression.Expression
 import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
-    private val query: SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    private val query: SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val limit: Int
 ) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
