@@ -31,7 +31,7 @@ val androidOnlyProjects = setOf(project(":database-sqlite-android"))
 val mppProjectsWithJvmTarget = mppProjects - androidOnlyProjects
 val mppProjectsWithAndroidTarget = androidOnlyProjects
 val projectsWithPublication =
-    subprojects - jvmProjects - setOf(project(":core-test-fixtures"), project("core-jdbc-test-fixtures"))
+    subprojects - setOf(project(":core-test-fixtures"), project("core-jdbc-test-fixtures"))
 
 subprojects {
 //    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>() TODO uncomment after 2.2.0 support

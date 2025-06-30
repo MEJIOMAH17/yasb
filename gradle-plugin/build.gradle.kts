@@ -3,14 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
-    id("com.vanniktech.maven.publish")
     kotlin("jvm")
     java
 }
-//java {
-//    withJavadocJar()
-//    withSourcesJar()
-//}
 dependencies {
     implementation(project(":gradle-plugin-generator-flyway"))
     implementation(project(":database-postgres-jdbc-generator"))
@@ -76,45 +71,6 @@ kotlin {
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 tasks.withType<KotlinCompile>().all {
     this.compilerOptions.jvmTarget = JvmTarget.JVM_11
-}
-
-val nexusUsername: String? = project.properties.getOrDefault("nexusUsername", null)?.toString()
-mavenPublishing {
-    publishToMavenCentral()
-    signAllPublications()
-
-    pom {
-        name = "An YASB ${project.name} module"
-        description = name.get()
-        url = "https://github.com/MEJIOMAH17/yasb"
-        licenses {
-            license {
-                name = "MIT"
-                url = "https://opensource.org/license/mit/"
-            }
-        }
-        developers {
-            developer {
-                id = nexusUsername
-                name = "Mark Epshtein"
-                email = "epshteinme@gmail.com"
-            }
-        }
-        scm {
-            url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
-            connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
-            developerConnection = "https://github.com/MEJIOMAH17/yasb"
-        }
-    }
-}
-configure<SigningExtension>() {
-    val signingKeyLocation: String by project
-    val secretKey = File(signingKeyLocation).readText()
-    val signingPassword: String by project
-    useInMemoryPgpKeys(secretKey, signingPassword)
-    publishing.publications.configureEach {
-        sign(this)
-    }
 }
 
 // TODO uncomment after 2.2.0 support
