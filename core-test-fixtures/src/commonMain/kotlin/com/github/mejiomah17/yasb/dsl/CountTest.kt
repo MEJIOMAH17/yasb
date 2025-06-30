@@ -26,7 +26,6 @@ interface CountTest<
             val from : ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
                 select(count)
                     .from(tableTest())
-            from.execute()
             from
                 .execute()
                 .single()
