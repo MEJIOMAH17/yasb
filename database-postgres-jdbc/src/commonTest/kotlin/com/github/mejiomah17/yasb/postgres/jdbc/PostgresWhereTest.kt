@@ -20,20 +20,20 @@ class PostgresWhereTest :
     override fun initSqlScripts(): List<String> {
         return listOf(
             "TRUNCATE TABLE test",
-            """INSERT INTO test (a,b,c,d) values (
-                    'the a',
-                    'the b',
-                    '3e2220cd-e6a5-4eae-a258-6ed41e91c221',
-                    '2022-05-13 02:09:09.683194'::timestamp
-                     );
-                    INSERT INTO test (a,b,c,d) values (
-                    '42',
-                    '42',
-                    '3e2220cd-e6a5-4eae-a258-6ed41e91c222',
-                    '2022-05-13 02:09:09.683195'::timestamp
-                    )
-            """.trimIndent()
-
+            """
+            INSERT INTO test (a,b,c,d) values (
+            'the a',
+            'the b',
+            '3e2220cd-e6a5-4eae-a258-6ed41e91c221',
+            '2022-05-13 02:09:09.683194'::timestamp
+             );
+            INSERT INTO test (a,b,c,d) values (
+            '42',
+            '42',
+            '3e2220cd-e6a5-4eae-a258-6ed41e91c222',
+            '2022-05-13 02:09:09.683195'::timestamp
+            )
+            """.trimIndent(),
         )
     }
 
@@ -45,9 +45,10 @@ class PostgresWhereTest :
             given.shouldHaveSize(2)
             given.get(1)[PostgresJdbcTestTable.c].toString().shouldBe("3e2220cd-e6a5-4eae-a258-6ed41e91c222")
 
-            val query = queryWithoutWhere.where {
-                PostgresJdbcTestTable.c.eq(UUID.fromString("3e2220cd-e6a5-4eae-a258-6ed41e91c222"))
-            }
+            val query =
+                queryWithoutWhere.where {
+                    PostgresJdbcTestTable.c.eq(UUID.fromString("3e2220cd-e6a5-4eae-a258-6ed41e91c222"))
+                }
             val result = query.execute()
             result.shouldHaveSize(1)
             val row = result.single()
@@ -64,9 +65,10 @@ class PostgresWhereTest :
             given.shouldHaveSize(2)
             given.get(1)[PostgresJdbcTestTable.d].shouldBe(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
 
-            val query = queryWithoutWhere.where {
-                PostgresJdbcTestTable.d.eq(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
-            }
+            val query =
+                queryWithoutWhere.where {
+                    PostgresJdbcTestTable.d.eq(Timestamp.valueOf("2022-05-13 02:09:09.683195"))
+                }
             val result = query.execute()
             result.shouldHaveSize(1)
             val row = result.single()

@@ -8,20 +8,20 @@ import java.sql.PreparedStatement
 import java.util.UUID
 
 class UuidParameter(
-    override val value: UUID?
+    override val value: UUID?,
 ) : PostgresParameter<UUID>() {
     override val databaseType: JDBCDatabaseType<UUID> = UuidDatabaseType
 
     override fun applyToStatement(
         statement: PreparedStatement,
-        index: Int
+        index: Int,
     ) {
         statement.setObject(
             index,
             PGobject().apply {
                 type = "uuid"
                 value = this@UuidParameter.value?.toString()
-            }
+            },
         )
     }
 }

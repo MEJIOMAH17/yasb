@@ -10,10 +10,13 @@ interface SelectionTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > : SqlTest {
     abstract fun parameter(): Parameter<String, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+
     abstract fun tableTest(): TABLE
+
     abstract fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
+
     val databaseDialect: DIALECT get() = transactionFactory().dialect()
 }

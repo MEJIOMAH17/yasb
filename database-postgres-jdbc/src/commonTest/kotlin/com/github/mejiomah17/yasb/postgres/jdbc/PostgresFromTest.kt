@@ -22,18 +22,18 @@ class PostgresFromTest :
                     |'3e2220cd-e6a5-4eae-a258-6ed41e91c221',
                     |'2022-05-13 02:09:09.683194'::timestamp
                     | )
-            """.trimMargin()
-
+            """.trimMargin(),
         )
     }
 
     @Test
     override fun `from_returns_columns`() {
         transactionFactory().readUncommitted {
-            val row = select(tableTest().a, tableTest().b, PostgresJdbcTestTable.c, PostgresJdbcTestTable.d)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b, PostgresJdbcTestTable.c, PostgresJdbcTestTable.d)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "the a"
             row[tableTest().b] shouldBe "the b"
             row[PostgresJdbcTestTable.c].toString() shouldBe "3e2220cd-e6a5-4eae-a258-6ed41e91c221"

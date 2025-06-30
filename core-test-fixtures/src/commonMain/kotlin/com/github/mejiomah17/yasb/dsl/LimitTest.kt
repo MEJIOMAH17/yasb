@@ -18,9 +18,9 @@ interface LimitTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > : SqlTest where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-                      DIALECT : SupportsLimit {
+          DIALECT : SupportsLimit {
     @Test
     fun `limit_generates_correct_sql`() {
         transactionFactory().repeatableRead {
@@ -53,5 +53,6 @@ interface LimitTest<
     }
 
     fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
+
     fun tableTest(): TABLE
 }

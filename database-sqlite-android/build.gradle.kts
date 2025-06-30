@@ -4,8 +4,11 @@ plugins {
 }
 
 kotlin {
-    androidTarget() {
-        publishAllLibraryVariants()
+    androidTarget {
+        publishLibraryVariants(
+            "release",
+            "debug"
+        )
     }
     sourceSets {
         val androidMain by getting {

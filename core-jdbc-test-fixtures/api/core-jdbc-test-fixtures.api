@@ -5,11 +5,11 @@ public abstract class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTrans
 }
 
 public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionTest {
-	public abstract fun commits_transaction ()V
-	public abstract fun commits_transaction_on_complete ()V
-	public abstract fun init ()V
-	public abstract fun rollbacks_transaction ()V
-	public abstract fun rollbacks_transaction_on_exception ()V
+	public fun commits_transaction ()V
+	public fun commits_transaction_on_complete ()V
+	public fun init ()V
+	public fun rollbacks_transaction ()V
+	public fun rollbacks_transaction_on_exception ()V
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
 	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransactionFactory;
 }

@@ -33,45 +33,50 @@ import org.sqlite.database.sqlite.SQLiteQuery
  */
 internal class YasbSQLiteDirectCursorDriver(
     private val mDatabase: SQLiteDatabase,
-    private val mSql: String
+    private val mSql: String,
 ) : SQLiteCursorDriver {
     private val mCancellationSignal: CancellationSignal? = null
     private val mEditTable = null
     private var mQuery: SQLiteQuery? = null
 
-    override fun query(factory: SQLiteDatabase.CursorFactory, selectionArgs: Array<String>): Cursor {
+    override fun query(
+        factory: SQLiteDatabase.CursorFactory,
+        selectionArgs: Array<String>,
+    ): Cursor {
         return this.query(factory, selectionArgs.map { TextParameter(it) })
     }
 
     fun query(
         factory: SQLiteDatabase.CursorFactory?,
-        params: List<Parameter<*, Cursor, AndroidSqliteDriverStatement>>
+        params: List<Parameter<*, Cursor, AndroidSqliteDriverStatement>>,
     ): Cursor {
         val clazz = SQLiteQuery::class.java
-        val query = clazz.declaredConstructors.first {
-            it.parameterTypes.size == 3 &&
-                it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
-                it.parameterTypes[1].isAssignableFrom(String::class.java) &&
-                it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
-        }.newInstance(mDatabase, mSql, mCancellationSignal) as SQLiteQuery
+        val query =
+            clazz.declaredConstructors.first {
+                it.parameterTypes.size == 3 &&
+                    it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
+                    it.parameterTypes[1].isAssignableFrom(String::class.java) &&
+                    it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
+            }.newInstance(mDatabase, mSql, mCancellationSignal) as SQLiteQuery
         val cursor: Cursor
-        cursor = try {
-            // <editor-fold desc="original SQLiteDirectCursorDriver invokes query.bindAllArgsAsStrings(selectionArgs);">
-            val statement = AndroidSqliteDriverStatementImpl(query)
-            params.forEachIndexed { i, it ->
-                it.applyToStatement(statement, i + 1)
-            }
-            // </editor-fold>
+        cursor =
+            try {
+                // <editor-fold desc="original SQLiteDirectCursorDriver invokes query.bindAllArgsAsStrings(selectionArgs);">
+                val statement = AndroidSqliteDriverStatementImpl(query)
+                params.forEachIndexed { i, it ->
+                    it.applyToStatement(statement, i + 1)
+                }
+                // </editor-fold>
 
-            if (factory == null) {
-                SQLiteCursor(this, mEditTable, query)
-            } else {
-                factory.newCursor(mDatabase, this, mEditTable, query)
+                if (factory == null) {
+                    SQLiteCursor(this, mEditTable, query)
+                } else {
+                    factory.newCursor(mDatabase, this, mEditTable, query)
+                }
+            } catch (ex: RuntimeException) {
+                query.close()
+                throw ex
             }
-        } catch (ex: RuntimeException) {
-            query.close()
-            throw ex
-        }
         mQuery = query
         return cursor
     }

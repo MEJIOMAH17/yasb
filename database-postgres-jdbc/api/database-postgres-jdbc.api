@@ -27,20 +27,20 @@ public final class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcDatabase
 }
 
 public abstract interface class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable : com/github/mejiomah17/yasb/core/ddl/Table {
-	public abstract fun bigint (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun bigintNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun doublePrecision (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun doublePrecisionNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun jsonb (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun jsonbNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun timestamp (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun timestampNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun uuid (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
-	public abstract fun uuidNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun bigint (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun bigintNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun bool (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun boolNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun doublePrecision (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun doublePrecisionNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun jsonb (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun jsonbNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun text (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun textNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun timestamp (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun timestampNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun uuid (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
+	public fun uuidNullable (Ljava/lang/String;)Lcom/github/mejiomah17/yasb/core/ddl/Column;
 }
 
 public final class com/github/mejiomah17/yasb/postgres/jdbc/PostgresJdbcTable$DefaultImpls {

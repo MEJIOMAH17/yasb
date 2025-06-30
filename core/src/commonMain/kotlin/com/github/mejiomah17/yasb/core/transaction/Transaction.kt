@@ -16,6 +16,25 @@ interface Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     fun ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows
 }
 
+context(t: Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute() {
+    return with(t) {
+        execute()
+    }
+}
+
+context(t: Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.execute(): List<Row> {
+    return lazy().use { it.toList() }
+}
+
+context(t: Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>)
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.lazy(): Rows {
+    return with(t) {
+        lazy()
+    }
+}
+
 interface TransactionAtLeastReadUncommitted<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     Transaction<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 

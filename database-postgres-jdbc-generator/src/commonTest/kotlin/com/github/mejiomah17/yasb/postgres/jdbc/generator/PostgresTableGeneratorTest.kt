@@ -18,22 +18,23 @@ class PostgresTableGeneratorTest {
         fun init() {
             container = PostgresContainer()
             container.start()
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = container.jdbcUrl
-                    it.username = PostgresContainer.LOGIN
-                    it.password = PostgresContainer.PASSWORD
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = container.jdbcUrl
+                        it.username = PostgresContainer.LOGIN
+                        it.password = PostgresContainer.PASSWORD
+                    },
+                )
             dataSource.connection.use {
                 it.createStatement().use {
                     it.execute(
                         """
-                            CREATE TABLE test(
-                               a text,
-                               b text NOT NULL
-                            );
-                        """.trimIndent()
+                        CREATE TABLE test(
+                           a text,
+                           b text NOT NULL
+                        );
+                        """.trimIndent(),
                     )
                 }
             }
@@ -53,17 +54,17 @@ class PostgresTableGeneratorTest {
             TableGenerator().generateTable(
                 PostgresTableMetadataFactory(PostgresColumnMetadataFactory())
                     .create(it, "test", schemaPattern = null),
-                "com.github.mejiomah17"
+                "com.github.mejiomah17",
             ).run {
                 content shouldBe
                     """
-                            package com.github.mejiomah17
+                    package com.github.mejiomah17
 
-                            object TestTable : com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable<TestTable> {
-                                override val tableName = "test"
-                                val a = textNullable("a")
-                                val b = text("b")
-                            }
+                    object TestTable : com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable<TestTable> {
+                        override val tableName = "test"
+                        val a = textNullable("a")
+                        val b = text("b")
+                    }
 
                     """.trimIndent()
                 fileName shouldBe "TestTable.kt"

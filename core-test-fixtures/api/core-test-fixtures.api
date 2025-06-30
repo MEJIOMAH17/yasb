@@ -1,5 +1,5 @@
 public abstract interface class com/github/mejiomah17/yasb/dsl/CountTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun count_returns_count_of_elements ()V
+	public fun count_returns_count_of_elements ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/CountTest$DefaultImpls {
@@ -9,8 +9,8 @@ public final class com/github/mejiomah17/yasb/dsl/CountTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/DeleteTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun deletes_everything ()V
-	public abstract fun deletes_where ()V
+	public fun deletes_everything ()V
+	public fun deletes_where ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/DeleteTest$DefaultImpls {
@@ -21,16 +21,16 @@ public final class com/github/mejiomah17/yasb/dsl/DeleteTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/FromTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun from_creates_correct_sql ()V
-	public abstract fun from_creates_correct_sql_for_aliased_table ()V
-	public abstract fun from_returns_columns ()V
-	public abstract fun from_returns_columns_for_aliased_table ()V
-	public abstract fun from_returns_columns_for_nested_query ()V
-	public abstract fun from_returns_correct_expressions ()V
-	public abstract fun from_returns_correct_expressions_for_aliased_table ()V
-	public abstract fun from_returns_correct_parameters ()V
-	public abstract fun from_returns_correct_sql_for_nested_query ()V
-	public abstract fun from_returns_parameter ()V
+	public fun from_creates_correct_sql ()V
+	public fun from_creates_correct_sql_for_aliased_table ()V
+	public fun from_returns_columns ()V
+	public fun from_returns_columns_for_aliased_table ()V
+	public fun from_returns_columns_for_nested_query ()V
+	public fun from_returns_correct_expressions ()V
+	public fun from_returns_correct_expressions_for_aliased_table ()V
+	public fun from_returns_correct_parameters ()V
+	public fun from_returns_correct_sql_for_nested_query ()V
+	public fun from_returns_parameter ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/FromTest$DefaultImpls {
@@ -49,11 +49,11 @@ public final class com/github/mejiomah17/yasb/dsl/FromTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/GroupByTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun groupBy_creates_correct_sql_for_from_query ()V
-	public abstract fun groupBy_creates_correct_sql_for_where_query ()V
-	public abstract fun groupBy_executes_after_where_expression ()V
-	public abstract fun groupBy_grouping_values ()V
-	public abstract fun groupBy_returns_correct_expressions ()V
+	public fun groupBy_creates_correct_sql_for_from_query ()V
+	public fun groupBy_creates_correct_sql_for_where_query ()V
+	public fun groupBy_executes_after_where_expression ()V
+	public fun groupBy_grouping_values ()V
+	public fun groupBy_returns_correct_expressions ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/GroupByTest$DefaultImpls {
@@ -67,10 +67,10 @@ public final class com/github/mejiomah17/yasb/dsl/GroupByTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/InsertTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun select_values_after_insert ()V
-	public abstract fun select_values_after_insert_collection ()V
-	public abstract fun select_values_after_insert_collection_using_default ()V
-	public abstract fun select_values_after_insert_in_different_transaction ()V
+	public fun select_values_after_insert ()V
+	public fun select_values_after_insert_collection ()V
+	public fun select_values_after_insert_collection_using_default ()V
+	public fun select_values_after_insert_in_different_transaction ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/InsertTest$DefaultImpls {
@@ -83,9 +83,9 @@ public final class com/github/mejiomah17/yasb/dsl/InsertTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/InsertWithReturningTest : com/github/mejiomah17/yasb/dsl/InsertTest {
-	public abstract fun output_returns_values ()V
-	public abstract fun output_returns_values_for_iterable_insert ()V
-	public abstract fun x (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;)Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public fun output_returns_values ()V
+	public fun output_returns_values_for_iterable_insert ()V
+	public fun x (Lcom/github/mejiomah17/yasb/core/DatabaseDialect;)Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
 }
 
 public final class com/github/mejiomah17/yasb/dsl/InsertWithReturningTest$DefaultImpls {
@@ -101,9 +101,9 @@ public final class com/github/mejiomah17/yasb/dsl/InsertWithReturningTest$Defaul
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/LimitTest : com/github/mejiomah17/yasb/dsl/SqlTest {
-	public abstract fun limit_1_return_single_record ()V
-	public abstract fun limit_called_after_where ()V
-	public abstract fun limit_generates_correct_sql ()V
+	public fun limit_1_return_single_record ()V
+	public fun limit_called_after_where ()V
+	public fun limit_generates_correct_sql ()V
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
 	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
 }
@@ -115,8 +115,27 @@ public final class com/github/mejiomah17/yasb/dsl/LimitTest$DefaultImpls {
 	public static fun limit_generates_correct_sql (Lcom/github/mejiomah17/yasb/dsl/LimitTest;)V
 }
 
+public abstract interface class com/github/mejiomah17/yasb/dsl/OrderByTest : com/github/mejiomah17/yasb/dsl/SqlTest {
+	public fun order_by_asc_returns_sorted ()V
+	public fun order_by_called_after_where ()V
+	public fun order_by_desc_returns_sorted ()V
+	public fun order_by_generates_correct_sql ()V
+	public fun order_by_returns_sorted ()V
+	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
+	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
+}
+
+public final class com/github/mejiomah17/yasb/dsl/OrderByTest$DefaultImpls {
+	public static fun init (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_asc_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_called_after_where (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_desc_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_generates_correct_sql (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+	public static fun order_by_returns_sorted (Lcom/github/mejiomah17/yasb/dsl/OrderByTest;)V
+}
+
 public abstract interface class com/github/mejiomah17/yasb/dsl/SelectTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun selects_parameter ()V
+	public fun selects_parameter ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/SelectTest$DefaultImpls {
@@ -126,7 +145,7 @@ public final class com/github/mejiomah17/yasb/dsl/SelectTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/SelectionTest : com/github/mejiomah17/yasb/dsl/SqlTest {
-	public abstract fun getDatabaseDialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
+	public fun getDatabaseDialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
 	public abstract fun parameter ()Lcom/github/mejiomah17/yasb/core/parameter/Parameter;
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
 	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
@@ -139,7 +158,7 @@ public final class com/github/mejiomah17/yasb/dsl/SelectionTest$DefaultImpls {
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/SqlTest {
 	public abstract fun executeSql (Ljava/lang/String;)V
-	public abstract fun init ()V
+	public fun init ()V
 	public abstract fun initSqlScripts ()Ljava/util/List;
 }
 
@@ -162,8 +181,8 @@ public final class com/github/mejiomah17/yasb/dsl/TestTable$DefaultImpls {
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/TransactionFactoryTest {
 	public abstract fun exception ()Ljava/lang/Exception;
-	public abstract fun retries_3_times_by_default ()V
-	public abstract fun returns_value_from_transaction ()V
+	public fun retries_3_times_by_default ()V
+	public fun returns_value_from_transaction ()V
 	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
 }
 
@@ -173,9 +192,9 @@ public final class com/github/mejiomah17/yasb/dsl/TransactionFactoryTest$Default
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/UpdateTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun does_not_update_values_with_where ()V
-	public abstract fun updates_values_with_where ()V
-	public abstract fun updates_values_without_where ()V
+	public fun does_not_update_values_with_where ()V
+	public fun updates_values_with_where ()V
+	public fun updates_values_without_where ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/UpdateTest$DefaultImpls {
@@ -187,11 +206,11 @@ public final class com/github/mejiomah17/yasb/dsl/UpdateTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/WhereTest : com/github/mejiomah17/yasb/dsl/SelectionTest {
-	public abstract fun where_builds_correct_sql_for_column ()V
-	public abstract fun where_builds_correct_sql_for_param ()V
-	public abstract fun where_filters_query ()V
-	public abstract fun where_has_correct_parameters ()V
-	public abstract fun where_has_correct_returnExpressions ()V
+	public fun where_builds_correct_sql_for_column ()V
+	public fun where_builds_correct_sql_for_param ()V
+	public fun where_filters_query ()V
+	public fun where_has_correct_parameters ()V
+	public fun where_has_correct_returnExpressions ()V
 }
 
 public final class com/github/mejiomah17/yasb/dsl/WhereTest$DefaultImpls {
@@ -205,39 +224,39 @@ public final class com/github/mejiomah17/yasb/dsl/WhereTest$DefaultImpls {
 }
 
 public abstract interface class com/github/mejiomah17/yasb/dsl/join/TableJoinTest : com/github/mejiomah17/yasb/dsl/SqlTest {
-	public abstract fun builds_correct_query_for_full_join ()V
-	public abstract fun builds_correct_query_for_full_join_with_aliased_table ()V
-	public abstract fun builds_correct_query_for_full_join_with_nested_query ()V
-	public abstract fun builds_correct_query_for_inner_join ()V
-	public abstract fun builds_correct_query_for_inner_join_with_aliased_table ()V
-	public abstract fun builds_correct_query_for_inner_join_with_nested_query ()V
-	public abstract fun builds_correct_query_for_left_join ()V
-	public abstract fun builds_correct_query_for_left_join_with_aliased_table ()V
-	public abstract fun builds_correct_query_for_left_join_with_nested_query ()V
-	public abstract fun builds_correct_query_for_multiple_join ()V
-	public abstract fun builds_correct_query_for_multiple_join_with_aliased_table ()V
-	public abstract fun builds_correct_query_for_multiple_join_with_nested_query ()V
-	public abstract fun builds_correct_query_for_right_join ()V
-	public abstract fun builds_correct_query_for_right_join_with_aliased_table ()V
-	public abstract fun builds_correct_query_for_right_join_with_nested_query ()V
+	public fun builds_correct_query_for_full_join ()V
+	public fun builds_correct_query_for_full_join_with_aliased_table ()V
+	public fun builds_correct_query_for_full_join_with_nested_query ()V
+	public fun builds_correct_query_for_inner_join ()V
+	public fun builds_correct_query_for_inner_join_with_aliased_table ()V
+	public fun builds_correct_query_for_inner_join_with_nested_query ()V
+	public fun builds_correct_query_for_left_join ()V
+	public fun builds_correct_query_for_left_join_with_aliased_table ()V
+	public fun builds_correct_query_for_left_join_with_nested_query ()V
+	public fun builds_correct_query_for_multiple_join ()V
+	public fun builds_correct_query_for_multiple_join_with_aliased_table ()V
+	public fun builds_correct_query_for_multiple_join_with_nested_query ()V
+	public fun builds_correct_query_for_right_join ()V
+	public fun builds_correct_query_for_right_join_with_aliased_table ()V
+	public fun builds_correct_query_for_right_join_with_nested_query ()V
 	public abstract fun dialect ()Lcom/github/mejiomah17/yasb/core/DatabaseDialect;
 	public abstract fun firstTable ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
 	public abstract fun secondTable ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
-	public abstract fun select_values_from_for_multiple_join ()V
-	public abstract fun select_values_from_for_multiple_join_with_aliased_table ()V
-	public abstract fun select_values_from_full_join ()V
-	public abstract fun select_values_from_full_join_with_aliased_table ()V
-	public abstract fun select_values_from_full_join_with_nested_query ()V
-	public abstract fun select_values_from_inner_join ()V
-	public abstract fun select_values_from_inner_join_with_aliased_table ()V
-	public abstract fun select_values_from_inner_join_with_nested_query ()V
-	public abstract fun select_values_from_left_join ()V
-	public abstract fun select_values_from_left_join_with_aliased_table ()V
-	public abstract fun select_values_from_left_join_with_nested_query ()V
-	public abstract fun select_values_from_multiple_join_with_nested_query ()V
-	public abstract fun select_values_from_right_join ()V
-	public abstract fun select_values_from_right_join_with_aliased_table ()V
-	public abstract fun select_values_from_right_join_with_nested_query ()V
+	public fun select_values_from_for_multiple_join ()V
+	public fun select_values_from_for_multiple_join_with_aliased_table ()V
+	public fun select_values_from_full_join ()V
+	public fun select_values_from_full_join_with_aliased_table ()V
+	public fun select_values_from_full_join_with_nested_query ()V
+	public fun select_values_from_inner_join ()V
+	public fun select_values_from_inner_join_with_aliased_table ()V
+	public fun select_values_from_inner_join_with_nested_query ()V
+	public fun select_values_from_left_join ()V
+	public fun select_values_from_left_join_with_aliased_table ()V
+	public fun select_values_from_left_join_with_nested_query ()V
+	public fun select_values_from_multiple_join_with_nested_query ()V
+	public fun select_values_from_right_join ()V
+	public fun select_values_from_right_join_with_aliased_table ()V
+	public fun select_values_from_right_join_with_nested_query ()V
 	public abstract fun thirdTable ()Lcom/github/mejiomah17/yasb/dsl/TestTable;
 	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yasb/core/transaction/TransactionFactory;
 }

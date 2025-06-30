@@ -1,5 +1,3 @@
-@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
-
 package com.github.mejiomah17.yasb.dsl
 
 import com.github.mejiomah17.yasb.core.DatabaseDialect
@@ -16,10 +14,9 @@ interface InsertTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
     @Test
     fun select_values_after_insert() {
         transactionFactory().repeatableRead {
@@ -27,10 +24,11 @@ interface InsertTest<
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"
             }.execute()
-            val row = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "abc"
             row[tableTest().b] shouldBe "bca"
         }
@@ -46,9 +44,10 @@ interface InsertTest<
                     context[tableTest().a] = value.toString()
                     context[tableTest().b] = "bca"
                 }.execute()
-                val rows = select(tableTest().a, tableTest().b)
-                    .from(tableTest())
-                    .execute()
+                val rows =
+                    select(tableTest().a, tableTest().b)
+                        .from(tableTest())
+                        .execute()
                 values.forEach {
                     val row = rows[it]
                     row[tableTest().a] shouldBe it.toString()
@@ -73,9 +72,10 @@ interface InsertTest<
                         context[tableTest().b] = "bca"
                     }
                 }.execute()
-                val rows = select(tableTest().a, tableTest().b)
-                    .from(tableTest())
-                    .execute()
+                val rows =
+                    select(tableTest().a, tableTest().b)
+                        .from(tableTest())
+                        .execute()
                 values.forEach { value ->
                     val row = rows[value]
                     if (value % 2 == 0) {
@@ -103,10 +103,11 @@ interface InsertTest<
             }.execute()
         }
         transactionFactory().repeatableRead {
-            val row = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .execute()
-                .single()
+            val row =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .execute()
+                    .single()
             row[tableTest().a] shouldBe "abc"
             row[tableTest().b] shouldBe "bca"
         }

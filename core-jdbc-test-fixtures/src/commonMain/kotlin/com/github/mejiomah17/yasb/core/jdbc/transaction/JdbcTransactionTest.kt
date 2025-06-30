@@ -101,9 +101,10 @@ interface JdbcTransactionTest<TABLE : TestTable<TABLE, ResultSet, PreparedStatem
 
     enum class Thread {
         WRITER,
-        READER
+        READER,
     }
 
     fun transactionFactory(): JdbcTransactionFactory<*>
+
     fun tableTest(): TABLE
 }

@@ -12,7 +12,11 @@ import com.github.mejiomah17.yasb.postgres.jdbc.generator.column.Uuid
 import com.github.mejiomah17.yasb.postgres.jdbc.generator.column.Varchar
 
 class PostgresColumnMetadataFactory : ColumnMetadataFactory {
-    override fun create(name: String, type: String, nullable: Boolean): ColumnMetadata {
+    override fun create(
+        name: String,
+        type: String,
+        nullable: Boolean,
+    ): ColumnMetadata {
         return when (type) {
             "text" -> Text(name, nullable)
             "varchar" -> Varchar(name, nullable)

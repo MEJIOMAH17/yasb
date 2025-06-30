@@ -1,5 +1,3 @@
-@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
-
 package com.github.mejiomah17.yasb.core.dsl.join
 
 import com.github.mejiomah17.yasb.core.SelectionSource
@@ -54,7 +52,7 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, D
     )
 }
 
-context(SupportsRightJoin)
+context(_: SupportsRightJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.rightJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
@@ -67,7 +65,7 @@ fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, D
     )
 }
 
-context(SupportsFullJoin)
+context(_: SupportsFullJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.fullJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>

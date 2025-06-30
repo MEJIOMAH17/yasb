@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 class RepeaterTest {
-
     @Test
     fun `does not repeat unexpected exceptions`() {
         // given
@@ -88,9 +87,10 @@ class RepeaterTest {
         val repeater = Repeater.repeatOn<Int, IllegalStateException>(2)
 
         // when
-        val result = repeater.repeat {
-            42
-        }
+        val result =
+            repeater.repeat {
+                42
+            }
 
         // then
         result.shouldBe(42)

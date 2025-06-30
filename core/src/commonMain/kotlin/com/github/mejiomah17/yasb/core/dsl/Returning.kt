@@ -1,5 +1,3 @@
-@file:Suppress("UNSUPPORTED_FEATURE", "UNSUPPORTED_CONTEXTUAL_DECLARATION_CALL")
-
 package com.github.mejiomah17.yasb.core.dsl
 
 import com.github.mejiomah17.yasb.core.SupportsInsertReturning
@@ -25,14 +23,14 @@ class Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     }
 }
 
-context(SupportsInsertReturning)
+context(_: SupportsInsertReturning)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     expressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return Returning(this, expressions)
 }
 
-context(SupportsInsertReturning)
+context(_: SupportsInsertReturning)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> InsertQuery<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.returning(
     vararg expressions: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 ): Returning<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {

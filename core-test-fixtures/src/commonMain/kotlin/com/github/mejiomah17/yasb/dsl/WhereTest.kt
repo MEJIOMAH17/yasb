@@ -15,7 +15,7 @@ interface WhereTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     > :
     SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
@@ -26,9 +26,10 @@ interface WhereTest<
             given.shouldHaveSize(2)
             given.get(1)[tableTest().a].shouldBe("42")
 
-            val result = queryWithoutWhere.where {
-                tableTest().a.eq("42")
-            }.execute()
+            val result =
+                queryWithoutWhere.where {
+                    tableTest().a.eq("42")
+                }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
             row[tableTest().a] shouldBe "42"
@@ -72,11 +73,12 @@ interface WhereTest<
     @Test
     fun `where_has_correct_parameters`() {
         transactionFactory().readUncommitted {
-            val params = select(tableTest().a, tableTest().b)
-                .from(tableTest())
-                .where {
-                    tableTest().a.eq("42")
-                }.parameters()
+            val params =
+                select(tableTest().a, tableTest().b)
+                    .from(tableTest())
+                    .where {
+                        tableTest().a.eq("42")
+                    }.parameters()
             params.shouldHaveSize(1)
             params.single().value shouldBe "42"
         }

@@ -1,5 +1,5 @@
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteCountTest : com/github/mejiomah17/yasb/dsl/CountTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteCountTest$DefaultImpls {
@@ -10,7 +10,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteCountTest$DefaultImpl
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteDeleteTest : com/github/mejiomah17/yasb/dsl/DeleteTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteDeleteTest$DefaultImpls {
@@ -22,7 +22,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteDeleteTest$DefaultImp
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteFromTest : com/github/mejiomah17/yasb/dsl/FromTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteFromTest$DefaultImpls {
@@ -42,7 +42,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteFromTest$DefaultImpls
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteGroupByTest : com/github/mejiomah17/yasb/dsl/GroupByTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteGroupByTest$DefaultImpls {
@@ -57,7 +57,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteGroupByTest$DefaultIm
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteInsertTest : com/github/mejiomah17/yasb/dsl/InsertWithReturningTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteInsertTest$DefaultImpls {
@@ -74,7 +74,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteInsertTest$DefaultImp
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest : com/github/mejiomah17/yasb/dsl/LimitTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest$DefaultImpls {
@@ -85,8 +85,22 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteLimitTest$DefaultImpl
 	public static fun limit_generates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteLimitTest;)V
 }
 
+public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteOrderByTest : com/github/mejiomah17/yasb/dsl/OrderByTest {
+	public fun initSqlScripts ()Ljava/util/List;
+}
+
+public final class com/github/mejiomah17/yasb/sqlite/SqliteOrderByTest$DefaultImpls {
+	public static fun init (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun initSqlScripts (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)Ljava/util/List;
+	public static fun order_by_asc_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_called_after_where (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_desc_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_generates_correct_sql (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+	public static fun order_by_returns_sorted (Lcom/github/mejiomah17/yasb/sqlite/SqliteOrderByTest;)V
+}
+
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest : com/github/mejiomah17/yasb/dsl/join/TableJoinTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest$DefaultImpls {
@@ -125,7 +139,7 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteTableJoinTest$Default
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteUpdateTest : com/github/mejiomah17/yasb/dsl/UpdateTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
+	public fun initSqlScripts ()Ljava/util/List;
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteUpdateTest$DefaultImpls {
@@ -138,10 +152,10 @@ public final class com/github/mejiomah17/yasb/sqlite/SqliteUpdateTest$DefaultImp
 }
 
 public abstract interface class com/github/mejiomah17/yasb/sqlite/SqliteWhereTest : com/github/mejiomah17/yasb/dsl/WhereTest {
-	public abstract fun initSqlScripts ()Ljava/util/List;
-	public abstract fun where_filters_query_by_blob_column ()V
-	public abstract fun where_filters_query_by_bool_column ()V
-	public abstract fun where_filters_query_by_long_column ()V
+	public fun initSqlScripts ()Ljava/util/List;
+	public fun where_filters_query_by_blob_column ()V
+	public fun where_filters_query_by_bool_column ()V
+	public fun where_filters_query_by_long_column ()V
 }
 
 public final class com/github/mejiomah17/yasb/sqlite/SqliteWhereTest$DefaultImpls {

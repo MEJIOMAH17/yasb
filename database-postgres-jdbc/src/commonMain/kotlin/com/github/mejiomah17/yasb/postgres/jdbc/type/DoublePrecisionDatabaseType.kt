@@ -7,7 +7,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object DoublePrecisionDatabaseType : JDBCDatabaseType<Double> {
-    override fun extractFromSource(source: ResultSet, index: Int): Double? {
+    override fun extractFromSource(
+        source: ResultSet,
+        index: Int,
+    ): Double? {
         return source.getNullable {
             source.getDouble(index)
         }

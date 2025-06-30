@@ -23,13 +23,14 @@ class PostgresTableJoinTest :
             "INSERT INTO SECOND (A,B) values ('XXX','B2')",
             "INSERT INTO SECOND (A,B) values ('ZZZ','D1')",
             "INSERT INTO THIRD (A,B) values ('XXX','B3')",
-            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')"
+            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')",
         )
     }
 
     override fun firstTable(): TestTable<*, ResultSet, PreparedStatement> = FirstTable
 
     fun joinColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.a
+
     fun dataColumnFromFirstTable(): Column<*, String, ResultSet, PreparedStatement> = FirstTable.b
 
     override fun secondTable(): SecondTable = SecondTable

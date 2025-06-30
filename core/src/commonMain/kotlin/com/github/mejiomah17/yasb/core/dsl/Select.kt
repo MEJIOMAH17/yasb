@@ -17,7 +17,7 @@ class Select<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     }
 
     override fun sql(): String {
-        return "SELECT ${expressions.map { it.sql() }.joinToString(", ")}"
+        return "SELECT ${expressions.joinToString(", ") { it.sql() }}"
     }
 
     override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {

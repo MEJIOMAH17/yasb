@@ -18,50 +18,51 @@ abstract class SqliteAndroidTest {
     lateinit var context: Context
     val newDb: org.sqlite.database.sqlite.SQLiteDatabase by lazy {
         System.loadLibrary("sqliteX")
-        val db = org.sqlite.database.sqlite.SQLiteDatabase.openDatabase(
-            context.getDatabasePath("Test.db").path,
-            null,
-            SQLiteDatabase.OpenParams.Builder()
-                .addOpenFlags(OPEN_READWRITE)
-                .addOpenFlags(CREATE_IF_NECESSARY)
-                .build().openFlags
-        )
+        val db =
+            org.sqlite.database.sqlite.SQLiteDatabase.openDatabase(
+                context.getDatabasePath("Test.db").path,
+                null,
+                SQLiteDatabase.OpenParams.Builder()
+                    .addOpenFlags(OPEN_READWRITE)
+                    .addOpenFlags(CREATE_IF_NECESSARY)
+                    .build().openFlags,
+            )
         """
-                    DROP TABLE IF EXISTS test;
-                    DROP TABLE IF EXISTS FIRST;
-                    DROP TABLE IF EXISTS SECOND;
-                    DROP TABLE IF EXISTS THIRD;
+        DROP TABLE IF EXISTS test;
+        DROP TABLE IF EXISTS FIRST;
+        DROP TABLE IF EXISTS SECOND;
+        DROP TABLE IF EXISTS THIRD;
         """.trimIndent().split("\n").forEach {
             db.execSQL(it)
         }
         listOf(
             """
-                            CREATE TABLE test(
-                               a string DEFAULT NULL,
-                               b string DEFAULT NULL,
-                               c bigint DEFAULT NULL,
-                               d boolean DEFAULT NULL,
-                               e blob DEFAULT NULL
-                            )
+            CREATE TABLE test(
+               a string DEFAULT NULL,
+               b string DEFAULT NULL,
+               c bigint DEFAULT NULL,
+               d boolean DEFAULT NULL,
+               e blob DEFAULT NULL
+            )
             """.trimIndent(),
             """
-                            CREATE TABLE FIRST(
-                               A string,
-                               B string
-                            );
+            CREATE TABLE FIRST(
+               A string,
+               B string
+            );
             """.trimIndent(),
             """
-                            CREATE TABLE SECOND(
-                               A string,
-                               B string
-                            );
+            CREATE TABLE SECOND(
+               A string,
+               B string
+            );
             """.trimIndent(),
             """
-                            CREATE TABLE THIRD(
-                               A string,
-                               B string
-                            );
-            """.trimIndent()
+            CREATE TABLE THIRD(
+               A string,
+               B string
+            );
+            """.trimIndent(),
         ).forEach {
             db.execSQL(it)
         }
@@ -92,7 +93,7 @@ abstract class SqliteAndroidTest {
     class DbHelper(
         context: Context,
         private val initSql: List<String>,
-        private val cleanSql: List<String>
+        private val cleanSql: List<String>,
     ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         override fun onCreate(db: SQLiteDatabase) {
             initSql.forEach {
@@ -100,7 +101,11 @@ abstract class SqliteAndroidTest {
             }
         }
 
-        override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        override fun onUpgrade(
+            db: SQLiteDatabase,
+            oldVersion: Int,
+            newVersion: Int,
+        ) {
             // This database is only a cache for online data, so its upgrade policy is
             // to simply to discard the data and start over
             cleanSql.forEach {
@@ -109,7 +114,11 @@ abstract class SqliteAndroidTest {
             onCreate(db)
         }
 
-        override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        override fun onDowngrade(
+            db: SQLiteDatabase,
+            oldVersion: Int,
+            newVersion: Int,
+        ) {
             onUpgrade(db, oldVersion, newVersion)
         }
 

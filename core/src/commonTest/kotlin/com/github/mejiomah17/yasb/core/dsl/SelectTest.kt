@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 class SelectTest {
-
     @Test
     fun `select_method_throws_exception_if_input_is_empty`() {
         shouldThrow<java.lang.IllegalArgumentException> {

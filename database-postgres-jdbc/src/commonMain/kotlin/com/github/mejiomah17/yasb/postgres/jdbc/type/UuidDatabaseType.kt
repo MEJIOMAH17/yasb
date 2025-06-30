@@ -8,7 +8,10 @@ import java.sql.ResultSet
 import java.util.UUID
 
 object UuidDatabaseType : JDBCDatabaseType<UUID> {
-    override fun extractFromSource(resultSet: ResultSet, index: Int): UUID? {
+    override fun extractFromSource(
+        resultSet: ResultSet,
+        index: Int,
+    ): UUID? {
         return resultSet.getString(index)?.let { UUID.fromString(it) }
     }
 

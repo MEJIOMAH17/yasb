@@ -6,6 +6,7 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     val tableName: String
+
     override fun sql(): String {
         return tableName
     }
@@ -18,14 +19,18 @@ interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIV
         return tableToColumns[this] as List<Column<TABLE, *, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
     }
 
-    fun <V> register(column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    fun <V> register(
+        column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    ): Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         tableToColumns.computeIfAbsent(this) {
             mutableListOf()
         }.add(column)
         return column
     }
 
-    fun <V> registerNullable(column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>): Column<TABLE, V?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    fun <V> registerNullable(
+        column: Column<TABLE, V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    ): Column<TABLE, V?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         return register(column) as Column<TABLE, V?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     }
 }

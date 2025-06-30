@@ -9,13 +9,13 @@ import java.sql.ResultSet
 internal class JdbcRows(
     private val preparedStatement: PreparedStatement,
     private val returningQuery: ReturningQuery<ResultSet, PreparedStatement>,
-    private val resultSet: ResultSet
+    private val resultSet: ResultSet,
 ) : Rows {
-
     override fun iterator(): Iterator<Row> {
         return object : Iterator<Row> {
             private var rowConsumed = true
             private var hasNext = false
+
             override fun hasNext(): Boolean {
                 if (rowConsumed) {
                     hasNext = resultSet.next()
@@ -30,7 +30,7 @@ internal class JdbcRows(
                 return Row(
                     returningQuery.returnExpressions().mapIndexed { index, expression ->
                         expression to expression.databaseType().extractFromSource(resultSet, index + 1)
-                    }.toMap()
+                    }.toMap(),
                 ).also {
                     rowConsumed = true
                 }

@@ -1,13 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-gradle-plugin`
     kotlin("jvm")
     java
-}
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 dependencies {
     implementation(project(":gradle-plugin-generator-flyway"))
@@ -73,19 +70,21 @@ kotlin {
 }
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 tasks.withType<KotlinCompile>().all {
-    this.kotlinOptions.jvmTarget = "11"
+    this.compilerOptions.jvmTarget = JvmTarget.JVM_11
 }
-ktlint.filter {
-    exclude {
-        it.file.absolutePath.contains("generated")
-    }
-}
-afterEvaluate {
-    publishing {
-        publications {
-            this.withType(MavenPublication::class.java) {
-                this.artifactId = project.group.toString() + ".gradle.plugin"
-            }
-        }
-    }
-}
+
+// TODO uncomment after 2.2.0 support
+//ktlint.filter {
+//    exclude {
+//        it.file.absolutePath.contains("generated")
+//    }
+//}
+// afterEvaluate {
+//    publishing {
+//        publications {
+//            this.withType(MavenPublication::class.java) {
+//                this.artifactId = project.group.toString() + ".gradle.plugin"
+//            }
+//        }
+//    }
+// }

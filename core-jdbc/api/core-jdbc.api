@@ -6,11 +6,11 @@ public abstract interface class com/github/mejiomah17/yasb/core/jdbc/parameter/J
 }
 
 public abstract interface class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction : com/github/mejiomah17/yasb/core/transaction/Transaction {
-	public abstract fun commit ()V
-	public abstract fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
+	public fun commit ()V
+	public fun execute (Lcom/github/mejiomah17/yasb/core/query/Query;)V
 	public abstract fun getConnection ()Ljava/sql/Connection;
-	public abstract fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
-	public abstract fun rollback ()V
+	public fun lazy (Lcom/github/mejiomah17/yasb/core/query/ReturningQuery;)Lcom/github/mejiomah17/yasb/core/Rows;
+	public fun rollback ()V
 }
 
 public final class com/github/mejiomah17/yasb/core/jdbc/transaction/JdbcTransaction$DefaultImpls {

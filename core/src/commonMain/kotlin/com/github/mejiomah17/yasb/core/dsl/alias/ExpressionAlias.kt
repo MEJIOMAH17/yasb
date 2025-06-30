@@ -7,9 +7,8 @@ import com.github.mejiomah17.yasb.core.parameter.Parameter
 
 class ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val expression: AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    val name: String
+    val name: String,
 ) : Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-
     override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
         return expression.databaseType()
     }
@@ -23,28 +22,33 @@ class ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     }
 }
 
-fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.`as`(name: String): ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.`as`(
+    name: String,
+): ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return ExpressionAlias(
-        expression = object : AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-            override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-                return this@`as`.databaseType
-            }
+        expression =
+            object : AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+                override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+                    return this@`as`.databaseType
+                }
 
-            override fun sql(): String {
-                return this@`as`.parameterInSql
-            }
+                override fun sql(): String {
+                    return this@`as`.parameterInSql
+                }
 
-            override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-                return listOf(this@`as`)
-            }
-        },
-        name = name
+                override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
+                    return listOf(this@`as`)
+                }
+            },
+        name = name,
     )
 }
 
-fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.`as`(name: String): ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> AliasableExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.`as`(
+    name: String,
+): ExpressionAlias<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     return ExpressionAlias(
         expression = this,
-        name = name
+        name = name,
     )
 }

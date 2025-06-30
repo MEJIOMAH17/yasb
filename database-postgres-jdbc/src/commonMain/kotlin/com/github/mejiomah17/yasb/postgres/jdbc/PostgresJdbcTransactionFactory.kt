@@ -5,7 +5,7 @@ import javax.sql.DataSource
 
 class PostgresJdbcTransactionFactory(dataSource: DataSource) :
     JdbcTransactionFactory<PostgresJdbcDatabaseDialect>(
-        dataSource
+        dataSource,
     ) {
     override fun dialect(): PostgresJdbcDatabaseDialect {
         return PostgresJdbcDatabaseDialect

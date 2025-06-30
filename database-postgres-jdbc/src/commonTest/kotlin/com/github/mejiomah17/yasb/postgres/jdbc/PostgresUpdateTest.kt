@@ -10,7 +10,7 @@ class PostgresUpdateTest :
     PostgresTest() {
     override fun initSqlScripts(): List<String> {
         return listOf(
-            "TRUNCATE TABLE test"
+            "TRUNCATE TABLE test",
         )
     }
 }
