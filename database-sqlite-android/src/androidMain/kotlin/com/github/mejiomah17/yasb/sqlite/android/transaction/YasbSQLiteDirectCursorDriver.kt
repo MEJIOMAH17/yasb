@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.mejiomah17.yasb.sqlite.android.transaction
+package com.github.mejiomah17.yaksb.sqlite.android.transaction
 
 import android.database.Cursor
 import android.os.CancellationSignal
-import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatementImpl
-import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
+import com.github.mejiomah17.yaksb.core.parameter.Parameter
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatementImpl
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.TextParameter
 import org.sqlite.database.sqlite.SQLiteCursor
 import org.sqlite.database.sqlite.SQLiteCursorDriver
 import org.sqlite.database.sqlite.SQLiteDatabase

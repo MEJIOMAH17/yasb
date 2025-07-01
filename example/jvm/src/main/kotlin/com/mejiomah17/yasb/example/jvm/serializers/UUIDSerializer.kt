@@ -1,4 +1,4 @@
-package com.mejiomah17.yasb.example.jvm.serializers
+package com.mejiomah17.yaksb.example.jvm.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

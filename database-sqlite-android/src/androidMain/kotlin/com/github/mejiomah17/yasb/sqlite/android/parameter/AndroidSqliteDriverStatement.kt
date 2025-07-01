@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.sqlite.android.parameter
+package com.github.mejiomah17.yaksb.sqlite.android.parameter
 
 import org.sqlite.database.sqlite.SQLiteProgram
 

@@ -1,8 +1,8 @@
-package com.github.mejiomah17.yasb.sqlite.android
+package com.github.mejiomah17.yaksb.sqlite.android
 
 import android.database.Cursor
-import com.github.mejiomah17.yasb.sqlite.TestSqliteTable
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.sqlite.TestSqliteTable
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
 
 object SqliteAndroidTestTable :
     SqliteAndroidTable<SqliteAndroidTestTable>,

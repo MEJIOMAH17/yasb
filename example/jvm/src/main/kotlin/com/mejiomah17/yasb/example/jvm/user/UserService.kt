@@ -1,9 +1,9 @@
-package com.mejiomah17.yasb.example.jvm.user
+package com.mejiomah17.yaksb.example.jvm.user
 
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastReadCommitted
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastRepeatableRead
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
-import com.mejiomah17.yasb.example.jvm.pet.PetDao
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionAtLeastReadCommitted
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionAtLeastRepeatableRead
+import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcDatabaseDialect
+import com.mejiomah17.yaksb.example.jvm.pet.PetDao
 import java.util.*
 
 class UserService(

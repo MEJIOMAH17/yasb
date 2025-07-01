@@ -1,4 +1,4 @@
-package com.mejiomah17.yasb.example.jvm
+package com.mejiomah17.yaksb.example.jvm
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO

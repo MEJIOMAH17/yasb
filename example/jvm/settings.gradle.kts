@@ -6,14 +6,14 @@ pluginManagement {
     plugins {
         kotlin("jvm").version(extra["kotlin.version"] as String)
         id("org.jetbrains.kotlin.plugin.serialization").version(extra["kotlin.version"] as String)
-        id("io.github.mejiomah17.yasb").version(extra["version"] as String)
+        id("io.github.mejiomah17.yaksb").version(extra["version"] as String)
     }
 }
 dependencyResolutionManagement {
     versionCatalogs {
         val ktorVersion = "2.3.7"
         create("libs") {
-            library("yasb.postgres.jvm", "io.github.mejiomah17.yasb:database-postgres-jdbc-jvm:${extra["version"]}")
+            library("yaksb.postgres.jvm", "io.github.mejiomah17.yaksb:database-postgres-jdbc-jvm:${extra["version"]}")
             library("ktor-server", "io.ktor:ktor-server-netty:$ktorVersion")
             library("ktor-client", "io.ktor:ktor-client-cio:$ktorVersion")
             library("ktor-client-core", "io.ktor:ktor-client-core:$ktorVersion")

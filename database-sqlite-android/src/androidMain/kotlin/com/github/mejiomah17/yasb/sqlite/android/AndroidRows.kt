@@ -1,10 +1,10 @@
-package com.github.mejiomah17.yasb.sqlite.android
+package com.github.mejiomah17.yaksb.sqlite.android
 
 import android.database.Cursor
-import com.github.mejiomah17.yasb.core.Row
-import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.core.Row
+import com.github.mejiomah17.yaksb.core.Rows
+import com.github.mejiomah17.yaksb.core.query.ReturningQuery
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
 
 class AndroidRows(
     val cursor: Cursor,

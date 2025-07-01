@@ -1,7 +1,7 @@
-package com.mejiomah17.yasb.example.jvm.pet
+package com.mejiomah17.yaksb.example.jvm.pet
 
-import com.mejiomah17.yasb.example.jvm.IntegrationTest
-import com.mejiomah17.yasb.example.jvm.user.User
+import com.mejiomah17.yaksb.example.jvm.IntegrationTest
+import com.mejiomah17.yaksb.example.jvm.user.User
 import io.kotest.matchers.shouldBe
 import io.ktor.client.request.accept
 import io.ktor.client.request.get

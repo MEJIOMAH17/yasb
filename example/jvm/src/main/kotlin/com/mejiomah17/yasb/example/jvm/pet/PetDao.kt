@@ -1,16 +1,16 @@
-package com.mejiomah17.yasb.example.jvm.pet
+package com.mejiomah17.yaksb.example.jvm.pet
 
-import com.github.mejiomah17.yasb.PetsTable
-import com.github.mejiomah17.yasb.UsersTable
-import com.github.mejiomah17.yasb.core.Row
-import com.github.mejiomah17.yasb.core.dsl.eq
-import com.github.mejiomah17.yasb.core.dsl.from
-import com.github.mejiomah17.yasb.core.dsl.insertInto
-import com.github.mejiomah17.yasb.core.dsl.join.innerJoin
-import com.github.mejiomah17.yasb.core.dsl.select
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransaction
-import com.github.mejiomah17.yasb.core.where
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
+import com.github.mejiomah17.yaksb.PetsTable
+import com.github.mejiomah17.yaksb.UsersTable
+import com.github.mejiomah17.yaksb.core.Row
+import com.github.mejiomah17.yaksb.core.dsl.eq
+import com.github.mejiomah17.yaksb.core.dsl.from
+import com.github.mejiomah17.yaksb.core.dsl.insertInto
+import com.github.mejiomah17.yaksb.core.dsl.join.innerJoin
+import com.github.mejiomah17.yaksb.core.dsl.select
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransaction
+import com.github.mejiomah17.yaksb.core.where
+import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcDatabaseDialect
 import java.util.UUID
 
 class PetDao {

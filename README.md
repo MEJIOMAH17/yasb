@@ -1,6 +1,6 @@
-# Yet Another SQL Builder
+# Yet Another Kotlin SQL Builder
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yasb/core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yasb/core)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yaksb/core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.mejiomah17.yaksb/core)
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Telegram](https://raw.githubusercontent.com/Patrolavia/telegram-badge/master/ask.svg)](https://t.me/MEJIOMAH17)
 
@@ -88,19 +88,19 @@
    Plugin
     ```kotlin
     plugins{
-        id("io.github.mejiomah17.yasb")
+        id("io.github.mejiomah17.yaksb")
     }
     tasks.withType<GenerateTablesTask> {
         database = Database.Postgres(DockerImageName.parse("postgres").withTag("16.1"))
-        packageName = "com.github.mejiomah17.yasb"
+        packageName = "com.github.mejiomah17.yaksb"
         flywayMigrationDirs.add(projectDir.resolve("src/main/resources/db/migration"))
     }
     ```
    Generates
     ```kotlin
-    package com.github.mejiomah17.yasb
+    package com.github.mejiomah17.yaksb
 
-    object UsersTable : com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTable<UsersTable> {
+    object UsersTable : com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTable<UsersTable> {
         override val tableName = "users"
         val id = uuid("id")
         val password = text("password")

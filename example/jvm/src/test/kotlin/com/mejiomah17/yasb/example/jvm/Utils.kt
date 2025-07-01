@@ -1,4 +1,4 @@
-package com.mejiomah17.yasb.example.jvm
+package com.mejiomah17.yaksb.example.jvm
 
 import kotlinx.coroutines.runBlocking
 import org.awaitility.core.ConditionFactory

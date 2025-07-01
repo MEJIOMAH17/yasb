@@ -1,4 +1,4 @@
-package com.github.mejiomah17.yasb.sqlite.android.type
+package com.github.mejiomah17.yaksb.sqlite.android.type
 
 import java.sql.ResultSet
 

@@ -1,13 +1,13 @@
-package com.github.mejiomah17.yasb.sqlite.android
+package com.github.mejiomah17.yaksb.sqlite.android
 
 import android.database.Cursor
-import com.github.mejiomah17.yasb.core.ddl.Column
-import com.github.mejiomah17.yasb.sqlite.SqliteTable
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
-import com.github.mejiomah17.yasb.sqlite.android.type.BlobDatabaseType
-import com.github.mejiomah17.yasb.sqlite.android.type.BooleanDatabaseType
-import com.github.mejiomah17.yasb.sqlite.android.type.LongDatabaseType
-import com.github.mejiomah17.yasb.sqlite.android.type.TextDatabaseType
+import com.github.mejiomah17.yaksb.core.ddl.Column
+import com.github.mejiomah17.yaksb.sqlite.SqliteTable
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.sqlite.android.type.BlobDatabaseType
+import com.github.mejiomah17.yaksb.sqlite.android.type.BooleanDatabaseType
+import com.github.mejiomah17.yaksb.sqlite.android.type.LongDatabaseType
+import com.github.mejiomah17.yaksb.sqlite.android.type.TextDatabaseType
 
 interface SqliteAndroidTable<T : SqliteAndroidTable<T>> : SqliteTable<T, Cursor, AndroidSqliteDriverStatement> {
     override fun text(name: String): Column<T, String, Cursor, AndroidSqliteDriverStatement> {

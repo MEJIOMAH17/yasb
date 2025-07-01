@@ -1,12 +1,12 @@
-package com.github.mejiomah17.yasb.sqlite.android.transaction
+package com.github.mejiomah17.yaksb.sqlite.android.transaction
 
 import android.database.Cursor
-import com.github.mejiomah17.yasb.core.Rows
-import com.github.mejiomah17.yasb.core.query.Query
-import com.github.mejiomah17.yasb.core.query.ReturningQuery
-import com.github.mejiomah17.yasb.core.transaction.Transaction
-import com.github.mejiomah17.yasb.sqlite.android.AndroidRows
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.core.Rows
+import com.github.mejiomah17.yaksb.core.query.Query
+import com.github.mejiomah17.yaksb.core.query.ReturningQuery
+import com.github.mejiomah17.yaksb.core.transaction.Transaction
+import com.github.mejiomah17.yaksb.sqlite.android.AndroidRows
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
 import org.sqlite.database.sqlite.SQLiteDatabase
 
 interface AndroidTransaction : Transaction<Cursor, AndroidSqliteDriverStatement> {
