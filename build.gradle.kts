@@ -86,7 +86,7 @@ fun Project.configurePublication() {
             pom {
                 name = "An YASB ${project.name} module"
                 description = name.get()
-                url = "https://github.com/MEJIOMAH17/yasb"
+                url = "https://github.com/MEJIOMAH17/yaksb"
                 licenses {
                     license {
                         name = "MIT"
@@ -101,9 +101,9 @@ fun Project.configurePublication() {
                     }
                 }
                 scm {
-                    url = "scm:git:git://github.com/MEJIOMAH17/yasb.git"
-                    connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yasb.git"
-                    developerConnection = "https://github.com/MEJIOMAH17/yasb"
+                    url = "scm:git:git://github.com/MEJIOMAH17/yaksb.git"
+                    connection = "scm:git:ssh://git@github.com/MEJIOMAH17/yaksb.git"
+                    developerConnection = "https://github.com/MEJIOMAH17/yaksb"
                 }
             }
         }

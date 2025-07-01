@@ -1,7 +1,7 @@
-package com.github.mejiomah17.yasb.sqlite.android.parameter
+package com.github.mejiomah17.yaksb.sqlite.android.parameter
 
-import com.github.mejiomah17.yasb.sqlite.android.AndroidDatabaseType
-import com.github.mejiomah17.yasb.sqlite.android.type.LongDatabaseType
+import com.github.mejiomah17.yaksb.sqlite.android.AndroidDatabaseType
+import com.github.mejiomah17.yaksb.sqlite.android.type.LongDatabaseType
 
 class LongParameter(
     override val value: Long?,

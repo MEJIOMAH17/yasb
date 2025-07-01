@@ -1,9 +1,9 @@
 @file:UseSerializers(UUIDSerializer::class)
 
-package com.mejiomah17.yasb.example.jvm.user
+package com.mejiomah17.yaksb.example.jvm.user
 
-import com.mejiomah17.yasb.example.jvm.pet.Pet
-import com.mejiomah17.yasb.example.jvm.serializers.UUIDSerializer
+import com.mejiomah17.yaksb.example.jvm.pet.Pet
+import com.mejiomah17.yaksb.example.jvm.serializers.UUIDSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.UseSerializers

@@ -1,0 +1,7 @@
+package com.github.mejiomah17.yaksb.core.dsl
+
+interface GroupByQuery
+
+interface GroupByQueryAndSelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
+    GroupByQuery,
+    SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>

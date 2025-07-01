@@ -1,15 +1,15 @@
-package com.github.mejiomah17.yasb.sqlite.android
+package com.github.mejiomah17.yaksb.sqlite.android
 
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.mejiomah17.yasb.core.parameter.Parameter
-import com.github.mejiomah17.yasb.dsl.TestTable
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
-import com.github.mejiomah17.yasb.sqlite.android.parameter.TextParameter
-import com.github.mejiomah17.yasb.sqlite.android.transaction.AndroidTransactionFactory
+import com.github.mejiomah17.yaksb.core.parameter.Parameter
+import com.github.mejiomah17.yaksb.dsl.TestTable
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.TextParameter
+import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidTransactionFactory
 import org.junit.Before
 import org.sqlite.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY
 import org.sqlite.database.sqlite.SQLiteDatabase.OPEN_READWRITE

@@ -1,4 +1,4 @@
-package com.mejiomah17.yasb.example.jvm.user
+package com.mejiomah17.yaksb.example.jvm.user
 
 import java.util.UUID
 

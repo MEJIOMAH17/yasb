@@ -1,10 +1,10 @@
-import com.github.mejiomah17.yasb.Database
-import com.github.mejiomah17.yasb.GenerateTablesTask
+import com.github.mejiomah17.yaksb.Database
+import com.github.mejiomah17.yaksb.GenerateTablesTask
 import org.testcontainers.utility.DockerImageName
 
 plugins {
     kotlin("jvm")
-    id("io.github.mejiomah17.yasb")
+    id("io.github.mejiomah17.yaksb")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation(libs.yasb.postgres.jvm)
+    implementation(libs.yaksb.postgres.jvm)
     implementation(libs.postgresql)
     implementation(libs.testcontainers.postgresql)
     implementation(libs.ktor.server)
@@ -32,7 +32,7 @@ dependencies {
 
 tasks.withType<GenerateTablesTask> {
     database = Database.Postgres(DockerImageName.parse("postgres").withTag("16.1"))
-    packageName = "com.github.mejiomah17.yasb"
+    packageName = "com.github.mejiomah17.yaksb"
     flywayMigrationDirs.add(projectDir.resolve("src/main/resources/db/migration"))
 }
 kotlin {

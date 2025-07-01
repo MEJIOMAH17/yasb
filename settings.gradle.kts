@@ -1,4 +1,4 @@
-rootProject.name = "yasb"
+rootProject.name = "yaksb"
 include(
     "core",
     "core-test-fixtures",

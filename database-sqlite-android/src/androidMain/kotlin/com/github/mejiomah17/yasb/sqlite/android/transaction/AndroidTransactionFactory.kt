@@ -1,11 +1,11 @@
-package com.github.mejiomah17.yasb.sqlite.android.transaction
+package com.github.mejiomah17.yaksb.sqlite.android.transaction
 
 import android.database.Cursor
-import com.github.mejiomah17.yasb.core.Repeater
-import com.github.mejiomah17.yasb.core.transaction.Transaction
-import com.github.mejiomah17.yasb.core.transaction.TransactionFactory
-import com.github.mejiomah17.yasb.sqlite.android.SqliteAndroidDatabaseDialect
-import com.github.mejiomah17.yasb.sqlite.android.parameter.AndroidSqliteDriverStatement
+import com.github.mejiomah17.yaksb.core.Repeater
+import com.github.mejiomah17.yaksb.core.transaction.Transaction
+import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
+import com.github.mejiomah17.yaksb.sqlite.android.SqliteAndroidDatabaseDialect
+import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
 import org.sqlite.database.SQLException
 import org.sqlite.database.sqlite.SQLiteDatabase
 

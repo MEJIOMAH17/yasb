@@ -1,8 +1,8 @@
-package com.mejiomah17.yasb.example.jvm.pet
+package com.mejiomah17.yaksb.example.jvm.pet
 
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastReadCommitted
-import com.github.mejiomah17.yasb.core.jdbc.transaction.JdbcTransactionAtLeastRepeatableRead
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcDatabaseDialect
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionAtLeastReadCommitted
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionAtLeastRepeatableRead
+import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcDatabaseDialect
 
 class PetService(
     private val petDao: PetDao

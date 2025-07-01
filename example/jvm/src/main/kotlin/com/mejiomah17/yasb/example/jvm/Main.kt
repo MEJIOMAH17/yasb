@@ -1,15 +1,15 @@
-package com.mejiomah17.yasb.example.jvm
+package com.mejiomah17.yaksb.example.jvm
 
 import com.github.mejiomah17.yakl.api.Logger
 import com.github.mejiomah17.yakl.dsl.logging
 import com.github.mejiomah17.yakl.stdout.stdout
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
-import com.mejiomah17.yasb.example.jvm.pet.PetController
-import com.mejiomah17.yasb.example.jvm.pet.PetDao
-import com.mejiomah17.yasb.example.jvm.pet.PetService
-import com.mejiomah17.yasb.example.jvm.user.UserController
-import com.mejiomah17.yasb.example.jvm.user.UserDao
-import com.mejiomah17.yasb.example.jvm.user.UserService
+import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTransactionFactory
+import com.mejiomah17.yaksb.example.jvm.pet.PetController
+import com.mejiomah17.yaksb.example.jvm.pet.PetDao
+import com.mejiomah17.yaksb.example.jvm.pet.PetService
+import com.mejiomah17.yaksb.example.jvm.user.UserController
+import com.mejiomah17.yaksb.example.jvm.user.UserDao
+import com.mejiomah17.yaksb.example.jvm.user.UserService
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.http.HttpStatusCode
@@ -59,7 +59,7 @@ fun server(): NettyApplicationEngine {
 
 private fun datasource(logger: Logger): HikariDataSource {
     val databaseContainer = PostgresContainer(DockerImageName.parse("postgres").withTag("16.1"))
-        .withDatabaseName("yasb")
+        .withDatabaseName("yaksb")
         .withUsername(PostgresContainer.LOGIN)
         .withPassword(PostgresContainer.PASSWORD)
     databaseContainer.start()

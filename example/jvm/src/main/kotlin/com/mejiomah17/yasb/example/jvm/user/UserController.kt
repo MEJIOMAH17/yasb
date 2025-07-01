@@ -1,6 +1,6 @@
-package com.mejiomah17.yasb.example.jvm.user
+package com.mejiomah17.yaksb.example.jvm.user
 
-import com.github.mejiomah17.yasb.postgres.jdbc.PostgresJdbcTransactionFactory
+import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTransactionFactory
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond

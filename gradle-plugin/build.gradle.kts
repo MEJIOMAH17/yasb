@@ -29,7 +29,7 @@ gradlePlugin {
     plugins {
         create(name) {
             id = "$group"
-            implementationClass = "com.github.mejiomah17.yasb.GeneratorPlugin"
+            implementationClass = "com.github.mejiomah17.yaksb.GeneratorPlugin"
             displayName = "An YASB gradle plugin"
             description = "An YASB gradle plugin for codegen"
         }
@@ -43,7 +43,7 @@ val generateVersion = tasks.register("generateVersion") {
         generated.resolve("Version.kt").writeText(
             """
             object Version {
-                val yasbVersion = "${rootProject.version}"
+                val yaksbVersion = "${rootProject.version}"
                 val kotlinVersion = "${kotlin.coreLibrariesVersion}"
             }
             
