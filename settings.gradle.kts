@@ -29,6 +29,9 @@ pluginManagement {
         id("com.android.library").version("7.4")
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+}
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -40,7 +43,7 @@ dependencyResolutionManagement {
             library("mockk", "io.mockk:mockk:1.13.11")
             library("postgresql", "org.postgresql:postgresql:42.7.3")
             library("hikaricp", "com.zaxxer:HikariCP:5.1.0")
-            library("testcontainers-postgresql", "org.testcontainers:postgresql:1.19.8")
+            library("testcontainers-postgresql", "org.testcontainers:postgresql:1.21.4")
             library("androidx-test-runner", "androidx.test:runner:1.5.2")
             library("androidx-test-rules", "androidx.test:rules:1.5.0")
             library("androidx-sqlite", "androidx.sqlite:sqlite:2.4.0")
