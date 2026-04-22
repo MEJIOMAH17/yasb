@@ -2,6 +2,7 @@ public abstract interface class com/github/mejiomah17/yaksb/core/jdbc/JDBCDataba
 }
 
 public abstract interface class com/github/mejiomah17/yaksb/core/jdbc/parameter/JDBCParameter : com/github/mejiomah17/yaksb/core/parameter/Parameter {
+	public synthetic fun getDatabaseType ()Lcom/github/mejiomah17/yaksb/core/DatabaseType;
 	public abstract fun getDatabaseType ()Lcom/github/mejiomah17/yaksb/core/jdbc/JDBCDatabaseType;
 }
 

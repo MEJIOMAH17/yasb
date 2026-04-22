@@ -14,7 +14,7 @@ public abstract class com/github/mejiomah17/yaksb/Database : java/io/Serializabl
 public final class com/github/mejiomah17/yaksb/Database$Postgres : com/github/mejiomah17/yaksb/Database {
 	public fun <init> (Lorg/testcontainers/utility/DockerImageName;Lcom/github/mejiomah17/yaksb/postgres/jdbc/generator/PostgresTableMetadataFactory;)V
 	public synthetic fun <init> (Lorg/testcontainers/utility/DockerImageName;Lcom/github/mejiomah17/yaksb/postgres/jdbc/generator/PostgresTableMetadataFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getTableMetadataFactory$gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
+	public synthetic fun getTableMetadataFactory$io_github_mejiomah17_yaksb_gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
 }
 
 public final class com/github/mejiomah17/yaksb/Database$Postgres$PostgresContainer : org/testcontainers/containers/PostgreSQLContainer {
@@ -31,14 +31,14 @@ public final class com/github/mejiomah17/yaksb/Database$SqliteAndroid : com/gith
 	public fun <init> ()V
 	public fun <init> (Lcom/github/mejiomah17/yaksb/sqlite/generator/SqliteTableMetadataFactory;)V
 	public synthetic fun <init> (Lcom/github/mejiomah17/yaksb/sqlite/generator/SqliteTableMetadataFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getTableMetadataFactory$gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
+	public synthetic fun getTableMetadataFactory$io_github_mejiomah17_yaksb_gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
 }
 
 public final class com/github/mejiomah17/yaksb/Database$SqliteJdbc : com/github/mejiomah17/yaksb/Database {
 	public fun <init> ()V
 	public fun <init> (Lcom/github/mejiomah17/yaksb/sqlite/generator/SqliteTableMetadataFactory;)V
 	public synthetic fun <init> (Lcom/github/mejiomah17/yaksb/sqlite/generator/SqliteTableMetadataFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getTableMetadataFactory$gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
+	public synthetic fun getTableMetadataFactory$io_github_mejiomah17_yaksb_gradle_plugin ()Lcom/github/mejiomah17/yaksb/dsl/generator/TableMetadataFactory;
 }
 
 public class com/github/mejiomah17/yaksb/GenerateTablesTask : org/gradle/api/DefaultTask {

@@ -17,7 +17,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.0.2")
+        classpath("com.android.tools.build:gradle:8.5.2")
     }
 }
 
@@ -40,7 +40,6 @@ subprojects {
 
         tasks.withType<KotlinCompile>().all {
             compilerOptions.jvmTarget.assign(JvmTarget.JVM_1_8)
-            compilerOptions.freeCompilerArgs.add("-Xcontext-parameters")
             explicitApiMode.set(ExplicitApiMode.Strict)
         }
     }
@@ -59,7 +58,6 @@ subprojects {
                         }
                     }
                 }
-                mpp.compilerOptions.freeCompilerArgs.add("-Xcontext-parameters")
             }
         }
     }

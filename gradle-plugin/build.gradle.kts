@@ -68,9 +68,9 @@ tasks.withType<KotlinCompile>() {
 kotlin {
     this.sourceSets.main.get().kotlin.srcDir(generated)
 }
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 tasks.withType<KotlinCompile>().all {
-    this.compilerOptions.jvmTarget = JvmTarget.JVM_11
+    this.compilerOptions.jvmTarget = JvmTarget.JVM_17
 }
 
 // TODO uncomment after 2.2.0 support
