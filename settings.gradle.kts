@@ -43,8 +43,8 @@ dependencyResolutionManagement {
             library("testcontainers-postgresql", "org.testcontainers:postgresql:1.21.4")
             library("androidx-test-runner", "androidx.test:runner:1.5.2")
             library("androidx-test-rules", "androidx.test:rules:1.5.0")
-            library("androidx-sqlite", "androidx.sqlite:sqlite:2.4.0")
-            library("sqlite-jdbc", "org.xerial:sqlite-jdbc:3.46.0.0")
+            library("androidx-sqlite", "androidx.sqlite:sqlite:2.6.2")
+            library("sqlite-jdbc", "org.xerial:sqlite-jdbc:3.53.0.0")
             library("kotlin-gradle-plugin", "org.jetbrains.kotlin:kotlin-gradle-plugin:${extra["kotlin.version"] as String}")
             library("flyway-core", "org.flywaydb:flyway-core:9.22.3")
         }
