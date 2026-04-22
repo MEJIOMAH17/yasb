@@ -22,7 +22,7 @@ public final class com/github/mejiomah17/yaksb/core/Row {
 	public fun toString ()Ljava/lang/String;
 }
 
-public abstract interface class com/github/mejiomah17/yaksb/core/Rows : java/io/Closeable, kotlin/sequences/Sequence {
+public abstract interface class com/github/mejiomah17/yaksb/core/Rows : java/lang/AutoCloseable, kotlin/sequences/Sequence {
 	public abstract fun close ()V
 	public abstract fun iterator ()Ljava/util/Iterator;
 }

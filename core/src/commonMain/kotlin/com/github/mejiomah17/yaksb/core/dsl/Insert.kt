@@ -5,6 +5,7 @@ import com.github.mejiomah17.yaksb.core.ddl.Column
 import com.github.mejiomah17.yaksb.core.ddl.Table
 import com.github.mejiomah17.yaksb.core.parameter.Parameter
 import com.github.mejiomah17.yaksb.core.query.Query
+import com.github.mejiomah17.yaksb.core.util.getOrPutIfMissing
 
 interface InsertQuery<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> :
     Query<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
@@ -76,14 +77,14 @@ fun <TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIVER_DATA_SOU
         insertContext.columns.forEach { (column, value) ->
             // iterate over this feeling
             val list =
-                columns.computeIfAbsent(column) {
+                columns.getOrPutIfMissing(column) {
                     val list = ArrayList<Any?>(i)
                     (0 until i).forEach { list.add(DefaultQueryPart) }
                     list
                 }
             list.add(value)
         }
-        columns.filterValues { it.size < i + 1 }.forEach { _, v ->
+        columns.filterValues { it.size < i + 1 }.forEach { (_, v) ->
             v.add(DefaultQueryPart)
         }
     }

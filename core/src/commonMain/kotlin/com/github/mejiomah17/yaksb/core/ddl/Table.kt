@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yaksb.core.ddl
 
+import co.touchlab.stately.collections.ConcurrentMutableMap
 import com.github.mejiomah17.yaksb.core.SelectionSource
 import com.github.mejiomah17.yaksb.core.parameter.Parameter
 
@@ -29,6 +30,6 @@ interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIV
     ): Column<TABLE, V?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = register(column) as Column<TABLE, V?, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
 }
 
-private val tableToColumns: MutableMap<Table<*, *, *>, MutableList<Column<*, *, *, *>>> =
+private val tableToColumns: ConcurrentMutableMap<Table<*, *, *>, MutableList<Column<*, *, *, *>>> =
     co.touchlab.stately.collections
         .ConcurrentMutableMap()

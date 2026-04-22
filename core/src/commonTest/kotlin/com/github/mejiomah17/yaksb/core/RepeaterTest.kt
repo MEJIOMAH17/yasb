@@ -2,7 +2,7 @@ package com.github.mejiomah17.yaksb.core
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 class RepeaterTest {
     @Test
