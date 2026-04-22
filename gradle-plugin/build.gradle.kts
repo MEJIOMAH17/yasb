@@ -15,6 +15,7 @@ dependencies {
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockk)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 tasks.withType<Test>() {
     useJUnitPlatform()
@@ -35,7 +36,7 @@ gradlePlugin {
         }
     }
 }
-val generated = project.buildDir.resolve("generated/kotlin").also {
+val generated = project.layout.buildDirectory.asFile.get().resolve("generated/kotlin").also {
     it.mkdirs()
 }
 val generateVersion = tasks.register("generateVersion") {

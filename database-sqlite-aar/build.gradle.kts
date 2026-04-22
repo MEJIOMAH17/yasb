@@ -1,8 +1,8 @@
 plugins {
+    base
     id("maven-publish")
 }
-val default = configurations.maybeCreate("default")
-val artifact = artifacts.add(default.name, file("sqlite-android-3420000.aar"))
+val artifact = artifacts.add("default", file("sqlite-android-3420000.aar"))
 
 publishing {
     publications {
