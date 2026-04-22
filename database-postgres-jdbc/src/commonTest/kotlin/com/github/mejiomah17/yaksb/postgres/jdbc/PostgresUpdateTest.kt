@@ -6,11 +6,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresUpdateTest :
-    UpdateTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    UpdateTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE test",
         )
-    }
 }

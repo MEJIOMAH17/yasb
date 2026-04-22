@@ -5,13 +5,13 @@ import com.github.mejiomah17.yaksb.sqlite.jdbc.type.TextDatabaseType
 import java.sql.PreparedStatement
 
 class TextParameter(
-    override val value: String?
+    override val value: String?,
 ) : SqliteParameter<String>() {
     override val databaseType: JDBCDatabaseType<String> = TextDatabaseType
 
     override fun applyToStatement(
         statement: PreparedStatement,
-        index: Int
+        index: Int,
     ) {
         statement.setString(index, value)
     }

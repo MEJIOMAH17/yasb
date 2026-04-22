@@ -15,13 +15,18 @@ import java.time.Instant
 import java.util.UUID
 
 class PostgresInsertTest :
-    InsertWithReturningTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    InsertWithReturningTest<
+        PostgresJdbcTestTable,
+        ResultSet,
+        PreparedStatement,
+        PostgresJdbcDatabaseDialect,
+        JdbcTransactionRepeatableRead,
+    > {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE test",
         )
-    }
 
     @Test
     override fun select_values_after_insert() {
@@ -45,8 +50,7 @@ class PostgresInsertTest :
                     PostgresJdbcTestTable.c,
                     PostgresJdbcTestTable.d,
                     PostgresJdbcTestTable.e,
-                )
-                    .from(tableTest())
+                ).from(tableTest())
                     .execute()
                     .single()
             row[tableTest().a] shouldBe "abc"

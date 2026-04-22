@@ -16,13 +16,13 @@ import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 interface OrderByTest<
-        TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-        DRIVER_DATA_SOURCE,
-        DRIVER_STATEMENT,
-        DIALECT,
-        TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-        > : SqlTest where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-                          DIALECT : SupportsLimit {
+    TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    DRIVER_DATA_SOURCE,
+    DRIVER_STATEMENT,
+    DIALECT,
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : SqlTest where DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+          DIALECT : SupportsLimit {
     @Test
     fun `order_by_generates_correct_sql`() {
         transactionFactory().repeatableRead {
@@ -47,10 +47,11 @@ interface OrderByTest<
     @Test
     fun `order_by_returns_sorted`() {
         transactionFactory().repeatableRead {
-            val result = select(tableTest().a)
-                .from(tableTest())
-                .orderBy(tableTest().b)
-                .execute()
+            val result =
+                select(tableTest().a)
+                    .from(tableTest())
+                    .orderBy(tableTest().b)
+                    .execute()
             result shouldHaveAtLeastSize 2
             result.sortedBy { it[tableTest().b] } shouldBe result
         }
@@ -59,10 +60,11 @@ interface OrderByTest<
     @Test
     fun `order_by_asc_returns_sorted`() {
         transactionFactory().repeatableRead {
-            val result = select(tableTest().a)
-                .from(tableTest())
-                .orderBy(tableTest().b.asc())
-                .execute()
+            val result =
+                select(tableTest().a)
+                    .from(tableTest())
+                    .orderBy(tableTest().b.asc())
+                    .execute()
             result shouldHaveAtLeastSize 2
             result.sortedBy { it[tableTest().b] } shouldBe result
         }
@@ -71,15 +73,15 @@ interface OrderByTest<
     @Test
     fun `order_by_desc_returns_sorted`() {
         transactionFactory().repeatableRead {
-            val result = select(tableTest().a)
-                .from(tableTest())
-                .orderBy(tableTest().b.desc())
-                .execute()
+            val result =
+                select(tableTest().a)
+                    .from(tableTest())
+                    .orderBy(tableTest().b.desc())
+                    .execute()
             result shouldHaveAtLeastSize 2
             result.sortedByDescending { it[tableTest().b] } shouldBe result
         }
     }
-
 
     fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
 

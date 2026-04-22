@@ -19,14 +19,16 @@ class GeneratorPlugin : Plugin<Project> {
                 target.tasks.withType(KotlinCompile::class.java) {
                     it.dependsOn(generateTables)
                 }
-                target.extensions.findByType(KotlinProjectExtension::class.java)
+                target.extensions
+                    .findByType(KotlinProjectExtension::class.java)
                     ?.sourceSets
                     ?.named("main") {
                         it.kotlin.srcDir(generateTables.get().targetDir)
                     }
                 try {
                     val androidExtension = Class.forName("com.android.build.gradle.BaseExtension")
-                    target.extensions.findByType(androidExtension)
+                    target.extensions
+                        .findByType(androidExtension)
                         ?.getByReflection<Any, org.gradle.api.NamedDomainObjectContainer<*>>("sourceSets")
                         ?.named("main") {
                             val kotlin = it.getByReflection<Any, Any>("kotlin")
@@ -47,7 +49,10 @@ class GeneratorPlugin : Plugin<Project> {
         return single.invoke(this)
     }
 
-    private fun <T : Any> T.invokeFunByReflection(name: String, arg: Any) {
+    private fun <T : Any> T.invokeFunByReflection(
+        name: String,
+        arg: Any,
+    ) {
         val single: KFunction<*> =
             this::class.declaredFunctions.single { it.name == name }
         single.call(this, arg)

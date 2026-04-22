@@ -20,50 +20,52 @@ abstract class SqliteJdbcTest {
         @BeforeClass
         @JvmStatic
         fun init() {
-            val tmpFile = createTempFile(
-                UUID.randomUUID().toString()
-            ).pathString
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = "jdbc:sqlite:file:$tmpFile"
-                }
-            )
+            val tmpFile =
+                createTempFile(
+                    UUID.randomUUID().toString(),
+                ).pathString
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = "jdbc:sqlite:file:$tmpFile"
+                    },
+                )
             dataSource.connection.use {
                 it.createStatement().use {
                     it.executeUpdate(
                         """
-                            CREATE TABLE test(
-                               a string DEFAULT NULL,
-                               b string DEFAULT NULL,
-                               c bigint DEFAULT NULL,
-                               d boolean DEFAULT NULL,
-                               e blob DEFAULT NULL
-                            )
-                        """.trimIndent()
+                        CREATE TABLE test(
+                           a string DEFAULT NULL,
+                           b string DEFAULT NULL,
+                           c bigint DEFAULT NULL,
+                           d boolean DEFAULT NULL,
+                           e blob DEFAULT NULL
+                        )
+                        """.trimIndent(),
                     )
                     it.execute(
                         """
-                            CREATE TABLE FIRST(
-                               A string,
-                               B string
-                            );
-                        """.trimIndent()
+                        CREATE TABLE FIRST(
+                           A string,
+                           B string
+                        );
+                        """.trimIndent(),
                     )
                     it.execute(
                         """
-                            CREATE TABLE SECOND(
-                               A string,
-                               B string
-                            );
-                        """.trimIndent()
+                        CREATE TABLE SECOND(
+                           A string,
+                           B string
+                        );
+                        """.trimIndent(),
                     )
                     it.execute(
                         """
-                            CREATE TABLE THIRD(
-                               A string,
-                               B string
-                            );
-                        """.trimIndent()
+                        CREATE TABLE THIRD(
+                           A string,
+                           B string
+                        );
+                        """.trimIndent(),
                     )
                 }
             }
@@ -84,17 +86,11 @@ abstract class SqliteJdbcTest {
         }
     }
 
-    fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
-        return TextParameter("param")
-    }
+    fun parameter(): Parameter<String, ResultSet, PreparedStatement> = TextParameter("param")
 
-    fun tableTest(): SqliteJdbcTestTable {
-        return SqliteJdbcTestTable
-    }
+    fun tableTest(): SqliteJdbcTestTable = SqliteJdbcTestTable
 
-    fun transactionFactory(): SqliteJdbcTransactionFactory {
-        return SqliteJdbcTransactionFactory(dataSource)
-    }
+    fun transactionFactory(): SqliteJdbcTransactionFactory = SqliteJdbcTransactionFactory(dataSource)
 
     fun firstTable() = FirstTable
 

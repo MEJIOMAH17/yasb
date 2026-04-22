@@ -12,7 +12,5 @@ object LongDatabaseType : AndroidDatabaseType<Long> {
     override fun extractFromSource(
         source: Cursor,
         index: Int,
-    ): Long? {
-        return source.getLong(index)
-    }
+    ): Long? = source.getLong(index)
 }

@@ -8,71 +8,51 @@ interface OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> : SelectFromQuery<D
 
 internal class OrderBy<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val query: SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    private val orderingExpressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
+    private val orderingExpressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>,
 ) : OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = query.returnExpressions()
 
-    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return query.returnExpressions()
-    }
+    override fun sql(): String = "${query.sql()} ORDER BY ${orderingExpressions.joinToString(", ") { it.sql() }}"
 
-    override fun sql(): String {
-        return "${query.sql()} ORDER BY ${orderingExpressions.joinToString(", ") { it.sql() }}"
-    }
-
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return query.parameters() + orderingExpressions.flatMap { it.parameters() }
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> =
+        query.parameters() +
+            orderingExpressions.flatMap {
+                it.parameters()
+            }
 }
 
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.orderBy(
-    orderingExpressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>
-): OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return OrderBy(this, orderingExpressions)
-}
+    orderingExpressions: List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>>,
+): OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = OrderBy(this, orderingExpressions)
 
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.orderBy(
-    vararg orderingExpressions: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return OrderBy(this, orderingExpressions.toList())
-}
+    vararg orderingExpressions: Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+): OrderByQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = OrderBy(this, orderingExpressions.toList())
 
 internal class AscExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
-    val delegate: Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    val delegate: Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
 ) : Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        return delegate.databaseType()
-    }
+    override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = delegate.databaseType()
 
-    override fun sql(): String {
-        return delegate.sql() + " ASC"
-    }
+    override fun sql(): String = delegate.sql() + " ASC"
 
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return delegate.parameters()
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = delegate.parameters()
 }
 
-fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.asc(): Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return AscExpression(this)
-}
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.asc():
+    Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    AscExpression(this)
 
-fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.desc(): Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return DescExpression(this)
-}
-
+fun <T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.desc():
+    Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    DescExpression(this)
 
 internal class DescExpression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
-    val delegate: Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    val delegate: Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
 ) : Expression<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        return delegate.databaseType()
-    }
+    override fun databaseType(): DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = delegate.databaseType()
 
-    override fun sql(): String {
-        return delegate.sql() + " DESC"
-    }
+    override fun sql(): String = delegate.sql() + " DESC"
 
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return delegate.parameters()
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = delegate.parameters()
 }

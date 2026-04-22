@@ -6,9 +6,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteJdbcSelectTest :
-    SelectTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    SqliteJdbcTest() {
-    override fun initSqlScripts(): List<String> {
-        return emptyList()
-    }
+    SqliteJdbcTest(),
+    SelectTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> = emptyList()
 }

@@ -51,24 +51,25 @@ class PostgresTableGeneratorTest {
     @Test
     fun `generates_correct_table_definition`() {
         dataSource.connection.use {
-            TableGenerator().generateTable(
-                PostgresTableMetadataFactory(PostgresColumnMetadataFactory())
-                    .create(it, "test", schemaPattern = null),
-                "com.github.mejiomah17",
-            ).run {
-                content shouldBe
-                    """
-                    package com.github.mejiomah17
+            TableGenerator()
+                .generateTable(
+                    PostgresTableMetadataFactory(PostgresColumnMetadataFactory())
+                        .create(it, "test", schemaPattern = null),
+                    "com.github.mejiomah17",
+                ).run {
+                    content shouldBe
+                        """
+                        package com.github.mejiomah17
 
-                    object TestTable : com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTable<TestTable> {
-                        override val tableName = "test"
-                        val a = textNullable("a")
-                        val b = text("b")
-                    }
+                        object TestTable : com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTable<TestTable> {
+                            override val tableName = "test"
+                            val a = textNullable("a")
+                            val b = text("b")
+                        }
 
-                    """.trimIndent()
-                fileName shouldBe "TestTable.kt"
-            }
+                        """.trimIndent()
+                    fileName shouldBe "TestTable.kt"
+                }
         }
     }
 }

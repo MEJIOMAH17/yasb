@@ -28,9 +28,11 @@ internal class JdbcRows(
                 // call for side effect resultSet.next()
                 hasNext()
                 return Row(
-                    returningQuery.returnExpressions().mapIndexed { index, expression ->
-                        expression to expression.databaseType().extractFromSource(resultSet, index + 1)
-                    }.toMap(),
+                    returningQuery
+                        .returnExpressions()
+                        .mapIndexed { index, expression ->
+                            expression to expression.databaseType().extractFromSource(resultSet, index + 1)
+                        }.toMap(),
                 ).also {
                     rowConsumed = true
                 }

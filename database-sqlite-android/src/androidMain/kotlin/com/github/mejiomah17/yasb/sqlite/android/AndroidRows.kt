@@ -27,9 +27,11 @@ class AndroidRows(
                 // call for side effect resultSet.next()
                 hasNext()
                 return Row(
-                    returningQuery.returnExpressions().mapIndexed { index, expression ->
-                        expression to expression.databaseType().extractFromSource(cursor, index)
-                    }.toMap(),
+                    returningQuery
+                        .returnExpressions()
+                        .mapIndexed { index, expression ->
+                            expression to expression.databaseType().extractFromSource(cursor, index)
+                        }.toMap(),
                 ).also {
                     rowConsumed = true
                 }

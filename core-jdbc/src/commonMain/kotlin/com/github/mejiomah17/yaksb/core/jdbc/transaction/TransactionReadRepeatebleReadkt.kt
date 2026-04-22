@@ -18,5 +18,6 @@ interface JdbcTransactionAtLeastRepeatableRead :
     JdbcTransactionAtLeastReadCommitted,
     TransactionAtLeastRepeatableRead<ResultSet, PreparedStatement>
 
-internal class ImplJdbcTransactionRepeatableRead(override val connection: Connection) :
-    JdbcTransactionRepeatableRead
+internal class ImplJdbcTransactionRepeatableRead(
+    override val connection: Connection,
+) : JdbcTransactionRepeatableRead

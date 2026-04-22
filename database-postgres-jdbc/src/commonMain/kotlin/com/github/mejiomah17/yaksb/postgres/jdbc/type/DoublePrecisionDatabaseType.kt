@@ -10,11 +10,10 @@ object DoublePrecisionDatabaseType : JDBCDatabaseType<Double> {
     override fun extractFromSource(
         source: ResultSet,
         index: Int,
-    ): Double? {
-        return source.getNullable {
+    ): Double? =
+        source.getNullable {
             source.getDouble(index)
         }
-    }
 
     override fun parameterFactory(): (Double?) -> Parameter<Double, ResultSet, PreparedStatement> = ::DoubleParameter
 }

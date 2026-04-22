@@ -12,8 +12,8 @@ class SqliteColumnMetadataFactory : ColumnMetadataFactory {
         name: String,
         type: String,
         nullable: Boolean,
-    ): ColumnMetadata {
-        return when (type.lowercase()) {
+    ): ColumnMetadata =
+        when (type.lowercase()) {
             "text" -> Text(name, nullable)
             "character varying" -> Text(name, nullable)
             "bool" -> Bool(name, nullable)
@@ -23,5 +23,4 @@ class SqliteColumnMetadataFactory : ColumnMetadataFactory {
             "blob" -> Blob(name, nullable)
             else -> error("type $type is not supported yet")
         }
-    }
 }

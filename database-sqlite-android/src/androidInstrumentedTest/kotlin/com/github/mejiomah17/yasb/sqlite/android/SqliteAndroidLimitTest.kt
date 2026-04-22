@@ -7,4 +7,10 @@ import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializabl
 
 class SqliteAndroidLimitTest :
     SqliteAndroidTest(),
-    SqliteLimitTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>
+    SqliteLimitTest<
+        SqliteAndroidTestTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    >

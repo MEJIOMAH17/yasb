@@ -6,5 +6,5 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteJdbcInsertTest :
-    SqliteInsertTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    SqliteJdbcTest()
+    SqliteJdbcTest(),
+    SqliteInsertTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>

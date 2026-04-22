@@ -11,10 +11,16 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresTableJoinTest :
-    TableJoinTest<PostgresTableJoinTest.SecondTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    TableJoinTest<
+        PostgresTableJoinTest.SecondTable,
+        ResultSet,
+        PreparedStatement,
+        PostgresJdbcDatabaseDialect,
+        JdbcTransactionRepeatableRead,
+    > {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE FIRST",
             "TRUNCATE TABLE SECOND",
             "TRUNCATE TABLE THIRD",
@@ -25,7 +31,6 @@ class PostgresTableJoinTest :
             "INSERT INTO THIRD (A,B) values ('XXX','B3')",
             "INSERT INTO THIRD (A,B) values ('ZZZ','E1')",
         )
-    }
 
     override fun firstTable(): TestTable<*, ResultSet, PreparedStatement> = FirstTable
 

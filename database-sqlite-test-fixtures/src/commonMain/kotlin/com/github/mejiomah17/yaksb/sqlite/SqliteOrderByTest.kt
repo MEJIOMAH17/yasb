@@ -9,12 +9,10 @@ interface SqliteOrderByTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > :
-    OrderByTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : OrderByTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "DELETE from test",
             """INSERT INTO test (a,b,c,d) values (
                     |'the a',
@@ -23,13 +21,13 @@ interface SqliteOrderByTest<
                     |false
                     | )
             """.trimMargin(),
-            """ INSERT INTO test (a,b,c,d) values (
-                    '42',
-                    '42',
-                    4,
-                    true
-                    )
-            """.trimIndent()
+            """
+             INSERT INTO test (a,b,c,d) values (
+            '42',
+            '42',
+            4,
+            true
+            )
+            """.trimIndent(),
         )
-    }
 }

@@ -6,5 +6,5 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteJdbcLimitTest :
-    SqliteLimitTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    SqliteJdbcTest()
+    SqliteJdbcTest(),
+    SqliteLimitTest<SqliteJdbcTestTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>

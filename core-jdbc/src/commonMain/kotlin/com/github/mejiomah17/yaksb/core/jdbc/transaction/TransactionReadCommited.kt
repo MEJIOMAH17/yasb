@@ -18,5 +18,6 @@ interface JdbcTransactionAtLeastReadCommitted :
     JdbcTransactionAtLeastReadUncommitted,
     TransactionAtLeastReadCommitted<ResultSet, PreparedStatement>
 
-internal class ImplJdbcTransactionReadCommitted(override val connection: Connection) :
-    JdbcTransactionReadCommitted
+internal class ImplJdbcTransactionReadCommitted(
+    override val connection: Connection,
+) : JdbcTransactionReadCommitted

@@ -7,7 +7,9 @@ import org.gradle.api.Project
 import org.testcontainers.utility.DockerImageName
 import java.io.File
 
-class YasbGeneratorExtension(project: Project) {
+class YasbGeneratorExtension(
+    project: Project,
+) {
     var imageName: DockerImageName = DockerImageName.parse("postgres")
     var tableMetadataFactory: TableMetadataFactory = PostgresTableMetadataFactory(PostgresColumnMetadataFactory())
     var packageName: String = "database"

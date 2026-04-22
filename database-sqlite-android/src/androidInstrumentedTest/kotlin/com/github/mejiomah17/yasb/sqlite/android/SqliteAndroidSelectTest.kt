@@ -6,9 +6,13 @@ import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverS
 import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializableTransactionImpl
 
 class SqliteAndroidSelectTest :
-    SelectTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>,
-    SqliteAndroidTest() {
-    override fun initSqlScripts(): List<String> {
-        return emptyList()
-    }
+    SqliteAndroidTest(),
+    SelectTest<
+        SqliteAndroidTestTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    > {
+    override fun initSqlScripts(): List<String> = emptyList()
 }

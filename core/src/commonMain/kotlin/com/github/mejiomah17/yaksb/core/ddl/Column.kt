@@ -11,19 +11,11 @@ class Column<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, V, DRIV
     val databaseType: DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
 ) : AliasableExpression<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     ExpressionForCondition<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-        return databaseType
-    }
+    override fun databaseType(): DatabaseType<V, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> = databaseType
 
-    override fun sql(): String {
-        return "${table.tableName}.$name"
-    }
+    override fun sql(): String = "${table.tableName}.$name"
 
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return emptyList()
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = emptyList()
 
-    override fun toString(): String {
-        return "${table.tableName}.$name"
-    }
+    override fun toString(): String = "${table.tableName}.$name"
 }

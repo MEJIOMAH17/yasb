@@ -18,4 +18,6 @@ interface JdbcTransactionAtLeastSerializable :
     JdbcTransactionAtLeastRepeatableRead,
     TransactionAtLeastSerializable<ResultSet, PreparedStatement>
 
-internal class JdbcTransactionSerializableImpl(override val connection: Connection) : JdbcTransactionSerializable
+internal class JdbcTransactionSerializableImpl(
+    override val connection: Connection,
+) : JdbcTransactionSerializable

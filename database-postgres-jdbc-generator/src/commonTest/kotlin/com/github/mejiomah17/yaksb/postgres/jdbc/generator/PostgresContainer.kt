@@ -5,7 +5,8 @@ import org.testcontainers.utility.DockerImageName
 
 class PostgresContainer : PostgreSQLContainer<PostgresContainer>(DockerImageName.parse("postgres").withTag("13.2")) {
     init {
-        this.withDatabaseName("test")
+        this
+            .withDatabaseName("test")
             .withUsername(LOGIN)
             .withPassword(PASSWORD)
     }

@@ -7,7 +7,6 @@ import java.io.File
 import javax.sql.DataSource
 
 object FlywayGenerator {
-
     fun generate(
         datasource: DataSource,
         tableMetadataFactory: TableMetadataFactory,
@@ -15,13 +14,15 @@ object FlywayGenerator {
         packageName: String,
         schemaPattern: String?,
         locations: List<String>,
-        tablesFilter: (String) -> Boolean
+        tablesFilter: (String) -> Boolean,
     ) {
         // Create the Flyway instance and point it to the database
-        val flyway: org.flywaydb.core.Flyway = org.flywaydb.core.Flyway.configure()
-            .dataSource(datasource)
-            .locations(*locations.toTypedArray())
-            .load()
+        val flyway: org.flywaydb.core.Flyway =
+            org.flywaydb.core.Flyway
+                .configure()
+                .dataSource(datasource)
+                .locations(*locations.toTypedArray())
+                .load()
 
         // Start the migration
         flyway.migrate()
@@ -31,22 +32,24 @@ object FlywayGenerator {
                     null,
                     schemaPattern,
                     null,
-                    arrayOf("TABLE")
-                )
+                    arrayOf("TABLE"),
+                ),
             ).asSequence()
                 .map {
                     it.getString(3)
                 }.filter {
                     it != "flyway_schema_history"
-                }.filter(tablesFilter).map { tableName ->
-                    val table = TableGenerator().generateTable(
-                        tableMetadataFactory.create(
-                            connection = connection,
-                            tableName = tableName,
-                            schemaPattern = schemaPattern
-                        ),
-                        packageName
-                    )
+                }.filter(tablesFilter)
+                .map { tableName ->
+                    val table =
+                        TableGenerator().generateTable(
+                            tableMetadataFactory.create(
+                                connection = connection,
+                                tableName = tableName,
+                                schemaPattern = schemaPattern,
+                            ),
+                            packageName,
+                        )
                     val dir = File(targetDir, packageName.replace(".", "/"))
                     dir.mkdirs()
                     File(dir, table.fileName).writeText(table.content)

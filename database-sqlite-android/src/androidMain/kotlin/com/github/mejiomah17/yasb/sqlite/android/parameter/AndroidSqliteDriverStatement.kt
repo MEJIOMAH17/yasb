@@ -26,8 +26,9 @@ interface AndroidSqliteDriverStatement {
     fun bindNull(index: Int)
 }
 
-internal class AndroidSqliteDriverStatementImpl(private val sqliteProgram: SQLiteProgram) :
-    AndroidSqliteDriverStatement {
+internal class AndroidSqliteDriverStatementImpl(
+    private val sqliteProgram: SQLiteProgram,
+) : AndroidSqliteDriverStatement {
     override fun bindLong(
         index: Int,
         value: Long,

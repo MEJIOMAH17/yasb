@@ -11,10 +11,10 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 class PostgresFromTest :
-    FromTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    FromTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE test",
             """INSERT INTO test (a,b,c,d) values (
                     |'the a',
@@ -24,7 +24,6 @@ class PostgresFromTest :
                     | )
             """.trimMargin(),
         )
-    }
 
     @Test
     override fun `from_returns_columns`() {

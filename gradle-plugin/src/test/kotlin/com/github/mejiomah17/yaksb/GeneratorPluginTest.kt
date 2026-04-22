@@ -10,44 +10,52 @@ class GeneratorPluginTest {
 
     @Test
     fun `does_not_fail_on_empty_project`() {
-        val projectDir = gradleDir(
-            """
-             plugins {
-                 $yaksbPluginDeclaration
-             }
-            """.trimIndent()
-        )
+        val projectDir =
+            gradleDir(
+                """
+                plugins {
+                    $yaksbPluginDeclaration
+                }
+                """.trimIndent(),
+            )
 
         runBuild(projectDir)
     }
 
     @Test
     fun `does_not_fail_when_task_has_no_configuration`() {
-        val projectDir = gradleDir(
-            """
-            plugins {
-               $yaksbPluginDeclaration
-               $kotlinPluginDeclaration
-            }
-            """.trimIndent()
-        )
+        val projectDir =
+            gradleDir(
+                """
+                plugins {
+                   $yaksbPluginDeclaration
+                   $kotlinPluginDeclaration
+                }
+                """.trimIndent(),
+            )
 
         runBuild(projectDir)
     }
 
-    private fun runBuild(dir: TemporaryFolder, command: String = "build") {
-        GradleRunner.create()
+    private fun runBuild(
+        dir: TemporaryFolder,
+        command: String = "build",
+    ) {
+        GradleRunner
+            .create()
             .withPluginClasspath()
             .withProjectDir(dir.root)
             .withArguments(command)
             .build()
     }
 
-    private fun gradleDir(buildFile: String, block: TemporaryFolder.() -> Unit = {}): TemporaryFolder {
-        return tempFolder {
+    private fun gradleDir(
+        buildFile: String,
+        block: TemporaryFolder.() -> Unit = {},
+    ): TemporaryFolder =
+        tempFolder {
             newFile("settings.gradle.kts").writeText("")
             newFile("build.gradle.kts").writeText(buildFile)
             block()
         }
-    }
 }

@@ -24,7 +24,7 @@ interface TableJoinTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > : SqlTest {
+> : SqlTest {
     // <editor-fold desc="Inner">
     @Test
     fun `builds_correct_query_for_inner_join`() {
@@ -150,8 +150,7 @@ interface TableJoinTest<
                     firstTable().b,
                     secondTable().a,
                     secondTable().b,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(secondTable()) {
                         firstTable().a.eq(secondTable().a)
                     }.execute()
@@ -190,8 +189,7 @@ interface TableJoinTest<
                     firstTable().b,
                     joinColumnFromSecondTable,
                     dataColumnFromSecondTable,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(secondTable) {
                         firstTable().a.eq(joinColumnFromSecondTable)
                     }.execute()
@@ -236,8 +234,7 @@ interface TableJoinTest<
                     firstTable().b,
                     joinColumnFromSecondTable,
                     dataColumnFromSecondTable,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(nestedQuery) {
                         firstTable().a.eq(joinColumnFromSecondTable)
                     }.execute()
@@ -277,8 +274,7 @@ interface TableJoinTest<
                         firstTable().b,
                         secondTable().a,
                         secondTable().b,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .rightJoin(secondTable()) {
                             firstTable().a.eq(secondTable().a)
                         }.execute()
@@ -321,8 +317,7 @@ interface TableJoinTest<
                         firstTable().b,
                         joinColumnFromSecondTable,
                         dataColumnFromSecondTable,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .rightJoin(secondTable) {
                             firstTable().a.eq(joinColumnFromSecondTable)
                         }.execute()
@@ -371,8 +366,7 @@ interface TableJoinTest<
                         firstTable().b,
                         joinColumnFromSecondTable,
                         dataColumnFromSecondTable,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .rightJoin(nestedQuery) {
                             firstTable().a.eq(joinColumnFromSecondTable)
                         }.execute()
@@ -412,8 +406,7 @@ interface TableJoinTest<
                         firstTable().b,
                         secondTable().a,
                         secondTable().b,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .fullJoin(secondTable()) {
                             firstTable().a.eq(secondTable().a)
                         }.execute()
@@ -458,8 +451,7 @@ interface TableJoinTest<
                         firstTable().b,
                         joinColumnFromSecondTable,
                         dataColumnFromSecondTable,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .fullJoin(secondTable) {
                             firstTable().a.eq(joinColumnFromSecondTable)
                         }.execute()
@@ -510,8 +502,7 @@ interface TableJoinTest<
                         firstTable().b,
                         joinColumnFromSecondTable,
                         dataColumnFromSecondTable,
-                    )
-                        .from(firstTable())
+                    ).from(firstTable())
                         .fullJoin(nestedQuery) {
                             firstTable().a.eq(joinColumnFromSecondTable)
                         }.execute()
@@ -538,9 +529,9 @@ interface TableJoinTest<
                         firstTable().a.eq(secondTable().a)
                     }.leftJoin(thirdTable()) {
                         firstTable().a.eq(thirdTable().a)
-                    }
-                    .sql()
-            query shouldBe "SELECT FIRST.A, SECOND.A, THIRD.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+                    }.sql()
+            query shouldBe
+                "SELECT FIRST.A, SECOND.A, THIRD.A FROM FIRST LEFT JOIN SECOND ON FIRST.A = SECOND.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
 
@@ -554,8 +545,7 @@ interface TableJoinTest<
                     secondTable().a,
                     secondTable().b,
                     thirdTable().b,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(secondTable()) {
                         firstTable().a.eq(secondTable().a)
                     }.leftJoin(thirdTable()) {
@@ -583,9 +573,9 @@ interface TableJoinTest<
                         firstTable().a.eq(joinColumnFromSecondTable)
                     }.leftJoin(thirdTable()) {
                         firstTable().a.eq(thirdTable().a)
-                    }
-                    .sql()
-            query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+                    }.sql()
+            query shouldBe
+                "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN SECOND AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
 
@@ -602,8 +592,7 @@ interface TableJoinTest<
                     joinColumnFromSecondTable,
                     dataColumnFromSecondTable,
                     thirdTable().b,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(secondTable) {
                         firstTable().a.eq(joinColumnFromSecondTable)
                     }.leftJoin(thirdTable()) {
@@ -635,7 +624,8 @@ interface TableJoinTest<
                     }.leftJoin(thirdTable()) {
                         firstTable().a.eq(thirdTable().a)
                     }.sql()
-            query shouldBe "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
+            query shouldBe
+                "SELECT FIRST.A, xxx.A, THIRD.A FROM FIRST LEFT JOIN (SELECT SECOND.A FROM SECOND) AS xxx ON FIRST.A = xxx.A LEFT JOIN THIRD ON FIRST.A = THIRD.A"
         }
     }
 
@@ -655,8 +645,7 @@ interface TableJoinTest<
                     joinColumnFromSecondTable,
                     dataColumnFromSecondTable,
                     thirdTable().b,
-                )
-                    .from(firstTable())
+                ).from(firstTable())
                     .leftJoin(nestedQuery) {
                         firstTable().a.eq(joinColumnFromSecondTable)
                     }.leftJoin(thirdTable()) {

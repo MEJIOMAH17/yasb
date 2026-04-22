@@ -42,9 +42,7 @@ internal class YasbSQLiteDirectCursorDriver(
     override fun query(
         factory: SQLiteDatabase.CursorFactory,
         selectionArgs: Array<String>,
-    ): Cursor {
-        return this.query(factory, selectionArgs.map { TextParameter(it) })
-    }
+    ): Cursor = this.query(factory, selectionArgs.map { TextParameter(it) })
 
     fun query(
         factory: SQLiteDatabase.CursorFactory?,
@@ -52,12 +50,13 @@ internal class YasbSQLiteDirectCursorDriver(
     ): Cursor {
         val clazz = SQLiteQuery::class.java
         val query =
-            clazz.declaredConstructors.first {
-                it.parameterTypes.size == 3 &&
-                    it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
-                    it.parameterTypes[1].isAssignableFrom(String::class.java) &&
-                    it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
-            }.newInstance(mDatabase, mSql, mCancellationSignal) as SQLiteQuery
+            clazz.declaredConstructors
+                .first {
+                    it.parameterTypes.size == 3 &&
+                        it.parameterTypes.first().isAssignableFrom(SQLiteDatabase::class.java) &&
+                        it.parameterTypes[1].isAssignableFrom(String::class.java) &&
+                        it.parameterTypes[2].isAssignableFrom(CancellationSignal::class.java)
+                }.newInstance(mDatabase, mSql, mCancellationSignal) as SQLiteQuery
         val cursor: Cursor
         cursor =
             try {
@@ -97,7 +96,5 @@ internal class YasbSQLiteDirectCursorDriver(
         // Do nothing
     }
 
-    override fun toString(): String {
-        return "SQLiteDirectCursorDriver: $mSql"
-    }
+    override fun toString(): String = "SQLiteDirectCursorDriver: $mSql"
 }

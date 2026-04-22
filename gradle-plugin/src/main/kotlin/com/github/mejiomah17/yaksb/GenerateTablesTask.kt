@@ -26,7 +26,13 @@ open class GenerateTablesTask : DefaultTask() {
     var schemaPattern: String? = null
 
     @OutputDirectory
-    var targetDir: File = File(project.layout.buildDirectory.asFile.get().absoluteFile, "generated/yaksb")
+    var targetDir: File =
+        File(
+            project.layout.buildDirectory.asFile
+                .get()
+                .absoluteFile,
+            "generated/yaksb",
+        )
 
     @InputFiles
     @PathSensitive(PathSensitivity.RELATIVE)
@@ -46,10 +52,11 @@ open class GenerateTablesTask : DefaultTask() {
                     targetDir = targetDir,
                     packageName = packageName,
                     schemaPattern = schemaPattern,
-                    locations = flywayMigrationDirs.map {
-                        "filesystem:${it.absolutePath}"
-                    },
-                    tablesFilter = tablesFilter
+                    locations =
+                        flywayMigrationDirs.map {
+                            "filesystem:${it.absolutePath}"
+                        },
+                    tablesFilter = tablesFilter,
                 )
             }
         } else {

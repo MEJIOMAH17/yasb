@@ -6,10 +6,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresDeleteTest :
-    DeleteTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    DeleteTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE test",
             """INSERT INTO test (a,b,c,d) values (
                     |'the a',
@@ -25,5 +25,4 @@ class PostgresDeleteTest :
                     | )
             """.trimMargin(),
         )
-    }
 }

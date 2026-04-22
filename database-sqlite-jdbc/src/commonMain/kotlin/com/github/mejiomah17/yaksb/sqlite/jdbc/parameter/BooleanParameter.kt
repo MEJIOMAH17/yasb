@@ -5,13 +5,13 @@ import com.github.mejiomah17.yaksb.sqlite.jdbc.type.BooleanDatabaseType
 import java.sql.PreparedStatement
 
 class BooleanParameter(
-    override val value: Boolean?
+    override val value: Boolean?,
 ) : SqliteParameter<Boolean>() {
     override val databaseType: JDBCDatabaseType<Boolean> = BooleanDatabaseType
 
     override fun applyToStatement(
         statement: PreparedStatement,
-        index: Int
+        index: Int,
     ) {
         statement.setObject(index, value)
     }

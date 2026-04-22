@@ -20,62 +20,56 @@ abstract class JdbcTransactionFactory<D : DatabaseDialect<ResultSet, PreparedSta
         JdbcTransactionReadCommitted,
         JdbcTransactionRepeatableRead,
         JdbcTransactionSerializable,
-        > {
+    > {
     override fun <V> readUncommitted(
         repeater: Repeater<V>,
         block: context(D)
         JdbcTransactionReadUncommitted.() -> V,
-    ): V {
-        return transaction(
+    ): V =
+        transaction(
             creator = { ImplJdbcTransactionReadUncommitted(it) },
             jdbcLevel = JdbcTransactionReadUncommitted.jdbcLevel,
             block = block,
             repeater = repeater,
         )
-    }
 
     override fun <V> readCommitted(
         repeater: Repeater<V>,
         block: context(D)
         JdbcTransactionReadCommitted.() -> V,
-    ): V {
-        return transaction(
+    ): V =
+        transaction(
             creator = { ImplJdbcTransactionReadCommitted(it) },
             jdbcLevel = JdbcTransactionReadCommitted.jdbcLevel,
             block = block,
             repeater = repeater,
         )
-    }
 
     override fun <V> repeatableRead(
         repeater: Repeater<V>,
         block: context(D)
         JdbcTransactionRepeatableRead.() -> V,
-    ): V {
-        return transaction(
+    ): V =
+        transaction(
             creator = { ImplJdbcTransactionRepeatableRead(it) },
             jdbcLevel = JdbcTransactionRepeatableRead.jdbcLevel,
             block = block,
             repeater = repeater,
         )
-    }
 
     override fun <V> serializable(
         repeater: Repeater<V>,
         block: context(D)
         JdbcTransactionSerializable.() -> V,
-    ): V {
-        return transaction(
+    ): V =
+        transaction(
             creator = { JdbcTransactionSerializableImpl(it) },
             jdbcLevel = JdbcTransactionSerializable.jdbcValue,
             block = block,
             repeater = repeater,
         )
-    }
 
-    override fun <V> defaultRepeater(): Repeater<V> {
-        return repeatOn<V, SQLException>(3)
-    }
+    override fun <V> defaultRepeater(): Repeater<V> = repeatOn<V, SQLException>(3)
 
     private fun <T : JdbcTransaction, R> transaction(
         creator: (Connection) -> T,

@@ -9,12 +9,10 @@ interface SqliteDeleteTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > :
-    DeleteTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : DeleteTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "DELETE FROM test",
             """INSERT INTO test (a,b) values (
                     |'the a',
@@ -24,7 +22,6 @@ interface SqliteDeleteTest<
                     |'the aa',
                     |'the asd'
                     | )
-            """.trimMargin()
+            """.trimMargin(),
         )
-    }
 }

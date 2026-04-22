@@ -6,11 +6,11 @@ import kotlin.reflect.KClass
 class TableMetadata(
     val tableName: String,
     val tableClassQualifiedName: String,
-    val columns: List<ColumnMetadata>
+    val columns: List<ColumnMetadata>,
 ) {
     constructor(
         tableName: String,
         tableClass: KClass<out Table<*, *, *>>,
-        columns: List<ColumnMetadata>
+        columns: List<ColumnMetadata>,
     ) : this(tableName, tableClass.qualifiedName!!, columns)
 }

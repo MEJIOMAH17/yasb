@@ -7,12 +7,13 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object BlobDatabaseType : JDBCDatabaseType<ByteArray> {
-    override fun extractFromSource(source: ResultSet, index: Int): ByteArray? {
-        return source.getNullable {
+    override fun extractFromSource(
+        source: ResultSet,
+        index: Int,
+    ): ByteArray? =
+        source.getNullable {
             source.getBytes(index)
         }
-    }
 
-    override fun parameterFactory(): (ByteArray?) -> Parameter<ByteArray, ResultSet, PreparedStatement> =
-        ::BlobParameter
+    override fun parameterFactory(): (ByteArray?) -> Parameter<ByteArray, ResultSet, PreparedStatement> = ::BlobParameter
 }

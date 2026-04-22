@@ -15,29 +15,28 @@ interface InsertWithReturningTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun output_returns_values() {
         transactionFactory().repeatableRead {
             val d = transactionFactory().dialect()
             if (d is SupportsInsertReturning) {
                 val row =
-                    d.run {
-                        insertInto(tableTest()) {
-                            it[tableTest().a] = "abc"
-                            it[tableTest().b] = "bca"
-                        }.returning(tableTest().a, tableTest().b)
-                    }.execute().single()
+                    d
+                        .run {
+                            insertInto(tableTest()) {
+                                it[tableTest().a] = "abc"
+                                it[tableTest().b] = "bca"
+                            }.returning(tableTest().a, tableTest().b)
+                        }.execute()
+                        .single()
                 row[tableTest().a] shouldBe "abc"
                 row[tableTest().b] shouldBe "bca"
             }
         }
     }
 
-    fun DIALECT.x(): DIALECT {
-        return this
-    }
+    fun DIALECT.x(): DIALECT = this
 
     @Test
     fun output_returns_values_for_iterable_insert() {

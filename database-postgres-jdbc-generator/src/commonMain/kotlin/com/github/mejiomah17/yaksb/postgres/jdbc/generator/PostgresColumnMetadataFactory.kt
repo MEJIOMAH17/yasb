@@ -16,8 +16,8 @@ class PostgresColumnMetadataFactory : ColumnMetadataFactory {
         name: String,
         type: String,
         nullable: Boolean,
-    ): ColumnMetadata {
-        return when (type) {
+    ): ColumnMetadata =
+        when (type) {
             "text" -> Text(name, nullable)
             "varchar" -> Varchar(name, nullable)
             "uuid" -> Uuid(name, nullable)
@@ -29,5 +29,4 @@ class PostgresColumnMetadataFactory : ColumnMetadataFactory {
             "jsonb" -> Jsonb(name, nullable)
             else -> error("type $type is not supported yet")
         }
-    }
 }

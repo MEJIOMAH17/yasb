@@ -8,5 +8,5 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class SqliteJdbcTableJoinTest :
-    SqliteTableJoinTest<SqliteJdbcTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    SqliteJdbcTest()
+    SqliteJdbcTest(),
+    SqliteTableJoinTest<SqliteJdbcTest.SecondTable, ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead>

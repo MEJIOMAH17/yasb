@@ -8,11 +8,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object PostgresJdbcDatabaseDialect : PostgresDatabaseDialect<ResultSet, PreparedStatement> {
-    override fun booleanType(): JDBCDatabaseType<Boolean> {
-        return BooleanDatabaseType
-    }
+    override fun booleanType(): JDBCDatabaseType<Boolean> = BooleanDatabaseType
 
-    override fun longType(): JDBCDatabaseType<Long> {
-        return LongDatabaseType
-    }
+    override fun longType(): JDBCDatabaseType<Long> = LongDatabaseType
 }

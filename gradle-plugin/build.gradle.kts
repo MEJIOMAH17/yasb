@@ -17,7 +17,7 @@ dependencies {
     testImplementation(libs.mockk)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-tasks.withType<Test>() {
+tasks.withType<Test> {
     useJUnitPlatform()
     rootProject.subprojects.forEach {
         it.tasks.findByName("publishToMavenLocal")?.also { publish ->
@@ -36,50 +36,55 @@ gradlePlugin {
         }
     }
 }
-val generated = project.layout.buildDirectory.asFile.get().resolve("generated/kotlin").also {
-    it.mkdirs()
-}
-val generateVersion = tasks.register("generateVersion") {
-    doLast {
-        generated.resolve("Version.kt").writeText(
-            """
-            object Version {
-                val yaksbVersion = "${rootProject.version}"
-                val kotlinVersion = "${kotlin.coreLibrariesVersion}"
-            }
-            
-            """.trimIndent()
-        )
+val generated =
+    project.layout.buildDirectory.asFile.get().resolve("generated/kotlin").also {
+        it.mkdirs()
     }
-}
+val generateVersion =
+    tasks.register("generateVersion") {
+        doLast {
+            generated.resolve("Version.kt").writeText(
+                """
+                object Version {
+                    val yaksbVersion = "${rootProject.version}"
+                    val kotlinVersion = "${kotlin.coreLibrariesVersion}"
+                }
+                
+                """.trimIndent(),
+            )
+        }
+    }
 
-val generateLocalProperties = tasks.register("generateLocalProperties") {
-    doLast {
-        generated.resolve("LocalProperties.kt").writeText(
-            """
-            val localProperties = ""${'"'} ${rootProject.rootDir.resolve("local.properties").readText()}""${'"'}
-            """.trimIndent().trim()
-        )
+val generateLocalProperties =
+    tasks.register("generateLocalProperties") {
+        doLast {
+            generated.resolve("LocalProperties.kt").writeText(
+                """
+                val localProperties = ""${'"'} ${rootProject.rootDir.resolve("local.properties").readText()}""${'"'}
+                """.trimIndent().trim(),
+            )
+        }
     }
-}
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     dependsOn(generateVersion)
     dependsOn(generateLocalProperties)
 }
 kotlin {
-    this.sourceSets.main.get().kotlin.srcDir(generated)
+    this.sourceSets.main
+        .get()
+        .kotlin
+        .srcDir(generated)
 }
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 tasks.withType<KotlinCompile>().all {
     this.compilerOptions.jvmTarget = JvmTarget.JVM_17
 }
 
-// TODO uncomment after 2.2.0 support
-//ktlint.filter {
-//    exclude {
-//        it.file.absolutePath.contains("generated")
-//    }
-//}
+ktlint.filter {
+    exclude {
+        it.file.absolutePath.contains("generated")
+    }
+}
 // afterEvaluate {
 //    publishing {
 //        publications {

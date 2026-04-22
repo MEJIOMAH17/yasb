@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.add
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -8,7 +7,7 @@ plugins {
     kotlin("multiplatform") apply false
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.17.0"
     id("com.vanniktech.maven.publish") version "0.33.0"
-//    id("org.jlleitschuh.gradle.ktlint") version "12.2.0" TODO uncomment after 2.2.0 support
+    id("org.jlleitschuh.gradle.ktlint") version "14.1.0"
     java
 }
 buildscript {
@@ -34,7 +33,10 @@ val projectsWithPublication =
     subprojects - setOf(project(":core-test-fixtures"), project("core-jdbc-test-fixtures"))
 
 subprojects {
-//    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>() TODO uncomment after 2.2.0 support
+    apply<org.jlleitschuh.gradle.ktlint.KtlintPlugin>()
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.8.0")
+    }
     configureRepositories()
     if (!name().contains("generator")) {
 
@@ -105,7 +107,7 @@ fun Project.configurePublication() {
                 }
             }
         }
-        configure<SigningExtension>() {
+        configure<SigningExtension> {
             val signingKeyLocation: String by project
             val secretKey = File(signingKeyLocation).readText()
             val signingPassword: String by project
@@ -117,7 +119,6 @@ fun Project.configurePublication() {
     }
 }
 
-// TODO uncomment after 2.2.0 support
-//tasks.build.configure {
-//    dependsOn(tasks.ktlintFormat)
-//}
+tasks.build.configure {
+    dependsOn(tasks.ktlintFormat)
+}

@@ -9,11 +9,7 @@ import com.github.mejiomah17.yaksb.sqlite.android.type.BooleanDatabaseType
 import com.github.mejiomah17.yaksb.sqlite.android.type.LongDatabaseType
 
 object SqliteAndroidDatabaseDialect : SqliteDatabaseDialect<Cursor, AndroidSqliteDriverStatement>, SupportsLimit {
-    override fun booleanType(): DatabaseType<Boolean, Cursor, AndroidSqliteDriverStatement> {
-        return BooleanDatabaseType
-    }
+    override fun booleanType(): DatabaseType<Boolean, Cursor, AndroidSqliteDriverStatement> = BooleanDatabaseType
 
-    override fun longType(): DatabaseType<Long, Cursor, AndroidSqliteDriverStatement> {
-        return LongDatabaseType
-    }
+    override fun longType(): DatabaseType<Long, Cursor, AndroidSqliteDriverStatement> = LongDatabaseType
 }

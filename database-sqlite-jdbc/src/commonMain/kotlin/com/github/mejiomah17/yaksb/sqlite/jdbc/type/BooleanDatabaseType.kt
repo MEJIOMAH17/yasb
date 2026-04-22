@@ -7,11 +7,13 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object BooleanDatabaseType : JDBCDatabaseType<Boolean> {
-    override fun extractFromSource(source: ResultSet, index: Int): Boolean? {
-        return source.getNullable {
+    override fun extractFromSource(
+        source: ResultSet,
+        index: Int,
+    ): Boolean? =
+        source.getNullable {
             source.getBoolean(index)
         }
-    }
 
     override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, ResultSet, PreparedStatement> = ::BooleanParameter
 }

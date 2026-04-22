@@ -7,4 +7,10 @@ import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializabl
 
 class SqliteAndroidCountTest :
     SqliteAndroidTest(),
-    SqliteCountTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>
+    SqliteCountTest<
+        SqliteAndroidTestTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    >

@@ -11,9 +11,7 @@ object UuidDatabaseType : JDBCDatabaseType<UUID> {
     override fun extractFromSource(
         resultSet: ResultSet,
         index: Int,
-    ): UUID? {
-        return resultSet.getString(index)?.let { UUID.fromString(it) }
-    }
+    ): UUID? = resultSet.getString(index)?.let { UUID.fromString(it) }
 
     override fun parameterFactory(): (UUID?) -> Parameter<UUID, ResultSet, PreparedStatement> = ::UuidParameter
 }

@@ -12,11 +12,10 @@ object BooleanDatabaseType : AndroidDatabaseType<Boolean> {
     override fun extractFromSource(
         source: Cursor,
         index: Int,
-    ): Boolean? {
-        return when (source.getLong(index)) {
+    ): Boolean? =
+        when (source.getLong(index)) {
             0L -> false
             1L -> true
             else -> error("Unexpected value ${source.getLong(index)} for boolean")
         }
-    }
 }

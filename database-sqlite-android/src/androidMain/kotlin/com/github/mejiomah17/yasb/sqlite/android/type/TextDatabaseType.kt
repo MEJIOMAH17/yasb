@@ -12,7 +12,5 @@ object TextDatabaseType : AndroidDatabaseType<String> {
     override fun extractFromSource(
         source: Cursor,
         index: Int,
-    ): String? {
-        return source.getString(index)
-    }
+    ): String? = source.getString(index)
 }

@@ -17,31 +17,33 @@ class GeneratorPluginJdbcTest {
     @EnumSource(DB::class)
     fun `generates_table_definition`(db: DB) {
         val migrationsDir = createMigration()
-        val packageName = (0..5).joinToString(".") {
-            Random.nextString()
-        }
-        val projectDir = gradleDir(
-            """
-            import com.github.mejiomah17.yaksb.GenerateTablesTask
-            plugins {
-               $yaksbPluginDeclaration
-               $kotlinPluginDeclaration
+        val packageName =
+            (0..5).joinToString(".") {
+                Random.nextString()
             }
-            repositories{
-                mavenLocal()
-                mavenCentral()
-            }
-            dependencies {
-                implementation("io.github.mejiomah17.yaksb:database-postgres-jdbc-jvm:${Version.yaksbVersion}")
-                implementation("io.github.mejiomah17.yaksb:database-sqlite-jdbc-jvm:${Version.yaksbVersion}")
-            }
-            tasks.withType<GenerateTablesTask> {
-                database = ${db.gradleDeclaration}
-                packageName = "$packageName"
-                flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
-            }  
-            """.trimIndent()
-        )
+        val projectDir =
+            gradleDir(
+                """
+                import com.github.mejiomah17.yaksb.GenerateTablesTask
+                plugins {
+                   $yaksbPluginDeclaration
+                   $kotlinPluginDeclaration
+                }
+                repositories{
+                    mavenLocal()
+                    mavenCentral()
+                }
+                dependencies {
+                    implementation("io.github.mejiomah17.yaksb:database-postgres-jdbc-jvm:${Version.yaksbVersion}")
+                    implementation("io.github.mejiomah17.yaksb:database-sqlite-jdbc-jvm:${Version.yaksbVersion}")
+                }
+                tasks.withType<GenerateTablesTask> {
+                    database = ${db.gradleDeclaration}
+                    packageName = "$packageName"
+                    flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
+                }  
+                """.trimIndent(),
+            )
 
         runBuild(projectDir)
 
@@ -50,15 +52,15 @@ class GeneratorPluginJdbcTest {
         generatedFile.shouldExist()
         generatedFile.readText().shouldBe(
             """
-                package $packageName
+            package $packageName
 
-                object TestTable : ${db.tableSuperClass}<TestTable> {
-                    override val tableName = "test"
-                    val a = textNullable("a")
-                    val b = text("b")
-                }
-                
-            """.trimIndent()
+            object TestTable : ${db.tableSuperClass}<TestTable> {
+                override val tableName = "test"
+                val a = textNullable("a")
+                val b = text("b")
+            }
+            
+            """.trimIndent(),
         )
     }
 
@@ -66,69 +68,74 @@ class GeneratorPluginJdbcTest {
     @EnumSource(DB::class)
     fun `build_can_use_generated_code`(db: DB) {
         val migrationsDir = createMigration()
-        val packageName = (0..5).joinToString(".") {
-            Random.nextString()
-        }
-        val projectDir = gradleDir(
-            """
-            import com.github.mejiomah17.yaksb.GenerateTablesTask
-            plugins {
-               $yaksbPluginDeclaration
-               $kotlinPluginDeclaration
+        val packageName =
+            (0..5).joinToString(".") {
+                Random.nextString()
             }
-            repositories{
-                mavenLocal()
-                mavenCentral()
+        val projectDir =
+            gradleDir(
+                """
+                import com.github.mejiomah17.yaksb.GenerateTablesTask
+                plugins {
+                   $yaksbPluginDeclaration
+                   $kotlinPluginDeclaration
+                }
+                repositories{
+                    mavenLocal()
+                    mavenCentral()
+                }
+                dependencies {
+                    implementation("io.github.mejiomah17.yaksb:database-postgres-jdbc-jvm:${Version.yaksbVersion}")
+                    implementation("io.github.mejiomah17.yaksb:database-sqlite-jdbc-jvm:${Version.yaksbVersion}")
+                }
+                tasks.withType<GenerateTablesTask> {
+                    database = ${db.gradleDeclaration}
+                    packageName = "$packageName"
+                    flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
+                }
+                """.trimIndent(),
+            ) {
+                generateUsage(packageName)
             }
-            dependencies {
-                implementation("io.github.mejiomah17.yaksb:database-postgres-jdbc-jvm:${Version.yaksbVersion}")
-                implementation("io.github.mejiomah17.yaksb:database-sqlite-jdbc-jvm:${Version.yaksbVersion}")
-            }
-            tasks.withType<GenerateTablesTask> {
-                database = ${db.gradleDeclaration}
-                packageName = "$packageName"
-                flywayMigrationDirs.add(File("${migrationsDir.root.escapedPath()}"))
-            }
-            """.trimIndent()
-        ) {
-            generateUsage(packageName)
-        }
 
         runBuild(projectDir)
 
         projectDir.root.resolve("build/classes/kotlin/main/UsageKt.class").shouldExist()
     }
 
-    private fun createMigration() = tempFolder {
-        newFile("V001__test_table.sql").writeText(
-            """
-                      CREATE TABLE test(
-                                   a text,
-                                   b text NOT NULL
-                                );
-            """.trimIndent()
-        )
-    }
+    private fun createMigration() =
+        tempFolder {
+            newFile("V001__test_table.sql").writeText(
+                """
+                CREATE TABLE test(
+                             a text,
+                             b text NOT NULL
+                          );
+                """.trimIndent(),
+            )
+        }
 
     private fun TemporaryFolder.generateUsage(packageName: String) {
         val sourceCodeDir = root.resolve("src/main/kotlin")
         sourceCodeDir.mkdirs()
         sourceCodeDir.resolve("Usage.kt").writeText(
             """
-                            fun main(){
-                              $packageName.TestTable.tableName
-                            }
-            """.trimIndent()
+            fun main(){
+              $packageName.TestTable.tableName
+            }
+            """.trimIndent(),
         )
     }
 
-    private fun gradleDir(buildFile: String, block: TemporaryFolder.() -> Unit = {}): TemporaryFolder {
-        return tempFolder {
+    private fun gradleDir(
+        buildFile: String,
+        block: TemporaryFolder.() -> Unit = {},
+    ): TemporaryFolder =
+        tempFolder {
             newFile("settings.gradle.kts").writeText("")
             newFile("build.gradle.kts").writeText(buildFile)
             block()
         }
-    }
 
     private fun tempFolder(block: TemporaryFolder.() -> Unit): TemporaryFolder {
         val dir = TemporaryFolder()
@@ -137,27 +144,33 @@ class GeneratorPluginJdbcTest {
         return dir
     }
 
-    private fun File.escapedPath(): String {
-        return if (System.getProperty("os.name").lowercase().contains("windows")) {
+    private fun File.escapedPath(): String =
+        if (System.getProperty("os.name").lowercase().contains("windows")) {
             path.replace("\\", "/")
         } else {
             path
         }
-    }
 
-    enum class DB(val gradleDeclaration: String, val tableSuperClass: String) {
+    enum class DB(
+        val gradleDeclaration: String,
+        val tableSuperClass: String,
+    ) {
         Postgres(
             "com.github.mejiomah17.yaksb.Database.Postgres()",
-            "com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTable"
+            "com.github.mejiomah17.yaksb.postgres.jdbc.PostgresJdbcTable",
         ),
         Sqlite(
             "com.github.mejiomah17.yaksb.Database.SqliteJdbc()",
-            "com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTable"
-        )
+            "com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTable",
+        ),
     }
 
-    fun runBuild(dir: TemporaryFolder, command: String = "build") {
-        GradleRunner.create()
+    fun runBuild(
+        dir: TemporaryFolder,
+        command: String = "build",
+    ) {
+        GradleRunner
+            .create()
             .withPluginClasspath()
             .withProjectDir(dir.root)
             .withArguments(command, "--stacktrace")

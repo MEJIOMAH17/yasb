@@ -15,67 +15,49 @@ import java.sql.Timestamp
 import java.util.UUID
 
 interface PostgresJdbcTable<TABLE : PostgresJdbcTable<TABLE>> : Table<TABLE, ResultSet, PreparedStatement> {
-    fun text(name: String): Column<TABLE, String, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, TextDatabaseType))
-    }
+    fun text(name: String): Column<TABLE, String, ResultSet, PreparedStatement> = register(Column(name, this as TABLE, TextDatabaseType))
 
-    fun textNullable(name: String): Column<TABLE, String?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, TextDatabaseType))
-    }
+    fun textNullable(name: String): Column<TABLE, String?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, TextDatabaseType))
 
-    fun bool(name: String): Column<TABLE, Boolean, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, BooleanDatabaseType))
-    }
+    fun bool(name: String): Column<TABLE, Boolean, ResultSet, PreparedStatement> =
+        register(Column(name, this as TABLE, BooleanDatabaseType))
 
-    fun boolNullable(name: String): Column<TABLE, Boolean?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, BooleanDatabaseType))
-    }
+    fun boolNullable(name: String): Column<TABLE, Boolean?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, BooleanDatabaseType))
 
-    fun uuid(name: String): Column<TABLE, UUID, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, UuidDatabaseType))
-    }
+    fun uuid(name: String): Column<TABLE, UUID, ResultSet, PreparedStatement> = register(Column(name, this as TABLE, UuidDatabaseType))
 
-    fun uuidNullable(name: String): Column<TABLE, UUID?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, UuidDatabaseType))
-    }
+    fun uuidNullable(name: String): Column<TABLE, UUID?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, UuidDatabaseType))
 
     /**
      * Register column for Timestamp type.
      * Attention! All nanosecond will be erased at insert statement.
      */
-    fun timestamp(name: String): Column<TABLE, Timestamp, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, TimestampDatabaseType))
-    }
+    fun timestamp(name: String): Column<TABLE, Timestamp, ResultSet, PreparedStatement> =
+        register(Column(name, this as TABLE, TimestampDatabaseType))
 
     /**
      * Register column for Timestamp? type.
      * Attention! All nanosecond will be erased at insert statement.
      */
-    fun timestampNullable(name: String): Column<TABLE, Timestamp?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, TimestampDatabaseType))
-    }
+    fun timestampNullable(name: String): Column<TABLE, Timestamp?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, TimestampDatabaseType))
 
-    fun doublePrecision(name: String): Column<TABLE, Double, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, DoublePrecisionDatabaseType))
-    }
+    fun doublePrecision(name: String): Column<TABLE, Double, ResultSet, PreparedStatement> =
+        register(Column(name, this as TABLE, DoublePrecisionDatabaseType))
 
-    fun doublePrecisionNullable(name: String): Column<TABLE, Double?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, DoublePrecisionDatabaseType))
-    }
+    fun doublePrecisionNullable(name: String): Column<TABLE, Double?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, DoublePrecisionDatabaseType))
 
-    fun bigint(name: String): Column<TABLE, Long, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, LongDatabaseType))
-    }
+    fun bigint(name: String): Column<TABLE, Long, ResultSet, PreparedStatement> = register(Column(name, this as TABLE, LongDatabaseType))
 
-    fun bigintNullable(name: String): Column<TABLE, Long?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, LongDatabaseType))
-    }
+    fun bigintNullable(name: String): Column<TABLE, Long?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, LongDatabaseType))
 
-    fun jsonb(name: String): Column<TABLE, String, ResultSet, PreparedStatement> {
-        return register(Column(name, this as TABLE, JsonbDatabaseType))
-    }
+    fun jsonb(name: String): Column<TABLE, String, ResultSet, PreparedStatement> = register(Column(name, this as TABLE, JsonbDatabaseType))
 
-    fun jsonbNullable(name: String): Column<TABLE, String?, ResultSet, PreparedStatement> {
-        return registerNullable(Column(name, this as TABLE, JsonbDatabaseType))
-    }
+    fun jsonbNullable(name: String): Column<TABLE, String?, ResultSet, PreparedStatement> =
+        registerNullable(Column(name, this as TABLE, JsonbDatabaseType))
 }

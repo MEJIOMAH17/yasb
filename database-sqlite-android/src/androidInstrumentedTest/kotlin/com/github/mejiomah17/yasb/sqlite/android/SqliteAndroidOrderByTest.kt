@@ -7,4 +7,10 @@ import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializabl
 
 class SqliteAndroidOrderByTest :
     SqliteAndroidTest(),
-    SqliteOrderByTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>
+    SqliteOrderByTest<
+        SqliteAndroidTestTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    >

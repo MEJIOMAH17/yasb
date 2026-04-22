@@ -22,10 +22,12 @@ abstract class SqliteAndroidTest {
             org.sqlite.database.sqlite.SQLiteDatabase.openDatabase(
                 context.getDatabasePath("Test.db").path,
                 null,
-                SQLiteDatabase.OpenParams.Builder()
+                SQLiteDatabase.OpenParams
+                    .Builder()
                     .addOpenFlags(OPEN_READWRITE)
                     .addOpenFlags(CREATE_IF_NECESSARY)
-                    .build().openFlags,
+                    .build()
+                    .openFlags,
             )
         """
         DROP TABLE IF EXISTS test;
@@ -74,17 +76,11 @@ abstract class SqliteAndroidTest {
         context = InstrumentationRegistry.getInstrumentation().context
     }
 
-    fun transactionFactory(): AndroidTransactionFactory {
-        return AndroidTransactionFactory(newDb)
-    }
+    fun transactionFactory(): AndroidTransactionFactory = AndroidTransactionFactory(newDb)
 
-    fun parameter(): Parameter<String, Cursor, AndroidSqliteDriverStatement> {
-        return TextParameter("param")
-    }
+    fun parameter(): Parameter<String, Cursor, AndroidSqliteDriverStatement> = TextParameter("param")
 
-    fun tableTest(): SqliteAndroidTestTable {
-        return SqliteAndroidTestTable
-    }
+    fun tableTest(): SqliteAndroidTestTable = SqliteAndroidTestTable
 
     fun executeSql(sql: String) {
         newDb.execSQL(sql)

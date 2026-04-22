@@ -11,9 +11,7 @@ object TimestampDatabaseType : JDBCDatabaseType<Timestamp> {
     override fun extractFromSource(
         source: ResultSet,
         index: Int,
-    ): Timestamp? {
-        return source.getTimestamp(index)
-    }
+    ): Timestamp? = source.getTimestamp(index)
 
     override fun parameterFactory(): (Timestamp?) -> Parameter<Timestamp, ResultSet, PreparedStatement> = ::TimestampParameter
 }

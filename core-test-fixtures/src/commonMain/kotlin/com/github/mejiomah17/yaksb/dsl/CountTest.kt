@@ -16,13 +16,12 @@ interface CountTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun count_returns_count_of_elements() {
         transactionFactory().repeatableRead {
             val count = count(tableTest().a).`as`("aCount")
-            val from : ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+            val from: ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
                 select(count)
                     .from(tableTest())
             from

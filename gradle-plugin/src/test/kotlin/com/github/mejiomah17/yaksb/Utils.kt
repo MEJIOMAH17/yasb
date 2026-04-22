@@ -11,16 +11,17 @@ fun tempFolder(block: TemporaryFolder.() -> Unit): TemporaryFolder {
     return dir
 }
 
-fun createMigration() = tempFolder {
-    newFile("V001__test_table.sql").writeText(
-        """
-                      CREATE TABLE test(
-                                   a text,
-                                   b text NOT NULL
-                                );
-        """.trimIndent()
-    )
-}
+fun createMigration() =
+    tempFolder {
+        newFile("V001__test_table.sql").writeText(
+            """
+            CREATE TABLE test(
+                         a text,
+                         b text NOT NULL
+                      );
+            """.trimIndent(),
+        )
+    }
 
 fun Random.nextString(length: Int = 10): String {
     val charPool = ('a'..'z') + ('A'..'Z')
@@ -30,8 +31,13 @@ fun Random.nextString(length: Int = 10): String {
 }
 
 val yaksbPluginDeclaration = """id("io.github.mejiomah17.yaksb")"""
-fun runBuild(dir: TemporaryFolder, command: String = "build") {
-    GradleRunner.create()
+
+fun runBuild(
+    dir: TemporaryFolder,
+    command: String = "build",
+) {
+    GradleRunner
+        .create()
         .withProjectDir(dir.root)
         .withArguments(command, "--stacktrace", "--info")
         .build()

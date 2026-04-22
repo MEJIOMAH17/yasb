@@ -18,8 +18,7 @@ interface GroupByTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun groupBy_creates_correct_sql_for_from_query() {
         val result =
@@ -69,9 +68,11 @@ interface GroupByTest<
     fun `groupBy_executes_after_where_expression`() {
         transactionFactory().repeatableRead {
             val repeatingColumn =
-                select(tableTest().a).from(tableTest())
+                select(tableTest().a)
+                    .from(tableTest())
                     .where { tableTest().a.eq("the a") }
-                    .groupBy(tableTest().a).execute()
+                    .groupBy(tableTest().a)
+                    .execute()
             repeatingColumn.shouldHaveSize(1)
             val row = repeatingColumn.single()
             row[tableTest().a] shouldBe "the a"

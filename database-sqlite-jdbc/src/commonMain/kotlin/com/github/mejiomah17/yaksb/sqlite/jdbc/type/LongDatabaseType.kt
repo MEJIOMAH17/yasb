@@ -7,11 +7,13 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 object LongDatabaseType : JDBCDatabaseType<Long> {
-    override fun extractFromSource(source: ResultSet, index: Int): Long? {
-        return source.getNullable {
+    override fun extractFromSource(
+        source: ResultSet,
+        index: Int,
+    ): Long? =
+        source.getNullable {
             source.getLong(index)
         }
-    }
 
     override fun parameterFactory(): (Long?) -> Parameter<Long, ResultSet, PreparedStatement> = ::LongParameter
 }

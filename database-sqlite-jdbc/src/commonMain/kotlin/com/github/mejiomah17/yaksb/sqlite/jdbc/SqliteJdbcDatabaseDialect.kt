@@ -17,11 +17,7 @@ object SqliteJdbcDatabaseDialect :
     SupportsRightJoin,
     SupportsFullJoin,
     SupportsInsertReturning {
-    override fun booleanType(): DatabaseType<Boolean, ResultSet, PreparedStatement> {
-        return BooleanDatabaseType
-    }
+    override fun booleanType(): DatabaseType<Boolean, ResultSet, PreparedStatement> = BooleanDatabaseType
 
-    override fun longType(): DatabaseType<Long, ResultSet, PreparedStatement> {
-        return LongDatabaseType
-    }
+    override fun longType(): DatabaseType<Long, ResultSet, PreparedStatement> = LongDatabaseType
 }

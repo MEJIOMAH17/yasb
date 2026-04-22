@@ -19,8 +19,7 @@ interface DeleteTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun deletes_everything() {
         transactionFactory().repeatableRead {
@@ -57,8 +56,7 @@ interface DeleteTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq("the a")
-                }
-                .execute()
+                }.execute()
 
             select(count)
                 .from(tableTest())

@@ -7,4 +7,10 @@ import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializabl
 
 class SqliteAndroidTableJoinTest :
     SqliteAndroidTest(),
-    SqliteTableJoinTest<SqliteAndroidTest.SecondTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>
+    SqliteTableJoinTest<
+        SqliteAndroidTest.SecondTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    >

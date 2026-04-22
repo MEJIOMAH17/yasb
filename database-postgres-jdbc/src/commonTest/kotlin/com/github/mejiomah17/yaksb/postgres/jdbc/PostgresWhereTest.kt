@@ -15,10 +15,10 @@ import java.sql.Timestamp
 import java.util.UUID
 
 class PostgresWhereTest :
-    WhereTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    PostgresTest(),
+    WhereTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "TRUNCATE TABLE test",
             """
             INSERT INTO test (a,b,c,d) values (
@@ -35,7 +35,6 @@ class PostgresWhereTest :
             )
             """.trimIndent(),
         )
-    }
 
     @Test
     fun `where_filters_query_by_uuid`() {

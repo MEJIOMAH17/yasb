@@ -9,13 +9,10 @@ interface SqliteInsertTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > :
-    InsertWithReturningTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
-    override fun initSqlScripts(): List<String> {
-        return listOf(
-            "DELETE from test"
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : InsertWithReturningTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
+            "DELETE from test",
         )
-    }
 }

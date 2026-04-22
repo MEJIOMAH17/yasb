@@ -16,11 +16,12 @@ class SqliteJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         @BeforeClass
         @JvmStatic
         fun init() {
-            dataSource = HikariDataSource(
-                HikariConfig().also {
-                    it.jdbcUrl = "jdbc:sqlite::memory:"
-                }
-            )
+            dataSource =
+                HikariDataSource(
+                    HikariConfig().also {
+                        it.jdbcUrl = "jdbc:sqlite::memory:"
+                    },
+                )
         }
 
         @AfterClass
@@ -30,11 +31,7 @@ class SqliteJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         }
     }
 
-    override fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *> {
-        return SqliteJdbcTransactionFactory(dataSource)
-    }
+    override fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *> = SqliteJdbcTransactionFactory(dataSource)
 
-    override fun exception(): Exception {
-        return SQLException()
-    }
+    override fun exception(): Exception = SQLException()
 }

@@ -10,11 +10,10 @@ object BooleanDatabaseType : JDBCDatabaseType<Boolean> {
     override fun extractFromSource(
         source: ResultSet,
         index: Int,
-    ): Boolean? {
-        return source.getNullable {
+    ): Boolean? =
+        source.getNullable {
             source.getBoolean(index)
         }
-    }
 
     override fun parameterFactory(): (Boolean?) -> Parameter<Boolean, ResultSet, PreparedStatement> = ::BooleanParameter
 }

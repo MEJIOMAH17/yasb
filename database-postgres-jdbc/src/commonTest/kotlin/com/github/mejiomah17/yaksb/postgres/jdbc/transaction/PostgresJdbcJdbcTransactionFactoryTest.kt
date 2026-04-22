@@ -40,11 +40,7 @@ class PostgresJdbcJdbcTransactionFactoryTest : JdbcTransactionFactoryTest() {
         }
     }
 
-    override fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *> {
-        return PostgresJdbcTransactionFactory(dataSource)
-    }
+    override fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *> = PostgresJdbcTransactionFactory(dataSource)
 
-    override fun exception(): Exception {
-        return SQLException()
-    }
+    override fun exception(): Exception = SQLException()
 }

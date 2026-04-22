@@ -13,8 +13,7 @@ interface SelectTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun selects_parameter() {
         transactionFactory().repeatableRead {
@@ -23,8 +22,8 @@ interface SelectTest<
                 .execute()
                 .map {
                     it[param]
-                }
-                .single().shouldBe(parameter().value)
+                }.single()
+                .shouldBe(parameter().value)
         }
     }
 }

@@ -42,7 +42,11 @@ interface JdbcTransactionTest<TABLE : TestTable<TABLE, ResultSet, PreparedStatem
         activeThread.set(Thread.WRITER)
         transactionFactory().readCommitted {
             await().until { activeThread.get() == Thread.READER }
-            select(tableTest().a).from(tableTest()).execute().single()[tableTest().a].shouldBe("abc")
+            select(tableTest().a)
+                .from(tableTest())
+                .execute()
+                .single()[tableTest().a]
+                .shouldBe("abc")
             activeThread.set(Thread.WRITER)
         }
     }
@@ -55,7 +59,11 @@ interface JdbcTransactionTest<TABLE : TestTable<TABLE, ResultSet, PreparedStatem
             }.execute()
         }
         transactionFactory().readCommitted {
-            select(tableTest().a).from(tableTest()).execute().single()[tableTest().a].shouldBe("abc")
+            select(tableTest().a)
+                .from(tableTest())
+                .execute()
+                .single()[tableTest().a]
+                .shouldBe("abc")
         }
     }
 

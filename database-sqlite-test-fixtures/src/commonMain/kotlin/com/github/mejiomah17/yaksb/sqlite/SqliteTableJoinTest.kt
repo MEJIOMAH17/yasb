@@ -9,12 +9,10 @@ interface SqliteTableJoinTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > :
-    TableJoinTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : TableJoinTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "DELETE FROM FIRST",
             "DELETE FROM SECOND",
             "DELETE FROM THIRD",
@@ -23,7 +21,6 @@ interface SqliteTableJoinTest<
             "INSERT INTO SECOND (A,B) values ('XXX','B2')",
             "INSERT INTO SECOND (A,B) values ('ZZZ','D1')",
             "INSERT INTO THIRD (A,B) values ('XXX','B3')",
-            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')"
+            "INSERT INTO THIRD (A,B) values ('ZZZ','E1')",
         )
-    }
 }

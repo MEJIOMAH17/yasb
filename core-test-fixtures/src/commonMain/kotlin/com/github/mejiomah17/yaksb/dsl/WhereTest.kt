@@ -16,8 +16,7 @@ interface WhereTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `where_filters_query`() {
         transactionFactory().repeatableRead {
@@ -27,9 +26,10 @@ interface WhereTest<
             given.get(1)[tableTest().a].shouldBe("42")
 
             val result =
-                queryWithoutWhere.where {
-                    tableTest().a.eq("42")
-                }.execute()
+                queryWithoutWhere
+                    .where {
+                        tableTest().a.eq("42")
+                    }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
             row[tableTest().a] shouldBe "42"
@@ -65,8 +65,7 @@ interface WhereTest<
                 .from(tableTest())
                 .where {
                     tableTest().a.eq("42")
-                }
-                .returnExpressions() shouldBe listOf(tableTest().a, tableTest().b)
+                }.returnExpressions() shouldBe listOf(tableTest().a, tableTest().b)
         }
     }
 

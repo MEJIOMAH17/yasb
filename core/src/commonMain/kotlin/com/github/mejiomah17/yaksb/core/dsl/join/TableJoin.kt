@@ -12,68 +12,58 @@ class TableJoin<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>(
     private val select: SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     private val joinType: JoinType,
-    private val on: Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
+    private val on: Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
 ) : SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
+    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = select.returnExpressions()
 
-    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return select.returnExpressions()
-    }
+    override fun sql(): String = "${select.sql()} $joinType JOIN ${with.sql()} ON ${on.sql()}"
 
-    override fun sql(): String {
-        return "${select.sql()} $joinType JOIN ${with.sql()} ON ${on.sql()}"
-    }
-
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return select.parameters() + with.parameters() + on.parameters()
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> =
+        select.parameters() + with.parameters() + on.parameters()
 }
 
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.innerJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return TableJoin(
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    TableJoin(
         select = this,
         with = with,
         joinType = JoinType.INNER,
-        on = ConditionContext.on()
+        on = ConditionContext.on(),
     )
-}
 
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.leftJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return TableJoin(
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    TableJoin(
         select = this,
         with = with,
         joinType = JoinType.LEFT,
-        on = ConditionContext.on()
+        on = ConditionContext.on(),
     )
-}
 
 context(_: SupportsRightJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.rightJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return TableJoin(
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    TableJoin(
         select = this,
         with = with,
         joinType = JoinType.RIGHT,
-        on = ConditionContext.on()
+        on = ConditionContext.on(),
     )
-}
 
 context(_: SupportsFullJoin)
 fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.fullJoin(
     with: SelectionSource<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return TableJoin(
+    on: ConditionContext.() -> Expression<Boolean, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+): SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    TableJoin(
         select = this,
         with = with,
         joinType = JoinType.FULL,
-        on = ConditionContext.on()
+        on = ConditionContext.on(),
     )
-}

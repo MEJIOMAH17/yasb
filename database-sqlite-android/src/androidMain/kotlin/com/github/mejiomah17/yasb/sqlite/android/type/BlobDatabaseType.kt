@@ -12,7 +12,5 @@ object BlobDatabaseType : AndroidDatabaseType<ByteArray> {
     override fun extractFromSource(
         source: Cursor,
         index: Int,
-    ): ByteArray? {
-        return source.getBlob(index)
-    }
+    ): ByteArray? = source.getBlob(index)
 }

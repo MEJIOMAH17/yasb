@@ -16,12 +16,10 @@ interface SqliteWhereTest<
     DRIVER_DATA_SOURCE,
     DRIVER_STATEMENT,
     DIALECT : SqliteDatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
-    > :
-    WhereTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
-
-    override fun initSqlScripts(): List<String> {
-        return listOf(
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> : WhereTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+    override fun initSqlScripts(): List<String> =
+        listOf(
             "DELETE from test",
             """INSERT INTO test (a,b,c,d) values (
                     |'the a',
@@ -30,15 +28,15 @@ interface SqliteWhereTest<
                     |false
                     | )
             """.trimMargin(),
-            """ INSERT INTO test (a,b,c,d) values (
-                    '42',
-                    '42',
-                    4,
-                    true
-                    )
-            """.trimIndent()
+            """
+             INSERT INTO test (a,b,c,d) values (
+            '42',
+            '42',
+            4,
+            true
+            )
+            """.trimIndent(),
         )
-    }
 
     @Test
     fun `where_filters_query_by_long_column`() {
@@ -48,9 +46,11 @@ interface SqliteWhereTest<
             given.shouldHaveSize(2)
             given.get(1)[tableTest().a].shouldBe("42")
 
-            val result = queryWithoutWhere.where {
-                tableTest().c.eq(4)
-            }.execute()
+            val result =
+                queryWithoutWhere
+                    .where {
+                        tableTest().c.eq(4)
+                    }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
             row[tableTest().a] shouldBe "42"
@@ -65,9 +65,11 @@ interface SqliteWhereTest<
             given.shouldHaveSize(2)
             given.get(1)[tableTest().a].shouldBe("42")
 
-            val result = queryWithoutWhere.where {
-                tableTest().d.eq(true)
-            }.execute()
+            val result =
+                queryWithoutWhere
+                    .where {
+                        tableTest().d.eq(true)
+                    }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
             row[tableTest().a] shouldBe "42"
@@ -78,9 +80,10 @@ interface SqliteWhereTest<
     @Test
     fun `where_filters_query_by_blob_column`() {
         transactionFactory().repeatableRead {
-            val bytes = ByteArray(255) {
-                it.toByte()
-            }
+            val bytes =
+                ByteArray(255) {
+                    it.toByte()
+                }
             insertInto(tableTest()) {
                 it[a] = "bloba"
                 it[b] = "blobb"
@@ -93,9 +96,11 @@ interface SqliteWhereTest<
             given.shouldHaveSize(3)
             given.get(1)[tableTest().a].shouldBe("42")
 
-            val result = queryWithoutWhere.where {
-                tableTest().e.eq(bytes)
-            }.execute()
+            val result =
+                queryWithoutWhere
+                    .where {
+                        tableTest().e.eq(bytes)
+                    }.execute()
             result.shouldHaveSize(1)
             val row = result.single()
             row[tableTest().a] shouldBe "bloba"

@@ -10,12 +10,12 @@ import java.io.File
 import kotlin.random.Random
 
 class GeneratorPluginAndroidTest {
-
     @Test
     fun `generates_table_definition`() {
-        val packageName = (0..5).joinToString(".") {
-            Random.nextString()
-        }
+        val packageName =
+            (0..5).joinToString(".") {
+                Random.nextString()
+            }
         val projectDir = generateGradleDir(packageName)
 
         runBuild(projectDir)
@@ -24,34 +24,37 @@ class GeneratorPluginAndroidTest {
         generatedFile.shouldExist()
         generatedFile.readText().shouldBe(
             """
-                package $packageName
+            package $packageName
 
-                object TestTable : com.github.mejiomah17.yaksb.sqlite.android.SqliteAndroidTable<TestTable> {
-                    override val tableName = "test"
-                    val a = textNullable("a")
-                    val b = text("b")
-                }
+            object TestTable : com.github.mejiomah17.yaksb.sqlite.android.SqliteAndroidTable<TestTable> {
+                override val tableName = "test"
+                val a = textNullable("a")
+                val b = text("b")
+            }
 
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
     fun generateGradleDir(
         packageName: String,
-        block: TemporaryFolder.() -> Unit = {}
-    ): TemporaryFolder {
-        return tempFolder {
-            File(this::class.java.classLoader.getResource("sqlite/android").file)
-                .copyRecursively(this.root)
+        block: TemporaryFolder.() -> Unit = {},
+    ): TemporaryFolder =
+        tempFolder {
+            File(
+                this::class.java.classLoader
+                    .getResource("sqlite/android")
+                    .file,
+            ).copyRecursively(this.root)
             this.root.resolve("local.properties").writeText(localProperties)
             val buildFile = File(this.root, "app/build.gradle.kts")
             buildFile.writeText(
-                buildFile.readText()
+                buildFile
+                    .readText()
                     .replace("<placeholder_for_package_name>", packageName)
                     .replace("<placeholder_version>", Version.yaksbVersion)
-                    .replace("<placeholder_plugin_declaration>", yaksbPluginDeclaration)
+                    .replace("<placeholder_plugin_declaration>", yaksbPluginDeclaration),
             )
             block()
         }
-    }
 }

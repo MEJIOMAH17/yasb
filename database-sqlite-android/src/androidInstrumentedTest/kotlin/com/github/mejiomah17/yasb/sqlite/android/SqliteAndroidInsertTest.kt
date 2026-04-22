@@ -7,4 +7,10 @@ import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializabl
 
 class SqliteAndroidInsertTest :
     SqliteAndroidTest(),
-    SqliteInsertTest<SqliteAndroidTestTable, Cursor, AndroidSqliteDriverStatement, SqliteAndroidDatabaseDialect, AndroidSerializableTransactionImpl>
+    SqliteInsertTest<
+        SqliteAndroidTestTable,
+        Cursor,
+        AndroidSqliteDriverStatement,
+        SqliteAndroidDatabaseDialect,
+        AndroidSerializableTransactionImpl,
+    >

@@ -76,17 +76,11 @@ abstract class PostgresTest {
         }
     }
 
-    fun transactionFactory(): PostgresJdbcTransactionFactory {
-        return PostgresJdbcTransactionFactory(dataSource)
-    }
+    fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
 
-    fun parameter(): Parameter<String, ResultSet, PreparedStatement> {
-        return TextParameter("param")
-    }
+    fun parameter(): Parameter<String, ResultSet, PreparedStatement> = TextParameter("param")
 
-    fun tableTest(): PostgresJdbcTestTable {
-        return PostgresJdbcTestTable
-    }
+    fun tableTest(): PostgresJdbcTestTable = PostgresJdbcTestTable
 
     fun executeSql(sql: String) {
         dataSource.connection.use {

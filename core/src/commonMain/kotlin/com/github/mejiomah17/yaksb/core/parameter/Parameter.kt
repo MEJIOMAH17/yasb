@@ -7,5 +7,8 @@ interface Parameter<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
     val databaseType: DatabaseType<T, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>
     val parameterInSql: String
 
-    fun applyToStatement(statement: DRIVER_STATEMENT, index: Int)
+    fun applyToStatement(
+        statement: DRIVER_STATEMENT,
+        index: Int,
+    )
 }

@@ -19,46 +19,34 @@ class AndroidTransactionFactory(
         AndroidSerializableTransactionImpl,
         AndroidSerializableTransactionImpl,
         AndroidSerializableTransactionImpl,
-        > {
-    override fun dialect(): SqliteAndroidDatabaseDialect {
-        return SqliteAndroidDatabaseDialect
-    }
+    > {
+    override fun dialect(): SqliteAndroidDatabaseDialect = SqliteAndroidDatabaseDialect
 
     override fun <V> serializable(
         repeater: Repeater<V>,
         block: context(SqliteAndroidDatabaseDialect)
         AndroidSerializableTransactionImpl.() -> V,
-    ): V {
-        return transaction(repeater, { AndroidSerializableTransactionImpl(it) }, block)
-    }
+    ): V = transaction(repeater, { AndroidSerializableTransactionImpl(it) }, block)
 
     override fun <V> repeatableRead(
         repeater: Repeater<V>,
         block: context(SqliteAndroidDatabaseDialect)
         AndroidSerializableTransactionImpl.() -> V,
-    ): V {
-        return serializable(repeater, block)
-    }
+    ): V = serializable(repeater, block)
 
     override fun <V> readCommitted(
         repeater: Repeater<V>,
         block: context(SqliteAndroidDatabaseDialect)
         AndroidSerializableTransactionImpl.() -> V,
-    ): V {
-        return serializable(repeater, block)
-    }
+    ): V = serializable(repeater, block)
 
     override fun <V> readUncommitted(
         repeater: Repeater<V>,
         block: context(SqliteAndroidDatabaseDialect)
         AndroidSerializableTransactionImpl.() -> V,
-    ): V {
-        return serializable(repeater, block)
-    }
+    ): V = serializable(repeater, block)
 
-    override fun <V> defaultRepeater(): Repeater<V> {
-        return Repeater.repeatOn<V, SQLException>(3)
-    }
+    override fun <V> defaultRepeater(): Repeater<V> = Repeater.repeatOn<V, SQLException>(3)
 
     private fun <R, T : Transaction<Cursor, AndroidSqliteDriverStatement>> transaction(
         repeater: Repeater<R>,

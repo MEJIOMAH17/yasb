@@ -6,9 +6,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class PostgresSelectTest :
-    SelectTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>,
-    PostgresTest() {
-    override fun initSqlScripts(): List<String> {
-        return emptyList()
-    }
+    PostgresTest(),
+    SelectTest<PostgresJdbcTestTable, ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun initSqlScripts(): List<String> = emptyList()
 }

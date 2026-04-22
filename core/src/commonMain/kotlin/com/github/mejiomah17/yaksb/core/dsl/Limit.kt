@@ -7,33 +7,29 @@ import com.github.mejiomah17.yaksb.core.parameter.Parameter
 
 class Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> internal constructor(
     private val query: SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    private val limit: Int
+    private val limit: Int,
 ) : SelectQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return query.returnExpressions()
-    }
+    override fun returnExpressions(): List<Expression<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = query.returnExpressions()
 
-    override fun sql(): String {
-        return "${query.sql()} LIMIT $limit"
-    }
+    override fun sql(): String = "${query.sql()} LIMIT $limit"
 
-    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> {
-        return query.parameters()
-    }
+    override fun parameters(): List<Parameter<*, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>> = query.parameters()
 }
 
 context(_: DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, _: SupportsLimit)
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return Limit(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectFromQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(
+    limit: Int,
+): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    Limit(
         this,
-        limit
+        limit,
     )
-}
 
 context(_: DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, _: SupportsLimit)
-fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectWhereQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(limit: Int): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> {
-    return Limit(
+fun <DRIVER_DATA_SOURCE, DRIVER_STATEMENT> SelectWhereQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>.limit(
+    limit: Int,
+): Limit<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
+    Limit(
         this,
-        limit
+        limit,
     )
-}

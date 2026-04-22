@@ -48,24 +48,25 @@ class SqliteJdbcTableGeneratorTest {
     @Test
     fun `generates_correct_table_definition`() {
         dataSource.connection.use {
-            TableGenerator().generateTable(
-                SqliteTableMetadataFactory(SqliteJdbcTable::class.qualifiedName!!, SqliteColumnMetadataFactory())
-                    .create(it, "test", schemaPattern = null),
-                "com.github.mejiomah17",
-            ).run {
-                content shouldBe
-                    """
-                    package com.github.mejiomah17
+            TableGenerator()
+                .generateTable(
+                    SqliteTableMetadataFactory(SqliteJdbcTable::class.qualifiedName!!, SqliteColumnMetadataFactory())
+                        .create(it, "test", schemaPattern = null),
+                    "com.github.mejiomah17",
+                ).run {
+                    content shouldBe
+                        """
+                        package com.github.mejiomah17
 
-                    object TestTable : com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTable<TestTable> {
-                        override val tableName = "test"
-                        val a = textNullable("a")
-                        val b = text("b")
-                    }
+                        object TestTable : com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTable<TestTable> {
+                            override val tableName = "test"
+                            val a = textNullable("a")
+                            val b = text("b")
+                        }
 
-                    """.trimIndent()
-                fileName shouldBe "TestTable.kt"
-            }
+                        """.trimIndent()
+                    fileName shouldBe "TestTable.kt"
+                }
         }
     }
 }

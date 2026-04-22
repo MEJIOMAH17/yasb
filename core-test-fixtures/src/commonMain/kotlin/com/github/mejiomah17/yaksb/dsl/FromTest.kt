@@ -14,8 +14,7 @@ interface FromTest<
     DRIVER_STATEMENT,
     DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
     TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
-    > :
-    SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
+> : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `from_creates_correct_sql`() {
         val result =
@@ -39,7 +38,8 @@ interface FromTest<
     fun `from_returns_correct_expressions`() {
         select(tableTest().a, tableTest().b)
             .from(tableTest())
-            .returnExpressions().shouldBe(listOf(tableTest().a, tableTest().b))
+            .returnExpressions()
+            .shouldBe(listOf(tableTest().a, tableTest().b))
     }
 
     @Test
@@ -126,7 +126,9 @@ interface FromTest<
         val param = parameter()
         select(param.`as`("p"))
             .from(tableTest())
-            .parameters().single().shouldBe(param)
+            .parameters()
+            .single()
+            .shouldBe(param)
     }
 
     @Test
@@ -137,8 +139,7 @@ interface FromTest<
                     select(tableTest().a, tableTest().b)
                         .from(tableTest())
                         .`as`("xxx"),
-                )
-                .sql()
+                ).sql()
         result shouldBe "SELECT test.a, test.b, (?) AS p FROM (SELECT test.a, test.b FROM test) AS xxx"
     }
 }

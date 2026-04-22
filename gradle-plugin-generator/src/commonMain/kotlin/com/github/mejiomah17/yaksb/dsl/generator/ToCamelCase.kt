@@ -3,11 +3,12 @@ package com.github.mejiomah17.yaksb.dsl.generator
 private val delimiters = setOf('-', '_', ' ', '\t')
 
 fun String.toCamelCase(): String {
-    val str = if(uppercase() == this){
-        lowercase()
-    }else{
-        this
-    }
+    val str =
+        if (uppercase() == this) {
+            lowercase()
+        } else {
+            this
+        }
 
     return buildString {
         str.forEachIndexed { index, c ->
@@ -26,6 +27,4 @@ fun String.toCamelCase(): String {
     }
 }
 
-fun String.toPascalCase(): String {
-    return toCamelCase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
-}
+fun String.toPascalCase(): String = toCamelCase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
