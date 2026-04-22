@@ -46,7 +46,7 @@ dependencyResolutionManagement {
             library("androidx-sqlite", "androidx.sqlite:sqlite:2.6.2")
             library("sqlite-jdbc", "org.xerial:sqlite-jdbc:3.53.0.0")
             library("kotlin-gradle-plugin", "org.jetbrains.kotlin:kotlin-gradle-plugin:${extra["kotlin.version"] as String}")
-            library("flyway-core", "org.flywaydb:flyway-core:9.22.3")
+            library("flyway-core", "org.flywaydb:flyway-database-postgresql:12.4.0")
         }
     }
 }
