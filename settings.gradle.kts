@@ -33,14 +33,14 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             library("awaitility", "org.awaitility:awaitility:4.2.1")
-            library("stately-collections", "co.touchlab:stately-collections:2.0.7")
+            library("stately-collections", "co.touchlab:stately-concurrent-collections:2.1.0")
             library("kotest-assertions-core", "io.kotest:kotest-assertions-core:5.9.1")
             library("junit", "junit:junit:4.13.2")
             library("junit-jupiter", "org.junit.jupiter:junit-jupiter:5.10.2")
             library("mockk", "io.mockk:mockk:1.13.11")
-            library("postgresql", "org.postgresql:postgresql:42.7.3")
-            library("hikaricp", "com.zaxxer:HikariCP:5.1.0")
-            library("testcontainers-postgresql", "org.testcontainers:postgresql:1.19.8")
+            library("postgresql", "org.postgresql:postgresql:42.7.10")
+            library("hikaricp", "com.zaxxer:HikariCP:7.0.2")
+            library("testcontainers-postgresql", "org.testcontainers:postgresql:1.21.4")
             library("androidx-test-runner", "androidx.test:runner:1.5.2")
             library("androidx-test-rules", "androidx.test:rules:1.5.0")
             library("androidx-sqlite", "androidx.sqlite:sqlite:2.4.0")

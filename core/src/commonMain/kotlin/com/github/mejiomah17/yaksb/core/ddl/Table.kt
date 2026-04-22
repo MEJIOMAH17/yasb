@@ -31,4 +31,4 @@ interface Table<TABLE : Table<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>, DRIV
 
 private val tableToColumns: MutableMap<Table<*, *, *>, MutableList<Column<*, *, *, *>>> =
     co.touchlab.stately.collections
-        .SharedHashMap()
+        .ConcurrentMutableMap()
