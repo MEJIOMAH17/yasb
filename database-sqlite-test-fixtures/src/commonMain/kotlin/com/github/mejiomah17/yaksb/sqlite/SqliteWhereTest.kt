@@ -9,7 +9,7 @@ import com.github.mejiomah17.yaksb.core.where
 import com.github.mejiomah17.yaksb.dsl.WhereTest
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface SqliteWhereTest<
     TABLE : TestSqliteTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
