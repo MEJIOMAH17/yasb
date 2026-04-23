@@ -1,9 +1,9 @@
 package com.github.mejiomah17.yaksb.dsl
 
-import org.junit.Before
+import kotlin.test.BeforeTest
 
 interface SqlTest {
-    @Before
+    @BeforeTest
     fun init() {
         initSqlScripts().forEach {
             executeSql(it)

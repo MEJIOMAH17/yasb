@@ -11,7 +11,7 @@ import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yaksb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface LimitTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

@@ -11,7 +11,7 @@ import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatable
 import com.github.mejiomah17.yaksb.core.where
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface DeleteTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

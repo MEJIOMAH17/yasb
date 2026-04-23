@@ -7,7 +7,7 @@ import com.github.mejiomah17.yaksb.core.dsl.insertInto
 import com.github.mejiomah17.yaksb.core.dsl.returning
 import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface InsertWithReturningTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

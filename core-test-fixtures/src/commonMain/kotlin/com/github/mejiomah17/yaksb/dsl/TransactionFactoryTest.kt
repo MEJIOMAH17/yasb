@@ -4,7 +4,7 @@ import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import org.junit.Test
+import kotlin.test.Test
 
 interface TransactionFactoryTest {
     @Test

@@ -8,7 +8,7 @@ import com.github.mejiomah17.yaksb.core.dsl.select
 import com.github.mejiomah17.yaksb.core.dsl.update
 import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface UpdateTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,

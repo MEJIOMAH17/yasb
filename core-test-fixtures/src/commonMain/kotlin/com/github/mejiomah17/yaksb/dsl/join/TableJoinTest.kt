@@ -16,7 +16,7 @@ import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yaksb.dsl.SqlTest
 import com.github.mejiomah17.yaksb.dsl.TestTable
 import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
 
 interface TableJoinTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
