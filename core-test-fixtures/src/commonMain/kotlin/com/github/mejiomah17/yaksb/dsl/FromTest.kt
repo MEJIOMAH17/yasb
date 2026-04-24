@@ -55,7 +55,7 @@ interface FromTest<
 
     @Test
     fun `from_returns_columns`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val row =
                 select(tableTest().a, tableTest().b)
                     .from(tableTest())
@@ -71,7 +71,7 @@ interface FromTest<
         val table = tableTest().`as`("xxx")
         val aColumn = table[tableTest().a]
         val bColumn = table[tableTest().b]
-        transactionFactory().repeatableRead {
+        transaction {
             val row =
                 select(aColumn, bColumn)
                     .from(table)
@@ -85,7 +85,7 @@ interface FromTest<
     @Test
     fun `from_returns_columns_for_nested_query`() {
         val param = parameter().`as`("p")
-        transactionFactory().repeatableRead {
+        transaction {
             val nestedQuery =
                 select(tableTest().a, tableTest().b, param)
                     .from(tableTest())
@@ -111,7 +111,7 @@ interface FromTest<
     @Test
     fun `from_returns_parameter`() {
         val param = parameter().`as`("p")
-        transactionFactory().repeatableRead {
+        transaction {
             val row =
                 select(param)
                     .from(tableTest())

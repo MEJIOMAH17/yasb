@@ -1,16 +1,22 @@
 package com.github.mejiomah17.yaksb.dsl
 
-import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
+import com.github.mejiomah17.yaksb.core.DatabaseDialect
+import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.test.Test
 
-interface TransactionFactoryTest {
+interface TransactionTest<
+    DRIVER_DATA_SOURCE,
+    DRIVER_STATEMENT,
+    DIALECT : DatabaseDialect<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+    TRANSACTION : TransactionAtLeastRepeatableRead<DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
+> {
     @Test
     fun returns_value_from_transaction() {
         val result =
-            transactionFactory().serializable {
+            transaction {
                 42
             }
 
@@ -22,7 +28,7 @@ interface TransactionFactoryTest {
         var counter = 0
         var exception = exception()
         shouldThrow<Exception> {
-            transactionFactory().serializable {
+            transaction {
                 counter++
                 throw exception
             }
@@ -31,7 +37,7 @@ interface TransactionFactoryTest {
         counter.shouldBe(3)
     }
 
-    fun transactionFactory(): TransactionFactory<*, *, *, *, *, *, *>
+    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun exception(): Exception
 }

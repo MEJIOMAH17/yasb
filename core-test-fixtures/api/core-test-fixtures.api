@@ -4,7 +4,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/CountTest : com/
 
 public final class com/github/mejiomah17/yaksb/dsl/CountTest$DefaultImpls {
 	public static fun count_returns_count_of_elements (Lcom/github/mejiomah17/yaksb/dsl/CountTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/CountTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/CountTest;)V
 }
 
@@ -16,7 +15,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/DeleteTest : com
 public final class com/github/mejiomah17/yaksb/dsl/DeleteTest$DefaultImpls {
 	public static fun deletes_everything (Lcom/github/mejiomah17/yaksb/dsl/DeleteTest;)V
 	public static fun deletes_where (Lcom/github/mejiomah17/yaksb/dsl/DeleteTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/DeleteTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/DeleteTest;)V
 }
 
@@ -44,7 +42,6 @@ public final class com/github/mejiomah17/yaksb/dsl/FromTest$DefaultImpls {
 	public static fun from_returns_correct_parameters (Lcom/github/mejiomah17/yaksb/dsl/FromTest;)V
 	public static fun from_returns_correct_sql_for_nested_query (Lcom/github/mejiomah17/yaksb/dsl/FromTest;)V
 	public static fun from_returns_parameter (Lcom/github/mejiomah17/yaksb/dsl/FromTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/FromTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/FromTest;)V
 }
 
@@ -57,7 +54,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/GroupByTest : co
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/GroupByTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/GroupByTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun groupBy_creates_correct_sql_for_from_query (Lcom/github/mejiomah17/yaksb/dsl/GroupByTest;)V
 	public static fun groupBy_creates_correct_sql_for_where_query (Lcom/github/mejiomah17/yaksb/dsl/GroupByTest;)V
 	public static fun groupBy_executes_after_where_expression (Lcom/github/mejiomah17/yaksb/dsl/GroupByTest;)V
@@ -74,7 +70,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/InsertTest : com
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/InsertTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/InsertTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/InsertTest;)V
 	public static fun select_values_after_insert (Lcom/github/mejiomah17/yaksb/dsl/InsertTest;)V
 	public static fun select_values_after_insert_collection (Lcom/github/mejiomah17/yaksb/dsl/InsertTest;)V
@@ -89,7 +84,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/InsertWithReturn
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/InsertWithReturningTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/InsertWithReturningTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/InsertWithReturningTest;)V
 	public static fun output_returns_values (Lcom/github/mejiomah17/yaksb/dsl/InsertWithReturningTest;)V
 	public static fun output_returns_values_for_iterable_insert (Lcom/github/mejiomah17/yaksb/dsl/InsertWithReturningTest;)V
@@ -105,7 +99,7 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/LimitTest : com/
 	public fun limit_called_after_where ()V
 	public fun limit_generates_correct_sql ()V
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yaksb/core/transaction/TransactionFactory;
+	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/LimitTest$DefaultImpls {
@@ -122,7 +116,7 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/OrderByTest : co
 	public fun order_by_generates_correct_sql ()V
 	public fun order_by_returns_sorted ()V
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yaksb/core/transaction/TransactionFactory;
+	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/OrderByTest$DefaultImpls {
@@ -139,20 +133,18 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/SelectTest : com
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/SelectTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/SelectTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/SelectTest;)V
 	public static fun selects_parameter (Lcom/github/mejiomah17/yaksb/dsl/SelectTest;)V
 }
 
 public abstract interface class com/github/mejiomah17/yaksb/dsl/SelectionTest : com/github/mejiomah17/yaksb/dsl/SqlTest {
-	public fun getDatabaseDialect ()Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
+	public abstract fun getDatabaseDialect ()Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public abstract fun parameter ()Lcom/github/mejiomah17/yaksb/core/parameter/Parameter;
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yaksb/core/transaction/TransactionFactory;
+	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/SelectionTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/SelectionTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/SelectionTest;)V
 }
 
@@ -179,16 +171,16 @@ public final class com/github/mejiomah17/yaksb/dsl/TestTable$DefaultImpls {
 	public static fun sql (Lcom/github/mejiomah17/yaksb/dsl/TestTable;)Ljava/lang/String;
 }
 
-public abstract interface class com/github/mejiomah17/yaksb/dsl/TransactionFactoryTest {
+public abstract interface class com/github/mejiomah17/yaksb/dsl/TransactionTest {
 	public abstract fun exception ()Ljava/lang/Exception;
 	public fun retries_3_times_by_default ()V
 	public fun returns_value_from_transaction ()V
-	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yaksb/core/transaction/TransactionFactory;
+	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
-public final class com/github/mejiomah17/yaksb/dsl/TransactionFactoryTest$DefaultImpls {
-	public static fun retries_3_times_by_default (Lcom/github/mejiomah17/yaksb/dsl/TransactionFactoryTest;)V
-	public static fun returns_value_from_transaction (Lcom/github/mejiomah17/yaksb/dsl/TransactionFactoryTest;)V
+public final class com/github/mejiomah17/yaksb/dsl/TransactionTest$DefaultImpls {
+	public static fun retries_3_times_by_default (Lcom/github/mejiomah17/yaksb/dsl/TransactionTest;)V
+	public static fun returns_value_from_transaction (Lcom/github/mejiomah17/yaksb/dsl/TransactionTest;)V
 }
 
 public abstract interface class com/github/mejiomah17/yaksb/dsl/UpdateTest : com/github/mejiomah17/yaksb/dsl/SelectionTest {
@@ -199,7 +191,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/UpdateTest : com
 
 public final class com/github/mejiomah17/yaksb/dsl/UpdateTest$DefaultImpls {
 	public static fun does_not_update_values_with_where (Lcom/github/mejiomah17/yaksb/dsl/UpdateTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/UpdateTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/UpdateTest;)V
 	public static fun updates_values_with_where (Lcom/github/mejiomah17/yaksb/dsl/UpdateTest;)V
 	public static fun updates_values_without_where (Lcom/github/mejiomah17/yaksb/dsl/UpdateTest;)V
@@ -214,7 +205,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/WhereTest : com/
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/WhereTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/dsl/WhereTest;)Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/dsl/WhereTest;)V
 	public static fun where_builds_correct_sql_for_column (Lcom/github/mejiomah17/yaksb/dsl/WhereTest;)V
 	public static fun where_builds_correct_sql_for_param (Lcom/github/mejiomah17/yaksb/dsl/WhereTest;)V
@@ -258,7 +248,7 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/join/TableJoinTe
 	public fun select_values_from_right_join_with_aliased_table ()V
 	public fun select_values_from_right_join_with_nested_query ()V
 	public abstract fun thirdTable ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transactionFactory ()Lcom/github/mejiomah17/yaksb/core/transaction/TransactionFactory;
+	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/join/TableJoinTest$DefaultImpls {

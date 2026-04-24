@@ -40,7 +40,7 @@ interface SqliteWhereTest<
 
     @Test
     fun `where_filters_query_by_long_column`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val queryWithoutWhere = select(tableTest().a, tableTest().b).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
@@ -59,7 +59,7 @@ interface SqliteWhereTest<
 
     @Test
     fun `where_filters_query_by_bool_column`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val queryWithoutWhere = select(tableTest().allColumns()).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
@@ -79,7 +79,7 @@ interface SqliteWhereTest<
 
     @Test
     fun `where_filters_query_by_blob_column`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val bytes =
                 ByteArray(255) {
                     it.toByte()

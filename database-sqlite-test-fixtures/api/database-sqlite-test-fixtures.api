@@ -4,7 +4,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteCountTe
 
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteCountTest$DefaultImpls {
 	public static fun count_returns_count_of_elements (Lcom/github/mejiomah17/yaksb/sqlite/SqliteCountTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteCountTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteCountTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteCountTest;)Ljava/util/List;
 }
@@ -16,7 +15,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteDeleteT
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest$DefaultImpls {
 	public static fun deletes_everything (Lcom/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest;)V
 	public static fun deletes_where (Lcom/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteDeleteTest;)Ljava/util/List;
 }
@@ -36,7 +34,6 @@ public final class com/github/mejiomah17/yaksb/sqlite/SqliteFromTest$DefaultImpl
 	public static fun from_returns_correct_parameters (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)V
 	public static fun from_returns_correct_sql_for_nested_query (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)V
 	public static fun from_returns_parameter (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteFromTest;)Ljava/util/List;
 }
@@ -46,7 +43,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteGroupBy
 }
 
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteGroupByTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteGroupByTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun groupBy_creates_correct_sql_for_from_query (Lcom/github/mejiomah17/yaksb/sqlite/SqliteGroupByTest;)V
 	public static fun groupBy_creates_correct_sql_for_where_query (Lcom/github/mejiomah17/yaksb/sqlite/SqliteGroupByTest;)V
 	public static fun groupBy_executes_after_where_expression (Lcom/github/mejiomah17/yaksb/sqlite/SqliteGroupByTest;)V
@@ -61,7 +57,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteInsertT
 }
 
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteInsertTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteInsertTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteInsertTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteInsertTest;)Ljava/util/List;
 	public static fun output_returns_values (Lcom/github/mejiomah17/yaksb/sqlite/SqliteInsertTest;)V
@@ -144,7 +139,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteUpdateT
 
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest$DefaultImpls {
 	public static fun does_not_update_values_with_where (Lcom/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest;)V
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest;)Ljava/util/List;
 	public static fun updates_values_with_where (Lcom/github/mejiomah17/yaksb/sqlite/SqliteUpdateTest;)V
@@ -159,7 +153,6 @@ public abstract interface class com/github/mejiomah17/yaksb/sqlite/SqliteWhereTe
 }
 
 public final class com/github/mejiomah17/yaksb/sqlite/SqliteWhereTest$DefaultImpls {
-	public static fun getDatabaseDialect (Lcom/github/mejiomah17/yaksb/sqlite/SqliteWhereTest;)Lcom/github/mejiomah17/yaksb/sqlite/SqliteDatabaseDialect;
 	public static fun init (Lcom/github/mejiomah17/yaksb/sqlite/SqliteWhereTest;)V
 	public static fun initSqlScripts (Lcom/github/mejiomah17/yaksb/sqlite/SqliteWhereTest;)Ljava/util/List;
 	public static fun where_builds_correct_sql_for_column (Lcom/github/mejiomah17/yaksb/sqlite/SqliteWhereTest;)V

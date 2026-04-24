@@ -66,13 +66,18 @@ public final class com/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransac
 	public static fun rollback (Lcom/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionAtLeastSerializable;)V
 }
 
-public abstract class com/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory : com/github/mejiomah17/yaksb/core/transaction/TransactionFactory {
+public abstract class com/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory {
 	public fun <init> (Ljavax/sql/DataSource;)V
-	public fun defaultRepeater ()Lcom/github/mejiomah17/yaksb/core/Repeater;
-	public fun readCommitted (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
-	public fun readUncommitted (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
-	public fun repeatableRead (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
-	public fun serializable (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public final fun defaultRepeater ()Lcom/github/mejiomah17/yaksb/core/Repeater;
+	public abstract fun dialect ()Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
+	public final fun readCommitted (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun readCommitted$default (Lcom/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory;Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readUncommitted (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun readUncommitted$default (Lcom/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory;Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun repeatableRead (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun repeatableRead$default (Lcom/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory;Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun serializable (Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static synthetic fun serializable$default (Lcom/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionFactory;Lcom/github/mejiomah17/yaksb/core/Repeater;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public abstract interface class com/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionReadCommitted : com/github/mejiomah17/yaksb/core/jdbc/transaction/JdbcTransactionAtLeastReadCommitted, com/github/mejiomah17/yaksb/core/transaction/TransactionReadCommitted {

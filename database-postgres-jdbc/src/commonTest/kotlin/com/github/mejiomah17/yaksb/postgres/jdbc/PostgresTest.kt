@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yaksb.postgres.jdbc
 
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yaksb.core.parameter.Parameter
 import com.github.mejiomah17.yaksb.postgres.jdbc.parameter.TextParameter
 import com.zaxxer.hikari.HikariConfig
@@ -76,7 +77,14 @@ abstract class PostgresTest {
         }
     }
 
+    val databaseDialect = PostgresJdbcDatabaseDialect
+
     fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
+
+    fun <V> transaction(block: context(PostgresJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
+        PostgresJdbcTransactionFactory(dataSource).repeatableRead {
+            block()
+        }
 
     fun parameter(): Parameter<String, ResultSet, PreparedStatement> = TextParameter("param")
 

@@ -9,6 +9,7 @@ import com.github.mejiomah17.yaksb.core.parameter.Parameter
 import com.github.mejiomah17.yaksb.dsl.TestTable
 import com.github.mejiomah17.yaksb.sqlite.android.parameter.AndroidSqliteDriverStatement
 import com.github.mejiomah17.yaksb.sqlite.android.parameter.TextParameter
+import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidSerializableTransactionImpl
 import com.github.mejiomah17.yaksb.sqlite.android.transaction.AndroidTransactionFactory
 import org.junit.Before
 import org.sqlite.database.sqlite.SQLiteDatabase.CREATE_IF_NECESSARY
@@ -76,7 +77,12 @@ abstract class SqliteAndroidTest {
         context = InstrumentationRegistry.getInstrumentation().context
     }
 
-    fun transactionFactory(): AndroidTransactionFactory = AndroidTransactionFactory(newDb)
+    fun <V> transaction(block: context(SqliteAndroidDatabaseDialect) AndroidSerializableTransactionImpl.() -> V): V =
+        AndroidTransactionFactory(newDb).serializable {
+            block()
+        }
+
+    val databaseDialect: SqliteAndroidDatabaseDialect = SqliteAndroidDatabaseDialect
 
     fun parameter(): Parameter<String, Cursor, AndroidSqliteDriverStatement> = TextParameter("param")
 

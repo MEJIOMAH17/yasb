@@ -19,7 +19,7 @@ interface WhereTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun `where_filters_query`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val queryWithoutWhere = select(tableTest().a, tableTest().b).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
@@ -38,7 +38,7 @@ interface WhereTest<
 
     @Test
     fun `where_builds_correct_sql_for_param`() {
-        transactionFactory().readUncommitted {
+        transaction {
             select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
@@ -49,7 +49,7 @@ interface WhereTest<
 
     @Test
     fun `where_builds_correct_sql_for_column`() {
-        transactionFactory().readUncommitted {
+        transaction {
             select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
@@ -60,7 +60,7 @@ interface WhereTest<
 
     @Test
     fun `where_has_correct_returnExpressions`() {
-        transactionFactory().readUncommitted {
+        transaction {
             select(tableTest().a, tableTest().b)
                 .from(tableTest())
                 .where {
@@ -71,7 +71,7 @@ interface WhereTest<
 
     @Test
     fun `where_has_correct_parameters`() {
-        transactionFactory().readUncommitted {
+        transaction {
             val params =
                 select(tableTest().a, tableTest().b)
                     .from(tableTest())

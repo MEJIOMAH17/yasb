@@ -1,5 +1,6 @@
 package com.github.mejiomah17.yaksb.sqlite.jdbc
 
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionRepeatableRead
 import com.github.mejiomah17.yaksb.core.parameter.Parameter
 import com.github.mejiomah17.yaksb.dsl.TestTable
 import com.github.mejiomah17.yaksb.sqlite.jdbc.parameter.TextParameter
@@ -77,6 +78,13 @@ abstract class SqliteJdbcTest {
             kotlin.runCatching { dataSource.close() }
         }
     }
+
+    fun <V> transaction(block: context(SqliteJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
+        SqliteJdbcTransactionFactory(dataSource).repeatableRead {
+            block()
+        }
+
+    val databaseDialect: SqliteJdbcDatabaseDialect = SqliteJdbcDatabaseDialect
 
     fun executeSql(sql: String) {
         dataSource.connection.use {

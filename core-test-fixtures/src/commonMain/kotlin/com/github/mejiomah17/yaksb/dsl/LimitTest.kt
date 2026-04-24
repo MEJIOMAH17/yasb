@@ -7,7 +7,6 @@ import com.github.mejiomah17.yaksb.core.dsl.from
 import com.github.mejiomah17.yaksb.core.dsl.limit
 import com.github.mejiomah17.yaksb.core.dsl.select
 import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
-import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yaksb.core.where
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -23,7 +22,7 @@ interface LimitTest<
           DIALECT : SupportsLimit {
     @Test
     fun `limit_generates_correct_sql`() {
-        transactionFactory().repeatableRead {
+        transaction {
             select(tableTest().a)
                 .from(tableTest())
                 .limit(1)
@@ -33,7 +32,7 @@ interface LimitTest<
 
     @Test
     fun `limit_1_return_single_record`() {
-        transactionFactory().repeatableRead {
+        transaction {
             select(tableTest().a)
                 .from(tableTest())
                 .limit(1)
@@ -43,16 +42,18 @@ interface LimitTest<
 
     @Test
     fun `limit_called_after_where`() {
-        transactionFactory().repeatableRead {
-            select(tableTest().a)
-                .from(tableTest())
-                .where { tableTest().a.eq("the a") }
-                .limit(1)
-                .execute()
+        transaction {
+            val x =
+                select(tableTest().a)
+                    .from(tableTest())
+                    .where { tableTest().a.eq("the a") }
+                    .limit(1)
+                    .execute()
+            println(x)
         }
     }
 
-    fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
+    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun tableTest(): TABLE
 }

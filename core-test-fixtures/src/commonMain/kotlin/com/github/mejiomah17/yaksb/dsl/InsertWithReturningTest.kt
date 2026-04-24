@@ -18,9 +18,9 @@ interface InsertWithReturningTest<
 > : InsertTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun output_returns_values() {
-        transactionFactory().repeatableRead {
-            val d = transactionFactory().dialect()
-            if (d is SupportsInsertReturning) {
+        transaction {
+            if (databaseDialect is SupportsInsertReturning) {
+                val d = databaseDialect as SupportsInsertReturning
                 val row =
                     d
                         .run {
@@ -40,7 +40,7 @@ interface InsertWithReturningTest<
 
     @Test
     fun output_returns_values_for_iterable_insert() {
-        transactionFactory().repeatableRead {
+        transaction {
             if (this is SupportsInsertWithDefaultValue && this is SupportsInsertReturning) {
                 val values = (0..100).toList()
                 val rows =

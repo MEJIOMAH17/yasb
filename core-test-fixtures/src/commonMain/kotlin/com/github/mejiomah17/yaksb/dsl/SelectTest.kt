@@ -16,7 +16,7 @@ interface SelectTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun selects_parameter() {
-        transactionFactory().repeatableRead {
+        transaction {
             val param = parameter().`as`("param")
             select(param)
                 .execute()

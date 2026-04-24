@@ -9,7 +9,6 @@ import com.github.mejiomah17.yaksb.core.dsl.from
 import com.github.mejiomah17.yaksb.core.dsl.orderBy
 import com.github.mejiomah17.yaksb.core.dsl.select
 import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
-import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 import com.github.mejiomah17.yaksb.core.where
 import io.kotest.matchers.collections.shouldHaveAtLeastSize
 import io.kotest.matchers.shouldBe
@@ -25,7 +24,7 @@ interface OrderByTest<
           DIALECT : SupportsLimit {
     @Test
     fun `order_by_generates_correct_sql`() {
-        transactionFactory().repeatableRead {
+        transaction {
             select(tableTest().a)
                 .from(tableTest())
                 .orderBy(tableTest().b)
@@ -35,7 +34,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_called_after_where`() {
-        transactionFactory().repeatableRead {
+        transaction {
             select(tableTest().a)
                 .from(tableTest())
                 .where { tableTest().a.eq("the a") }
@@ -46,7 +45,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_returns_sorted`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -59,7 +58,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_asc_returns_sorted`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -72,7 +71,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_desc_returns_sorted`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -83,7 +82,7 @@ interface OrderByTest<
         }
     }
 
-    fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
+    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun tableTest(): TABLE
 }

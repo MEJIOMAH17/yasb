@@ -52,7 +52,7 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_grouping_values`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val queryWithoutGroupBy = select(tableTest().a).from(tableTest())
             val given = queryWithoutGroupBy.execute()
             given.shouldHaveSize(2)
@@ -66,7 +66,7 @@ interface GroupByTest<
 
     @Test
     fun `groupBy_executes_after_where_expression`() {
-        transactionFactory().repeatableRead {
+        transaction {
             val repeatingColumn =
                 select(tableTest().a)
                     .from(tableTest())

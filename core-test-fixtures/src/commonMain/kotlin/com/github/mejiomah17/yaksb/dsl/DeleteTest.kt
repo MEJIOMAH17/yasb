@@ -22,7 +22,7 @@ interface DeleteTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun deletes_everything() {
-        transactionFactory().repeatableRead {
+        transaction {
             val count = count(tableTest().a).`as`("aCount")
             select(count)
                 .from(tableTest())
@@ -44,7 +44,7 @@ interface DeleteTest<
 
     @Test
     fun deletes_where() {
-        transactionFactory().repeatableRead {
+        transaction {
             val count = count(tableTest().a).`as`("aCount")
             select(count)
                 .from(tableTest())

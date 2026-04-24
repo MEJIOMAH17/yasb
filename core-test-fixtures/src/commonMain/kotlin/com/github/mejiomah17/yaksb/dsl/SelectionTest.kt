@@ -3,7 +3,6 @@ package com.github.mejiomah17.yaksb.dsl
 import com.github.mejiomah17.yaksb.core.DatabaseDialect
 import com.github.mejiomah17.yaksb.core.parameter.Parameter
 import com.github.mejiomah17.yaksb.core.transaction.TransactionAtLeastRepeatableRead
-import com.github.mejiomah17.yaksb.core.transaction.TransactionFactory
 
 interface SelectionTest<
     TABLE : TestTable<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT>,
@@ -16,7 +15,7 @@ interface SelectionTest<
 
     abstract fun tableTest(): TABLE
 
-    abstract fun transactionFactory(): TransactionFactory<DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, *, *, TRANSACTION, *>
+    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
-    val databaseDialect: DIALECT get() = transactionFactory().dialect()
+    val databaseDialect: DIALECT
 }
