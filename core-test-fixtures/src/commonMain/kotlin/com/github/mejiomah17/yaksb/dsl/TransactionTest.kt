@@ -16,7 +16,7 @@ interface TransactionTest<
     @Test
     fun returns_value_from_transaction() {
         val result =
-            transaction {
+            readCommitedTransaction {
                 42
             }
 
@@ -28,7 +28,7 @@ interface TransactionTest<
         var counter = 0
         var exception = exception()
         shouldThrow<Exception> {
-            transaction {
+            readCommitedTransaction {
                 counter++
                 throw exception
             }
@@ -37,7 +37,7 @@ interface TransactionTest<
         counter.shouldBe(3)
     }
 
-    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
+    fun <V> readCommitedTransaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun exception(): Exception
 }

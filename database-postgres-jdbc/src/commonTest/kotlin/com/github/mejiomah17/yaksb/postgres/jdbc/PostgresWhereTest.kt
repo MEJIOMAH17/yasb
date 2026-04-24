@@ -38,7 +38,7 @@ class PostgresWhereTest :
 
     @Test
     fun `where_filters_query_by_uuid`() {
-        transaction {
+        readCommitedTransaction {
             val queryWithoutWhere = select(tableTest().a, tableTest().b, PostgresJdbcTestTable.c).from(tableTest())
             val given = queryWithoutWhere.execute()
             given.shouldHaveSize(2)
@@ -57,7 +57,7 @@ class PostgresWhereTest :
 
     @Test
     fun `where_filters_query_by_timestamp`() {
-        transaction {
+        readCommitedTransaction {
             val queryWithoutWhere =
                 select(tableTest().a, tableTest().b, PostgresJdbcTestTable.c, PostgresJdbcTestTable.d).from(tableTest())
             val given = queryWithoutWhere.execute()

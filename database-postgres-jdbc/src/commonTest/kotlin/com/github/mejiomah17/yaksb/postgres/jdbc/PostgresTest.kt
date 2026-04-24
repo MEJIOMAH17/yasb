@@ -81,7 +81,7 @@ abstract class PostgresTest {
 
     fun transactionFactory(): PostgresJdbcTransactionFactory = PostgresJdbcTransactionFactory(dataSource)
 
-    fun <V> transaction(block: context(PostgresJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
+    fun <V> readCommitedTransaction(block: context(PostgresJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
         PostgresJdbcTransactionFactory(dataSource).repeatableRead {
             block()
         }

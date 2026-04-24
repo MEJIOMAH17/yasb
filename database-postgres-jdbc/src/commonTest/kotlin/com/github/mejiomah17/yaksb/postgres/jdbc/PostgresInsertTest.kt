@@ -35,7 +35,7 @@ class PostgresInsertTest :
         // Postgres does not support nanoseconds
         // https://github.com/pgjdbc/pgjdbc/blob/master/pgjdbc/src/main/java/org/postgresql/jdbc/TimestampUtils.java#L699
         now.nanos = 0
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[a] = "abc"
                 it[b] = "bca"
@@ -64,7 +64,7 @@ class PostgresInsertTest :
     @Test
     fun insert_null_uuid_does_not_throw_exception() {
         shouldNotThrowAny {
-            transaction {
+            readCommitedTransaction {
                 insertInto(tableTest()) {
                     it[a] = "a"
                     it[c] = null

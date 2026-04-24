@@ -24,7 +24,7 @@ interface OrderByTest<
           DIALECT : SupportsLimit {
     @Test
     fun `order_by_generates_correct_sql`() {
-        transaction {
+        readCommitedTransaction {
             select(tableTest().a)
                 .from(tableTest())
                 .orderBy(tableTest().b)
@@ -34,7 +34,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_called_after_where`() {
-        transaction {
+        readCommitedTransaction {
             select(tableTest().a)
                 .from(tableTest())
                 .where { tableTest().a.eq("the a") }
@@ -45,7 +45,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_returns_sorted`() {
-        transaction {
+        readCommitedTransaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -58,7 +58,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_asc_returns_sorted`() {
-        transaction {
+        readCommitedTransaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -71,7 +71,7 @@ interface OrderByTest<
 
     @Test
     fun `order_by_desc_returns_sorted`() {
-        transaction {
+        readCommitedTransaction {
             val result =
                 select(tableTest().a)
                     .from(tableTest())
@@ -82,7 +82,7 @@ interface OrderByTest<
         }
     }
 
-    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
+    fun <V> readCommitedTransaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun tableTest(): TABLE
 }

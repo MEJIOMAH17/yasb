@@ -98,8 +98,8 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/LimitTest : com/
 	public fun limit_1_return_single_record ()V
 	public fun limit_called_after_where ()V
 	public fun limit_generates_correct_sql ()V
+	public abstract fun readCommitedTransaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/LimitTest$DefaultImpls {
@@ -115,8 +115,8 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/OrderByTest : co
 	public fun order_by_desc_returns_sorted ()V
 	public fun order_by_generates_correct_sql ()V
 	public fun order_by_returns_sorted ()V
+	public abstract fun readCommitedTransaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/OrderByTest$DefaultImpls {
@@ -140,8 +140,8 @@ public final class com/github/mejiomah17/yaksb/dsl/SelectTest$DefaultImpls {
 public abstract interface class com/github/mejiomah17/yaksb/dsl/SelectionTest : com/github/mejiomah17/yaksb/dsl/SqlTest {
 	public abstract fun getDatabaseDialect ()Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public abstract fun parameter ()Lcom/github/mejiomah17/yaksb/core/parameter/Parameter;
+	public abstract fun readCommitedTransaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public abstract fun tableTest ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/SelectionTest$DefaultImpls {
@@ -173,9 +173,9 @@ public final class com/github/mejiomah17/yaksb/dsl/TestTable$DefaultImpls {
 
 public abstract interface class com/github/mejiomah17/yaksb/dsl/TransactionTest {
 	public abstract fun exception ()Ljava/lang/Exception;
+	public abstract fun readCommitedTransaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public fun retries_3_times_by_default ()V
 	public fun returns_value_from_transaction ()V
-	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/TransactionTest$DefaultImpls {
@@ -231,6 +231,7 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/join/TableJoinTe
 	public fun builds_correct_query_for_right_join_with_nested_query ()V
 	public abstract fun dialect ()Lcom/github/mejiomah17/yaksb/core/DatabaseDialect;
 	public abstract fun firstTable ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
+	public abstract fun readCommitedTransaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public abstract fun secondTable ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
 	public fun select_values_from_for_multiple_join ()V
 	public fun select_values_from_for_multiple_join_with_aliased_table ()V
@@ -248,7 +249,6 @@ public abstract interface class com/github/mejiomah17/yaksb/dsl/join/TableJoinTe
 	public fun select_values_from_right_join_with_aliased_table ()V
 	public fun select_values_from_right_join_with_nested_query ()V
 	public abstract fun thirdTable ()Lcom/github/mejiomah17/yaksb/dsl/TestTable;
-	public abstract fun transaction (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class com/github/mejiomah17/yaksb/dsl/join/TableJoinTest$DefaultImpls {

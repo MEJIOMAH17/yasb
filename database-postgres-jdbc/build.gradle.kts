@@ -12,7 +12,6 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(project(":core-test-fixtures"))
-                implementation(project(":core-jdbc-test-fixtures"))
                 implementation(libs.hikaricp)
                 implementation(libs.testcontainers.postgresql)
                 implementation(libs.kotest.assertions.core)

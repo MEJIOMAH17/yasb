@@ -11,7 +11,6 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(project(":core-jdbc-test-fixtures"))
                 implementation(project(":core-test-fixtures"))
                 implementation(project(":database-sqlite-test-fixtures"))
                 implementation(libs.awaitility)

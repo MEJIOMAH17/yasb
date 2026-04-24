@@ -1,9 +1,15 @@
 package com.github.mejiomah17.yaksb.sqlite.jdbc.transaction
 
-import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionTest
+import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionRepeatableRead
+import com.github.mejiomah17.yaksb.dsl.TransactionTest
+import com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcDatabaseDialect
 import com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTest
-import com.github.mejiomah17.yaksb.sqlite.jdbc.SqliteJdbcTestTable
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.SQLException
 
 class SqliteJdbcTransactionTest :
     SqliteJdbcTest(),
-    JdbcTransactionTest<SqliteJdbcTestTable>
+    TransactionTest<ResultSet, PreparedStatement, SqliteJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun exception(): Exception = SQLException()
+}

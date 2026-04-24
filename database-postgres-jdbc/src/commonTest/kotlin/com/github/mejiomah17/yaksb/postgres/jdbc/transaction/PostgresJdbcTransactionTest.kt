@@ -1,7 +1,7 @@
 package com.github.mejiomah17.yaksb.postgres.jdbc.transaction
 
-import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionFactoryTest
 import com.github.mejiomah17.yaksb.core.jdbc.transaction.JdbcTransactionRepeatableRead
+import com.github.mejiomah17.yaksb.dsl.TransactionTest
 import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresContainer
 import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresContainer.Companion.LOGIN
 import com.github.mejiomah17.yaksb.postgres.jdbc.PostgresContainer.Companion.PASSWORD
@@ -16,8 +16,8 @@ import java.sql.ResultSet
 import java.sql.SQLException
 
 class PostgresJdbcTransactionTest :
-    JdbcTransactionFactoryTest<ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead>() {
-    override fun <V> transaction(block: context(PostgresJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
+    TransactionTest<ResultSet, PreparedStatement, PostgresJdbcDatabaseDialect, JdbcTransactionRepeatableRead> {
+    override fun <V> readCommitedTransaction(block: context(PostgresJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
         PostgresJdbcTransactionFactory(dataSource).repeatableRead {
             block()
         }

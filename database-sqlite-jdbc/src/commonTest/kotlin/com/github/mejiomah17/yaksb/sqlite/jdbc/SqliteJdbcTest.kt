@@ -79,7 +79,7 @@ abstract class SqliteJdbcTest {
         }
     }
 
-    fun <V> transaction(block: context(SqliteJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
+    fun <V> readCommitedTransaction(block: context(SqliteJdbcDatabaseDialect) JdbcTransactionRepeatableRead.() -> V): V =
         SqliteJdbcTransactionFactory(dataSource).repeatableRead {
             block()
         }

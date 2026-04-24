@@ -77,7 +77,7 @@ abstract class SqliteAndroidTest {
         context = InstrumentationRegistry.getInstrumentation().context
     }
 
-    fun <V> transaction(block: context(SqliteAndroidDatabaseDialect) AndroidSerializableTransactionImpl.() -> V): V =
+    fun <V> readCommitedTransaction(block: context(SqliteAndroidDatabaseDialect) AndroidSerializableTransactionImpl.() -> V): V =
         AndroidTransactionFactory(newDb).serializable {
             block()
         }

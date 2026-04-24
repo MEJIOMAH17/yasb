@@ -15,7 +15,7 @@ interface SelectionTest<
 
     abstract fun tableTest(): TABLE
 
-    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
+    fun <V> readCommitedTransaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     val databaseDialect: DIALECT
 }

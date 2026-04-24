@@ -3,7 +3,6 @@ include(
     "core",
     "core-test-fixtures",
     "core-jdbc",
-    "core-jdbc-test-fixtures",
     "database-sqlite",
     "database-sqlite-aar",
     "database-sqlite-android",

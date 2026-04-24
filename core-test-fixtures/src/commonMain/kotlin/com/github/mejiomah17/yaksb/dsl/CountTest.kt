@@ -19,7 +19,7 @@ interface CountTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun count_returns_count_of_elements() {
-        transaction {
+        readCommitedTransaction {
             val count = count(tableTest().a).`as`("aCount")
             val from: ReturningQuery<DRIVER_DATA_SOURCE, DRIVER_STATEMENT> =
                 select(count)

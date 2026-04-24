@@ -18,7 +18,7 @@ interface InsertTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun select_values_after_insert() {
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"
@@ -35,7 +35,7 @@ interface InsertTest<
 
     @Test
     fun select_values_after_insert_collection() {
-        transaction {
+        readCommitedTransaction {
             if (this is SupportsInsertWithDefaultValue) {
                 val values = (0..100).toList()
 
@@ -58,7 +58,7 @@ interface InsertTest<
 
     @Test
     fun select_values_after_insert_collection_using_default() {
-        transaction {
+        readCommitedTransaction {
             if (this is SupportsInsertWithDefaultValue) {
                 val values = (0..100).toList()
                 insertInto(tableTest(), values) { context, value ->
@@ -95,13 +95,13 @@ interface InsertTest<
 
     @Test
     fun select_values_after_insert_in_different_transaction() {
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"
             }.execute()
         }
-        transaction {
+        readCommitedTransaction {
             val row =
                 select(tableTest().a, tableTest().b)
                     .from(tableTest())

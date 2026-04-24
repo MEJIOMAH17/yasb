@@ -27,7 +27,7 @@ class PostgresFromTest :
 
     @Test
     override fun `from_returns_columns`() {
-        transaction {
+        readCommitedTransaction {
             val row =
                 select(tableTest().a, tableTest().b, PostgresJdbcTestTable.c, PostgresJdbcTestTable.d)
                     .from(tableTest())

@@ -19,7 +19,7 @@ interface UpdateTest<
 > : SelectionTest<TABLE, DRIVER_DATA_SOURCE, DRIVER_STATEMENT, DIALECT, TRANSACTION> {
     @Test
     fun updates_values_without_where() {
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"
@@ -43,7 +43,7 @@ interface UpdateTest<
 
     @Test
     fun updates_values_with_where() {
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"
@@ -70,7 +70,7 @@ interface UpdateTest<
 
     @Test
     fun does_not_update_values_with_where() {
-        transaction {
+        readCommitedTransaction {
             insertInto(tableTest()) {
                 it[tableTest().a] = "abc"
                 it[tableTest().b] = "bca"

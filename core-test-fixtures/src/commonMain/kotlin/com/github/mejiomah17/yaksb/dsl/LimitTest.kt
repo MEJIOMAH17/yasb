@@ -22,7 +22,7 @@ interface LimitTest<
           DIALECT : SupportsLimit {
     @Test
     fun `limit_generates_correct_sql`() {
-        transaction {
+        readCommitedTransaction {
             select(tableTest().a)
                 .from(tableTest())
                 .limit(1)
@@ -32,7 +32,7 @@ interface LimitTest<
 
     @Test
     fun `limit_1_return_single_record`() {
-        transaction {
+        readCommitedTransaction {
             select(tableTest().a)
                 .from(tableTest())
                 .limit(1)
@@ -42,7 +42,7 @@ interface LimitTest<
 
     @Test
     fun `limit_called_after_where`() {
-        transaction {
+        readCommitedTransaction {
             val x =
                 select(tableTest().a)
                     .from(tableTest())
@@ -53,7 +53,7 @@ interface LimitTest<
         }
     }
 
-    fun <V> transaction(block: context(DIALECT) TRANSACTION.() -> V): V
+    fun <V> readCommitedTransaction(block: context(DIALECT) TRANSACTION.() -> V): V
 
     fun tableTest(): TABLE
 }
